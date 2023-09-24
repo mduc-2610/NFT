@@ -1,0 +1,730 @@
+{% load static %}
+<header class="header">
+  <div class="container">
+    <div class="header__inner">
+      <button class="header__menu-icon">&#9776;</button>
+      <div class="header__logo--wrap">
+        <img src="{% static 'images/logo.svg' %}" alt="" />
+      </div>
+      <button class="header__search">
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.60938 14.9875C12.0525 14.9875 14.8438 12.3263 14.8438 9.04356C14.8438 5.76081 12.0525 3.09961 8.60938 3.09961C5.16622 3.09961 2.375 5.76081 2.375 9.04356C2.375 12.3263 5.16622 14.9875 8.60938 14.9875Z"
+            stroke="#BFBFBF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.0176 13.248L16.6246 16.687"
+            stroke="#BFBFBF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <nav class="header__navbar">
+        <ul class="header-nav">
+          <li class="back-to-menu">
+            <svg
+              class="back"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_1143_4280)">
+                <path
+                  d="M7.828 11.0007H20V13.0007H7.828L13.192 18.3647L11.778 19.7787L4 12.0007L11.778 4.22266L13.192 5.63666L7.828 11.0007Z"
+                  fill="#BFBFBF"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_1143_4280">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </li>
+          <!-- Home -->
+          <li class="header-nav__item">
+            <div class="header-nav-item__link--wrap flex_aic_jcc">
+              <a href="#!" class="header-nav-item__link">Home</a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+              >
+                <path
+                  d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <ul class="header-nav-child">
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 1</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 2</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 3</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 4</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Explore -->
+          <li class="header-nav__item">
+            <div class="header-nav-item__link--wrap flex_aic_jcc">
+              <a href="#!" class="header-nav-item__link">Explore</a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+              >
+                <path
+                  d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <ul class="header-nav-child">
+              <!-- Collections -->
+              <li class="header-nav-item-child">
+                <div class="header__child--wrapper flex_aic_jcc">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="13"
+                    viewBox="0 0 14 13"
+                    fill="none"
+                  >
+                    <path
+                      d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                      stroke="#fff"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                      stroke="#fff"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                      stroke="#fff"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                      stroke="#fff"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link"
+                    >Collections</a
+                  >
+                </div>
+                <ul class="header-nav-child">
+                    <!-- Collections 1 -->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Collections 1</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Collections 2 -->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Collections 2</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Collections 3 -->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Collections 3</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Collections 4 -->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Collections 4</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Collections 5 -->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.9289 1.01172H8.89148C8.56093 1.01172 8.29297 1.27968 8.29297 1.61023V4.64543C8.29297 4.97597 8.56093 5.24394 8.89148 5.24394H11.9289C12.2595 5.24394 12.5274 4.97597 12.5274 4.64543V1.61023C12.5274 1.27968 12.2595 1.01172 11.9289 1.01172Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M11.9289 7.78516H8.89148C8.56093 7.78516 8.29297 8.05312 8.29297 8.38367V11.4189C8.29297 11.7494 8.56093 12.0174 8.89148 12.0174H11.9289C12.2595 12.0174 12.5274 11.7494 12.5274 11.4189V8.38367C12.5274 8.05312 12.2595 7.78516 11.9289 7.78516Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 1.00781H2.12585C1.79531 1.00781 1.52734 1.27577 1.52734 1.60632V4.64152C1.52734 4.97207 1.79531 5.24003 2.12585 5.24003H5.16330C5.49384 5.24003 5.76181 4.97207 5.76181 4.64152V1.60632C5.76181 1.27577 5.49384 1.00781 5.16330 1.00781Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5.1633 7.7793H2.12585C1.79531 7.7793 1.52734 8.04726 1.52734 8.37781V11.413C1.52734 11.7436 1.79531 12.0115 2.12585 12.0115H5.16330C5.49384 12.0115 5.76181 11.7436 5.76181 11.413V8.37781C5.76181 8.04726 5.49384 7.7793 5.16330 7.7793Z"
+                          stroke="#fff"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Collections 5</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- Artworks -->
+              <li class="header-nav-item-child">
+                <div class="header__child--wrapper flex_aic_jcc">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="14"
+                    viewBox="0 0 12 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 5.78125V8.59375"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1 7.1875H3.8125"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">Artworks</a>
+                </div>
+                <ul class="header-nav-child">
+                    <!-- Artworks 1-->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Artworks 1</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Artworks 2-->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Artworks 2</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Artworks 3-->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Artworks 3</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Artworks 4-->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Artworks 4</a
+                      >
+                    </div>
+                  </li>
+                  <!-- Artworks 5-->
+                  <li class="header-nav-item-child">
+                    <div class="header__child--wrapper flex_aic_jcc">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <a href="#!" class="header-nav-item-child__link"
+                        >Artworks 5</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- Community -->
+          <li class="header-nav__item">
+            <div class="header-nav-item__link--wrap flex_aic_jcc">
+              <a href="#!" class="header-nav-item__link">Community</a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+              >
+                <path
+                  d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <ul class="header-nav-child">
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 1</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 2</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 3</a>
+              </li>
+              <li class="header-nav-item-child">
+                <a href="#!" class="header-nav-item-child__link">Home 4</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Login -->
+          <li class="header-login">
+            <button class="header-login__button">Connect</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
