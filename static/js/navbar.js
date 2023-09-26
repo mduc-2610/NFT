@@ -1,29 +1,43 @@
 // Get references to the elements
+console.log("hello world");
 const menuIcon = document.querySelector('.header__menu-icon');
 const logoWrap = document.querySelector('.header__logo--wrap');
 const navbar = document.querySelector('.header__navbar');
 const search = document.querySelector('.header__search');
 
-// Add a click event listener to the menu icon button
-menuIcon.addEventListener('click', () => {
-  // Toggle the visibility of the elements
-  if (menuIcon.style.display !== 'none') {
-    menuIcon.style.display = 'none';
-    logoWrap.style.display = 'none';
-    search.style.display = 'none';
-    navbar.style.display = 'block';
-  }
-});
+// menuIcon.addEventListener('click', () => {
+//   // Toggle the visibility of the elements
+//   if (menuIcon.style.display !== 'none') {
+//     menuIcon.style.display = 'none';
+//     logoWrap.style.display = 'none';
+//     search.style.display = 'none';
+//     navbar.style.display = 'block';
+//   }
+// });
 
-const headerNavItemLink = document.querySelector(".header-nav-item__link");
-const headerNavChild = document.querySelector(".header-nav-child");
+// const headerNavItemLink = document.querySelector(".header-nav-item__link");
+// const headerNavChild = document.querySelector(".header-nav-child");
 
-headerNavItemLink.addEventListener('click', (e) => {
-    // if(headerNavChild.style.display == 'none') {
-        e.preventDefault();
-        e.stopPropagation();
-        headerNavChild.style.display == 'block';
-    // }
+// headerNavItemLink.addEventListener('click', (e) => {
+//     // if(headerNavChild.style.display == 'none') {
+//         e.preventDefault();
+//         e.stopPropagation();
+//         headerNavChild.style.display == 'block';
+//     // }
+// })
+
+headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
+console.log("1")
+for (var element of headerNavItemChild){
+
+  console.log(element.textContent.trim());
+}
+headerNavItemChild[1].addEventListener('click', (e) =>{
+  e.preventDefault();
+  const url = document.querySelector('.header-nav-item-child__link').getAttribute('href');
+  // window.location.href = "{% url 'home' %}";
+  window.location.href = "/home2/";
+  console.log("Hello");
 })
 
 // const deleteIcon = document.querySelector('.delete-icon');

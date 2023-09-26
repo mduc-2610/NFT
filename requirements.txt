@@ -1,2 +1,3 @@
 fontawesomefree==6.4.2
 django
+django_extensions==3.2.3

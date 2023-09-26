@@ -11,6 +11,7 @@ body {
     font-size: 1.6rem;
     background-color: antiquewhite;
     background-color: #000;
+    transition: 2s;
 }
 
 
@@ -144,6 +145,18 @@ svg:hover path {
 .header-nav__item {
     width: 100%;
 }
+
+.header-nav__item::after { 
+    cursor: pointer;
+    content: ''; 
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0); 
+    width: 165px;
+    height: 28px;
+    position: absolute; 
+    top: 21px; 
+    left: -11px;
+ }
 /* .header-nav__item {
     gap: 10px; 
 } */
@@ -151,6 +164,7 @@ svg:hover path {
 /* .header-nav__item:hover > .header-nav-child {
     display: block;
 } */
+
 
 .header-nav-item__link {
     display: inline-block;
@@ -180,11 +194,13 @@ svg:hover path {
 
 
 .header-nav-child {
-    width: 170%;
+    width: 160%;
     padding: 5px 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    background-color: #191919;
+    border-radius: 8px;
     display: none;
 }
 
@@ -199,7 +215,6 @@ svg:hover path {
 }
 
 .header-nav-item-child__link {
-    width: 100%;
     color: #FFF;
     font-size: 1.4rem;
     font-style: normal;
@@ -209,7 +224,6 @@ svg:hover path {
 }
 
 .header-more {
-    margin: 12px 0 12px 0;
     display: flex;
     flex-direction: column;
     align-self: flex-start;
@@ -255,8 +269,12 @@ svg:hover path {
     stroke: #17E3A6;
 }
 
+.header-nav__item:hover > .header-nav-item__link--wrap >  svg {
+    transform: rotate(180deg);
+}
 
 /* header web */
+
 @media only screen and (min-width: 1000px)  {
     .header {
         box-shadow: 0px -3px 5px 2px rgba(256,256,256,0.4);
@@ -298,7 +316,7 @@ svg:hover path {
     .header__search-bar input {
         /* display: inline-block; */
         justify-content: flex-start;
-        width: 400px;
+        width: 23vw;
         height: 46px;
         background-color: transparent;
         border-width: 0;
@@ -358,11 +376,22 @@ svg:hover path {
     }
 
     .header-nav-child-2 {
+        padding: 0px;
+        width: 100%;
+        border-radius: 8px;
+    }
+    
+    .header-nav-item-child {
+        padding: 17px 15px 17px 20px;
+        overflow: hidden;
+    }
+    
+    .header-nav__item:nth-child(4) .header-nav-child {
         width: 120%;
     }
-
-    .header-nav-item-child {
-        padding: 20px 30px 20px 20px;
+    
+    .header-nav__item:nth-child(4) .header-nav-child-2 {
+        width: 100%;
     }
 
     .header-nav__item:hover > .header-nav-child{
@@ -372,7 +401,8 @@ svg:hover path {
         position: absolute;
         padding: 0;
         margin-left: 0px;
-        border-radius: 4px;
+        border-radius: 8px;
+        top: 50px;
     }
     
     .header-nav-item-child:hover > .header-nav-child{
@@ -380,16 +410,26 @@ svg:hover path {
         top: 0;
         left: 100%;
         position: absolute;
-        background-color: #191919;
-        border-radius: 4px;
     }
-
+    
     .header-nav-item-child:hover {
         cursor: pointer;
         background-color: #9D9D9D;
         overflow: hidden;
+        border-radius: 8px;
     }
 
+    .header-nav-item-child:hover > .header__child--wrapper > .header-nav-item-child__link,
+    .header-nav-item-child:hover > div > svg > path {
+        color:#17E3A6;
+        stroke: #17E3A6;
+    }
+
+    .header-nav-item-child.unique:hover {
+        cursor: pointer;
+        background-color: transparent;
+        overflow: hidden;
+    }
     
 
     .header-login {
@@ -397,3 +437,12 @@ svg:hover path {
         margin-left: 15px;
     }
 }
+
+/* @media only screen and (max-width:1300px)  {
+    .header-nav-child:last-child .header-nav-item-child:hover > .header-nav-child{
+        display: block;
+        top: 0;
+        left: -100%;
+        position: absolute;
+    }
+} */

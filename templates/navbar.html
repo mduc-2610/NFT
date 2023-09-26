@@ -9,13 +9,18 @@
         <a href="#!"><img src="{% static 'images/logo.svg' %}" alt="" /></a>
       </div>
       <!-- Search bar -->
-      <div class="header__search-bar">
+      <form method="POST" class="header__search-bar">
+        {% csrf_token %}
         <button type="submit" class="searchButton">
           <i class="fa fa-search"></i>
-      </button>
-        <input type="text" class="searchTerm" placeholder="Search for artworks, collections, artists, etc...">
+        </button>
+        <input
+          type="text"
+          class="searchTerm"
+          placeholder="Search for artworks, collections, artists, etc..."
+        />
         <!-- <i class="delete-icon fa fa-times" aria-hidden="true"></i> -->
-      </div>
+      </form>
       <!-- Search button -->
       <button class="header__search">
         <svg
@@ -44,7 +49,7 @@
       <!-- Navigation bar -->
       <nav class="header__navbar">
         <ul class="header-nav">
-            <!-- Back to menu icon -->
+          <!-- Back to menu icon -->
           <li class="back-to-menu">
             <svg
               class="back"
@@ -90,12 +95,18 @@
             <ul class="header-nav-child">
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <a href="{% url 'home' %}" class="header-nav-item-child__link">Home 1</a>
+                  <a href="{% url 'home1' %}" class="header-nav-item-child__link"
+                    >Home 1</a
+                  >
                 </div>
               </li>
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <a href="{% url 'home2' %}" class="header-nav-item-child__link">Home 2</a>
+                  <a
+                    href="{% url 'home2' %}"
+                    class="header-nav-item-child__link"
+                    >Home 2</a
+                  >
                 </div>
               </li>
               <li class="header-nav-item-child">
@@ -110,7 +121,11 @@
               </li>
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <a href="{% url 'home5' %}" class="header-nav-item-child__link">Home 5</a>
+                  <a
+                    href="{% url 'home5' %}"
+                    class="header-nav-item-child__link"
+                    >Home 5</a
+                  >
                 </div>
               </li>
             </ul>
@@ -734,22 +749,54 @@
               <!-- About us -->
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                    <path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  <a href="#!" class="header-nav-item-child__link"
-                    >About us</a
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
+                    <path
+                      d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">About us</a>
                 </div>
                 <ul class="header-nav-child-2 header-nav-child">
                   <!-- About us 1-->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-<path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >About us 1</a
                       >
@@ -758,10 +805,27 @@
                   <!-- About us 2 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-<path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >About us 2</a
                       >
@@ -770,10 +834,27 @@
                   <!-- About us 3 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-<path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >About us 3</a
                       >
@@ -782,10 +863,27 @@
                   <!-- About us 4 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-<path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >About us 4</a
                       >
@@ -794,61 +892,151 @@
                   <!-- About us 5 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-<path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >About us 5</a
                       >
                     </div>
                   </li>
                 </ul>
+              </li>
               <!-- Artists -->
+
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
-                    <path d="M10.304 5.45198L10.2093 5.35731C9.76315 4.92713 9.21481 4.61762 8.61596 4.45798C6.67796 3.93931 4.81663 5.03731 4.28796 7.01131C4.25929 7.11798 4.24396 7.23798 4.21863 7.53865C4.11596 8.78531 3.82263 9.71531 3.01863 10.6586C4.52529 11.2506 6.31063 11.668 7.66796 11.668C8.47481 11.667 9.25885 11.4001 9.89876 10.9087C10.5387 10.4172 10.9988 9.72859 11.208 8.94931C11.3722 8.33793 11.3752 7.69444 11.2168 7.08153C11.0584 6.46862 10.7439 5.9072 10.304 5.45198ZM8.85996 3.14398L12.1526 0.583314C12.2808 0.483728 12.4409 0.434334 12.603 0.444399C12.765 0.454463 12.9177 0.523295 13.0326 0.637981L15.0293 2.63398C15.1442 2.7489 15.2131 2.90181 15.2232 3.06398C15.2332 3.22614 15.1837 3.38641 15.084 3.51465L12.524 6.80665C12.7045 7.54292 12.7153 8.31058 12.5557 9.05165C12.396 9.79272 12.0701 10.4878 11.6024 11.0845C11.1348 11.6811 10.5377 12.1637 9.85619 12.4958C9.17472 12.8278 8.4267 13.0007 7.66863 13.0013C5.33329 13.0013 2.33329 12 0.666626 11C3.31996 8.99998 2.69796 7.79331 2.99996 6.66665C3.70529 4.03331 6.22796 2.49531 8.85929 3.14398H8.85996ZM11.1353 4.39665C11.1786 4.43865 11.222 4.48198 11.264 4.52598L12.0206 5.28198L13.6706 3.16065L12.5066 1.99665L10.3853 3.64665L11.1353 4.39665Z" fill="white"/>
-                    </svg>
-                  <a href="#!" class="header-nav-item-child__link"
-                    >Artists</a
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="14"
+                    viewBox="0 0 16 14"
+                    fill="none"
                   >
+                    <path
+                      d="M10.304 5.45198L10.2093 5.35731C9.76315 4.92713 9.21481 4.61762 8.61596 4.45798C6.67796 3.93931 4.81663 5.03731 4.28796 7.01131C4.25929 7.11798 4.24396 7.23798 4.21863 7.53865C4.11596 8.78531 3.82263 9.71531 3.01863 10.6586C4.52529 11.2506 6.31063 11.668 7.66796 11.668C8.47481 11.667 9.25885 11.4001 9.89876 10.9087C10.5387 10.4172 10.9988 9.72859 11.208 8.94931C11.3722 8.33793 11.3752 7.69444 11.2168 7.08153C11.0584 6.46862 10.7439 5.9072 10.304 5.45198ZM8.85996 3.14398L12.1526 0.583314C12.2808 0.483728 12.4409 0.434334 12.603 0.444399C12.765 0.454463 12.9177 0.523295 13.0326 0.637981L15.0293 2.63398C15.1442 2.7489 15.2131 2.90181 15.2232 3.06398C15.2332 3.22614 15.1837 3.38641 15.084 3.51465L12.524 6.80665C12.7045 7.54292 12.7153 8.31058 12.5557 9.05165C12.396 9.79272 12.0701 10.4878 11.6024 11.0845C11.1348 11.6811 10.5377 12.1637 9.85619 12.4958C9.17472 12.8278 8.4267 13.0007 7.66863 13.0013C5.33329 13.0013 2.33329 12 0.666626 11C3.31996 8.99998 2.69796 7.79331 2.99996 6.66665C3.70529 4.03331 6.22796 2.49531 8.85929 3.14398H8.85996ZM11.1353 4.39665C11.1786 4.43865 11.222 4.48198 11.264 4.52598L12.0206 5.28198L13.6706 3.16065L12.5066 1.99665L10.3853 3.64665L11.1353 4.39665Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">Artists</a>
                 </div>
               </li>
               <!-- Editorial -->
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M7.25 10C7.94036 10 8.5 9.44036 8.5 8.75C8.5 8.05964 7.94036 7.5 7.25 7.5C6.55964 7.5 6 8.05964 6 8.75C6 9.44036 6.55964 10 7.25 10Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 14L6.36875 9.63123" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 14L10.7188 12.55C10.8048 12.5353 10.8854 12.4981 10.9524 12.4421C11.0194 12.3861 11.0703 12.3133 11.1 12.2312L12.5 8.5L7.5 3.5L3.76875 4.9C3.68653 4.93132 3.61389 4.98353 3.55799 5.05148C3.5021 5.11943 3.46488 5.20078 3.45 5.2875L2 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12.5 8.49995L14.1437 6.85619C14.191 6.80967 14.2285 6.75421 14.2541 6.69305C14.2797 6.63189 14.2929 6.56625 14.2929 6.49995C14.2929 6.43364 14.2797 6.368 14.2541 6.30684C14.2285 6.24568 14.191 6.19022 14.1437 6.1437L9.85625 1.8562C9.80973 1.80895 9.75427 1.77144 9.69311 1.74583C9.63195 1.72022 9.56631 1.70703 9.5 1.70703C9.43369 1.70703 9.36805 1.72022 9.30689 1.74583C9.24573 1.77144 9.19027 1.80895 9.14375 1.8562L7.5 3.49995" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  <a href="#!" class="header-nav-item-child__link"
-                    >Editorial</a
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
+                    <path
+                      d="M7.25 10C7.94036 10 8.5 9.44036 8.5 8.75C8.5 8.05964 7.94036 7.5 7.25 7.5C6.55964 7.5 6 8.05964 6 8.75C6 9.44036 6.55964 10 7.25 10Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M2 14L6.36875 9.63123"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M2 14L10.7188 12.55C10.8048 12.5353 10.8854 12.4981 10.9524 12.4421C11.0194 12.3861 11.0703 12.3133 11.1 12.2312L12.5 8.5L7.5 3.5L3.76875 4.9C3.68653 4.93132 3.61389 4.98353 3.55799 5.05148C3.5021 5.11943 3.46488 5.20078 3.45 5.2875L2 14Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 8.49995L14.1437 6.85619C14.191 6.80967 14.2285 6.75421 14.2541 6.69305C14.2797 6.63189 14.2929 6.56625 14.2929 6.49995C14.2929 6.43364 14.2797 6.368 14.2541 6.30684C14.2285 6.24568 14.191 6.19022 14.1437 6.1437L9.85625 1.8562C9.80973 1.80895 9.75427 1.77144 9.69311 1.74583C9.63195 1.72022 9.56631 1.70703 9.5 1.70703C9.43369 1.70703 9.36805 1.72022 9.30689 1.74583C9.24573 1.77144 9.19027 1.80895 9.14375 1.8562L7.5 3.49995"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">Editorial</a>
                 </div>
               </li>
               <!-- FAQs -->
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                    <path d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  <a href="#!" class="header-nav-item-child__link"
-                    >FAQs</a
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
+                    <path
+                      d="M7.99969 14.2222C11.4361 14.2222 14.2219 11.4364 14.2219 8.00001C14.2219 4.56357 11.4361 1.77779 7.99969 1.77779C4.56325 1.77779 1.77747 4.56357 1.77747 8.00001C1.77747 11.4364 4.56325 14.2222 7.99969 14.2222Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M9.10208 9.10187L10.9234 5.07039L6.89837 6.89817L5.25208 10.7482L9.10208 9.10187Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">FAQs</a>
                 </div>
                 <ul class="header-nav-child-2 header-nav-child">
                   <!-- FAQs 1-->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                        <path d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >FAQs 1</a
                       >
@@ -857,11 +1045,32 @@
                   <!-- FAQs 2 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                        <path d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >FAQs 2</a
                       >
@@ -870,11 +1079,32 @@
                   <!-- FAQs 3 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                        <path d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >FAQs 3</a
                       >
@@ -883,11 +1113,32 @@
                   <!-- FAQs 4 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                        <path d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >FAQs 4</a
                       >
@@ -896,11 +1147,32 @@
                   <!-- FAQs 5 -->
                   <li class="header-nav-item-child-2 header-nav-item-child">
                     <div class="header__child--wrapper flex_aic_jcc">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                        <path d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99988 14C11.3136 14 13.9999 11.3137 13.9999 8C13.9999 4.68629 11.3136 2 7.99988 2C4.68617 2 1.99988 4.68629 1.99988 8C1.99988 11.3137 4.68617 14 7.99988 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.00012 9V8.5C8.34624 8.5 8.68458 8.39736 8.97237 8.20507C9.26016 8.01278 9.48446 7.73947 9.61691 7.4197C9.74936 7.09993 9.78402 6.74806 9.7165 6.40859C9.64897 6.06913 9.4823 5.75731 9.23756 5.51256C8.99282 5.26782 8.681 5.10115 8.34153 5.03363C8.00206 4.9661 7.6502 5.00076 7.33043 5.13321C7.01066 5.26566 6.73734 5.48997 6.54505 5.77775C6.35276 6.06554 6.25012 6.40388 6.25012 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                       <a href="#!" class="header-nav-item-child__link"
                         >FAQs 5</a
                       >
@@ -911,55 +1183,111 @@
               <!-- Blog -->
               <li class="header-nav-item-child">
                 <div class="header__child--wrapper flex_aic_jcc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                    <path d="M11.3333 14H0.666667C0.489856 14 0.320286 13.9263 0.195262 13.795C0.0702379 13.6637 0 13.4857 0 13.3V0.7C0 0.514348 0.0702379 0.336301 0.195262 0.205025C0.320286 0.0737498 0.489856 0 0.666667 0H11.3333C11.5101 0 11.6797 0.0737498 11.8047 0.205025C11.9298 0.336301 12 0.514348 12 0.7V13.3C12 13.4857 11.9298 13.6637 11.8047 13.795C11.6797 13.9263 11.5101 14 11.3333 14ZM10.6667 12.6V1.4H1.33333V12.6H10.6667ZM2.66667 2.8H5.33333V5.6H2.66667V2.8ZM2.66667 7H9.33333V8.4H2.66667V7ZM2.66667 9.8H9.33333V11.2H2.66667V9.8ZM6.66667 3.5H9.33333V4.9H6.66667V3.5Z" fill="white"/>
-                    </svg>
-                  <a href="#!" class="header-nav-item-child__link"
-                    >Blog</a
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="14"
+                    viewBox="0 0 12 14"
+                    fill="none"
                   >
+                    <path
+                      d="M11.3333 14H0.666667C0.489856 14 0.320286 13.9263 0.195262 13.795C0.0702379 13.6637 0 13.4857 0 13.3V0.7C0 0.514348 0.0702379 0.336301 0.195262 0.205025C0.320286 0.0737498 0.489856 0 0.666667 0H11.3333C11.5101 0 11.6797 0.0737498 11.8047 0.205025C11.9298 0.336301 12 0.514348 12 0.7V13.3C12 13.4857 11.9298 13.6637 11.8047 13.795C11.6797 13.9263 11.5101 14 11.3333 14ZM10.6667 12.6V1.4H1.33333V12.6H10.6667ZM2.66667 2.8H5.33333V5.6H2.66667V2.8ZM2.66667 7H9.33333V8.4H2.66667V7ZM2.66667 9.8H9.33333V11.2H2.66667V9.8ZM6.66667 3.5H9.33333V4.9H6.66667V3.5Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <a href="#!" class="header-nav-item-child__link">Blog</a>
                 </div>
               </li>
               <!-- Header social -->
-            <li class="header-nav-item-child">
-              <div class="header-more">
-                <p class="header-more__desc" style="
-                  color: white;
-                  cursor: pointer;
-                  ">Follow us on</p>
-                <ul class=" header__social flex_aic_jcc">
-                  <li class="header-social__item">
-                    <a href="#!" class="header-social__link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M10 13.125C11.7259 13.125 13.125 11.7259 13.125 10C13.125 8.27411 11.7259 6.875 10 6.875C8.27411 6.875 6.875 8.27411 6.875 10C6.875 11.7259 8.27411 13.125 10 13.125Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
-                        <path d="M13.4375 2.8125H6.5625C4.49143 2.8125 2.8125 4.49143 2.8125 6.5625V13.4375C2.8125 15.5086 4.49143 17.1875 6.5625 17.1875H13.4375C15.5086 17.1875 17.1875 15.5086 17.1875 13.4375V6.5625C17.1875 4.49143 15.5086 2.8125 13.4375 2.8125Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M14.0625 6.875C14.5803 6.875 15 6.45527 15 5.9375C15 5.41973 14.5803 5 14.0625 5C13.5447 5 13.125 5.41973 13.125 5.9375C13.125 6.45527 13.5447 6.875 14.0625 6.875Z" fill="white"/>
+              <li class="header-nav-item-child unique">
+                <div class="header-more">
+                  <p
+                    class="header-more__desc"
+                    style="color: white; cursor: pointer"
+                  >
+                    Follow us on
+                  </p>
+                  <ul class="header__social flex_aic_jcc">
+                    <li class="header-social__item">
+                      <a href="#!" class="header-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10 13.125C11.7259 13.125 13.125 11.7259 13.125 10C13.125 8.27411 11.7259 6.875 10 6.875C8.27411 6.875 6.875 8.27411 6.875 10C6.875 11.7259 8.27411 13.125 10 13.125Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                          />
+                          <path
+                            d="M13.4375 2.8125H6.5625C4.49143 2.8125 2.8125 4.49143 2.8125 6.5625V13.4375C2.8125 15.5086 4.49143 17.1875 6.5625 17.1875H13.4375C15.5086 17.1875 17.1875 15.5086 17.1875 13.4375V6.5625C17.1875 4.49143 15.5086 2.8125 13.4375 2.8125Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M14.0625 6.875C14.5803 6.875 15 6.45527 15 5.9375C15 5.41973 14.5803 5 14.0625 5C13.5447 5 13.125 5.41973 13.125 5.9375C13.125 6.45527 13.5447 6.875 14.0625 6.875Z"
+                            fill="white"
+                          />
                         </svg>
-                    </a>
-                  </li>
-                  <li class="header-social__item">
-                    <a href="#!" class="header-social__link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M18.89 4.72157C18.5551 4.84649 18.2117 4.94757 17.8625 5.02407C17.8291 5.03157 17.7941 5.02786 17.7629 5.01351C17.7318 4.99915 17.7063 4.97495 17.6902 4.94464C17.6742 4.91433 17.6686 4.87958 17.6743 4.84576C17.6799 4.81195 17.6966 4.78093 17.7216 4.75751C18.122 4.37396 18.4519 3.92305 18.6963 3.42532C18.7104 3.39588 18.7149 3.36276 18.7092 3.33062C18.7036 3.29848 18.688 3.26892 18.6646 3.24609C18.6413 3.22327 18.6114 3.20833 18.5791 3.20337C18.5469 3.19842 18.5138 3.20369 18.4847 3.21845C17.8507 3.55855 17.1591 3.77799 16.445 3.86563C15.6966 3.12268 14.6871 2.70208 13.6325 2.69376C13.1246 2.69331 12.6216 2.79302 12.1522 2.98719C11.6829 3.18135 11.2564 3.46617 10.8972 3.82533C10.5381 4.18449 10.2533 4.61095 10.0591 5.08031C9.86493 5.54966 9.76522 6.0527 9.76567 6.56063C9.76435 6.84619 9.79379 7.13106 9.85348 7.41032C7.02598 7.3247 3.72536 5.95813 1.79692 3.58251C1.78084 3.56236 1.76002 3.54651 1.73633 3.53636C1.71263 3.5262 1.68679 3.52207 1.66111 3.52433C1.63543 3.52659 1.61071 3.53517 1.58915 3.5493C1.56759 3.56343 1.54986 3.58268 1.53755 3.60532C1.16593 4.37094 1.05506 5.23713 1.22185 6.07167C1.38864 6.9062 1.82394 7.66323 2.4613 8.22719C2.48691 8.24804 2.50526 8.27646 2.51371 8.30839C2.52217 8.34031 2.52029 8.37409 2.50835 8.40488C2.49641 8.43567 2.47502 8.46189 2.44725 8.47976C2.41948 8.49764 2.38677 8.50626 2.3538 8.50438C2.017 8.48939 1.68704 8.40424 1.38505 8.25438C1.36049 8.24194 1.33309 8.23621 1.30561 8.23777C1.27813 8.23932 1.25155 8.24811 1.22855 8.26324C1.20556 8.27836 1.18697 8.2993 1.17467 8.32392C1.16236 8.34854 1.15678 8.37597 1.15848 8.40345C1.18989 9.14187 1.44524 9.85326 1.89062 10.4431C2.33599 11.0329 2.9503 11.4733 3.65192 11.7056C3.6845 11.7174 3.71226 11.7396 3.73083 11.7689C3.7494 11.7981 3.75773 11.8327 3.75451 11.8671C3.75129 11.9016 3.7367 11.9341 3.71304 11.9594C3.68938 11.9847 3.65799 12.0014 3.6238 12.0069C3.32953 12.0403 3.03244 12.0403 2.73817 12.0069C2.71277 12.0045 2.68717 12.0083 2.66355 12.0179C2.63994 12.0276 2.61901 12.0428 2.60255 12.0623C2.5861 12.0818 2.5746 12.105 2.56905 12.1299C2.5635 12.1548 2.56406 12.1807 2.57067 12.2053C2.83598 13.2309 4.16192 14.4319 5.64536 14.5966C5.67509 14.6004 5.70307 14.6128 5.72598 14.6321C5.74888 14.6515 5.76574 14.677 5.77454 14.7057C5.78333 14.7343 5.7837 14.7649 5.77559 14.7938C5.76748 14.8226 5.75123 14.8486 5.7288 14.8684C4.49176 15.8592 2.93721 16.3675 1.3538 16.2988C1.31832 16.2972 1.28336 16.3077 1.25468 16.3287C1.226 16.3496 1.20532 16.3797 1.19604 16.414C1.18676 16.4483 1.18944 16.4847 1.20363 16.5173C1.21782 16.5498 1.24268 16.5766 1.27411 16.5931C2.9448 17.4693 4.80323 17.9268 6.68973 17.9263C8.15579 17.9359 9.60843 17.6465 10.9588 17.0757C12.3092 16.5048 13.529 15.6646 14.5436 14.6063C15.5582 13.5479 16.3463 12.2938 16.8596 10.9205C17.373 9.54728 17.6009 8.08373 17.5294 6.61938V6.47282C18.123 6.05688 18.6439 5.54597 19.0713 4.96063C19.0914 4.93348 19.1022 4.90053 19.1021 4.86672C19.1019 4.83291 19.0907 4.80007 19.0703 4.77313C19.0499 4.74619 19.0213 4.7266 18.9888 4.7173C18.9563 4.70801 18.9216 4.7095 18.89 4.72157Z" fill="white"/>
+                      </a>
+                    </li>
+                    <li class="header-social__item">
+                      <a href="#!" class="header-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M18.89 4.72157C18.5551 4.84649 18.2117 4.94757 17.8625 5.02407C17.8291 5.03157 17.7941 5.02786 17.7629 5.01351C17.7318 4.99915 17.7063 4.97495 17.6902 4.94464C17.6742 4.91433 17.6686 4.87958 17.6743 4.84576C17.6799 4.81195 17.6966 4.78093 17.7216 4.75751C18.122 4.37396 18.4519 3.92305 18.6963 3.42532C18.7104 3.39588 18.7149 3.36276 18.7092 3.33062C18.7036 3.29848 18.688 3.26892 18.6646 3.24609C18.6413 3.22327 18.6114 3.20833 18.5791 3.20337C18.5469 3.19842 18.5138 3.20369 18.4847 3.21845C17.8507 3.55855 17.1591 3.77799 16.445 3.86563C15.6966 3.12268 14.6871 2.70208 13.6325 2.69376C13.1246 2.69331 12.6216 2.79302 12.1522 2.98719C11.6829 3.18135 11.2564 3.46617 10.8972 3.82533C10.5381 4.18449 10.2533 4.61095 10.0591 5.08031C9.86493 5.54966 9.76522 6.0527 9.76567 6.56063C9.76435 6.84619 9.79379 7.13106 9.85348 7.41032C7.02598 7.3247 3.72536 5.95813 1.79692 3.58251C1.78084 3.56236 1.76002 3.54651 1.73633 3.53636C1.71263 3.5262 1.68679 3.52207 1.66111 3.52433C1.63543 3.52659 1.61071 3.53517 1.58915 3.5493C1.56759 3.56343 1.54986 3.58268 1.53755 3.60532C1.16593 4.37094 1.05506 5.23713 1.22185 6.07167C1.38864 6.9062 1.82394 7.66323 2.4613 8.22719C2.48691 8.24804 2.50526 8.27646 2.51371 8.30839C2.52217 8.34031 2.52029 8.37409 2.50835 8.40488C2.49641 8.43567 2.47502 8.46189 2.44725 8.47976C2.41948 8.49764 2.38677 8.50626 2.3538 8.50438C2.017 8.48939 1.68704 8.40424 1.38505 8.25438C1.36049 8.24194 1.33309 8.23621 1.30561 8.23777C1.27813 8.23932 1.25155 8.24811 1.22855 8.26324C1.20556 8.27836 1.18697 8.2993 1.17467 8.32392C1.16236 8.34854 1.15678 8.37597 1.15848 8.40345C1.18989 9.14187 1.44524 9.85326 1.89062 10.4431C2.33599 11.0329 2.9503 11.4733 3.65192 11.7056C3.6845 11.7174 3.71226 11.7396 3.73083 11.7689C3.7494 11.7981 3.75773 11.8327 3.75451 11.8671C3.75129 11.9016 3.7367 11.9341 3.71304 11.9594C3.68938 11.9847 3.65799 12.0014 3.6238 12.0069C3.32953 12.0403 3.03244 12.0403 2.73817 12.0069C2.71277 12.0045 2.68717 12.0083 2.66355 12.0179C2.63994 12.0276 2.61901 12.0428 2.60255 12.0623C2.5861 12.0818 2.5746 12.105 2.56905 12.1299C2.5635 12.1548 2.56406 12.1807 2.57067 12.2053C2.83598 13.2309 4.16192 14.4319 5.64536 14.5966C5.67509 14.6004 5.70307 14.6128 5.72598 14.6321C5.74888 14.6515 5.76574 14.677 5.77454 14.7057C5.78333 14.7343 5.7837 14.7649 5.77559 14.7938C5.76748 14.8226 5.75123 14.8486 5.7288 14.8684C4.49176 15.8592 2.93721 16.3675 1.3538 16.2988C1.31832 16.2972 1.28336 16.3077 1.25468 16.3287C1.226 16.3496 1.20532 16.3797 1.19604 16.414C1.18676 16.4483 1.18944 16.4847 1.20363 16.5173C1.21782 16.5498 1.24268 16.5766 1.27411 16.5931C2.9448 17.4693 4.80323 17.9268 6.68973 17.9263C8.15579 17.9359 9.60843 17.6465 10.9588 17.0757C12.3092 16.5048 13.529 15.6646 14.5436 14.6063C15.5582 13.5479 16.3463 12.2938 16.8596 10.9205C17.373 9.54728 17.6009 8.08373 17.5294 6.61938V6.47282C18.123 6.05688 18.6439 5.54597 19.0713 4.96063C19.0914 4.93348 19.1022 4.90053 19.1021 4.86672C19.1019 4.83291 19.0907 4.80007 19.0703 4.77313C19.0499 4.74619 19.0213 4.7266 18.9888 4.7173C18.9563 4.70801 18.9216 4.7095 18.89 4.72157Z"
+                            fill="white"
+                          />
                         </svg>
-                    </a>
-                  </li>
-                  <li class="header-social__item">
-                    <a href="#!" class="header-social__link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M19.3201 13.2656L16.6639 4.42187C16.6128 4.243 16.5215 4.07819 16.3969 3.94006C16.2724 3.80194 16.1178 3.69416 15.9451 3.62499H15.8983L15.9451 3.60937C15.0736 3.26014 14.1712 2.99335 13.2498 2.81249C13.1693 2.79657 13.0864 2.79668 13.0059 2.8128C12.9254 2.82892 12.8489 2.86074 12.7807 2.90645C12.7125 2.95215 12.6539 3.01085 12.6084 3.07918C12.5629 3.14751 12.5313 3.22413 12.5154 3.30468C12.4984 3.38475 12.4974 3.46742 12.5125 3.54788C12.5277 3.62833 12.5588 3.70496 12.6038 3.77331C12.6489 3.84166 12.7071 3.90035 12.7751 3.94597C12.8431 3.9916 12.9195 4.02324 12.9998 4.03905C13.3514 4.10937 13.6951 4.1953 14.0311 4.28905C14.1548 4.35328 14.2535 4.45703 14.3115 4.58381C14.3695 4.71059 14.3834 4.85311 14.3511 4.98872C14.3188 5.12433 14.242 5.24524 14.1331 5.33222C14.0241 5.41919 13.8892 5.46725 13.7498 5.46874H13.6873C12.4834 5.15476 11.244 4.99722 9.99982 4.99999C8.78486 4.99637 7.57446 5.14865 6.39826 5.45312C6.24859 5.49261 6.08959 5.47515 5.95205 5.40413C5.81451 5.33311 5.70822 5.21358 5.65376 5.06868C5.59931 4.92378 5.60056 4.76383 5.65727 4.6198C5.71398 4.47578 5.82213 4.35792 5.96076 4.28905H5.96857C6.30451 4.1953 6.64826 4.10937 6.99982 4.03905C7.08037 4.02317 7.15699 3.99157 7.22532 3.94606C7.29365 3.90055 7.35235 3.84203 7.39805 3.77383C7.44376 3.70563 7.47558 3.6291 7.4917 3.5486C7.50782 3.4681 7.50793 3.38522 7.49201 3.30468C7.45806 3.14302 7.36224 3.00105 7.22502 2.90908C7.0878 2.81712 6.92007 2.78245 6.75764 2.81249C5.83297 2.9974 4.92789 3.26944 4.05451 3.62499C3.88184 3.69416 3.72729 3.80194 3.60271 3.94006C3.47812 4.07819 3.38681 4.243 3.33576 4.42187L0.67951 13.2656C0.610601 13.4968 0.610078 13.7431 0.678006 13.9746C0.745934 14.2061 0.879408 14.413 1.06232 14.5703C1.13419 14.6395 1.20983 14.7047 1.28888 14.7656H1.2967C2.56232 15.7969 4.22638 16.5859 6.10138 17.0391C6.14937 17.0544 6.19944 17.0623 6.24982 17.0625C6.40435 17.0649 6.5543 17.0101 6.67073 16.9084C6.78716 16.8068 6.8618 16.6656 6.88026 16.5122C6.89871 16.3588 6.85966 16.2039 6.77064 16.0776C6.68163 15.9512 6.54896 15.8624 6.39826 15.8281C5.55533 15.6245 4.73583 15.3339 3.95295 14.9609C3.8458 14.8605 3.77742 14.7256 3.7598 14.5798C3.74219 14.434 3.77647 14.2867 3.85663 14.1637C3.93679 14.0406 4.0577 13.9498 4.19817 13.907C4.33864 13.8642 4.48969 13.8722 4.62482 13.9297C6.1092 14.5859 7.97639 15 9.99982 15C12.0233 15 13.8904 14.5859 15.3748 13.9297C15.51 13.8722 15.661 13.8642 15.8015 13.907C15.9419 13.9498 16.0629 14.0406 16.143 14.1637C16.2232 14.2867 16.2575 14.434 16.2398 14.5798C16.2222 14.7256 16.1538 14.8605 16.0467 14.9609C15.2638 15.3339 14.4443 15.6245 13.6014 15.8281C13.4507 15.8624 13.318 15.9512 13.229 16.0776C13.14 16.2039 13.1009 16.3588 13.1194 16.5122C13.1378 16.6656 13.2125 16.8068 13.3289 16.9084C13.4453 17.0101 13.5953 17.0649 13.7498 17.0625C13.8002 17.0623 13.8503 17.0544 13.8983 17.0391C15.7733 16.5859 17.4373 15.7969 18.7029 14.7656H18.7108C18.7898 14.7047 18.8655 14.6395 18.9373 14.5703C19.1202 14.413 19.2537 14.2061 19.3216 13.9746C19.3896 13.7431 19.389 13.4968 19.3201 13.2656ZM7.49982 12.1875C7.3144 12.1875 7.13315 12.1325 6.97898 12.0295C6.8248 11.9265 6.70464 11.7801 6.63369 11.6088C6.56273 11.4375 6.54416 11.249 6.58034 11.0671C6.61651 10.8852 6.7058 10.7182 6.83691 10.5871C6.96802 10.456 7.13507 10.3667 7.31693 10.3305C7.49878 10.2943 7.68728 10.3129 7.85859 10.3839C8.02989 10.4548 8.17631 10.575 8.27933 10.7291C8.38234 10.8833 8.43732 11.0646 8.43732 11.25C8.43732 11.4986 8.33855 11.7371 8.16273 11.9129C7.98692 12.0887 7.74846 12.1875 7.49982 12.1875ZM12.4998 12.1875C12.3144 12.1875 12.1331 12.1325 11.979 12.0295C11.8248 11.9265 11.7046 11.7801 11.6337 11.6088C11.5627 11.4375 11.5442 11.249 11.5803 11.0671C11.6165 10.8852 11.7058 10.7182 11.8369 10.5871C11.968 10.456 12.1351 10.3667 12.3169 10.3305C12.4988 10.2943 12.6873 10.3129 12.8586 10.3839C13.0299 10.4548 13.1763 10.575 13.2793 10.7291C13.3823 10.8833 13.4373 11.0646 13.4373 11.25C13.4373 11.4986 13.3385 11.7371 13.1627 11.9129C12.9869 12.0887 12.7485 12.1875 12.4998 12.1875Z" fill="white"/>
+                      </a>
+                    </li>
+                    <li class="header-social__item">
+                      <a href="#!" class="header-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M19.3201 13.2656L16.6639 4.42187C16.6128 4.243 16.5215 4.07819 16.3969 3.94006C16.2724 3.80194 16.1178 3.69416 15.9451 3.62499H15.8983L15.9451 3.60937C15.0736 3.26014 14.1712 2.99335 13.2498 2.81249C13.1693 2.79657 13.0864 2.79668 13.0059 2.8128C12.9254 2.82892 12.8489 2.86074 12.7807 2.90645C12.7125 2.95215 12.6539 3.01085 12.6084 3.07918C12.5629 3.14751 12.5313 3.22413 12.5154 3.30468C12.4984 3.38475 12.4974 3.46742 12.5125 3.54788C12.5277 3.62833 12.5588 3.70496 12.6038 3.77331C12.6489 3.84166 12.7071 3.90035 12.7751 3.94597C12.8431 3.9916 12.9195 4.02324 12.9998 4.03905C13.3514 4.10937 13.6951 4.1953 14.0311 4.28905C14.1548 4.35328 14.2535 4.45703 14.3115 4.58381C14.3695 4.71059 14.3834 4.85311 14.3511 4.98872C14.3188 5.12433 14.242 5.24524 14.1331 5.33222C14.0241 5.41919 13.8892 5.46725 13.7498 5.46874H13.6873C12.4834 5.15476 11.244 4.99722 9.99982 4.99999C8.78486 4.99637 7.57446 5.14865 6.39826 5.45312C6.24859 5.49261 6.08959 5.47515 5.95205 5.40413C5.81451 5.33311 5.70822 5.21358 5.65376 5.06868C5.59931 4.92378 5.60056 4.76383 5.65727 4.6198C5.71398 4.47578 5.82213 4.35792 5.96076 4.28905H5.96857C6.30451 4.1953 6.64826 4.10937 6.99982 4.03905C7.08037 4.02317 7.15699 3.99157 7.22532 3.94606C7.29365 3.90055 7.35235 3.84203 7.39805 3.77383C7.44376 3.70563 7.47558 3.6291 7.4917 3.5486C7.50782 3.4681 7.50793 3.38522 7.49201 3.30468C7.45806 3.14302 7.36224 3.00105 7.22502 2.90908C7.0878 2.81712 6.92007 2.78245 6.75764 2.81249C5.83297 2.9974 4.92789 3.26944 4.05451 3.62499C3.88184 3.69416 3.72729 3.80194 3.60271 3.94006C3.47812 4.07819 3.38681 4.243 3.33576 4.42187L0.67951 13.2656C0.610601 13.4968 0.610078 13.7431 0.678006 13.9746C0.745934 14.2061 0.879408 14.413 1.06232 14.5703C1.13419 14.6395 1.20983 14.7047 1.28888 14.7656H1.2967C2.56232 15.7969 4.22638 16.5859 6.10138 17.0391C6.14937 17.0544 6.19944 17.0623 6.24982 17.0625C6.40435 17.0649 6.5543 17.0101 6.67073 16.9084C6.78716 16.8068 6.8618 16.6656 6.88026 16.5122C6.89871 16.3588 6.85966 16.2039 6.77064 16.0776C6.68163 15.9512 6.54896 15.8624 6.39826 15.8281C5.55533 15.6245 4.73583 15.3339 3.95295 14.9609C3.8458 14.8605 3.77742 14.7256 3.7598 14.5798C3.74219 14.434 3.77647 14.2867 3.85663 14.1637C3.93679 14.0406 4.0577 13.9498 4.19817 13.907C4.33864 13.8642 4.48969 13.8722 4.62482 13.9297C6.1092 14.5859 7.97639 15 9.99982 15C12.0233 15 13.8904 14.5859 15.3748 13.9297C15.51 13.8722 15.661 13.8642 15.8015 13.907C15.9419 13.9498 16.0629 14.0406 16.143 14.1637C16.2232 14.2867 16.2575 14.434 16.2398 14.5798C16.2222 14.7256 16.1538 14.8605 16.0467 14.9609C15.2638 15.3339 14.4443 15.6245 13.6014 15.8281C13.4507 15.8624 13.318 15.9512 13.229 16.0776C13.14 16.2039 13.1009 16.3588 13.1194 16.5122C13.1378 16.6656 13.2125 16.8068 13.3289 16.9084C13.4453 17.0101 13.5953 17.0649 13.7498 17.0625C13.8002 17.0623 13.8503 17.0544 13.8983 17.0391C15.7733 16.5859 17.4373 15.7969 18.7029 14.7656H18.7108C18.7898 14.7047 18.8655 14.6395 18.9373 14.5703C19.1202 14.413 19.2537 14.2061 19.3216 13.9746C19.3896 13.7431 19.389 13.4968 19.3201 13.2656ZM7.49982 12.1875C7.3144 12.1875 7.13315 12.1325 6.97898 12.0295C6.8248 11.9265 6.70464 11.7801 6.63369 11.6088C6.56273 11.4375 6.54416 11.249 6.58034 11.0671C6.61651 10.8852 6.7058 10.7182 6.83691 10.5871C6.96802 10.456 7.13507 10.3667 7.31693 10.3305C7.49878 10.2943 7.68728 10.3129 7.85859 10.3839C8.02989 10.4548 8.17631 10.575 8.27933 10.7291C8.38234 10.8833 8.43732 11.0646 8.43732 11.25C8.43732 11.4986 8.33855 11.7371 8.16273 11.9129C7.98692 12.0887 7.74846 12.1875 7.49982 12.1875ZM12.4998 12.1875C12.3144 12.1875 12.1331 12.1325 11.979 12.0295C11.8248 11.9265 11.7046 11.7801 11.6337 11.6088C11.5627 11.4375 11.5442 11.249 11.5803 11.0671C11.6165 10.8852 11.7058 10.7182 11.8369 10.5871C11.968 10.456 12.1351 10.3667 12.3169 10.3305C12.4988 10.2943 12.6873 10.3129 12.8586 10.3839C13.0299 10.4548 13.1763 10.575 13.2793 10.7291C13.3823 10.8833 13.4373 11.0646 13.4373 11.25C13.4373 11.4986 13.3385 11.7371 13.1627 11.9129C12.9869 12.0887 12.7485 12.1875 12.4998 12.1875Z"
+                            fill="white"
+                          />
                         </svg>
-                    </a>
-                  </li>
-                  <li class="header-social__item">
-                    <a href="#!" class="header-social__link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M10.625 10C10.625 12.9297 8.38281 15.3125 5.625 15.3125C2.86719 15.3125 0.625 12.9297 0.625 10C0.625 7.07031 2.86719 4.6875 5.625 4.6875C8.38281 4.6875 10.625 7.07031 10.625 10ZM14.375 5C13.9297 5 13.0938 5.21875 12.4766 6.66406C12.0859 7.5625 11.875 8.75 11.875 10C11.875 11.25 12.0859 12.4375 12.4766 13.3359C13.0938 14.7812 13.9297 15 14.375 15C14.8203 15 15.6562 14.7812 16.2734 13.3359C16.6641 12.4375 16.875 11.25 16.875 10C16.875 8.75 16.6641 7.5625 16.2734 6.66406C15.6562 5.21875 14.8203 5 14.375 5ZM18.75 5C18.5842 5 18.4253 5.06585 18.3081 5.18306C18.1908 5.30027 18.125 5.45924 18.125 5.625V14.375C18.125 14.5408 18.1908 14.6997 18.3081 14.8169C18.4253 14.9342 18.5842 15 18.75 15C18.9158 15 19.0747 14.9342 19.1919 14.8169C19.3092 14.6997 19.375 14.5408 19.375 14.375V5.625C19.375 5.45924 19.3092 5.30027 19.1919 5.18306C19.0747 5.06585 18.9158 5 18.75 5Z" fill="white"/>
+                      </a>
+                    </li>
+                    <li class="header-social__item">
+                      <a href="#!" class="header-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10.625 10C10.625 12.9297 8.38281 15.3125 5.625 15.3125C2.86719 15.3125 0.625 12.9297 0.625 10C0.625 7.07031 2.86719 4.6875 5.625 4.6875C8.38281 4.6875 10.625 7.07031 10.625 10ZM14.375 5C13.9297 5 13.0938 5.21875 12.4766 6.66406C12.0859 7.5625 11.875 8.75 11.875 10C11.875 11.25 12.0859 12.4375 12.4766 13.3359C13.0938 14.7812 13.9297 15 14.375 15C14.8203 15 15.6562 14.7812 16.2734 13.3359C16.6641 12.4375 16.875 11.25 16.875 10C16.875 8.75 16.6641 7.5625 16.2734 6.66406C15.6562 5.21875 14.8203 5 14.375 5ZM18.75 5C18.5842 5 18.4253 5.06585 18.3081 5.18306C18.1908 5.30027 18.125 5.45924 18.125 5.625V14.375C18.125 14.5408 18.1908 14.6997 18.3081 14.8169C18.4253 14.9342 18.5842 15 18.75 15C18.9158 15 19.0747 14.9342 19.1919 14.8169C19.3092 14.6997 19.375 14.5408 19.375 14.375V5.625C19.375 5.45924 19.3092 5.30027 19.1919 5.18306C19.0747 5.06585 18.9158 5 18.75 5Z"
+                            fill="white"
+                          />
                         </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             </ul>
           </li>
           <!-- Login -->
