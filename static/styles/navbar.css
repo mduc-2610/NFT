@@ -377,7 +377,7 @@ svg:hover path {
 
     .header-nav-child-2 {
         padding: 0px;
-        width: 100%;
+        width: 105%;
         border-radius: 8px;
     }
     
@@ -391,7 +391,7 @@ svg:hover path {
     }
     
     .header-nav__item:nth-child(4) .header-nav-child-2 {
-        width: 100%;
+        width: 90%;
     }
 
     .header-nav__item:hover > .header-nav-child{
