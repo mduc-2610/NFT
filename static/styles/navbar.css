@@ -438,11 +438,11 @@ svg:hover path {
     }
 }
 
-/* @media only screen and (max-width:1300px)  {
-    .header-nav-child:last-child .header-nav-item-child:hover > .header-nav-child{
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+    .header-nav-child:last-child .header-nav-item-child:hover > .header-nav-child {
         display: block;
         top: 0;
-        left: -100%;
+        left: -90%;
         position: absolute;
     }
-} */
+}
