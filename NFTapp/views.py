@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Author, Type
 
 # Create your views here.
 def home(request):
@@ -18,3 +19,10 @@ def home5(request):
         'hello': 'hellosss'
     }
     return render(request, 'NFTapp/home/home5.html', context)
+
+def collection1(request):
+    products = NFTProduct.objects.filter(topic__name="KittyMotions")
+    context = {
+        "products": products
+    }
+    return render(request, 'NFTapp/explore/collection/collection1.html', context)

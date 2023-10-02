@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<p style="color:white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas laborum ea mollitia nulla sit saepe ducimus odio molestias aspernatur iusto quibusdam repellat sunt nemo iste minus nobis, quis optio vitae repudiandae. Consequatur nihil officia saepe id necessitatibus, vitae reiciendis quibusdam magnam omnis excepturi a vel ipsum perferendis harum eligendi magni amet veritatis debitis delectus soluta corrupti. Quibusdam nulla in, earum delectus et molestiae exercitationem cupiditate repellendus facere excepturi ipsam perferendis debitis sapiente expedita esse, vel quo! Ipsa quis ipsum cum placeat nam rem iusto reiciendis inventore ut doloribus. Magnam quae accusamus quam ab, ad reiciendis deserunt consequuntur doloremque ratione consectetur.</p>
+<main class="nft">
+    <div class="container">
+        <ul class="classify">
+            <li class="classify__item">Sort by</li>
+            <li class="classify__item">Trending</li>
+        </ul>
+        <ul class="nft-products">
+        {% for product in products %}
+            <li class="product">{{product.name}} {{product.topic}}</li>    
+        {% endfor %}
+        </ul>
+    </div>
+</main>
+
+
+{% endblock content %}

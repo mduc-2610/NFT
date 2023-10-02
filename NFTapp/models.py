@@ -63,3 +63,13 @@ class Author(models.Model):
     
     def __str__(self):
         return f"{self.name}"
+
+class Comment(models.Model):
+    product = models.ForeignKey(NFTProduct, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    content = models.TextField()
+
+    def __str__(self):
+        return f"{self.product.name} {self.user.name}"
