@@ -81,6 +81,9 @@ svg:hover path {
     max-width: calc(100%-48px);
 }
 
+.container-full-width {
+    width: 100vw;
+}
 
 .header {
     position: sticky;
