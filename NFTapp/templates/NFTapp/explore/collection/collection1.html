@@ -1,18 +1,60 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<p style="color:white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas laborum ea mollitia nulla sit saepe ducimus odio molestias aspernatur iusto quibusdam repellat sunt nemo iste minus nobis, quis optio vitae repudiandae. Consequatur nihil officia saepe id necessitatibus, vitae reiciendis quibusdam magnam omnis excepturi a vel ipsum perferendis harum eligendi magni amet veritatis debitis delectus soluta corrupti. Quibusdam nulla in, earum delectus et molestiae exercitationem cupiditate repellendus facere excepturi ipsam perferendis debitis sapiente expedita esse, vel quo! Ipsa quis ipsum cum placeat nam rem iusto reiciendis inventore ut doloribus. Magnam quae accusamus quam ab, ad reiciendis deserunt consequuntur doloremque ratione consectetur.</p>
-<main class="nft">
-    <div class="container">
-        <ul class="classify">
-            <li class="classify__item">Sort by</li>
-            <li class="classify__item">Trending</li>
+<main class="nft-1">
+    <div class="nft-container">
+        <ul class="classify-1 flex_aic_jcc">
+            <li class="classify__item-1 flex_aic_jcc">
+                Sort by
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </li>
+            <li class="classify__item-1 flex_aic_jcc">
+                Trending
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </li>
         </ul>
-        <ul class="nft-products">
+        <ul class="nft-products-1 flex_fdd_aic">
         {% for product in products %}
-            <li class="product">{{product.name}} {{product.topic}}</li>    
+            <li class="nft-product-1 flex_fdd_aic" style="background-image: url({{product.image}})">
+                <h3 class="product-topic-1">{{product.topic}}</h3>
+                <div class="creator-1 flex_aic_jcc">
+                    <a href="" class="avatar-link-1">
+                        <img src="{{product.author.avatar}}" alt="" class="author-avatar-1" style="width: 20px; height: 20px;">
+                    </a>
+                    <a href="" class="creator-name-1">@{{product.author.name}}</a>
+                </div>
+                <div class="product-info-1 flex_aic_jcc" >
+                    <div class="artwork-1 flex_fdd_aic">
+                        <p class="artwork-key-1">Artwork:</p>
+                        <p class="artwork-value-1">{{product.artwork}}</p>
+                    </div>
+                    <div class="sale-1 flex_fdd_aic">
+                        <p class="sale-key-1">Total sale</p>
+                        <p class="sale-value-1">{{product.price}} ETH</p>
+                    </div>
+                    <div class="collected-1 flex_fdd_aic">
+                        <p class="collected-by">Collected by ({{product.owners.all|length}})</p>
+                        <ul class="collected-list flex_aic_jcc">
+                            {% if product.owners.all|length != 0%}
+                                {% for owner in product.owners.all %}
+                                    <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                        <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="collected__item-1" style="border: 0;">
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </li>    
         {% endfor %}
-        </ul>
+        </ul>                                                   
     </div>
 </main>
 
