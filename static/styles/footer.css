@@ -1,0 +1,181 @@
+.footer {
+    margin-top: 60px;
+    /* width: 100vw; */
+}
+
+.footer__section-1 {
+
+}
+
+.footer__section-1 .mobile-section-1 {
+    
+}
+
+.web-section-1 {
+    display: none;
+}
+
+.footer__section-1 .mobile-wrap {
+    justify-content: space-evenly;
+    padding: 0 40px;
+}
+
+.mobile-section-1 .footer__log--wrap {
+    width: 107px;
+    height: 42px;
+}
+
+.mobile-section-1 .footer-social {
+    
+}
+
+.mobile-section-1 .footer-social__item {
+
+}
+
+.mobile-section-1 .footer-social__link {
+
+}
+
+.mobile-section-1 .footer-nav {
+    justify-content: space-evenly;
+}
+
+.mobile-section-1 .footer-nav__item {
+
+}
+
+.mobile-section-1 .footer-nav__link {
+    color: #FDFDFD;
+    /* font-family: Aeonik; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.125; /* 112.5% */
+}
+
+.footer-section-2 {
+    align-items: center;
+}
+
+.footer-copyright {
+
+}
+
+.footer-copyright__text {
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 21px */
+    
+}
+
+.footer-more-info {
+    justify-content: space-between;
+}
+
+.footer-more-info__item {
+
+}
+
+.footer-more-info__link {
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 18px */
+    text-decoration-line: underline;
+}
+
+.seperate-section {
+    height: 1px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+@media only screen and (min-width: 800px) {
+    .footer {
+
+    }
+    
+    .footer__section-1 {
+    
+    }
+
+    .mobile-section-1 {
+        display: none;
+    }
+
+    .web-section-1 {
+        display: block;
+    }
+    
+    .web-section-1 .footer__log--wrap {
+    
+    }
+    
+    .web-section-1 .footer-social {
+    
+    }
+    
+    .web-section-1 .footer-social__item {
+    
+    }
+    
+    .web-section-1 .footer-social__link {
+
+    }
+    
+    .web-section-1 .footer-nav {
+    
+    }
+    
+    .web-section-1 .footer-nav__item {
+    
+    }
+    
+    .web-section-1 .footer-nav__link {
+        color: #FDFDFD;
+        /* font-family: Aeonik; */
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+    }
+    
+    .footer-section-2 {
+    
+    }
+    
+    .footer-copyright {
+    
+    }
+    
+    .footer-copyright__text {
+    
+    }
+    
+    .footer-more-info {
+        
+    }
+    
+    .footer-more-info__item {
+    
+    }
+    
+    .footer-more-info__link {
+        color: #FFF;
+        /* font-family: Aeonik; */
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 21px */
+        text-decoration-line: underline;
+    }
+}
+
+
+

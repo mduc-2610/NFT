@@ -174,3 +174,139 @@
     width: 30px;
     height: 30px;    
 } */
+
+/* @media only screen and (min-width: 1000px) { */
+@media only screen and (min-width: 700px) {
+    .classify-1 {
+        justify-content: flex-end;
+        gap: 30px;
+        margin: 0 22px 33px 0;
+    }
+    
+    .classify__item-1 {
+        cursor: pointer;
+        color: #D2D2D2;
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.375; /* 137.5% */
+    }
+
+    
+    .nft-products-1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 20px;
+        grid-row-gap: 60px;
+        margin: 0 0;
+        align-items: center;
+    }
+    
+    .nft-product-1 {
+        background-color: lightgray;
+        background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 95%;
+        height: 70vh;
+        padding: 48px 37px 43   px 37px;
+        /* padding-top: 100%; */
+        justify-content: space-between;
+    }
+    
+    .product-topic-1 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 3.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.353; /* 135.294% */
+        letter-spacing: 0.0476rem;
+    }
+    
+    .creator-1 {
+        margin: 17px 0 150px 0;
+        width: 45%;
+        height: 40px;
+        border-radius: 33px;
+        background: rgba(217, 217, 217, 0.27);
+        backdrop-filter: blur(4.5px);
+        justify-content: flex-start;
+        gap: 8px;
+        padding-left: 20px;
+    }
+    
+    .author-avatar-1 {
+    
+    }
+    
+    .creator-name-1 {
+      
+    }
+    
+    .product-info-1 {
+        padding: 0 15px;
+        gap: 50px;
+        width: 100%;
+        height: 82px;
+        background: rgba(246, 246, 246, 0.20);
+        justify-content: space-evenly;
+        backdrop-filter: blur(91.5px);
+    }
+    
+    .artwork-1 {
+        gap: 15px;
+    }
+    
+    .artwork-key-1 {
+
+    }
+    
+    .artwork-value-1 {
+       
+    }
+    
+    .sale-1 {
+        gap: 15px;
+    }
+    
+    .sale-key-1 {
+       
+    }
+    
+    .sale-value-1 {
+        
+    }
+    
+    .collected-1 {
+        gap: 7px;
+        align-items: flex-end;;
+    }
+    
+    .collected-by {
+       
+    }
+    
+    .collected-list {
+        justify-content: flex-end;
+        gap: -5px;
+    }
+    
+    .collected__item-1 {
+        /* display: inline-block; */
+        border-radius: 30px;
+        border: 1px solid #81BC7C;
+        width: 25px;
+        height: 25px;
+    }
+    
+    .collected__item-1:not(:first-child) {
+        margin-left: -10px;
+    }
+    
+    /* .collected__user-avt-1 {
+        gap: 5px;
+        width: 30px;
+        height: 30px;    
+    } */
+}
