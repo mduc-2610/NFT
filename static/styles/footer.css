@@ -1,10 +1,11 @@
 .footer {
     margin-top: 60px;
+    background: #212127;
     /* width: 100vw; */
 }
 
 .footer__section-1 {
-
+    /* width: 100vw; */
 }
 
 .footer__section-1 .mobile-section-1 {
@@ -16,17 +17,22 @@
 }
 
 .footer__section-1 .mobile-wrap {
-    justify-content: space-evenly;
-    padding: 0 40px;
+    justify-content: space-around ;
+    padding-bottom: 40px;
+    /* margin-top: 40px; */
 }
 
-.mobile-section-1 .footer__log--wrap {
+.mobile-section-1 {
+    padding: 40px 0 20px 0;
+}
+
+.footer__logo--wrap img{
     width: 107px;
     height: 42px;
 }
 
 .mobile-section-1 .footer-social {
-    
+    gap: 12px;
 }
 
 .mobile-section-1 .footer-social__item {
@@ -37,12 +43,19 @@
 
 }
 
+
+.footer-social__item:not(:nth-child(2)) .footer-social__link:hover > svg > path {
+    /* stroke: #17E3A6; */
+    fill: #17E3A6;
+}
+
 .mobile-section-1 .footer-nav {
     justify-content: space-evenly;
+    
 }
 
 .mobile-section-1 .footer-nav__item {
-
+    
 }
 
 .mobile-section-1 .footer-nav__link {
@@ -55,7 +68,11 @@
 }
 
 .footer-section-2 {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding: 20px 0 40px 0;
+    gap: 32px;
 }
 
 .footer-copyright {
@@ -73,7 +90,8 @@
 }
 
 .footer-more-info {
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .footer-more-info__item {
@@ -94,6 +112,7 @@
     height: 1px;
     flex-shrink: 0;
     align-self: stretch;
+    background-color: #595959;
 }
 
 @media only screen and (min-width: 800px) {
@@ -110,15 +129,18 @@
     }
 
     .web-section-1 {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 60px 0 25px 0;
     }
     
     .web-section-1 .footer__log--wrap {
-    
+        
     }
     
     .web-section-1 .footer-social {
-    
+        gap: 12px;
     }
     
     .web-section-1 .footer-social__item {
@@ -130,7 +152,7 @@
     }
     
     .web-section-1 .footer-nav {
-    
+        gap: 44px;
     }
     
     .web-section-1 .footer-nav__item {
@@ -147,7 +169,16 @@
     }
     
     .footer-section-2 {
-    
+        /* display: grid;
+        grid-template-columns: 2fr 2fr;
+        grid-column-gap: 0;
+        justify-items: center; */
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0;
     }
     
     .footer-copyright {
@@ -159,7 +190,8 @@
     }
     
     .footer-more-info {
-        
+        width: auto;
+        gap: 24px;
     }
     
     .footer-more-info__item {

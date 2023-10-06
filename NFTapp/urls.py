@@ -7,4 +7,8 @@ urlpatterns = [
     path('home2/', views.home2, name='home2'),
     path('home5/', views.home5, name='home5'),
     path('collection1/', views.collection1, name='collection1'),
+    path('collection2/', views.collection2, name='collection2'),
+    path('collection3/', views.collection3, name='collection3'),
+    path('collection4/', views.collection4, name='collection4'),
+    path('collection5/', views.collection5, name='collection5'),
 ]

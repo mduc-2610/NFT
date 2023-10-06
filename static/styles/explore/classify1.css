@@ -1,0 +1,43 @@
+.classify-1 {
+    justify-content: flex-end;
+    gap: 30px;
+    margin: 0 22px 33px 0;
+}
+
+.classify__item-1 {
+    cursor: pointer;
+    color: #D2D2D2;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375; /* 137.5% */
+}
+
+.classify__item-1:hover {
+    color: #17E3A6;
+}
+
+.classify__item-1:hover svg {
+    transform: rotate(180deg);
+}
+
+.classify__item-1:hover svg path {
+    stroke: #17E3A6;
+}
+
+@media only screen and (min-width: 700px) {
+    .classify-1 {
+        justify-content: flex-end;
+        gap: 30px;
+        margin: 0 0px 33px 0;
+    }
+    
+    .classify__item-1 {
+        cursor: pointer;
+        color: #D2D2D2;
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.375; /* 137.5% */
+    }
+}

@@ -3,23 +3,10 @@
 {% block content %}
 <main class="nft-1">
     <div class="container nft-container">
-        <ul class="classify-1 flex_aic_jcc">
-            <li class="classify__item-1 flex_aic_jcc">
-                Sort by
-                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-            </li>
-            <li class="classify__item-1 flex_aic_jcc">
-                Trending
-                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-            </li>
-        </ul>
-        <ul class="nft-products-1 flex_fdd_aic">
+        {% include 'NFTapp/explore/classify1.html' %}
+        <ul class="nft-products-1 flex_fdc_aif">
         {% for product in products %}
-            <li class="nft-product-1 flex_fdd_aic" style="background-image: url({{product.image}})">
+            <li class="nft-product-1 flex_fdc_aif" style="background-image: url({{product.image}})">
                 <h3 class="product-topic-1">{{product.topic}}</h3>
                 <div class="creator-1 flex_aic_jcc">
                     <a href="" class="avatar-link-1">
@@ -28,15 +15,15 @@
                     <a href="" class="creator-name-1">@{{product.author.name}}</a>
                 </div>
                 <div class="product-info-1 flex_aic_jcc" >
-                    <div class="artwork-1 flex_fdd_aic">
+                    <div class="artwork-1 flex_fdc_aif">
                         <p class="artwork-key-1">Artwork:</p>
                         <p class="artwork-value-1">{{product.artwork}}</p>
                     </div>
-                    <div class="sale-1 flex_fdd_aic">
+                    <div class="sale-1 flex_fdc_aif">
                         <p class="sale-key-1">Total sale</p>
                         <p class="sale-value-1">{{product.price}} ETH</p>
                     </div>
-                    <div class="collected-1 flex_fdd_aic">
+                    <div class="collected-1 flex_fdc_aif">
                         <p class="collected-by">Collected by ({{product.owners.all|length}})</p>
                         <ul class="collected-list flex_aic_jcc">
                             {% if product.owners.all|length != 0%}

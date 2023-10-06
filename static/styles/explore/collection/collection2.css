@@ -1,0 +1,108 @@
+.nft-2 {
+    margin-top: 20px;
+}
+
+.introduce-2 {
+    margin-bottom: 60px;
+}
+
+.introduce-wrap-2 {
+    width: 95%;
+}
+
+.introduce-info-2 {
+
+}
+
+.introduce-heading-2 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.11; /* 111.111% */
+    letter-spacing: 0.036rem;
+}
+
+.introduce-desc-2 {
+    margin: 12px 0 24px 0;
+    color: #CFCFCF;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.57; /* 157.143% */
+    letter-spacing: 0.014rem;
+}
+
+.introduce-explore-2 {
+
+}
+
+.introduce-video-2 {
+    margin-top: 30px;
+}
+
+.introduce-video-2 img {
+    width: 100%;
+    height: 246px;
+    
+}
+
+@media only screen and (min-width: 768px) {
+    .nft-2 {
+        margin-top: 50px;
+    }
+    
+    .introduce-2 {
+        margin-bottom: 32px;
+    }
+
+    .introduce-info-2 {
+        justify-content: center;
+        gap: 5px;
+    } 
+        
+    .introduce-wrap-2 {
+        width: 1170px;
+        max-width: calc(100% - 48px);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .introduce-heading-2 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+    }
+    
+    .introduce-desc-2 {
+        margin: 12px 0 24px 0;
+        color: #CFCFCF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .introduce-explore-2 {
+        display: none;
+    }
+    
+    .introduce-video-2 {
+        margin-top: 30px;
+        /* width: 100%; */
+    }
+    
+    .introduce-video-2 img {
+        width: 111%;
+        height: 280px;
+        
+    }
+}

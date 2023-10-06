@@ -26,3 +26,31 @@ def collection1(request):
         "products": products
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
+
+def collection2(request):
+    products = NFTProduct.objects.all()
+    context = {
+        "products": products
+    }
+    return render(request, 'NFTapp/explore/collection/collection2.html', context)
+
+def collection3(request):
+    products = NFTProduct.objects.all()
+    context = {
+        "products": products
+    }
+    return render(request, 'NFTapp/explore/collection/collection3.html', context)
+
+def collection4(request):
+    products = NFTProduct.objects.all()
+    context = {
+        "products": products
+    }
+    return render(request, 'NFTapp/explore/collection/collection4.html', context)
+
+def collection5(request):
+    products = NFTProduct.objects.all()
+    context = {
+        "products": products
+    }
+    return render(request, 'NFTapp/explore/collection/collection5.html', context)

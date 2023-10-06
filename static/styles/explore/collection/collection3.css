@@ -1,0 +1,38 @@
+.nft-3 {
+    margin-top: 30px;
+}
+
+.nft-heading-3 {
+    margin-left: 18px;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.11; /* 111.111% */
+    letter-spacing: 0.036rem;
+}
+
+.nft-products-1 {
+
+}
+
+@media only screen and (min-width: 768px) {
+    .nft-3 {
+        margin-top: 30px;
+    }
+    
+    .nft-heading-3 {
+        margin-left: 0;
+        color: #ECECEC;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.2; /* 120% */
+    }
+    
+    .nft-products-1 {
+    
+    }
+}
