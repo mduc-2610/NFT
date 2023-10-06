@@ -73,12 +73,16 @@ svg:hover path {
 
 .container {
     width: 1170px;
-    max-width: 100%;
+    max-width: calc(100% - 24px);
     margin: 0 auto;
 }
 
+.container-navbar  {
+    max-width: 100%;
+}
+
 .container-2 {
-    max-width: calc(100%-48px);
+    
 }
 
 .container-full-width {

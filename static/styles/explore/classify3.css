@@ -1,0 +1,78 @@
+.classify-3 {
+    margin: 20px 0 30px 0;
+}
+
+.nft-collection-heading-3 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.11; /* 111.111% */
+    letter-spacing: 0.036rem;
+}
+
+.classify-list-3 {
+    justify-content: flex-start;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.classify__item-3 {
+    padding: 6px 16px;
+    border: 1.5px solid #212127;
+    color: #CFCFCF;
+    /* font-family: Clash Display; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2.143; /* 214.286% */
+}
+
+.classify__item-3:hover {
+    cursor: pointer;
+    background-color: #17E3A6;
+    color: #000;
+}
+
+@media only screen and (min-width: 768px) {
+    .classify-3 {
+        margin: 36px 0 60px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nft-collection-heading-3 {
+        color: #ECECEC;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.2; /* 120% */
+    }
+    
+    .classify-list-3 {
+        justify-content: flex-start;
+        margin-top: 0px;
+        gap: 20px;
+    }
+    
+    .classify__item-3 {
+        padding: 10px 16px;
+        border: 1.5px solid #212127;
+        color: #CFCFCF;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    }
+    
+    .classify__item-3:hover {
+        cursor: pointer;
+        background-color: #17E3A6;
+        color: #000;
+    }
+    
+}

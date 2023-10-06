@@ -4,9 +4,9 @@
 }
 
 .classify-2 {
-    width: 93%;
+    width: 100%;
     margin: 0 auto;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 10px;
 }
 
@@ -32,7 +32,6 @@
 }
 
 .classify-clear-2 {
-    margin-left: 19px;
     color: #CFCFCF;
     /* font-family: Aeonik; */
     font-size: 1.4rem;
