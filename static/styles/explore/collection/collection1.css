@@ -153,6 +153,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-column-gap: 30px;
+        grid-row-gap: 30px;
         align-items: center;
         justify-items: center;
         /* margin: 0 0; */

@@ -65,3 +65,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.product.name} {self.user.name}"
+    
+class NFTBlog(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(User, related_name="blog_author", on_delete=models.CASCADE)
+    post_date = models.DateTimeField()
+    content = models.TextField()
+    
+    def __str__(self):
+        return f"{self.title}"
+    
+class BlogImage(models.Model):
+    image = models.ImageField(upload_to=f"blog_images/%Y/%m/%d/")
+    blog = models.ForeignKey(NFTBlog, related_name="blog_image", on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.blog.title}"

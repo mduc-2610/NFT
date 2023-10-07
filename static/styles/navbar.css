@@ -211,7 +211,27 @@ svg:hover path {
     display: none;
 }
 
+.header-nav-child-2 {
+    width: 160%;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #191919;
+    border-radius: 8px;
+    display: none;
+    padding: 0px;
+    width: 105%;
+    border-radius: 8px;
+}
+
 .header-nav-item-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.header-nav-item-child-2 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -382,13 +402,39 @@ svg:hover path {
         width: 120%;
     }
 
+    .header-nav-child {
+        width: 160%;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #191919;
+        border-radius: 8px;
+        display: none;
+    }
+    
     .header-nav-child-2 {
+        width: 160%;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #191919;
+        border-radius: 8px;
+        display: none;
         padding: 0px;
         width: 105%;
         border-radius: 8px;
     }
+
     
     .header-nav-item-child {
+        padding: 17px 15px 17px 20px;
+        /* overflow: hidden; */
+        /* position: relative; */
+    }
+
+    .header-nav-item-child-2 {
         padding: 17px 15px 17px 20px;
         overflow: hidden;
     }
@@ -409,10 +455,10 @@ svg:hover path {
         padding: 0;
         margin-left: 0px;
         border-radius: 8px;
-        top: 50px;
+        top: 49px;
     }
     
-    .header-nav-item-child:hover > .header-nav-child{
+    .header-nav-item-child:hover > .header-nav-child-2{
         display: block;
         top: 0;
         left: 100%;
@@ -433,6 +479,25 @@ svg:hover path {
     }
 
     .header-nav-item-child.unique:hover {
+        cursor: pointer;
+        background-color: transparent;
+        overflow: hidden;
+    }
+
+    .header-nav-item-child-2:hover {
+        cursor: pointer;
+        background-color: #9D9D9D;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .header-nav-item-child-2:hover > .header__child--wrapper > .header-nav-item-child__link,
+    .header-nav-item-child-2:hover > div > svg > path {
+        color:#17E3A6;
+        stroke: #17E3A6;
+    }
+
+    .header-nav-item-child-2.unique:hover {
         cursor: pointer;
         background-color: transparent;
         overflow: hidden;
