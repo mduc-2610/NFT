@@ -1,5 +1,7 @@
+from math import ceil
 from django.shortcuts import render, HttpResponse
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type
+from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, BlogSection, NFTBlog, Comment
+
 
 # Create your views here.
 def home(request):
@@ -54,3 +56,22 @@ def collection5(request):
         "products": products
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
+
+blogs_context = {}
+def blog(request):
+    blogs = NFTBlog.objects.all().order_by('image')
+    average_wpm = 238
+    for blog in blogs:
+        words_of_blog = sum([len(str(section.content).split()) for section in blog.blog_section.all()])
+        blogs_context[blog] = ceil(words_of_blog / average_wpm)
+    context = {
+        'blogs': blogs_context
+    }
+    return render(request, 'NFTapp/blog/blog.html', context)
+
+def blog_detail(request, pk):
+    blog_detail = NFTBlog.objects.get(pk=pk)
+    context = {
+        'blog': [blog_detail, blogs_context[blog_detail]]
+    }
+    return render(request, 'NFTapp/blog/blog_detail.html', context)

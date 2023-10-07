@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block content %}
+<main class="blog">
+    <div class="container">
+        <div class="blog-introduce">
+            <h1 class="blog-heading">Discover populer articles here.</h1>
+            <p class="blog-desc">All the articles and contents of the site have been updated today and you can find yoour articles and contants quickly</p>
+        </div>
+        <ul class="blog-list">
+            {% for blog, times_to_read in blogs.items %}
+            <li class="blog__item">
+                <img src="{{blog.image}}" alt="" class="blog-item__img">
+                <div class="blog-item__author flex_aic_jcc">
+                    <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
+                    <p class="blog-item__author-name limit-line">{{blog.author.name}}</p>
+                </div>
+                {% if times_to_read != 1 %}
+                <p class="blog-item__times_to_read">{{times_to_read}} minutes to read</p>
+                {% else %}
+                <p class="blog-item__times_to_read">{{times_to_read}} minute to read</p>
+                {% endif %}
+                <h2 class="blog-item__heading limit-line">{{blog.title}}</h2>
+                <a href="{% url 'blog' blog.id %}" class="blog-item__read-more limit_line">Read More</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+{% endblock content %}

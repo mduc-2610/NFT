@@ -11,4 +11,6 @@ urlpatterns = [
     path('collection3/', views.collection3, name='collection3'),
     path('collection4/', views.collection4, name='collection4'),
     path('collection5/', views.collection5, name='collection5'),
+    path('blog/', views.blog, name='blog'),
+    path('blog/<uuid:pk>', views.blog_detail, name='blog'),
 ]

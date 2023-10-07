@@ -1,14 +1,24 @@
+from math import ceil
 import random
 import os
+from datetime import datetime
 from faker import Faker
 from PIL import Image
 from django.core.management.base import BaseCommand
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type
+from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection
 from NFT.settings import MEDIA_ROOT
 fake = Faker()
 
 def run():
     User.objects.all().delete()
+    NFTProduct.objects.all().delete()
+    Topic.objects.all().delete()
+    OwnerNFTProduct.objects.all().delete()
+    Type.objects.all().delete()
+    NFTBlog.objects.all().delete()
+    Comment.objects.all().delete()
+    BlogSection.objects.all().delete()
+
     username_superuser = 'duc'
     email_superuser = 'duc@fgmail.com'
     password_superuser = 'duc123'
@@ -32,7 +42,6 @@ def run():
     # Load type obj
     print("----------------------------------------------------------------")
     print("TYPE:")
-    Type.objects.all().delete()
     types = ['artworks', 'collections']
     type_obj_list = []
     for type in types:
@@ -47,7 +56,6 @@ def run():
     # Load topic obj
     print("----------------------------------------------------------------")
     print("TOPIC:")
-    Topic.objects.all().delete()
     topics = ['Alternate Medium Space', 'KittyMotions', 'Digital Fashion World']
     topic_obj_list = []
     for topic in topics:
@@ -62,7 +70,6 @@ def run():
     # Load author obj
     # print("----------------------------------------------------------------")
     # print("AUTHOR:")
-    # Author.objects.all().delete()
     # authors = [user.name for user in User.objects.all() if user.creator]
     # author_obj_list = []
     # for author in authors:
@@ -77,7 +84,6 @@ def run():
     # Load nft product
     print("----------------------------------------------------------------")
     print("Product:")
-    NFTProduct.objects.all().delete()
     nft_names = [
         "EtherGems", "CryptoCanvas", "DigitalDreamscapes", "PixelPioneers", "CryptoCollectibles", 
         "ArtBlockChain", "NFTNova", "DecentralizedVisions", "VirtualVogue", "TechnoTreasuries", 
@@ -137,3 +143,44 @@ def run():
             # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
             owner_nft_product = OwnerNFTProduct.objects.create(**data)
             print(f"\tUser with uuid {data['owner'].id} owns the nft product with uuid {data['product'].id}")
+
+    #Load blog 
+    print("----------------------------------------------------------------")
+    titles = [
+        'Awesome NFT Projects That Aren’t PFP Collections',
+        'Sloooths: How NFT Art Can Help Mental Health',
+        'Big Hugs Studio: Minting Their First NFT Project With',
+        'Chia Friends: From Network to Collection',
+        'Urban Animals NFT: Una Nueva Era Ha Comenzado',
+        'Scaling Your NFT Project: A Beginner’s Guide to IPFS',
+        'Token Gating: Creating Exclusivity in the Metaverse',
+        '5 Essential Tools for NFT Creators',
+        'NFT Twitter Spaces You Should Listen to in 2022',
+        'What Are NFT Airdrops and Why Do They Matter?',
+        'Why NFT Projects Need Utility',
+        'Serwah Attafuah and Glitch of Mind Talk Afrofuturism',
+        'Awesome NFT Projects That Aren’t PFP Collections',
+        'The Moral Complexity of Ethics in NFTs',
+        'Integrates Pinata to Provide Creators with IPFS Upload'
+    ]
+    blog_images = []
+    blog_dir = os.path.join(MEDIA_ROOT, 'blog')
+    for file in os.listdir(blog_dir):
+        blog_images.append("/static/images/blog/" + file)
+    for i in range(len(titles)):
+        blog = NFTBlog.objects.create(
+            title=titles[i],
+            author=random.choice(user_obj_list),                
+            image=blog_images[i],
+        )
+        print(f"\tSuccessfully create blog {blog} {blog.image}")
+        num_sections = random.randint(2, 5)
+        for _ in range(num_sections):
+            blog_section = BlogSection.objects.create(
+                image=None,
+                blog=blog,
+                heading=fake.sentence(),
+                content=fake.text(max_nb_chars=50000),
+            )
+            print(f"\t\t Successfully create blog section {blog_section}")
+    
