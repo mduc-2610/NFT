@@ -1,9 +1,15 @@
 from math import ceil
+import random
 from django.shortcuts import render, HttpResponse
 from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, BlogSection, NFTBlog, Comment
 
+def cal_times_to_read(blogs):
+    blogs_context = {}
+    for blog in blogs:
+        words_of_blog = sum([len(str(section.content).split()) for section in blog.blog_section.all()])
+        blogs_context[blog] = ceil(words_of_blog / average_wpm)
+    return blogs_context
 
-# Create your views here.
 def home(request):
     context = {
         'hello': 'hellosss'
@@ -56,14 +62,11 @@ def collection5(request):
         "products": products
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
-
-blogs_context = {}
+average_wpm = 238
+blogs = NFTBlog.objects.all().order_by('image')
 def blog(request):
-    blogs = NFTBlog.objects.all().order_by('image')
-    average_wpm = 238
-    for blog in blogs:
-        words_of_blog = sum([len(str(section.content).split()) for section in blog.blog_section.all()])
-        blogs_context[blog] = ceil(words_of_blog / average_wpm)
+    blogs_context = cal_times_to_read(blogs)
+    # blogs = NFTBlog.objects.all().order_by('image')
     context = {
         'blogs': blogs_context
     }
@@ -71,7 +74,12 @@ def blog(request):
 
 def blog_detail(request, pk):
     blog_detail = NFTBlog.objects.get(pk=pk)
+    times_to_read = round(sum([len(str(section.content).split()) for section in blog_detail.blog_section.all()]) / average_wpm)
+    random_blogs = list(blogs).copy()
+    random_blogs.remove(blog_detail)
+    blog_more_context = cal_times_to_read([random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)])
     context = {
-        'blog': [blog_detail, blogs_context[blog_detail]]
+        'blog_detail': [blog_detail, times_to_read],
+        'blog_more': blog_more_context
     }
     return render(request, 'NFTapp/blog/blog_detail.html', context)

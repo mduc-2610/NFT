@@ -1,0 +1,258 @@
+.blog-detail {
+    margin-top: 20px;
+}
+
+.blog-header {
+}
+
+.blog-header__img {
+    width: 100%;
+}
+
+.blog-header__content {
+    margin-top: 16px;
+}
+
+.blog-header__times-to-read {
+
+}
+
+.blog-header__title {
+    margin: 18px 0;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.3; /* 130% */
+    letter-spacing: 0.03rem;
+}
+
+.blog-header__author {
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 250;
+    line-height: 1; /* 100% */
+    letter-spacing: 0.02rem;
+}
+
+.blog-header__social {
+
+}
+
+.blog-header__social-follow {
+    margin: 40px 0 18px;
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    letter-spacing: 0.02rem;
+}
+
+.blog-header__social-list {
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.blog-header__social-item {
+
+}
+
+.blog-main {
+    margin: 24px 0 60px;
+}
+
+.blog-section {
+
+}
+
+.blog-section__heading {
+
+}
+
+.blog-section__content {
+    color: #ACACAC;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.02rem;
+}
+
+.blog-section__img {
+    margin-top: 28px;
+    width: 100%;
+}
+
+.share-this-article {
+    margin: 20px 0;
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.02rem;
+}
+
+.blog-main .blog-header__social-list {
+    margin-top: 20px;
+}
+
+.view-all-blogs {
+    margin-top: 28px;
+    display: block;
+    color: #FFF;
+    text-align: center;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1; /* 100% */
+    text-decoration-line: underline;
+}
+
+.blog-more-text {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.3; /* 130% */
+    letter-spacing: 0.03rem;
+    margin-bottom: 25px;
+}
+
+@media only screen and (min-width: 768px) {
+    .blog-detail {
+        margin: 10px 0;
+    }
+    
+    .blog-header {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 45px;
+    }
+    
+    .blog-header__img {
+        width: 100%;
+        height: 638px;
+    }
+    
+    .blog-header__content {
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .blog-header__times-to-read {
+    
+    }
+    
+    .blog-header__title {
+        margin: 18px 0;
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 3rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.3; /* 130% */
+        letter-spacing: 0.03rem;
+    }
+    
+    .blog-header__author {
+        color: #FFF;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 250;
+        line-height: 1; /* 100% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .blog-header__social {
+    
+    }
+    
+    .blog-header__social-follow {
+        margin: 40px 0 18px;
+        color: #FFF;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .blog-header__social-list {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+    
+    .blog-header__social-item {
+    
+    }
+    
+    .blog-main {
+        margin: 24px 0 60px;
+    }
+    
+    .blog-section {
+    
+    }
+    
+    .blog-section__heading {
+    
+    }
+    
+    .blog-section__content {
+        color: #ACACAC;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .blog-section__img {
+        margin-top: 28px;
+        width: 100%;
+    }
+    
+    .share-this-article {
+        margin: 20px 0;
+        color: #FFF;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .blog-main .blog-header__social-list {
+        margin-top: 20px;
+    }
+    
+    .view-all-blogs {
+        margin-top: 28px;
+        display: block;
+        color: #FFF;
+        text-align: center;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1; /* 100% */
+        text-decoration-line: underline;
+    }
+}

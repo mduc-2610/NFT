@@ -180,7 +180,7 @@ def run():
                 image=None,
                 blog=blog,
                 heading=fake.sentence(),
-                content=fake.text(max_nb_chars=50000),
+                content=fake.text(max_nb_chars=5000),
             )
             print(f"\t\t Successfully create blog section {blog_section}")
     
