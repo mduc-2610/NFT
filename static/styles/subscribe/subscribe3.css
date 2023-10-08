@@ -1,0 +1,14 @@
+
+.subscribe__strong {
+    background: linear-gradient(90deg, #20E2A7 65.59%, #77DCCE 71.55%, #6FC7F2 77.51%, #A0A1ED 82.87%, #FE5CD6 91.52%, #FF669F 99.95%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (min-width: 768px) {
+    .subscribe__section-3 {
+        background-color: transparent;
+    }
+    
+}

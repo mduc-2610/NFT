@@ -1,0 +1,136 @@
+.container {
+    max-width: 100%;
+}
+
+.subscribe__section-2 {
+    height: 305px;
+    background: #212127;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+.subscribe__section-2::before {
+    content: '';
+    background: url('/static/images/vector/vector5.svg'), none 50% / cover no-repeat;
+    position: absolute;
+    width: 32px;
+    height: 33px;
+    left: 3%;
+    top: 80%;
+}
+
+.subscribe__section-2::after {
+    content: '';
+    background: url('/static/images/vector/vector6.svg'), none 50% / cover no-repeat;
+    position: absolute;
+    width: 19px;
+    height: 32px;
+    right: 0;
+    top: 8%;
+}
+
+.subscribe__us-2 {
+    margin-bottom: 0;
+    /* padding: 60px 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subscribe__heading-2 {
+    color: #FFF; 
+}
+
+.subscribe__desc-2 {
+    margin: 10px 0 20px;
+}
+
+.subscribe__block-2 {
+    width: 50%;
+    height: 50px;
+}
+
+.subscribe__input-2 {
+    color: #B6B6B6;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.43; /* 142.857% */
+    letter-spacing: 0.014rem;
+}
+
+.subscribe__submit-2 {
+    width: 45px;
+    height: 38px;
+}
+
+.footer { 
+    margin-top: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .subscribe__section-2 {
+        height: 400px;
+        
+    }
+    
+    .subscribe__section-2::before {
+        background: url('/static/images/vector/vector1.svg'), none 50% / cover no-repeat;
+        width: 82px;
+        height: 84px;
+        left: 3%;
+        top: 65%;
+    }
+    
+    .subscribe__section-2::after {
+        background: url('/static/images/vector/vector2.svg'), none 50% / cover no-repeat;
+        width: 73px;
+        height: 128px;
+        right: -2%;
+        top: 10%;
+    }
+    
+    .subscribe__us-2 {
+
+    }
+    
+    .subscribe__heading-2 {
+        color: #fff;
+        text-align: center;
+    }
+    
+    .subscribe__desc-2 {
+        margin: 20px 0 60px;
+        color: #fff;
+        text-align: center;
+    }
+    
+    .subscribe__block-2 {
+        width: 32%;
+        height: 80px;
+    }
+
+    .subscribe__input-2 {
+        color: #B6B6B6;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .subscribe__submit-2 {
+        width: 90px;
+        height: 64px;
+    }
+    
+    .footer { 
+        margin-top: 60px;
+    }
+
+}

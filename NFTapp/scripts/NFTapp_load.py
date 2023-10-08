@@ -5,7 +5,7 @@ from datetime import datetime
 from faker import Faker
 from PIL import Image
 from django.core.management.base import BaseCommand
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection
+from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection, FAQ, FAQTitle
 from NFT.settings import MEDIA_ROOT
 fake = Faker()
 
@@ -18,7 +18,9 @@ def run():
     NFTBlog.objects.all().delete()
     Comment.objects.all().delete()
     BlogSection.objects.all().delete()
-
+    FAQ.objects.all().delete()
+    FAQTitle.objects.all().delete()
+    
     username_superuser = 'duc'
     email_superuser = 'duc@fgmail.com'
     password_superuser = 'duc123'
@@ -103,7 +105,7 @@ def run():
         for file in os.listdir(inside_dir):
             print(path)
             nft_image_files[dir].append(path + file)
-    [print(k, v) for k, v in nft_image_files.items()]
+    # [print(k, v) for k, v in nft_image_files.items()]
 
     cnt = 1
     nft_product_obj_list = []
@@ -134,6 +136,7 @@ def run():
 
     # Load owner of a nft product
     print("----------------------------------------------------------------")
+    print("OWNERS:")
     for user in user_obj_list:
         for i in range(random.randint(3, 5)):
             data = {
@@ -146,6 +149,7 @@ def run():
 
     #Load blog 
     print("----------------------------------------------------------------")
+    print("BLOG:")
     titles = [
         'Awesome NFT Projects That Aren’t PFP Collections',
         'Sloooths: How NFT Art Can Help Mental Health',
@@ -168,19 +172,98 @@ def run():
     for file in os.listdir(blog_dir):
         blog_images.append("/static/images/blog/" + file)
     for i in range(len(titles)):
-        blog = NFTBlog.objects.create(
-            title=titles[i],
-            author=random.choice(user_obj_list),                
-            image=blog_images[i],
-        )
+        data = {
+            'title': titles[i],
+            'author': random.choice(user_obj_list),                
+            'image': blog_images[i],
+        }
+        # blog, _ = NFTBlog.objects.get_or_create(**data)
+        blog = NFTBlog.objects.create(**data)
         print(f"\tSuccessfully create blog {blog} {blog.image}")
         num_sections = random.randint(2, 5)
         for _ in range(num_sections):
-            blog_section = BlogSection.objects.create(
-                image=None,
-                blog=blog,
-                heading=fake.sentence(),
-                content=fake.text(max_nb_chars=5000),
-            )
+            data = {
+                'image': None,
+                'blog': blog,
+                'heading': fake.sentence(),
+                'content': fake.text(max_nb_chars=5000),
+            }
+            # blog_section, _ = BlogSection.objects.get_or_create(**data)
+            blog_section = BlogSection.objects.create(**data)
             print(f"\t\t Successfully create blog section {blog_section}")
+
+
+    print("----------------------------------------------------------------")
+    print("FAQs:")
+    faqs = {
+        'Collectors': [
+            {'Creating a MetaMask Wallet in Five Steps':
+             '''Install MetaMask, set up a wallet with a strong password and save your seed phrase.
+Fund your wallet with cryptocurrency.
+Explore the wallet's features and interface.
+Prioritize security to protect your assets.
+'''
+             },
+            {'Meecat Drops: Collectibles Information Tooltips':'''Meecat Drops provides tooltips with information about collectibles, including rarity and metadata, enhancing the user experience.'''},
+            {'Storing, Displaying and Transferring NFTs':'''
+Choose a compatible wallet for your NFTs.
+Connect the wallet to a marketplace.
+View, transfer, and display your NFTs securely.
+'''},
+            {'A Guide to Buying Digital Collectibles':'''Research digital collectibles and creators.
+Choose a reputable marketplace.
+Set up a cryptocurrency wallet.
+Bid, buy, and transfer NFTs.
+Display and stay informed about your collectibles.'''},
+            {'Creating a MetaMask Wallet in Five Steps':'''
+Install MetaMask, set up a wallet with a strong password and save your seed phrase.
+Fund your wallet with cryptocurrency.
+Explore the wallet's features and interface.
+Prioritize security to protect your assets.
+'''},
+            {'Fixed Price and Offer-based Listings':'''Fixed price listings have a set price for NFTs.
+Offer-based listings allow buyers to make offers, with potential negotiation between the seller and buyer.'''}
+        ],
+        'General': [
+            {'Platform Commission and Secondary Market Sales and Royalties':'''This topic likely covers the fees that a platform charges for hosting and facilitating NFT sales. It may also explain how secondary market sales work and how royalties are distributed to creators when their NFTs are resold.'''},
+            {'Meecat Drops: Collectibles Information Tooltips':'''This topic discusses "Meecat Drops," a feature that provides informational tooltips about collectible items, improving the user experience for those exploring collectibles.'''},
+            {'\'Meecat\'s Token Standard: ERC-1155':'''This topic is likely about Meecat's use of the ERC-1155 token standard, which is a common standard on the Ethereum blockchain for creating both fungible and non-fungible tokens (NFTs).'''},
+            {'Returns, Delivery Costs and Additional Charges':'''This likely covers the policies and costs associated with returning NFTs or digital collectibles, as well as any additional fees or charges that buyers may encounter.'''},
+            {'Creating and Curating a Collection':'''This topic may explain how users can create and curate their own collections of NFTs, which can be a valuable aspect of the NFT ecosystem for collectors and creators alike.'''},
+            {'The Meecat Duck Membership System:':'''This topic likely delves into the "Meecat Duck Membership System," which could be a loyalty or rewards program offered by the platform, possibly providing special benefits or access to members.'''}
+        ],
+        'Artists': [
+            {'Listing NFT Artworks':'''This topic likely explains the process and steps involved in listing NFT artworks on the Dissrup marketplace, covering how creators can showcase and sell their digital art as NFTs.'''},
+            {'Technical Specifications for Uploading Artwork to the Dissrup Marketplace':'''This topic likely provides technical guidelines and requirements for artists and creators to follow when uploading their artwork to the Dissrup marketplace. It may include details on file formats, resolutions, and other specifications.'''},
+            {'Crypto Transaction Fees Explained':'''This topic is likely a guide that clarifies the various fees associated with cryptocurrency transactions, particularly as they relate to buying, selling, or trading NFTs on the Dissrup platform. It may cover aspects like gas fees and transaction processing costs.'''},
+            {'Joining Dissrup as a Creator':'''This topic likely outlines the process for artists and creators to become part of the Dissrup platform as content creators. It may include information on how to register, set up a profile, and start listing their creations as NFTs for sale.'''}
+        ],
+        'Enjin': [
+            {'How long does it take to integrate NFTs with my app?':'''The time required to integrate NFTs with your app can vary depending on your project's complexity and your development team's expertise. Enjin provides tools and resources to streamline the process, but the exact timeline can differ from project to project.'''},
+            {'Is the Enjin Platform free to use?':'''Enjin offers a range of tools and services, some of which are free, while others may have associated costs. The specific pricing and availability of free features may change, so it's advisable to check Enjin's official website or documentation for the most up-to-date information.'''},
+            {'Is there a developer community I can join?':'''Yes, Enjin has an active developer community where you can connect with other developers, share knowledge, and collaborate on projects. Joining this community can be valuable for getting support and staying updated on Enjin-related developments.'''},
+            {'Why is every NFT backed with Enjin Coin?':'''Enjin Coin (ENJ) is often used as a backing mechanism for NFTs on the Enjin platform to provide real-world value and scarcity to digital assets. It can be used to determine the value and authenticity of NFTs, as each NFT is linked to a quantity of ENJ, which can be redeemed or melted to claim the underlying assets.'''},
+            {'Do I need to know how to code to create NFTs?':'''While some knowledge of coding may be helpful for advanced customization, Enjin's platform is designed to be user-friendly, allowing individuals with varying levels of technical expertise to create NFTs without extensive coding skills. You can use Enjin's tools and templates to mint NFTs with relative ease.'''}
+        ]
+    }
     
+    for title, questions in faqs.items():
+        data = {
+            'title': title
+        }
+        # faq_title, _ = FAQTitle.objects.get_or_create(title)
+        faq_title = FAQTitle.objects.create(**data)
+        print(f"\tSuccessfully created FAQ title {faq_title.title}")
+        for question in questions:
+            for k, v in question.items():
+                data = {
+                    'title': faq_title,
+                    'question': k,
+                    'answer': v,
+                }
+                # faq, _ = FAQ.objects.get_or_create(**data)
+                faq = FAQ.objects.create(**data)
+                print(f"\t\tSuccessfully created FAQ question {faq.question} with answer {faq.answer}")
+
+
+        
