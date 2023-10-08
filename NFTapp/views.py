@@ -62,6 +62,22 @@ def collection5(request):
         "products": products
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
+
+def FAQs1(request):
+    return render(request, 'NFTapp/FAQs/FAQs1.html', {})
+
+def FAQs2(request):
+    return render(request, 'NFTapp/FAQs/FAQs2.html', {})
+
+def FAQs3(request):
+    return render(request, 'NFTapp/FAQs/FAQs3.html', {})
+
+def FAQs4(request):
+    return render(request, 'NFTapp/FAQs/FAQs4.html', {})
+
+def FAQs5(request):
+    return render(request, 'NFTapp/FAQs/FAQs5.html', {})
+
 average_wpm = 238
 blogs = NFTBlog.objects.all().order_by('image')
 def blog(request):
@@ -83,3 +99,4 @@ def blog_detail(request, pk):
         'blog_more': blog_more_context
     }
     return render(request, 'NFTapp/blog/blog_detail.html', context)
+
