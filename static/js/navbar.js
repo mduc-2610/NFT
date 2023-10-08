@@ -27,17 +27,17 @@ const search = document.querySelector('.header__search');
 // })
 
 headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
-console.log("1")
-for (var element of headerNavItemChild){
+// console.log("1")
+// for (var element of headerNavItemChild){
 
-  console.log(element.textContent.trim());
-}
+//   console.log(element.textContent.trim());
+// }
 headerNavItemChild[1].addEventListener('click', (e) =>{
   e.preventDefault();
   const url = document.querySelector('.header-nav-item-child__link').getAttribute('href');
   // window.location.href = "{% url 'home' %}";
-  window.location.href = "/home2/";
-  console.log("Hello");
+  // window.location.href = "/home2/";
+  // console.log("Hello");
 })
 
 // const deleteIcon = document.querySelector('.delete-icon');

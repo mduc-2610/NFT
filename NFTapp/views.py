@@ -1,7 +1,7 @@
 from math import ceil
 import random
 from django.shortcuts import render, HttpResponse
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, BlogSection, NFTBlog, Comment
+from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, BlogSection, NFTBlog, Comment, FAQ, FAQTitle
 
 def cal_times_to_read(blogs):
     blogs_context = {}
@@ -64,7 +64,11 @@ def collection5(request):
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
 def FAQs1(request):
-    return render(request, 'NFTapp/FAQs/FAQs1.html', {})
+    titles = FAQTitle.objects.all()
+    context = {
+        'titles': titles
+    }
+    return render(request, 'NFTapp/FAQs/FAQs1.html', context)
 
 def FAQs2(request):
     return render(request, 'NFTapp/FAQs/FAQs2.html', {})

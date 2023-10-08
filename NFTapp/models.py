@@ -94,7 +94,7 @@ class FAQTitle(models.Model):
         return self.title
 
 class FAQ(models.Model):
-    title = models.ForeignKey(FAQTitle, on_delete=models.CASCADE)
+    title = models.ForeignKey(FAQTitle, related_name="questions", on_delete=models.CASCADE)
     question = models.CharField(max_length=200)
     answer = models.TextField()
 

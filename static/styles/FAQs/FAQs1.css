@@ -1,0 +1,239 @@
+.container {
+    
+}
+.faq-1 {
+    margin: 20px 0 60px;
+}
+
+.faq__header-1 {
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.faq__heading-1 {
+    color: #FFF;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.12; /* 112% */
+}
+
+.faq__desc-1 {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #CFCFCF;
+    text-align: center;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.02rem;
+}
+
+.faq__main-1 {
+}
+
+.faq__section-1 {
+    margin-bottom: 60px;
+}
+
+.faq__title-1 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1; /* 100% */
+}
+
+.faq__list-1 {
+    gap: 20px;
+}
+
+.faq__item-1 {
+    padding: 11px 0 11px 0;
+    margin-top: 20px;
+    background-color: #191919;
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+}
+
+.faq__feature-1 {
+    border: 1px solid #A3A3A3;
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    justify-self: center;
+    
+}
+
+.faq__feature-1:hover,
+.faq__feature-1:hover svg,
+.faq__feature-1:hover path {
+    background-color: #17E3A6;
+    fill: #000;
+    stroke: #000;
+    border-color: #17E3A6;
+}
+
+.faq__plus-1 {
+
+}
+
+.faq__minus-1 {
+    display: none;
+}
+
+.faq__text-1 {
+    transition:  1s ease-in-out;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.faq__question-1 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2; /* 150% */
+}
+
+.faq__answer-1 {
+    margin-top: 5px;
+    display: none;
+    color: #8C8C8C;
+    /* font-family: Aeonik; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.765; /* 176.471% */
+    letter-spacing: 0.017rem;
+    
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+    
+    }
+    .faq-1 {
+        margin: 60px 0 150px;
+    }
+    
+    .faq__header-1 {
+        position: relative;
+    margin-bottom: 185px;
+    align-items: center;
+    }
+    
+    .faq__header-1::before {
+        content: '';
+        background-image: url('/static/images/vector/vector7.svg');
+        position: absolute;
+        width: 57px;
+        height: 56px;
+        left: 0;
+    }
+    
+    .faq__header-1::after {
+        content: '';
+        background-image: url('/static/images/vector/vector1.svg');
+        position: absolute;
+        width: 82px;
+        height: 84px;
+        left: 5%;
+        top: 130%;
+    }
+    
+    .faq__desc-1 {
+        width: 70%;
+        margin-top: 18px;
+    }
+    
+    .faq__main-1 {
+        margin: 60px 0;
+    }
+    
+    .faq__section-1 {
+        margin-bottom: 60px;
+    }
+    
+    .faq__title-1 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 3rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1; /* 100% */
+    }
+    
+    .faq__list-1 {
+        gap: 20px;
+    }
+    
+    .faq__item-1 {
+        padding: 26px 0;
+        margin-top: 20px;
+        background-color: #191919;
+        display: grid;
+        grid-template-columns: 1fr 10fr;
+    }
+    
+    .faq__feature-1 {
+    }
+    
+    .faq__feature-1:hover,
+    .faq__feature-1:hover svg,
+    .faq__feature-1:hover path {
+        background-color: #17E3A6;
+        fill: #000;
+        stroke: #000;
+        border-color: #17E3A6;
+    }
+    
+    .faq__plus-1 {
+    
+    }
+    
+    .faq__minus-1 {
+        display: none;
+    }
+    
+    .faq__text-1 {
+    
+    }
+    
+    .faq__question-1 {
+    }
+    
+    .faq__answer-1 {
+        margin-top: 20px;
+    }       
+}
+/* 
+.faq__answer-1 {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease-in-out, opacity 1s ease-in-out;
+} */
+
+.show {
+    display: block;
+    opacity: 1;
+    max-height: 1000px; /* Adjust the value as needed */
+}
+
+.show-minus {
+    display: block;
+}
+
+.show-plus {
+    display: none;
+}
