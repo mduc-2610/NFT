@@ -63,24 +63,43 @@ def collection5(request):
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
+def about_us1(request):
+    titles = FAQTitle.objects.all()
+    context = {
+        'titles': titles
+    }
+    return render(request, 'NFTapp/community/about_us/about_us1.html', {})
+
+def about_us2(request):
+    return render(request, 'NFTapp/community/about_us/about_us2.html', {})
+
+def about_us3(request):
+    return render(request, 'NFTapp/community/about_us/about_us3.html', {})
+
+def about_us4(request):
+    return render(request, 'NFTapp/community/about_us/about_us4.html', {})
+
+def about_us5(request):
+    return render(request, 'NFTapp/community/about_us/about_us5.html', {})
+
 def FAQs1(request):
     titles = FAQTitle.objects.all()
     context = {
         'titles': titles
     }
-    return render(request, 'NFTapp/FAQs/FAQs1.html', context)
+    return render(request, 'NFTapp/community/FAQs/FAQs1.html', context)
 
 def FAQs2(request):
-    return render(request, 'NFTapp/FAQs/FAQs2.html', {})
+    return render(request, 'NFTapp/community/FAQs/FAQs2.html', {})
 
 def FAQs3(request):
-    return render(request, 'NFTapp/FAQs/FAQs3.html', {})
+    return render(request, 'NFTapp/community/FAQs/FAQs3.html', {})
 
 def FAQs4(request):
-    return render(request, 'NFTapp/FAQs/FAQs4.html', {})
+    return render(request, 'NFTapp/community/FAQs/FAQs4.html', {})
 
 def FAQs5(request):
-    return render(request, 'NFTapp/FAQs/FAQs5.html', {})
+    return render(request, 'NFTapp/community/FAQs/FAQs5.html', {})
 
 average_wpm = 238
 blogs = NFTBlog.objects.all().order_by('image')
