@@ -63,6 +63,23 @@ def collection5(request):
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
+
+def artworks1(request):
+    return render(request, 'NFTapp/explore/artworks/artworks1.html', {})
+
+def artworks2(request):
+    return render(request, 'NFTapp/explore/artworks/artworks2.html', {})
+
+def artworks3(request):
+    return render(request, 'NFTapp/explore/artworks/artworks3.html', {})
+
+def artworks4(request):
+    return render(request, 'NFTapp/explore/artworks/artworks4.html', {})
+
+def artworks5(request):
+    return render(request, 'NFTapp/explore/artworks/artworks5.html', {})
+
+
 def about_us1(request):
     titles = FAQTitle.objects.all()
     context = {
