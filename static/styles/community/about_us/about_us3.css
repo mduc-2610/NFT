@@ -1,0 +1,34 @@
+.about__img-section-3 {
+    gap: 12px;
+}
+
+.about__img-3 {
+    width: 33%;
+    height: 80%;
+}
+
+.about__img-section-3 .about__img-1:nth-child(1) {
+    align-self: center;
+}
+
+.about__img-section-3 .about__img-1:nth-child(2) {
+    align-self: flex-start;
+}
+
+.about__img-section-3 .about__img-1:nth-child(3) {
+    align-self: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .about__header-3 {
+        align-items: flex-start;
+    }
+    
+    .about__section-3 {
+        grid-template-columns: 2fr 3fr;
+    }
+    
+    .about__img-3 {
+
+    }
+}

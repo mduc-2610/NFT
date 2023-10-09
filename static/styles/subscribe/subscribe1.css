@@ -84,6 +84,11 @@
     width: 100%;
 }
 
+.subscribe__submit-1:hover {
+    background-color:#17E3A6;
+    border-color: #17E3A6;
+}
+
 .subscribe__submit-1:hover svg {
     background-color:#17E3A6;
     cursor: pointer;
@@ -178,9 +183,6 @@
         width: 100%;
     }
 
-    .subscribe__submit-1:hover {
-        background-color:#17E3A6;
-    }
     
     .subscribe__submit-1:hover svg circle{
         fill:#17E3A6;

@@ -1,4 +1,38 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
+<div class="about-1">
+    <div class="container">
+        <div class="about__header-1 flex_fdc_aif">
+            <h1 class="about__heading-1">Where art meets Team</h1>
+            <p class="about__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
+        </div>
+        <div class="about__main-1">
+            <div class="about__section-1">
+                <div class="about__mission-1">
+                    <h2 class="mission__heading-1">We believe in the power of creators.</h2>
+                    <p class="mission__desc-1">Web3 is changing the world as we know it.
+
+                        We’re seeing the start of a decentralized digital space where art, videos, writing, and other forms of creativity can be bought and sold on the blockchain—and we want to help everyone launch their own NFTs.
+                        
+                        Most creators don't have access to a dev team or hours of studying code to turn digital art into tokens. That’s why we are committed to create the tools to make it easier, more accessible, and seamless for creators to enter this new space.
+                        
+                        Our mission is to empower the web3 creator economy, and we hope you'll join us!</p>
+                </div>
+                <img src="{% static 'images/explore/collection/nft_image5.svg' %}" alt="" class="about__img-1">
+            </div>
+            <div class="about__team-1">
+                <p class="team__introduce-1">Our team</p>
+                <ul class="team__list-1">
+                    {% for author in authors %}
+                    <li class="team__member-1">
+                        <img src="{{author.avatar}}" alt="" class="team__member-avatar-1">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% include 'NFTapp/subscribe/subscribe1.html' %}
 {% endblock content %}

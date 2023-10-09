@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<main class="faq-1">
+<div class="faq-1">
     <div class="container">
         <div class="faq__header-1 flex_fdc_aif">
             <h1 class="faq__heading-1">FAQs</h1>
@@ -34,8 +34,8 @@
             </div>
             {% endfor%}
         </div>
+        {% include 'NFTapp/subscribe/subscribe1.html' with img_src="" %}
     </div>
-</main>
-{% include 'NFTapp/subscribe/subscribe1.html' with img_src="" %}
+</div>
 <script src="{% static 'js/faq.js' %}"></script>
 {% endblock content %}

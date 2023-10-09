@@ -1,0 +1,195 @@
+.about-1 {
+    margin: 20px 0 60px;
+}
+
+.about__container-1 {
+    width: 1270px;
+    max-width: 100%;
+}
+
+.about__header-1 {
+    margin-bottom: 135px;
+    align-items: center;
+}
+
+.about__heading-1 {
+    color: #FFF;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.11; /* 111.111% */
+    letter-spacing: 0.036rem;
+}
+
+.about__desc-1 {
+    width: 70%;
+    margin-top: 12px;
+    color: #CFCFCF;
+    text-align: center;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.57; /* 157.143% */
+    letter-spacing: 0.014rem;
+}
+
+.container {
+    max-width: calc(100% - 24px);
+}
+
+.about__main-1 {
+
+}
+
+.about__section-1 {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+}
+
+.about__mission-1 {
+    
+}
+
+.mission__heading-1 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1; /* 100% */
+}
+
+.mission__desc-1 {
+    margin-top: 15px;
+    color: #CFCFCF;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.02rem;
+}
+
+.about__img-1 {
+    width: 100%;
+}
+
+.about__team-1 {
+    margin-top: 60px;
+}
+
+.team__introduce-1 {
+    margin-bottom: 15px;
+    color: #FFF;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.12; /* 112% */
+}
+
+.team__list-1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.team__member-1 {
+
+}
+
+.team__member-avatar-1 {
+
+}
+
+@media only screen and (min-width: 768px) {
+    .about-1 {
+        margin: 20px 0 60px;
+    }
+    
+    .about__container-1 {
+    }
+    
+    .about__header-1 {
+        margin-bottom: 150px;
+        align-items: center;
+    }
+    
+    .about__heading-1 {
+        color: #FFF;
+        text-align: center;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.12; /* 112% */
+    }
+    
+    .about__desc-1 {
+        color: #CFCFCF;
+        text-align: center;
+        width: 50%;
+        /* font-family: Aeonik; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+
+    .about__main-1 {
+    
+    }
+    
+    .about__section-1 {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 140px;
+    }
+    
+    .about__mission-1 {
+        align-self: center;
+    }
+    
+    .mission__heading-1 {
+        text-align: unset;
+    }
+    
+    .mission__desc-1 {
+        margin-top: 24px;
+    }
+    
+    .about__img-1 {
+        display: block;
+        width: 100%;
+    }
+    
+    .about__team-1 {
+        margin-top: 60px;
+    }
+    
+    .team__introduce-1 {
+        margin-bottom: 60px;
+    }
+    
+    .team__list-1 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 30px;
+    }
+    
+    .team__member-1 {
+    
+    }
+    
+    .team__member-avatar-1 {
+    
+    }
+    
+    
+}

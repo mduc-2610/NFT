@@ -58,6 +58,9 @@ svg:hover {
     stroke: #17E3A6;
 } */
 
+main {
+    margin: 60px 0 150px;
+}
 
 .flex_aic_jcc {
     display: flex;

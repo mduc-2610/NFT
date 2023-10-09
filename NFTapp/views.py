@@ -65,7 +65,15 @@ def collection5(request):
 
 
 def artworks1(request):
-    return render(request, 'NFTapp/explore/artworks/artworks1.html', {})
+    users = User.objects.all()
+    authors = []
+    for user in users:
+        if user.author.all().count():
+            authors.append(user)
+    context = {
+        'authors': authors
+    }
+    return render(request, 'NFTapp/explore/artworks/artworks1.html', context)
 
 def artworks2(request):
     return render(request, 'NFTapp/explore/artworks/artworks2.html', {})
@@ -100,7 +108,11 @@ def about_us5(request):
     return render(request, 'NFTapp/community/about_us/about_us5.html', {})
 
 def artists(request):
-    return render(request, 'NFTapp/community/artists.html', {})
+    users = User.objects.all()
+    context = {
+        'users': users
+    } 
+    return render(request, 'NFTapp/community/artists.html', context) 
 
 def editorial(request):
     return render(request, 'NFTapp/community/editorial.html', {})

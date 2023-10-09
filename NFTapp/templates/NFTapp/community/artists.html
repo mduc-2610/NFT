@@ -1,4 +1,40 @@
 {% extends 'main.html' %}
 {% block content %}
-{% include 'NFTapp/subscribe/subscribe2.html' %}
+<div class="artist">
+    <div class="container container-table">
+        <h1 class="artist__heading">Trending creators</h1>
+        <table class="artist__rank">
+            <thead >
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Unique Collectors</th>
+                    <th>NFTs Sold</th>
+                    <th>Primary Sales</th>
+                    <th>Secondary Sales</th>
+                    <th>Total Sales</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                {% if forloop.counter <= 15%} 
+                <tr>
+                  <td>#{{forloop.counter}}</td>
+                  <td>
+                    <!-- <img src="{{user.avatar}}" alt=""class="artist-avt">  -->
+                    {{user.name}}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+          </table>
+          <button href="" class="more__artists">More Creators</button>
+    </div>
+</div>
+{% include 'NFTapp/subscribe/subscribe1.html' %}
 {% endblock content %}

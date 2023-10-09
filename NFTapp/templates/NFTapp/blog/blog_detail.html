@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% block content %}
-<main class="blog-detail">
+<div class="blog-detail">
     <div class="container">
         <div class="blog-header">
             <img src="{{blog_detail.0.image}}" alt="" class="blog-header__img">
@@ -214,5 +214,5 @@
             <a href="{% url 'blog' %}" class="view-all-blogs">View All Blogs</a>
         </div>
     </div>
-</main>
+  </div>
 {% endblock content %}
