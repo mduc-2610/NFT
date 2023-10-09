@@ -99,6 +99,12 @@ def about_us4(request):
 def about_us5(request):
     return render(request, 'NFTapp/community/about_us/about_us5.html', {})
 
+def artists(request):
+    return render(request, 'NFTapp/community/artists.html', {})
+
+def editorial(request):
+    return render(request, 'NFTapp/community/editorial.html', {})
+
 def FAQs1(request):
     titles = FAQTitle.objects.all()
     context = {
