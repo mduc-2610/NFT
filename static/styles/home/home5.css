@@ -23,7 +23,9 @@
     }
     
     .hero__about-5 {
-    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     .hero__heading-5 {
