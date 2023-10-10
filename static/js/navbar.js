@@ -51,5 +51,11 @@ headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
     const connectButton = document.querySelector(".header-login__button");
     connectButton.addEventListener('click', () => {
       console.log("abc");
-      document.querySelector(".connect").style.display = 'block';
+      document.querySelector(".connect").style.display = 'flex';
+    })
+
+    const connect = document.querySelector(".connect");
+    connect.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.querySelector(".connect").style.display = 'none';
     })
