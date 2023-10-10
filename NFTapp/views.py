@@ -115,7 +115,13 @@ def artists(request):
     return render(request, 'NFTapp/community/artists.html', context) 
 
 def editorial(request):
-    return render(request, 'NFTapp/community/editorial.html', {})
+    users = User.objects.all()
+    products = NFTProduct.objects.all()
+    context = {
+        'users': users,
+        "products": products
+    } 
+    return render(request, 'NFTapp/community/editorial.html', context)
 
 def FAQs1(request):
     titles = FAQTitle.objects.all()

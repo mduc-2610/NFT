@@ -1,5 +1,11 @@
+console.log("asfsdfsdffsdfsdf")
+const connectButton = document.querySelector(".header-login__button");
+connectButton.addEventListener('click', () => {
+  console.log("abc");
+  document.querySelector(".connect").style.display = 'block';
+})
 // Get references to the elements
-console.log("hello world");
+console.log("hello worlsdffsdfdsfd");
 const menuIcon = document.querySelector('.header__menu-icon');
 const logoWrap = document.querySelector('.header__logo--wrap');
 const navbar = document.querySelector('.header__navbar');

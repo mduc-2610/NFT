@@ -8,7 +8,6 @@
                     Updates From Foundation's Community.</p>
                 <form class="subscribe__block-1 flex_aic_jcc" method="POST" action="https://www.facebook.com/profile.php?id=100028365798333">
                     <input type="text" class="subscribe__input-1" placeholder="Enter your email">
-                    <!-- <a href=""></a> -->
                     <button type="submit" class="subscribe__submit-1 flex_aic_jcc">
                         <svg xmlns="http://www.w3.org/2000/svg" width="64px" height="64px" viewBox="0 0 64 64" fill="none">
                             <circle cx="32" cy="32" r="32" fill="#000"/>
@@ -18,7 +17,7 @@
                     </button>
                 </form>
             </div>
-            <img src="{% static 'images/explore/collection/nft_image1.svg' %}" alt="" class="subscribe__img-1">
+            <img src="{{ img_src|default:'/static/images/explore/collection/nft_image10.svg' }}" alt="" class="subscribe__img-1">
         </div>
     </div>
 </div>

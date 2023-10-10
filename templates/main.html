@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'styles/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
     <link rel="stylesheet" href="{% static 'styles/partner.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/connect.css' %}">
     <link rel="stylesheet" href="{% static 'styles/subscribe/subscribe1.css' %}">
     <link rel="stylesheet" href="{% static 'styles/subscribe/subscribe2.css' %}">
     <link rel="stylesheet" href="{% static 'styles/subscribe/subscribe3.css' %}">
@@ -42,7 +43,7 @@
     <link rel="stylesheet" href="{% static 'styles/community/about_us/about_us4.css' %}">
     <link rel="stylesheet" href="{% static 'styles/community/about_us/about_us5.css' %}">
     <link rel="stylesheet" href="{% static 'styles/community/artists.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/community/editorial.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/community/editorial_style.css' %}">
   
     <link rel="stylesheet" href="{% static 'styles/community/FAQs/FAQs1.css' %}">
     <link rel="stylesheet" href="{% static 'styles/community/FAQs/FAQs2.css' %}">
@@ -69,11 +70,14 @@
 <body>
 
   {% include 'navbar.html' %}
+  {% include 'NFTapp/connect.html' %}
   <main>
     {%block content%}
 
     {% endblock content %}
   </main>
   {% include 'footer.html' %}
+<script src="{% static 'js/faq.js' %}"></script>
+<script src="{% static 'js/navbar.js' %}"></script>
 </body>
 </html>
