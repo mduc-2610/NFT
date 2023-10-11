@@ -5,8 +5,11 @@ from datetime import datetime
 from faker import Faker
 from PIL import Image
 from django.core.management.base import BaseCommand
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection, FAQ, FAQTitle
 from NFT.settings import MEDIA_ROOT
+from NFTapp.models import User, NFTProduct, Topic,\
+                             OwnerNFTProduct, Type, NFTBlog, \
+                                BlogSection, BlogComment, ProductComment,\
+                                FAQ, FAQTitle 
 fake = Faker()
 
 def run():
@@ -16,7 +19,6 @@ def run():
     OwnerNFTProduct.objects.all().delete()
     Type.objects.all().delete()
     NFTBlog.objects.all().delete()
-    Comment.objects.all().delete()
     BlogSection.objects.all().delete()
     FAQ.objects.all().delete()
     FAQTitle.objects.all().delete()
@@ -94,7 +96,6 @@ def run():
         "CryptoChronicles", "VirtualVagabonds", "BitBliss", "NFTNirvana", "ArtisticAlgorithms", "CryptoCuriosities", 
         "EtherEssence", "BitstreamBoulevard", "NFTNocturnes"
     ]
-    nft_prices = [round(random.uniform(0, 10), 2) for _ in range(30)]
     nft_quantity = [random.randint(0, 20) for _ in range(30)]
     nft_image_files = {}
     explore_dir = os.path.join(MEDIA_ROOT, "explore")
@@ -119,19 +120,19 @@ def run():
         for image in v:  
             data = {
                 "name": random.choice(nft_names),
-                "price": random.choice(nft_prices),
+                "price": round(random.uniform(0, 3), 8),
+                "rarity": round(random.uniform(0, 2), 8),
                 "author": random.choice(user_obj_list),
                 "image": image,
                 "topic": random.choice(topic_obj_list),
                 "quantity": random.choice(nft_quantity),
                 "description": fake.text(max_nb_chars=300),
-                "stars": random.randint(0, 5),
                 "artwork": cnt
             }
             # nft_product_obj, _ = NFTProduct.objects.get_or_create(**data)
             nft_product_obj = NFTProduct.objects.create(**data)
             nft_product_obj_list.append(nft_product_obj)
-            print(f"\tSuccesfully created product with info {nft_product_obj.name} {nft_product_obj.price} {nft_product_obj.image} {nft_product_obj.quantity} {nft_product_obj.description} {nft_product_obj.stars} {nft_product_obj.artwork}")
+            print(f"\tSuccesfully created product with info {nft_product_obj.name} {nft_product_obj.price} {nft_product_obj.image} {nft_product_obj.quantity} {nft_product_obj.description} {nft_product_obj.rarity} {nft_product_obj.artwork}")
             cnt += 1
 
     # Load owner of a nft product
@@ -267,3 +268,4 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
 
 
         
+# dc8a40dc-6be0-411d-8ca9-9c98491650f8

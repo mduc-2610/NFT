@@ -1,7 +1,10 @@
 from math import ceil
 import random
 from django.shortcuts import render, HttpResponse
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, BlogSection, NFTBlog, Comment, FAQ, FAQTitle
+from NFTapp.models import User, NFTProduct, Topic,\
+                             OwnerNFTProduct, Type, NFTBlog, \
+                                BlogSection, BlogComment, ProductComment,\
+                                FAQ, FAQTitle 
 
 def cal_times_to_read(blogs):
     blogs_context = {}

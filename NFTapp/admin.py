@@ -1,12 +1,11 @@
 from django.contrib import admin
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection
-# Register your models here.
+from NFTapp.models import User, NFTProduct, Topic,\
+                             OwnerNFTProduct, Type, NFTBlog, \
+                                BlogSection, BlogComment, ProductComment,\
+                                FAQ, FAQTitle 
 
-admin.site.register(User)
-admin.site.register(Topic)
-admin.site.register(NFTProduct)
-admin.site.register(OwnerNFTProduct)
-admin.site.register(Type)
-admin.site.register(NFTBlog)
-admin.site.register(Comment)
-admin.site.register(BlogSection)
+models_to_register = [User, Topic, NFTProduct, OwnerNFTProduct, Type,
+                      NFTBlog, BlogSection, FAQ, FAQTitle]
+
+for model in models_to_register:
+    admin.site.register(model)

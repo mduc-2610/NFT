@@ -54,10 +54,10 @@ svg:hover {
     cursor: pointer;
 }
 
-/* svg:hover path { 
+svg:hover path { 
     cursor: pointer;
     stroke: #17E3A6;
-} */
+}
 
 main {
     margin: 60px 0 150px;

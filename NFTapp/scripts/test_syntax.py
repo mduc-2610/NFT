@@ -32,12 +32,15 @@ def run():
 #     print(context['blog'])
 
 
-    users = User.objects.all()
-    authors = []
-    for user in users:
-        res = user.author.all().count()
-        print(user, res)
-        if res:
-            authors.append(user)
+    # users = User.objects.all()
+    # authors = []
+    # for user in users:
+    #     res = user.author.all().count()
+    #     print(user, res)
+    #     if res:
+    #         authors.append(user)
 
-    print(authors)
+    # print(authors)
+
+    # print(round(random.uniform(0, 3), 8))
+    print(NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image12.svg").id)
