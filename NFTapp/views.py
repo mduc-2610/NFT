@@ -35,6 +35,14 @@ def collection1(request):
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
+def collection_detail_1(request, pk):
+    product = NFTProduct.objects.get(pk=pk)
+    context = {
+        "product": product
+    }
+    return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
+    # return HttpResponse("Hello World")
+
 def collection2(request):
     products = NFTProduct.objects.all()
     context = {

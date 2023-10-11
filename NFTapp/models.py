@@ -3,14 +3,20 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+import random
 
 # Create your models here.
-
+default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400',
+                  '/static/images/generic/Acer_Wallpaper_02_3840x2400',
+                  '/static/images/generic/Acer_Wallpaper_03_3840x2400',
+                  '/static/images/generic/Acer_Wallpaper_04_3840x2400',
+                  '/static/images/generic/Acer_Wallpaper_05_3840x2400']
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, null=True)
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/default_avatar.svg")
+    cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos)) 
     bio = models.CharField(max_length=300)
     # creator = models.BooleanField(default=False)
     
