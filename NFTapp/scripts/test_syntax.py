@@ -45,3 +45,5 @@ def run():
     # print(round(random.uniform(0, 3), 8))
     print("Product", NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image11.svg").id)
     print("User", User.objects.all()[5].id)
+    # product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image11.svg")
+    # [print(owner.avatar) for owner in  product.owners.all()]
