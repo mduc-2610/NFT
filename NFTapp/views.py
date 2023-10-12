@@ -1,6 +1,6 @@
 from math import ceil
 import random
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from NFTapp.models import User, NFTProduct, Topic,\
                              OwnerNFTProduct, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -40,11 +40,22 @@ def collection1(request):
 
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
+    comments = product.product_comments.all().order_by('-added_at')
+    user = User.objects.all();
+    if request.method == 'POST':
+        data = {
+            "content": request.POST.get('content'),
+            "vote": 0,
+            "user": random.choice(user),
+            "product": product,
+        }
+        product_comment = ProductComment.objects.create(**data)
+        # return redirect('collection1', pk=product.id)
     context = {
-        "product": product
+        "product": product,
+        "comments": comments
     }
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
-    # return HttpResponse("Hello World")
 
 def collection2(request):
     products = NFTProduct.objects.all()
@@ -164,14 +175,33 @@ def blog(request):
     return render(request, 'NFTapp/blog/blog.html', context)
 
 def blog_detail(request, pk):
+
     blog_detail = NFTBlog.objects.get(pk=pk)
     times_to_read = round(sum([len(str(section.content).split()) for section in blog_detail.blog_section.all()]) / average_wpm)
     random_blogs = list(blogs).copy()
     random_blogs.remove(blog_detail)
     blog_more_context = cal_times_to_read([random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)])
+    
+    comments = blog_detail.blog_comments.all().order_by('-added_at')
+    user = User.objects.all()
+    if request.method == 'POST':
+        data = {
+            "vote": 0,
+            "content": request.POST.get('content'),
+            "user": random.choice(user), 
+            "blog": blog_detail,
+        }
+        blog_comment = BlogComment.objects.create(**data)
     context = {
         'blog_detail': [blog_detail, times_to_read],
-        'blog_more': blog_more_context
+        'blog_more': blog_more_context,
+        'comments': comments,
     }
     return render(request, 'NFTapp/blog/blog_detail.html', context)
 
+def profile(request, pk):
+    user = User.objects.get(pk=pk)
+    context = {
+        "user": user
+    }
+    return render(request, 'NFTapp/profile.html', context)

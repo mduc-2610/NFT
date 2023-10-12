@@ -13,7 +13,7 @@ urlpatterns = [
     path('collection4/', views.collection4, name='collection4'),
     path('collection5/', views.collection5, name='collection5'),
     
-    path('collection1/<uuid:pk>/', views.collection_detail_1, name='collection_detail_1'),
+    path('collection1/<uuid:pk>/', views.collection_detail_1, name='collection1'),
 
     path('artworks1/', views.artworks1, name='artworks1'),
     path('artworks2/', views.artworks2, name='artworks2'),
@@ -38,4 +38,6 @@ urlpatterns = [
     
     path('blog/', views.blog, name='blog'),
     path('blog/<uuid:pk>/', views.blog_detail, name='blog'),
+
+    path('profile/<uuid:pk>/', views.profile, name='profile'),
 ]

@@ -1,0 +1,25 @@
+<div class="comment">
+    <div class="container">
+        <div class="comment__inner scroll">
+            <form method="POST" class="comment__write flex_aic_jcc">
+                {% csrf_token %}
+                <input type="text" placeholder="Write your comment here ..." name="content">
+            </form>
+            {% for comment in comments %}
+            <div class="comment__section">
+                <div class="comment__from">
+                    <a href="" class="comment__user">
+                        <img src="{{user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
+                    </a>
+                    <p class="comment__time">{{comment.added_at|timesince}} ago</p>
+                    <div class="comment__edit">
+                        <button class="comment__modify">Edit</button>
+                        <button class="comment__delete">Delete</button>
+                    </div>
+                </div>
+                <p class="comment__content scroll ">{{comment.content}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -43,4 +43,5 @@ def run():
     # print(authors)
 
     # print(round(random.uniform(0, 3), 8))
-    print(NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image12.svg").id)
+    print("Product", NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image11.svg").id)
+    print("User", User.objects.all()[0].id)

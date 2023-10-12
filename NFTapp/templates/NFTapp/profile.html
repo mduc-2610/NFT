@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="profile">
+    <div class="profile__picture">
+        <img src="{{user.cover_photo}}" alt="" class="profile__cover-photo">
+        <img src="{{user.avatar}}" alt="" class="profile__user-avt">
+    </div>
+    <div class="profile__info">
+        <div class="profile__name--wrap">
+            <h1 class="profile__name">@{{user.name}}</h1>
+            <div class="profile__social">
+
+            </div>
+        </div>
+        <p class="profile__joined-day">{{user.date_joined}}</p>
+        <p class="profile__bio">{{user.bio}}</p>
+        <button class="see__more">See more</button>
+        
+    </div>
+    <ul class="profile__activity">
+        <li class="profile__activity-item">
+            <a href="">Collected</a>
+        </li>
+        <li class="profile__activity-item">
+            <a href="">Created</a>
+        </li>
+        <li class="profile__activity-item">
+            <a href="">Favorited</a>
+        </li>
+    </ul>
+    {% include 'NFTapp/explore/classify1.html' %}
+</div>
+{% endblock content %}

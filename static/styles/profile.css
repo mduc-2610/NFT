@@ -1,0 +1,60 @@
+.profile {
+
+}
+
+.profile__picture {
+    position: relative;
+}
+
+.profile__cover-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 50vh;
+    object-fit: cover;
+}
+
+.profile__user-avt {
+
+}
+
+.profile__info {
+
+}
+
+.profile__name--wrap {
+
+}
+
+.profile__name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 3rem;
+    letter-spacing: 0px;
+}
+
+.profile__social {
+
+}
+
+.profile__joined-day {
+
+}
+
+.profile__bio {
+
+}
+
+.profile__activity {
+
+}
+
+.profile__activity-item {
+
+}

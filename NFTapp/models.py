@@ -6,11 +6,11 @@ from django.utils import timezone
 import random
 
 # Create your models here.
-default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400',
-                  '/static/images/generic/Acer_Wallpaper_02_3840x2400',
-                  '/static/images/generic/Acer_Wallpaper_03_3840x2400',
-                  '/static/images/generic/Acer_Wallpaper_04_3840x2400',
-                  '/static/images/generic/Acer_Wallpaper_05_3840x2400']
+default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400.jpg',
+                  '/static/images/generic/Acer_Wallpaper_02_3840x2400.jpg',
+                  '/static/images/generic/Acer_Wallpaper_03_3840x2400.jpg',
+                  '/static/images/generic/Acer_Wallpaper_04_3840x2400.jpg',
+                  '/static/images/generic/Acer_Wallpaper_05_3840x2400.jpg']
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, null=True)
