@@ -139,10 +139,12 @@ def run():
     print("----------------------------------------------------------------")
     print("OWNERS:")
     for user in user_obj_list:
-        for i in range(random.randint(3, 5)):
+        tmp_list = nft_product_obj_list.copy()
+        for i in range(random.randint(3, 10)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list)))
             data = {
                 "owner": user,
-                "product": random.choice(nft_product_obj_list)
+                "product": random_data
             }
             # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
             owner_nft_product = OwnerNFTProduct.objects.create(**data)

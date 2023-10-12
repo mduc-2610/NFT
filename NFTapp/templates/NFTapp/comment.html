@@ -8,7 +8,7 @@
             {% for comment in comments %}
             <div class="comment__section">
                 <div class="comment__from">
-                    <a href="" class="comment__user">
+                    <a href="{% url 'profile' comment.user.id %}" class="comment__user">
                         <img src="{{user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
                     </a>
                     <p class="comment__time">{{comment.added_at|timesince}} ago</p>

@@ -1,9 +1,11 @@
-.profile {
 
+.profile {
+    margin-top: -60px;
 }
 
 .profile__picture {
     position: relative;
+    height: 300px;
 }
 
 .profile__cover-photo {
@@ -15,17 +17,33 @@
     border: none;
     margin: auto;
     display: block;
-    width: 0px;
-    height: 50vh;
+    width: 100%;
+    height: 100%;
+    /* height: 50vh; */
     object-fit: cover;
 }
 
 .profile__user-avt {
+    position: absolute;
+    top: -33%;
+    left: 2%;
+    height: 40%;
+    border-radius: 50%;
+    display: block;
+    background-color: #FFF;
+    padding: 14px;
+}
 
+.profile .container {
+    padding: 24px;
+    box-shadow: 0px 0px 5px 2px rgba(256,256,256,0.41);
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(256,256,256,0.41);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(256,256,256,0.41);
+    position: relative;
 }
 
 .profile__info {
-
+    margin-top: 30px;
 }
 
 .profile__name--wrap {
@@ -44,17 +62,88 @@
 }
 
 .profile__joined-day {
-
+    margin: 15px 0;
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.6rem;
 }
 
 .profile__bio {
-
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.2;
 }
 
 .profile__activity {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 25px;
+}
+
+.profile__activity-item  {
 
 }
 
-.profile__activity-item {
+.profile__activity-item  a {
+    padding: 15px 30px;
+    display: inline-block;
+    color: #FDFDFD;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    border-radius: 12px;
+    background-color: #212127;
+}
 
+.profile__activity-item  a:hover {
+    background-color: #17E3A6;
+    color: #000;
+}
+
+.profile__filter {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile__search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #181819;
+    width: 50%;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.profile__search-bar .fa.fa-search {
+    display: inline-block;
+    padding: 0 20px 0 6px;
+}
+
+.profile__search-bar input{
+    padding: 0;
+    resize: none;
+    color: #9D9D9D;
+    font-weight: 300;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    height: 30px;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 500;
+    
+}
+
+.profile__search-bar input::placeholder {
+    color: #9D9D9D;
+}
+
+.profile__filter .classify-1 {
+    margin: 0;
 }
