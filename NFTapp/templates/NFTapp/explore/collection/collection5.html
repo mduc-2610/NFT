@@ -20,42 +20,62 @@
         <ul class="nft-products-1 flex_fdc_aif">
         {% for product in products %}
             <li class="nft-product-1 flex_fdc_aif" style="background-image: url({{product.image}})">
-                <h3 class="product-topic-1">{{product.topic}}</h3>
-                <div class="creator-1 flex_aic_jcc">
-                    <a href="{% url 'profile' product.author.id %}" class="avatar-link-1">
-                        <img src="{{product.author.avatar}}" alt="" class="author-avatar-1" style="width: 20px; height: 20px;">
-                    </a>
-                    <a href="{% url 'profile' product.author.id %}" class="creator-name-1">@{{product.author.name}}</a>
-                </div>
-                <div class="product-info-1 flex_aic_jcc" >
-                    <div class="artwork-1 flex_fdc_aif">
-                        <p class="artwork-key-1">Artwork:</p>
-                        <p class="artwork-value-1">{{product.artwork}}</p>
+                <a href="{% url 'collection1' product.id %}" style="display: block;">
+
+                    <h3 class="product-topic-1">{{product.topic}}</h3>
+                    <div class="creator-1 flex_aic_jcc">
+                        <a href="{% url 'profile' product.author.id %}" class="avatar-link-1">
+                            <img src="{{product.author.avatar}}" alt="" class="author-avatar-1" style="width: 20px; height: 20px;">
+                        </a>
+                        <a href="{% url 'profile' product.author.id %}" class="creator-name-1">@{{product.author.name}}</a>
                     </div>
-                    <div class="sale-1 flex_fdc_aif">
-                        <p class="sale-key-1">Total sale</p>
-                        <p class="sale-value-1">{{product.price}} ETH</p>
+                    <div class="product-info-1 flex_aic_jcc" >
+                        <div class="artwork-1 flex_fdc_aif">
+                            <p class="artwork-key-1">Artwork:</p>
+                            <p class="artwork-value-1">{{product.artwork}}</p>
+                        </div>
+                        <div class="sale-1 flex_fdc_aif">
+                            <p class="sale-key-1">Total sale</p>
+                            <p class="sale-value-1">{{product.price}} ETH</p>
+                        </div>
+                        <div class="collected-1 flex_fdc_aif">
+                            <p class="collected-by">Collected by ({{product.owners.all|length}})</p>
+                            <ul class="collected-list flex_aic_jcc">
+                                {% if product.owners.all|length != 0%}
+                                {% for owner in product.owners.all %}
+                                    {% if product.owners.all|length > 5 %}
+                                        {% if forloop.counter <= 1 %}
+                                            <span style="margin-right: 9px; color:#fff">.....</span>
+                                            <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                                <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                                    <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                                </li>
+                                            
+                                            </a>
+                                        {% elif forloop.counter <= 5 %}
+                                            <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                                <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                                    <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                                </li>
+                                            
+                                            </a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                            <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                                <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                            </li>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                    <li class="collected__item-1" style="border: 0;">
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="collected-1 flex_fdc_aif">
-                        <p class="collected-by">Collected by ({{product.owners.all|length}})</p>
-                        <ul class="collected-list flex_aic_jcc">
-                            {% if product.owners.all|length != 0%}
-                            {% for owner in product.owners.all %}
-                            {% if forloop.counter <= 5 %}
-                            <a href="{% url 'profile' owner.id %}" class="collected__item-1">
-                                <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
-                                    <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
-                                </li>
-                            </a>
-                            {% endif %}
-                            {% endfor %}
-                            {% else %}
-                                <li class="collected__item-1" style="border: 0;">
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
+                </a>
             </li>    
         {% endfor %}
         </ul>                                                   

@@ -41,13 +41,30 @@
                         <ul class="collected-list flex_aic_jcc">
                             {% if product.owners.all|length != 0%}
                             {% for owner in product.owners.all %}
-                            {% if forloop.counter <= 5 %}
-                            <a href="{% url 'profile' owner.id %}" class="collected__item-1">
-                                <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
-                                    <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
-                                </li>
-                            </a>
-                            {% endif %}
+                                {% if product.owners.all|length > 5 %}
+                                    {% if forloop.counter <= 1 %}
+                                        <span style="margin-right: 9px; color:#fff">.....</span>
+                                        <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                            <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                                <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                            </li>
+                                        
+                                        </a>
+                                    {% elif forloop.counter <= 5 %}
+                                        <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                            <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                                <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                            </li>
+                                        
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'profile' owner.id %}" class="collected__item-1">
+                                        <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                            <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
+                                        </li>
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                             {% else %}
                                 <li class="collected__item-1" style="border: 0;">

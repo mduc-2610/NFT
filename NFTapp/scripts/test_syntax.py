@@ -43,7 +43,26 @@ def run():
     # print(authors)
 
     # print(round(random.uniform(0, 3), 8))
-    print("Product", NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image11.svg").id)
-    print("User", User.objects.all()[5].id)
-    # product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image11.svg")
-    # [print(owner.avatar) for owner in  product.owners.all()]
+    # print("Product", NFTProduct.objects.all().get(image="/static/images/explore/collection/nft_image11.svg").id)
+    # print("User", User.objects.all()[5].id)
+    # user = User.objects.all()[1]
+    # # product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image11.svg")
+    # print(user.name)
+    # [print(f"{product.id} {product.name} {product.topic.name}") for product in  user.nftproduct_set.all()]
+
+    # print(len(user.nftproduct_set.all()))
+    user = User.objects.get(pk="37083387-c510-4088-984b-f1ea7c7379a9")
+    context = {
+        "user": user,
+        # "url_method": request.GET.get('filter', 'collection')
+    }
+    # if request.GET.get('href') == "?collection":
+    product_collection = user.nftproduct_set.all()
+    context["products"] = product_collection
+# elif request.GET.get('href') == "?created":
+    product_created = user.author.all()
+    context["products1"] = product_created  
+# else:
+    product_favorited = user.likes.all()
+    context["products2"] = product_favorited
+    {print(k, v) for k, v in context.items()}

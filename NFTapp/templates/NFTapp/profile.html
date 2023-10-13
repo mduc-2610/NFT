@@ -6,8 +6,9 @@
         <img src="{{user.cover_photo}}" alt="" class="profile__cover-photo">
     </div>
     <div class="container">
-        <img src="{{user.avatar}}" alt="" class="profile__user-avt">
         <div class="profile__info">
+            <!-- <h1 style="color: #ffffff; font-size: 3.8rem;">{{url_method}}</h1> -->
+            <img src="{{user.avatar}}" alt="" class="profile__user-avt">
             <div class="profile__name--wrap">
                 <h1 class="profile__name">@{{user.name}}</h1>
                 <div class="profile__social">
@@ -21,13 +22,13 @@
         </div>
         <ul class="profile__activity">
             <li class="profile__activity-item">
-                <a href="">Collected</a>
+                <a href="?filter=collected">Collected</a>
             </li>
             <li class="profile__activity-item">
-                <a href="">Created</a>
+                <a href="?filter=created">Created</a>
             </li>
             <li class="profile__activity-item">
-                <a href="">Favorited</a>
+                <a href="?filter=favorited">Favorited</a>
             </li>
         </ul>
         <div class="profile__filter">
@@ -37,6 +38,35 @@
             </form>
             {% include 'NFTapp/explore/classify1.html' %}
         </div>
+        <div class="profile__collection">
+            {% if products|length == 0 %}
+                <div class="profile__annouce flex_aic_jcc">
+                    <p class="profile__annouce-text">No items to display</p>
+                </div>
+            {% else %}
+                <ul class="profile-product__list">
+                    {% for product in products %}
+                        <li class="profile-product__item">
+                            <a href="{% url 'collection1' product.id %}" class="profile-product__link">
+                                <img src="{{product.image}}" alt="" class="profile-product__img">
+                                <div class="profile-product__info">
+                                    <h2 class="profile-product__name limit-line">{{product.name}}</h2>
+                                    <p class="profile-product__topic limit-line">{{product.topic.name}}</p>
+                                </div>
+                                <form action="{% url 'profile' user.id %}" class="profile-product__buy-form">
+                                    <button type="submit" class="buy-button">Buy now</button>
+                                    <button type="submit" class="add-to-cart">
+                                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.<style>svg{fill:#ffffff}</style><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
     </div>
 </div>
 {% endblock content %}

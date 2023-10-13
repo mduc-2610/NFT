@@ -13,6 +13,14 @@ def cal_times_to_read(blogs):
         blogs_context[blog] = ceil(words_of_blog / average_wpm)
     return blogs_context
 
+rarity = {}
+def product_rarity():
+    products = NFTProduct.objects.all().order_by('rarity')
+    cnt = 1
+    for product in products:
+        rarity.update({product: cnt})
+        cnt += 1
+
 def home(request):
     context = {
         'hello': 'hellosss'
@@ -24,6 +32,18 @@ def home2(request):
         'hello': 'hellosss'
     }
     return render(request, 'NFTapp/home/home2.html', context)
+
+def home3(request):
+    context = {
+        'hello': 'hellosss'
+    }
+    return render(request, 'NFTapp/home/home3.html', context)
+
+def home4(request):
+    context = {
+        'hello': 'hellosss'
+    }
+    return render(request, 'NFTapp/home/home4.html', context)
 
 def home5(request):
     context = {
@@ -40,6 +60,7 @@ def collection1(request):
 
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
+    product_rarity()
     comments = product.product_comments.all().order_by('-added_at')
     user = User.objects.all();
     if request.method == 'POST':
@@ -47,13 +68,15 @@ def collection_detail_1(request, pk):
             "content": request.POST.get('content'),
             "vote": 0,
             "user": random.choice(user),
-            "product": product,
+            "product": product
         }
         product_comment = ProductComment.objects.create(**data)
         # return redirect('collection1', pk=product.id)
     context = {
         "product": product,
-        "comments": comments
+        "comments": comments,
+        "rarity": rarity[product],
+        "product_quantity": len(rarity),
     }
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
 
@@ -202,6 +225,17 @@ def blog_detail(request, pk):
 def profile(request, pk):
     user = User.objects.get(pk=pk)
     context = {
-        "user": user
+        "user": user,
     }
+    product_filter = request.GET.get('filter', 'collected')
+    if product_filter == "collected":
+        product_collection = user.nftproduct_set.all()
+        context["products"] = product_collection
+    elif product_filter == "created":
+        product_created = user.author.all()
+        context["products"] = product_created  
+    else:
+        product_favorited = user.likes.all()
+        context["products"] = product_favorited
     return render(request, 'NFTapp/profile.html', context)
+
