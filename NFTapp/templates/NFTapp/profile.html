@@ -66,35 +66,32 @@
                 </ul>
             {% endif %}
         </div>
-        
+        <a href="{% url 'profile' user.id %}" class="user-id" style="display: none;"></a>
     </div>
 </div>
 <script>
     const links = document.querySelectorAll('.profile__activity-item a');
+    var check = true;
+    if(window.location.href == document.querySelector(".user-id")) {
+        links[0].style.backgroundColor = '#17E3A6';
+        links[0].style.color = '#000';
+        check = false;
+    } 
 
-    // const addToCart = document.querySelector('.add-to-cart');
-    // addToCart.onclick = (e) => {
-    //     e.preventDefault();
-    // }
     let prevLink = localStorage.getItem('prevClickedLink');
-  
-    if (prevLink !== null) {
-      prevLink = document.querySelector(`.profile__activity-item a[href="${prevLink}"]`);
-      if (prevLink) {
-        prevLink.style.backgroundColor = '#17E3A6';
-        prevLink.style.color = '#000';
-      }
-    }
-  
-    links.forEach(link => {
-      link.addEventListener('click', function(event) {
-        if (prevLink !== null) {
-          prevLink.style.backgroundColor = '';
-          prevLink.style.color = '';
+    console.log("Truoc " + prevLink)
+    if (prevLink !== null && check) {
+        prevLink = document.querySelector(`.profile__activity-item a[href="${prevLink}"]`);
+        if (prevLink) {
+            prevLink.style.backgroundColor = '#17E3A6';
+            prevLink.style.color = '#000';
         }
+    }
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(event) {
         link.style.backgroundColor = '#17E3A6';
         link.style.color = '#000';
-        prevLink = link;
         localStorage.setItem('prevClickedLink', link.getAttribute('href'));
       });
     });

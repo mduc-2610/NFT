@@ -84,6 +84,11 @@
     gap: 25px;
 }
 
+.profile__activity-item:first-child a {
+    /* background-color:#17E3A6;
+    color: #000; */
+}
+
 .profile__activity-item  {
 
 }

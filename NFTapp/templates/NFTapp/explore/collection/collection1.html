@@ -9,10 +9,12 @@
             <li class="nft-product-1 flex_fdc_aif" style="background-image: url({{product.image}})">
                 <h3 class="product-topic-1">{{product.topic}}</h3>
                 <div class="creator-1 flex_aic_jcc">
-                    <a href="{% url 'profile' product.author.id %}" class="avatar-link-1">
+                    <!-- <a href="{% url 'profile' product.author.id %}" class="avatar-link-1">
+                    </a> -->
+                    <a href="{% url 'profile' product.author.id %}" class="creator-name-1">
                         <img src="{{product.author.avatar}}" alt="" class="author-avatar-1" style="width: 20px; height: 20px;">
+                        @{{product.author.name}}
                     </a>
-                    <a href="{% url 'profile' product.author.id %}" class="creator-name-1">@{{product.author.name}}</a>
                 </div>
                 <div class="product-info-1 flex_aic_jcc" >
                     <div class="artwork-1 flex_fdc_aif">
