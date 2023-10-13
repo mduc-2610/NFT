@@ -11,7 +11,7 @@
                 <p class="blog-header__times-to-read blog-item__times_to_read">User Stories-{{blog_detail.1}} minute read</p>
                 {% endif %}
                 <h1 class="blog-header__title">{{blog_detail.0.title}}</h1>
-                <p class="blog-header__author">By {{blog_detail.0.author.name}}</p>
+                <a href="{% url 'profile%' blog_detail.0.author.id}" class="blog-header__author">By {{blog_detail.0.author.name}}</a>
                 <div class="blog-header__social">
                     <p class="blog-header__social-follow">Follow us</p>
                     <ul class="blog-header__social-list footer-social flex_aic_jcc">
@@ -198,9 +198,11 @@
                 <li class="blog__item">
                     <img src="{{blog.image}}" alt="" class="blog-item__img">
                     <div class="blog-item__author flex_aic_jcc">
-                        <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
-                        <p class="blog-item__author-name limit-line">{{blog.author.name}}</p>
-                    </div>
+                      <a href="{% url 'profile' blog.author.id %}"class="blog-item__author-name flex_aic_jcc limit-line">
+                          <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
+                          {{blog.author.name}}
+                      </a>
+                  </div>
                     {% if times_to_read != 1 %}
                     <p class="blog-item__times_to_read">{{times_to_read}} minutes to read</p>
                     {% else %}

@@ -53,12 +53,12 @@
                                     <h2 class="profile-product__name limit-line">{{product.name}}</h2>
                                     <p class="profile-product__topic limit-line">{{product.topic.name}}</p>
                                 </div>
-                                <form action="{% url 'profile' user.id %}" class="profile-product__buy-form">
-                                    <button type="submit" class="buy-button">Buy now</button>
-                                    <button type="submit" class="add-to-cart">
+                                <form action="{% url 'collection1' product.id %}" class="profile-product__buy-form">
+                                    <button class="buy-button">Buy now</button>
+                                    <a href="?filter=add-to-cart" class="add-to-cart flex_aic_jcc">
                                         <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.<style>svg{fill:#ffffff}</style><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                         </svg>
-                                    </button>
+                                    </a>
                                 </form>
                             </a>
                         </li>
@@ -69,4 +69,36 @@
         
     </div>
 </div>
+<script>
+    const links = document.querySelectorAll('.profile__activity-item a');
+
+    // const addToCart = document.querySelector('.add-to-cart');
+    // addToCart.onclick = (e) => {
+    //     e.preventDefault();
+    // }
+    let prevLink = localStorage.getItem('prevClickedLink');
+  
+    if (prevLink !== null) {
+      prevLink = document.querySelector(`.profile__activity-item a[href="${prevLink}"]`);
+      if (prevLink) {
+        prevLink.style.backgroundColor = '#17E3A6';
+        prevLink.style.color = '#000';
+      }
+    }
+  
+    links.forEach(link => {
+      link.addEventListener('click', function(event) {
+        if (prevLink !== null) {
+          prevLink.style.backgroundColor = '';
+          prevLink.style.color = '';
+        }
+        link.style.backgroundColor = '#17E3A6';
+        link.style.color = '#000';
+        prevLink = link;
+        localStorage.setItem('prevClickedLink', link.getAttribute('href'));
+      });
+    });
+  </script>
+  
+    
 {% endblock content %}

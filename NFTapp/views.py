@@ -77,6 +77,7 @@ def collection_detail_1(request, pk):
         "comments": comments,
         "rarity": rarity[product],
         "product_quantity": len(rarity),
+        # 'check': request.GET.get('filter')
     }
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
 

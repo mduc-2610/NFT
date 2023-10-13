@@ -140,7 +140,7 @@ def run():
     print("OWNERS:")
     for user in user_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(3, 10)):
+        for i in range(random.randint(3, 20)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "owner": user,

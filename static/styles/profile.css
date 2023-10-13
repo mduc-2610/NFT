@@ -25,8 +25,8 @@
 
 .profile__user-avt {
     position: absolute;
-    top: -100%;
-    left: -1%;
+    top: -180px;
+    left: -2%;
     height: 150px;
     width: 150px;
     border-radius: 50%;
@@ -44,7 +44,7 @@
 }
 
 .profile__info {
-    margin-top: 30px;
+    margin-top: 20px;
     position: relative;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .profile__activity-item  a {
-    padding: 15px 30px;
+    padding: 15px;
     display: inline-block;
     color: #FDFDFD;
     font-size: 1.8rem;
@@ -117,7 +117,7 @@
     align-items: center;
     justify-content: flex-start;
     background-color: #181819;
-    width: 50%;
+    width: 42%;
     padding: 12px;
     border-radius: 12px;
 }
@@ -224,6 +224,7 @@
 }
 
 .profile-product__buy-form .buy-button {
+    display: inline-block;
     padding: 6px 12px;
     width: 100%;
     color: #FFF;
@@ -237,12 +238,6 @@
     border-radius: 0 0 0 10px;
 }
 
-.profile-product__buy-form .buy-button:hover,
-.profile-product__buy-form .add-to-cart:hover {
-    background-color: #17E3A6;
-    color: #000;
-}
-
 .profile-product__buy-form .add-to-cart {
     padding: 6px;
     border-left: 1px solid #17E3A6;    
@@ -250,14 +245,30 @@
     border-radius: 0 0 10px 0;
 }
 
+.profile-product__buy-form .add-to-cart svg {
+
+}
+
+.profile-product__buy-form .buy-button:hover,
+.profile-product__buy-form .add-to-cart:hover {
+    background-color: #17E3A6;
+    color: #000;
+}
+
 .profile-product__buy-form .add-to-cart:hover svg path {
     fill: #000;
 }
 
+@media only screen and (min-width: 520px) {
+    .profile__activity-item  a {
+        padding: 12px 24px;
+    }
+}
+
 @media only screen and (min-width: 768px) {
     .profile__user-avt {
-        top: -140%;
-        left: -1%;
+        /* top: -140%;
+        left: -1%; */
     }
 
     .profile-product__list {
@@ -269,8 +280,8 @@
 
 @media only screen and (min-width: 950px) {
     .profile__user-avt {
-        top: -123%;
-        left: -1%;
+        /* top: -123%;
+        left: -1%; */
     }
 
     .profile-product__list {
@@ -282,8 +293,8 @@
 
 @media only screen and (min-width: 1170px) {
     .profile__user-avt {
-        top: -145%;
-        left: -1%;
+        /* top: -125%;
+        left: -1%; */
     }
 
     .profile-product__list {

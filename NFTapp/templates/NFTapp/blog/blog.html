@@ -11,8 +11,10 @@
             <li class="blog__item">
                 <img src="{{blog.image}}" alt="" class="blog-item__img">
                 <div class="blog-item__author flex_aic_jcc">
-                    <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
-                    <p class="blog-item__author-name limit-line">{{blog.author.name}}</p>
+                    <a href="{% url 'profile' blog.author.id %}"class="blog-item__author-name flex_aic_jcc limit-line">
+                        <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
+                        {{blog.author.name}}
+                    </a>
                 </div>
                 {% if times_to_read != 1 %}
                 <p class="blog-item__times_to_read">{{times_to_read}} minutes to read</p>
