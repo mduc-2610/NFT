@@ -1,0 +1,51 @@
+{% load static %}
+<div class="profile-list-wrap-1">
+    <div class="container">
+        <ul class="profile-list-1">
+            {% for user in users %}
+            {% if forloop.counter <= 3 %}
+            <li class="profile-list__item-1">
+                <div class="profile-list__picture-1">
+                    <a href="{% url 'profile' user.id %}" class="profile-list__cover-photo-1">
+                        <img src="{{user.cover_photo}}" alt="" >
+                    </a>
+                </div>
+                <div class="profile-list__about-user-1">
+                    <div class="profile-list__user-1 flex_aic_jcc">
+                        <a href="{% url 'profile' user.id %}" class="profile-list__avt-1">
+                            <img src="{{user.avatar}}" alt="" >
+                        </a>
+                        <h3 class="profile-list__name-1">
+                            <a href="{% url 'profile' user.id %}">
+                                @{{user.name}}
+                            </a>
+                        </h3>
+                        <a href="" class="profile-list__follow-1 flex_aic_jcc">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="white"/>
+                                </svg>
+                            Follow
+                        </a>
+                    </div>
+                    <ul class="profile-list__contribute-all-1 flex_aic_jcc">
+                        <li class="profile-list__contribute-1">
+                            <p class="profile-list__contribute-value-1">{{user.author.all|length}}</p>
+                            <p class="profile-list__contribute-key-1">Created</p>
+                        </li>
+                        <li class="profile-list__contribute">
+                            <p class="profile-list__contribute-value-1">{{user.nftproduct_set.all|length}}</p>
+                            <p class="profile-list__contribute-key-1">Collected</p>
+                        </li>
+                        <li class="profile-list__contribute">
+                            <p class="profile-list__contribute-value-1">{{user.following_set.all|length}}</p>
+                            <p class="profile-list__contribute-key-1">Followers</p>
+                        </li>
+                    </ul>
+                    <p class="profile-list__bio-1 limit-line">{{user.bio}}</p>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>

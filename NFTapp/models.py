@@ -18,6 +18,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/default_avatar.svg")
     cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos)) 
     bio = models.CharField(max_length=300)
+    followers = models.ManyToManyField('self', related_name='following', symmetrical=False)
     # creator = models.BooleanField(default=False)
     
     # USERNAME_FIELD = 'email'
@@ -25,6 +26,10 @@ class User(AbstractUser):
     
     def __str__(self):
         return f"{self.name} {self.email}"
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following_set')
+    followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower_set')
 
 class NFTProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

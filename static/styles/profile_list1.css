@@ -1,0 +1,121 @@
+.profile-list-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 65px;
+}
+
+.profile-list__item-1 {
+
+}
+
+.profile-list__picture-1 {
+    height: 86px;
+    width: 100%;
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+}
+
+.profile-list__cover-photo-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.profile-list__avt-1 {
+    top: -151px;
+    left: -14px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(90deg, #20E2A7 15%, #77DCCE 19.55%, #6FC7F2 35.51%, #A0A1ED 30.87%, #FE5CD6 60.52%, #FF669F 8.95%);   
+    -webkit-text-fill-color: transparent;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-list__about-user-1 {
+    padding: 23px 26px 16px 26px;
+    border-radius: 0 0 20px 20px;
+    background: #212127;
+}
+
+.profile-list__user-1 {
+    position: relative;
+    justify-content: space-between;
+}
+
+.profile-list__name-1 a {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.765; /* 176.471% */
+}
+
+.profile-list__follow-1 {
+    gap: 5px;
+    padding: 10px 26px;
+    border-radius: 19px;
+    background: #0019FE;
+    color: #FFF;
+    /* font-family: Aeonik; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+}
+
+.profile-list__follow-1:hover {
+    opacity: 0.7;
+}
+
+.profile-list__contribute-all-1 {
+    justify-content: flex-start;
+    margin: 15px 0 31px;
+    gap: 10px;
+}
+
+.profile-list__contribute-1 {
+
+}
+
+.profile-list__contribute-value-1 {
+    color: #A4A4A4;
+    /* font-family: Aeonik; */
+    text-align: center;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.31; /* 130.769% */
+    text-transform: lowercase;
+}
+
+.profile-list__contribute-key-1 {
+    color: #A4A4A4;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42; /* 141.667% */
+}
+
+.profile-list__bio-1 {
+    color: #A4A4A4;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.214; /* 121.429% */
+    -webkit-line-clamp: 2;
+}
+
+@media only screen and (min-width: 768px) {
+    .profile-list-1 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+}

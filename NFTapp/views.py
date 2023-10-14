@@ -117,7 +117,8 @@ def artworks1(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'authors': authors
+        'authors': authors,
+        'users': users,
     }
     return render(request, 'NFTapp/explore/artworks/artworks1.html', context)
 
