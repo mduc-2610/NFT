@@ -79,7 +79,7 @@
     } 
 
     let prevLink = localStorage.getItem('prevClickedLink');
-    console.log("Truoc " + prevLink)
+    // console.log("Truoc " + prevLink)
     if (prevLink !== null && check) {
         prevLink = document.querySelector(`.profile__activity-item a[href="${prevLink}"]`);
         if (prevLink) {
@@ -90,8 +90,6 @@
     
     links.forEach(link => {
         link.addEventListener('click', function(event) {
-        link.style.backgroundColor = '#17E3A6';
-        link.style.color = '#000';
         localStorage.setItem('prevClickedLink', link.getAttribute('href'));
       });
     });
