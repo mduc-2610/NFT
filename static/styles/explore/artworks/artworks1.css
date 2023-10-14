@@ -1,0 +1,135 @@
+.artwork-1 {
+    margin-bottom: 60px;
+}
+
+.container-artwork-1 {
+    width: 930px;
+    margin: 0 auto;
+    max-width: calc(100% - 48px);
+}
+
+.artwork__inner-1 {
+    /* display: grid;
+    grid-template-columns; */
+}
+
+.artwork__img-wrap-1 {
+    display: grid;
+    grid-template-columns: 9.9fr 0.1fr;
+
+}
+
+.artwork__img-1 {
+    width: 100%;
+}
+
+.artwork__info-1 {
+    margin-top: 15px;
+}
+
+.artwork__heading-1 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25; /* 125% */
+}
+
+.artwork__author-1.web {
+    display: none;
+}
+
+.artwork__author-1.mobile {
+    margin: 62px 0 0 -27px;
+    height: 5%;
+    width: 200%;
+    transform: rotate(90deg);
+    /* transform-origin: center; */
+    color: #C7C7C7;
+    /* font-family: Aeonik; */
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.artworks-header-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.artworks-header__amount-1 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.54; /* 153.846% */
+}
+
+.artwork-1 .classify-1 {
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .artwork-1 {
+        margin-bottom: 52px;
+    }
+    
+    .artwork__inner-1 {
+        display: grid;
+        grid-template-columns: 6fr 4fr;
+        column-gap: 130px;
+    }
+    
+    .artwork__img-wrap-1 {
+        display: block;
+    
+    }
+    
+    .artwork__img-1 {
+        width: 100%;
+    }
+    
+    .artwork__info-1 {
+        margin-top: 0;
+        align-self: center;
+    }
+    
+    .artwork__heading-1 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.12; /* 112% */
+    }
+    
+    .artwork__author-1.web {
+        margin: 14px 0 43px;
+        display: block;
+        color: #C7C7C7;
+        /* font-family: Aeonik; */
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+    }
+    
+    .artwork__author-1.mobile {
+        display: none;
+    }
+    
+    .artworks-header__amount-1 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 4rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1; /* 100% */
+    }
+
+}

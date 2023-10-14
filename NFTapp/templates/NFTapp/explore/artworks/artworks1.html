@@ -1,8 +1,32 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
+
+<div class="artwork-1">
+    <div class="container-artwork-1">
+        <div class="artwork__inner-1">
+            <div class="artwork__img-wrap-1">
+                <img src="{{products.0.image}}" alt="" class="artwork__img-1">
+                <p class="artwork__author-1 mobile flex_aic_jcc">Created by <a href="{% url 'profile' products.0.author.id %}">>{{products.author.name}}</a></p>
+            </div>
+            
+            {% include 'NFTapp/explore/artworks/artworks_common.html' with url_product_artwork=url %}
+            
+        </div>
+    </div>
+    <div class="gap-between-section"></div>
+    <div class="container">
+        <div class="artworks-header-1">
+            <p class="artworks-header__amount-1">Artworks ({{products|length}})</p>
+            {% include 'NFTapp/explore/classify1.html' %}
+        </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct2.html' %}
+    </div>
+</div>
 {% include 'NFTapp/subscribe/subscribe1.html' %}
-<div class="gap-between-section"></div>
-<!-- {% include 'NFTapp/profile_list1.html' %} -->
-<div class="gap-between-section"></div>
-{% include 'NFTapp/profile_list2.html' %}
+
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list1.html' %} -->
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list2.html' %} -->
 {% endblock content %}

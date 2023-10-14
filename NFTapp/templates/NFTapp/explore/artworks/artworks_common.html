@@ -1,0 +1,24 @@
+{% load static %}
+{% load my_custom_tags %}
+<div class="artwork__info">
+    <h1 class="artwork__heading">CONCERT FOR TWO - ACT 1</h1>
+    <p class="artwork__author web">Created by <a href="{% url 'profile' products.0.author.id %}">>{{products.author.name}}</a></p>
+    <div class="artwork__buy-own">
+        <div class="artwork__buy">
+            <p class="artwork__price-text">Reserve Price</p>
+            <p class="artwork__price-eth">{{products.0.price}} ETH</p>
+            <p class="artwork__price-dollar">${% multiply products.0.price 1547.74 %}</p>
+        </div>
+        <div class="artwork__own">
+            <p class="artwork__own-text">Owned by</p>
+            <a href="" class="artwork__owner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23" fill="none">
+                    <circle opacity="0.1" cx="11" cy="11.5" r="11" fill="white"/>
+                    <path d="M12.0398 17.1574C14.9091 16.2517 16.4921 14.1558 15.8631 12.0367L15.8096 11.8567L13.7158 12.5176L13.7633 12.6776C14.1135 13.8571 13.4816 14.8 11.4653 15.4365C9.23583 16.1402 8.02199 15.4082 7.37473 13.5135L15.556 10.931C15.5252 10.6127 15.4615 10.3267 15.3547 9.96685C14.4586 6.94803 11.9185 5.89126 8.93292 6.83369C5.79223 7.82508 4.35439 10.553 5.27422 13.6517C6.25934 16.9704 8.87971 18.1549 12.0398 17.1574ZM9.39857 8.54526C11.4536 7.89658 12.7422 8.45189 13.2882 10.2912L13.3001 10.3312L7.03806 12.3078C6.62621 10.4918 7.266 9.21843 9.39857 8.54526Z" fill="white"/>
+                    </svg>
+                    {{users.0.name}}
+            </a>
+        </div>
+    </div>
+    <a href="{% url 'collection1' products.0.id %}" class="artwork__view-more">View Artwork</a>
+</div>

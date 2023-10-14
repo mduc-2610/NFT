@@ -1,4 +1,25 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
+
+<div class="artwork-1">
+    <div class="container-artwork-1">
+        <div class="artwork__inner-1 artwork__inner-2 reverse">
+            {% include 'NFTapp/explore/artworks/artworks_common.html' %}
+            <!-- From about us -->
+            <div class="artwork__img-wrap-2 about__img-section-3 flex_aic_jcc">
+                <img src="{% static 'images/vector/nft_piece_1.svg' %}" alt="" class="about__img-1 about__img-3">
+                <img src="{% static 'images/vector/nft_piece_2.svg' %}" alt="" class="about__img-1 about__img-3">
+                <img src="{% static 'images/vector/nft_piece_3.svg' %}" alt="" class="about__img-1 about__img-3">
+            </div>
+        </div>
+    </div>
+</div>
 {% include 'NFTapp/subscribe/subscribe1.html' %}
+
+{% include 'NFTapp/explore/nftproduct/nftproduct2.html' %}
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list1.html' %} -->
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list2.html' %} -->
 {% endblock content %}

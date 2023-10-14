@@ -1,0 +1,13 @@
+.artwork__inner-2 {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+@media only screen and (min-width: 768px) {
+    .artwork__inner-2 {
+        display: grid;
+        grid-template-columns: 4fr 6fr;
+        column-gap: 130px;
+    }
+
+}

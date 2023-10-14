@@ -1,0 +1,30 @@
+<ul class="nft-products-2 flex_fdc_aif">
+    {% for product in products %}
+        <li class="nft-product-2 flex_fdc_aif">
+            <div class="nft-product__author-2">
+                <a href="{% url 'profile' product.author.id %}" class="nft-product__author-name-2">
+                    <img src="{{product.author.avatar}}" alt="">
+                    @{{product.author.name}}
+                </a>
+            </div>
+            <img src="{{product.image}}" alt="" class="nft-product__img-2">
+            <div class="nft-product__info-2">
+                <h2 class="nft-product__name-2">{{product.name}}</h2>
+                <div class="nft-product__more-info-2 flex_aic_jcc">
+                    <div class="nft-product__owner-wrap-2">
+                        <p class="nft-product__owner-text-2">Owner</p>
+                        <a href="{% url 'profile' product.author.id %}" class="nft-product__owner-2">
+                            <img src="{{product.owners.all.0.avatar}}" alt="">
+                            @{{product.owners.all.0.name}}
+                        </a>
+                    </div>
+                    <div class="nft-product__price-wrap-2">
+                        <p class="nft-product__price-text-2">Reverse price</p>
+                        <p class="nft-product__price-2">{{product.price|floatformat:3}} ETH</p>
+                    </div>
+                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2">Place bid</a>
+                </div>
+            </div>
+        </li>    
+    {% endfor %}
+    </ul>      

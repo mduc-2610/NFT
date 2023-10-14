@@ -1,0 +1,7 @@
+@media only screen and (min-width: 768px) {
+    .artwork__inner-3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

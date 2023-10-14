@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load my_custom_tags %}
 <!-- {% load static %} -->
 {% block content %}
 <div class="product-detail">
@@ -30,7 +31,7 @@
                         Current price
                     </p>
                     <p class="product-detail__price">
-                        {{product.price}} ETH ${{convert_to_dollars}}
+                        {{product.price}} ETH <span>${% multiply product.price 1547.74 %}</span>
                     </p>
                     <form action="{% url 'collection1' product.id %}" class="product-detail__buy-form">
                         <button class="buy-button">Buy now</button>
@@ -72,7 +73,7 @@
                         Current price
                     </p>
                     <p class="product-detail__price">
-                        {{product.price}} ETH <span>${{convert_to_dollars}}</span>
+                        {{product.price}} ETH <span>${% multiply product.price 1547.74 %}</span>
                     </p>
                     <form action="{% url 'collection1' product.id %}" class="product-detail__buy-form">
                         <button class="buy-button">Buy now</button>

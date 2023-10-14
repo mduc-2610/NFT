@@ -6,6 +6,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle 
 
+
+
 def cal_times_to_read(blogs):
     blogs_context = {}
     for blog in blogs:
@@ -112,27 +114,73 @@ def collection5(request):
 
 def artworks1(request):
     users = User.objects.all()
+    products = NFTProduct.objects.all()
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
+        'products': products,
         'users': users,
     }
     return render(request, 'NFTapp/explore/artworks/artworks1.html', context)
 
 def artworks2(request):
-    return render(request, 'NFTapp/explore/artworks/artworks2.html', {})
+    users = User.objects.all()
+    products = NFTProduct.objects.all()
+    authors = []
+    for user in users:
+        if user.author.all().count():
+            authors.append(user)
+    context = {
+        'authors': authors,
+        'products': products,
+        'users': users,
+    }
+    return render(request, 'NFTapp/explore/artworks/artworks2.html', context)
 
 def artworks3(request):
-    return render(request, 'NFTapp/explore/artworks/artworks3.html', {})
+    users = User.objects.all()
+    products = NFTProduct.objects.all()
+    authors = []
+    for user in users:
+        if user.author.all().count():
+            authors.append(user)
+    context = {
+        'authors': authors,
+        'products': products,
+        'users': users,
+    }
+    return render(request, 'NFTapp/explore/artworks/artworks3.html', context)
 
 def artworks4(request):
-    return render(request, 'NFTapp/explore/artworks/artworks4.html', {})
+    users = User.objects.all()
+    products = NFTProduct.objects.all()
+    authors = []
+    for user in users:
+        if user.author.all().count():
+            authors.append(user)
+    context = {
+        'authors': authors,
+        'products': products,
+        'users': users,
+    }
+    return render(request, 'NFTapp/explore/artworks/artworks4.html', context)
 
 def artworks5(request):
-    return render(request, 'NFTapp/explore/artworks/artworks5.html', {})
+    users = User.objects.all()
+    products = NFTProduct.objects.all()
+    authors = []
+    for user in users:
+        if user.author.all().count():
+            authors.append(user)
+    context = {
+        'authors': authors,
+        'products': products,
+        'users': users,
+    }
+    return render(request, 'NFTapp/explore/artworks/artworks5.html', context)
 
 
 def about_us1(request):
