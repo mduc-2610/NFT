@@ -144,12 +144,12 @@
     word-break: break-word;
 }
 
-.product-detail-mobile .product-detail__price span {
+.product-detail__price-dollars {
     color: #C7C7C7;
     /* font-family: Aeonik; */
     font-size: 2rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1; /* 100% */
     letter-spacing: 0.05rem;
 }
@@ -360,12 +360,12 @@
         word-break: break-word;
     }
 
-    .product-detail-mobile .product-detail__price span {
+    .product-detail__price-dollars {
         color: #C7C7C7;
         /* font-family: Aeonik; */
         font-size: 2rem;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 500;
         line-height: 1; /* 100% */
         letter-spacing: 0.05rem;
     }

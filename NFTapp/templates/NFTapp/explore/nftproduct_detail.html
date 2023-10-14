@@ -31,7 +31,7 @@
                         Current price
                     </p>
                     <p class="product-detail__price">
-                        {{product.price}} ETH <span>${% multiply product.price 1547.74 %}</span>
+                        {{product.price}} ETH <span class="product-detail__price-dollars">${% multiply product.price 1547.74 %}</span class="product-detail__price-dollars">
                     </p>
                     <form action="{% url 'collection1' product.id %}" class="product-detail__buy-form">
                         <button class="buy-button">Buy now</button>
@@ -73,7 +73,7 @@
                         Current price
                     </p>
                     <p class="product-detail__price">
-                        {{product.price}} ETH <span>${% multiply product.price 1547.74 %}</span>
+                        {{product.price}} ETH <span class="product-detail__price-dollars">${% multiply product.price 1547.74 %}</span class="product-detail__price-dollars">
                     </p>
                     <form action="{% url 'collection1' product.id %}" class="product-detail__buy-form">
                         <button class="buy-button">Buy now</button>
