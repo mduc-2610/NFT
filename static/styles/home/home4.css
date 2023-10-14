@@ -1,0 +1,489 @@
+.home-4 {
+
+}
+
+.home__header-4 {
+    max-width: 100%;
+}
+
+.home__header--wrap-4 {
+
+}
+
+.home__header--wrap-4:first-child {
+    margin: 0 12px;
+}
+
+.home__heading-4 {
+    /* font-family: Clash Display; */
+    font-size: 3.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.11; /* 111.111% */
+    letter-spacing: 0.036rem;
+}
+
+.gradient-heading-4 {
+    color: transparent;
+    background: linear-gradient(90deg, #17E3A6 0%, #88DEBA 7.86%, #57DAF5 16.33%, #9FA2ED 29.94%, #FE5AE1 42.34%, #FF669F 58.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home__search-bar-4 {
+    margin-top: 24px;
+}
+
+.home__search-input-4 {
+
+}
+
+.home__search-submit-4 {
+
+}
+
+.home__header--wrap-4:nth-child(2) {
+    margin-top: 20px;
+}
+
+.home__header-img-4 {
+    /* position: absolute; */
+}
+
+.home__search-bar-4 {
+    width: 100%;
+    height: 62px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    border: 1px solid #A3A3A3;
+}
+
+.home__search-input-4 {
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border-width: 0;
+    display: block;
+    height: 100%;
+    padding: 0 0 0 40px;
+    color: #B6B6B6;
+    /* font-family: Aeonik; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    letter-spacing: 0.02rem;
+}
+
+.home__search-submit-4 {
+    margin: 8px;
+    width: 50px;
+    height: 45px;
+    border: 1px solid #B6B6B6;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.home__search-bar-4 svg  {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.home__search-bar-4 circle {
+}
+
+.subscribe__img-1 {
+    width: 100%;
+}
+
+.home__search-submit-4:hover {
+    background-color:#17E3A6;
+    border-color: #17E3A6;
+}
+
+.home__search-submit-4:hover svg {
+    background-color:#17E3A6;
+    cursor: pointer;
+}    
+
+.home__search-submit-4:hover svg circle{
+    fill:#17E3A6;
+}
+
+.home__search-submit-4:hover  path{
+    stroke: #000;
+}
+
+.home__main-4 {
+
+}
+
+.home__activity-4 {
+    
+}
+
+.home-activity__heading-4 {
+    color: #D9D9D9;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+}
+
+.home-activity__desc-4 {
+    color: #CFCFCF;
+    text-align: center;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.83; /* 183.333% */
+    letter-spacing: 0.012rem;
+}
+
+.home-activity__list-4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.home-activity__item-4 {
+    border: 2px solid rgba(227, 255, 113, 0.40);
+    background: #212127;
+    padding: 20px;
+}
+
+.home-activity__item-head-4 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.125; /* 112.5% */
+}
+
+.home-activity__item-body-4 {
+    margin-top: 20px;
+    color: #CFCFCF;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.66; /* 166.667% */
+    letter-spacing: 0.012rem;
+}
+
+.home-hot-4 {
+
+}
+
+.home-hot__text {
+    color: #D9D9D9;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+}
+
+.home-hot__view-all {
+    color: #FFF;
+    text-align: center;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.83; /* 183.333% */
+    letter-spacing: 0.012rem;
+}
+
+.home-hot__view-all:hover {
+    color:#17E3A6;
+}
+
+
+.home-join-us-4 {
+    margin-bottom: 30px;
+    color: #D9D9D9;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5; /* 150% */
+}
+
+
+.home__download-4 {
+    margin: 60px 0;
+    background-color: #272727;
+    padding: 20px 20px 0 20px;
+}
+
+.home-download__guide-4 {
+    
+}
+
+.home-download__text-4 {
+    width: 80%;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+}
+
+.home-download__app-4 {
+    margin-top: 20px;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.home-download__google-play-4 {
+
+}
+
+.home-download__app-store-4 {
+
+}
+
+.home-download__phone-4 {
+    margin-top: 40px;
+}
+
+.home-download__phone-1-4 {
+    width: 49%;
+
+}
+
+.home-download__phone-2-4 {
+    width: 50%;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .home-4 {
+
+    }
+    
+    .home__header-4 {
+        max-width: 100%;
+    }
+    
+    .home__header--wrap-4 {
+    
+    }
+    
+    .home__header--wrap-4:first-child {
+        margin: 0 12px;
+    }
+    
+    .home__heading-4 {
+        /* font-family: Clash Display; */
+        font-size: 3.6rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.11; /* 111.111% */
+        letter-spacing: 0.036rem;
+    }
+    
+    .gradient-heading-4 {
+        color: transparent;
+        background: linear-gradient(90deg, #17E3A6 0%, #88DEBA 7.86%, #57DAF5 16.33%, #9FA2ED 29.94%, #FE5AE1 42.34%, #FF669F 58.07%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .home__search-bar-4 {
+        margin-top: 24px;
+    }
+    
+    .home__search-input-4 {
+    
+    }
+    
+    .home__search-submit-4 {
+    
+    }
+    
+    .home__header--wrap-4:nth-child(2) {
+        margin-top: 20px;
+    }
+    
+    .home__header-img-4 {
+        /* position: absolute; */
+    }
+
+    .home__search-bar-4 {
+        height: 80px;
+    }
+    
+    .home__search-input-4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0 0 40px;
+    }
+    
+    .home__search-submit-4 {
+        margin: 8px;
+        width: 83px;
+        height: 66px;
+    }
+    
+    .home__search-bar-4 svg {
+        
+    }
+    
+    .home__search-bar-4 circle {
+        
+    }
+    
+    .subscribe__img-1 {
+        width: 100%;
+    }
+
+
+    .home__main-4 {
+
+    }
+    
+    .home__activity-4 {
+        
+    }
+    
+    .home-activity__heading-4 {
+        color: #D9D9D9;
+        text-align: center;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    }
+    
+    .home-activity__desc-4 {
+        color: #CFCFCF;
+        text-align: center;
+        /* font-family: Aeonik; */
+        font-size: 1.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.83; /* 183.333% */
+        letter-spacing: 0.012rem;
+    }
+    
+    .home-activity__list-4 {
+    
+    }
+    
+    .home-activity__item-4 {
+    
+    }
+    
+    .home-activity__item-head-4 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.125; /* 112.5% */
+    }
+    
+    .home-activity__item-body-4 {
+        color: #CFCFCF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 1.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.66; /* 166.667% */
+        letter-spacing: 0.012rem;
+    }
+
+    .home-hot-4 {
+
+    }
+    
+    .home-hot__text {
+        color: #D9D9D9;
+        text-align: center;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    }
+    
+    .home-hot__view-all {
+        color: #FFF;
+        text-align: center;
+        /* font-family: Aeonik; */
+        font-size: 1.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.83; /* 183.333% */
+        letter-spacing: 0.012rem;
+    }
+
+    .home__download-4 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 25px;
+        padding: 0;
+        padding-left: 40px;
+    }
+    
+    .home-download__guide-4 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .home-download__text-4 {
+        width: 100%;
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 3.6rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.28; /* 127.778% */
+        
+    }
+    
+    .home-download__app-4 {
+        margin-top: 20px;
+        justify-content: flex-start;
+    }
+    
+    .home-download__google-play-4 {
+    
+    }
+    
+    .home-download__app-store-4 {
+    
+    }
+    
+    .home-download__phone-4 {
+        margin-top: 40px;
+    }
+    
+    .home-download__phone-1-4 {
+        width: 49%;
+    
+    }
+    
+    .home-download__phone-2-4 {
+        width: 50%;
+    }
+    
+}

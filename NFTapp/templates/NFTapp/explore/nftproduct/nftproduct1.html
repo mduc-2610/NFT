@@ -1,5 +1,6 @@
 <ul class="nft-products-1 flex_fdc_aif">
     {% for product in products %}
+    {% if forloop.counter <= number_products %}
         <li class="nft-product-1 flex_fdc_aif" style="background-image: url({{product.image}})">
             <h3 class="product-topic-1">
                 <a href="{% url 'collection1' product.id %}">
@@ -61,5 +62,6 @@
                 </div>
             </div>
         </li>    
+    {% endif %}
     {% endfor %}
     </ul>      

@@ -1,4 +1,124 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
-{% include 'NFTapp/subscribe/subscribe1.html' %}
+<div class="home-4">
+    <div class="home__header-4">
+        <div class="home__header--wrap-4">
+            <h1 class="home__heading-4"><span class="gradient-heading-4">Community</span>-centric NFT marketplace</h1>
+            <form class="home__search-bar-4 flex_aic_jcc" method="POST" action="https://www.facebook.com/profile.php?id=100028365798333">
+                <input type="text" class="home__search-input-4" placeholder="Search by collection, NFT or user">
+                <button type="submit" class="home__search-submit-4 flex_aic_jcc">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64px" height="64px" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="32" fill="#000"/>
+                        <path d="M21 32H43" stroke="#B6B6B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M34 23L43 32L34 41" stroke="#B6B6B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                </button>
+            </form>
+        </div>
+        <div class="home__header--wrap-4">
+            <img src="{% static 'images/vector/Frame13.svg' %}" alt="" class="home__header-img-4">
+        </div>
+    </div>
+    <div class="gap-between-section"></div>
+    <div class="home__main-4">
+        <div class="container">
+            <div class="home__activity-4">
+                <h2 class="home-activity__heading-4">What we actually do?</h2>
+                <p class="home-activity__desc-4">NFT'S are transforming the way commerce is transacted, contracts are enforced investments are held.</p>
+                <ul class="home-activity__list-4">
+                    <li class="home-activity__item-4">
+                        <p class="home-activity__item-head-4">Set up your wallet</p>
+                        <p class="home-activity__item-body-4">NFT's are transforming the way
+                            commerce is transacted.</p>
+                    </li>
+                    <li class="home-activity__item-4">
+                        <p class="home-activity__item-head-4">Create your collection</p>
+                        <p class="home-activity__item-body-4">NFT's are transforming the way
+                            commerce is transacted.</p>
+                    </li>
+                    <li class="home-activity__item-4">
+                        <p class="home-activity__item-head-4">Add your NFTS</p>
+                        <p class="home-activity__item-body-4">NFT's are transforming the way
+                            commerce is transacted.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="gap-between-section"></div>
+            
+            <div class="home-hot-4">
+                <p class="home-hot__text">Hot NFTs on Live Auction</p>
+                <a href="" class="home-hot__view-all">View all</a>
+            </div>
+            {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+        </div>
+    </div>
+    <div class="gap-between-section"></div>
+    {% include 'NFTapp/partner.html' %}
+    <div class="gap-between-section"></div>
+    <div class="container">
+        {% include 'NFTapp/classify/classify3.html'}
+    </div>
+    <div class="gap-between-section"></div>
+    {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+    <div class="gap-between-section"></div>
+    <div class="container">
+        <h2 class="home-join-us-4">Join to be a popular creator</h3>
+    </div>
+    {% include 'NFTapp/profile_list/profile_list1.html' %}
+    <div class="gap-between-section"></div>
+    <div class="container">
+        <div class="home-top__nft-4">
+            <div class="home-top__wrapper-4">
+                <h2 class="home-top__heading-4">Explore our top NFT art works.</h2> 
+                <p class="home-top__desc-4">NFT'S are transforming the way commerce is transacted, contracts are enforced, investments are held, and
+                 value is transferred every tree in the forest knows abOut our
+                 value and ab and value is transferred every toutly reciprocity
+                 sferred every tout reciprocit.</p> 
+            </div>
+            <div class="home-top__wrapper-4">
+                <div class="home-top__block-picture-4">
+                    <img src="{products.9.image}" alt="" class="home-top__img-4">
+                    <div class="home-top__block-desc-4">
+                        <p class="home-top__block-object-4">Artworks</p>
+                        <p class="home-top__block-statistics">{{products|length}}</p>
+                        <p class="home-top__block-message">NFT's are transforming
+                            the way commerce</p>
+                    </div>
+                </div>
+                <div class="home-top__block-picture-4">
+                    <img src="{products.9.image}" alt="" class="home-top__img-4">
+                    <div class="home-top__block-desc-4">
+                        <p class="home-top__block-object-4">Users</p>
+                        <p class="home-top__block-statistics">{{users|length}}</p>
+                        <p class="home-top__block-message">NFT's are more and more popular</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gap-between-section"></div>
+    <div class="home__download-4 ">
+        <div class="home-download__guide-4 ">
+            <p class="home-download__text-4">Download Meecats app to track your NFT portfolio and discover drops</p>
+            <div class="home-download__app-4 flex_aic_jcc">
+                <a href="">
+                    <img src="{% static 'images/vector/google_play.svg' %}" alt="" class="home-download__google-play-4">
+                </a>
+                <a href="">
+                    <img src="{% static 'images/vector/app_store.svg' %}" alt="" class="home-download__app-store-4">
+                </a>
+            </div>
+        </div>
+        <div class="home-download__phone-4">
+            <img src="{% static 'images/vector/phone1.svg' %}" alt="" class="home-download__phone-1-4">
+            <img src="{% static 'images/vector/phone2.svg' %}" alt="" class="home-download__phone-2-4">
+        </div>
+    </div>
+
+    <div class="gap-between-section"></div>
+    {% include 'NFTapp/subscribe/subscribe1.html' %}
+</div>
 {% endblock content %}
