@@ -45,7 +45,7 @@ class NFTProduct(models.Model):
     quantity = models.PositiveIntegerField()
     description = models.TextField(null=True)
     likes = models.ManyToManyField(User, related_name="likes", default=0)
-    type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
+    type_product = models.ForeignKey('Type', related_name="products_type",on_delete=models.SET_NULL, null=True)
     artwork = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):

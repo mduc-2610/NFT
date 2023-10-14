@@ -51,18 +51,25 @@ def run():
     # [print(f"{product.id} {product.name} {product.topic.name}") for product in  user.nftproduct_set.all()]
 
     # print(len(user.nftproduct_set.all()))
-    user = User.objects.get(pk="37083387-c510-4088-984b-f1ea7c7379a9")
-    context = {
-        "user": user,
-        # "url_method": request.GET.get('filter', 'collection')
-    }
-    # if request.GET.get('href') == "?collection":
-    product_collection = user.nftproduct_set.all()
-    context["products"] = product_collection
-# elif request.GET.get('href') == "?created":
-    product_created = user.author.all()
-    context["products1"] = product_created  
-# else:
-    product_favorited = user.likes.all()
-    context["products2"] = product_favorited
-    {print(k, v) for k, v in context.items()}
+#     user = User.objects.get(pk="37083387-c510-4088-984b-f1ea7c7379a9")
+#     context = {
+#         "user": user,
+#         # "url_method": request.GET.get('filter', 'collection')
+#     }
+#     # if request.GET.get('href') == "?collection":
+#     product_collection = user.nftproduct_set.all()
+#     context["products"] = product_collection
+# # elif request.GET.get('href') == "?created":
+#     product_created = user.author.all()
+#     context["products1"] = product_created  
+# # else:
+#     product_favorited = user.likes.all()
+#     context["products2"] = product_favorited
+#     {print(k, v) for k, v in context.items()}
+
+    type_instance = Type.objects.get(name="artworks")
+    products = NFTProduct.objects.filter(type_product__name="artworks")
+    # print(type_instance)
+    products = type_instance.products_type.all()
+    print(len(products))
+    [print(product) for product in products]

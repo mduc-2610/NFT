@@ -108,16 +108,12 @@ def run():
             nft_image_files[dir].append(path + file)
     # [print(k, v) for k, v in nft_image_files.items()]
 
-    cnt = 1
+    cnt, z = 1, 0
     nft_product_obj_list = []
     for k, v in nft_image_files.items():
         data={}
-        if k.startswith("collection"):
-            data.update({"type": type_obj_list[0]})
-        else: 
-            cnt = 1
-            data.update({"type": type_obj_list[1]})
-        for image in v:  
+        type_product = type_obj_list[z]
+        for i, image in enumerate(v):  
             data = {
                 "name": random.choice(nft_names),
                 "price": round(random.uniform(0, 3), 8),
@@ -127,13 +123,15 @@ def run():
                 "topic": random.choice(topic_obj_list),
                 "quantity": random.choice(nft_quantity),
                 "description": fake.text(max_nb_chars=300),
-                "artwork": cnt
+                "artwork": cnt,
+                "type_product": type_product
             }
             # nft_product_obj, _ = NFTProduct.objects.get_or_create(**data)
             nft_product_obj = NFTProduct.objects.create(**data)
             nft_product_obj_list.append(nft_product_obj)
             print(f"\tSuccesfully created product with info {nft_product_obj.name} {nft_product_obj.price} {nft_product_obj.image} {nft_product_obj.quantity} {nft_product_obj.description} {nft_product_obj.rarity} {nft_product_obj.artwork}")
             cnt += 1
+        z += 1
 
     # Load owner of a nft product
     print("----------------------------------------------------------------")

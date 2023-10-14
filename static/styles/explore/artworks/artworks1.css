@@ -23,19 +23,6 @@
     width: 100%;
 }
 
-.artwork__info-1 {
-    margin-top: 15px;
-}
-
-.artwork__heading-1 {
-    color: #FFF;
-    /* font-family: Clash Display; */
-    font-size: 4rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.25; /* 125% */
-}
-
 .artwork__author-1.web {
     display: none;
 }
@@ -92,20 +79,6 @@
     
     .artwork__img-1 {
         width: 100%;
-    }
-    
-    .artwork__info-1 {
-        margin-top: 0;
-        align-self: center;
-    }
-    
-    .artwork__heading-1 {
-        color: #FFF;
-        /* font-family: Clash Display; */
-        font-size: 5rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 1.12; /* 112% */
     }
     
     .artwork__author-1.web {

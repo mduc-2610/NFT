@@ -23,7 +23,7 @@ def product_rarity():
         rarity.update({product: cnt})
         cnt += 1
 
-def home(request):
+def home1(request):
     context = {
         'hello': 'hellosss'
     }
@@ -114,7 +114,7 @@ def collection5(request):
 
 def artworks1(request):
     users = User.objects.all()
-    products = NFTProduct.objects.all()
+    products = NFTProduct.objects.filter(type_product__name="artworks")
     authors = []
     for user in users:
         if user.author.all().count():
