@@ -31,8 +31,7 @@
     width: 150px;
     border-radius: 50%;
     display: block;
-    background: linear-gradient(90deg, #20E2A7 15%, #77DCCE 19.55%, #6FC7F2 35.51%, #A0A1ED 30.87%, #FE5CD6 60.52%, #FF669F 8.95%);   
-    -webkit-text-fill-color: transparent;
+    background:  #c9ccd1; 
     padding: 14px;
 }
 

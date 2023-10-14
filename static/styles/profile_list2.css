@@ -1,0 +1,178 @@
+.our-artist {
+    margin-bottom: 70px;
+    color: #FFF;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.12; /* 112% */
+}
+
+.profile-list-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 65px;
+}
+
+.profile-list__item-2 {
+
+}
+
+.profile-list__picture-2 {
+    height: 141px;
+    width: 100%;
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+}
+
+.profile-list__cover-photo-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.profile-list__avt-wrap-2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+    position: absolute;
+    top: -101px;
+    left: 50%;
+    background-color: #212127;
+    transform: translate(-50%);
+}
+
+.profile-list__avt-2 {
+    display: block;
+    padding: 12px 5px;
+    top: -251px;
+    left: -24px;
+    /* position: absolute; */
+    width: 80px;
+    height: 80px;
+    background-color: #c9ccd1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #FFF;
+}
+
+.profile-list__about-user-2 {
+    padding: 23px 26px 16px 26px;
+    border-radius: 0 0 20px 20px;
+    background: #212127;
+}
+
+.profile-list__user-2 {
+    position: relative;
+    justify-content: space-between;
+}
+
+.profile-list__name-2 {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.profile-list__name-2 a {
+    color: #FFF;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 2.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 0.643; /* 64.286% */
+}
+
+.profile-list__follow-2 {
+    gap: 5px;
+    padding: 10px 26px;
+    border-radius: 19px;
+    background: #17E3A6;
+    color: #000;
+    /* font-family: Aeonik; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+}
+
+.profile-list__follow-2:hover {
+    opacity: 0.7;
+}
+
+.profile-list__bio-2 {
+    color: #FFF;
+    text-align: center;
+    margin: 30px 0;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.02rem;
+    -webkit-line-clamp: 2;
+}
+
+@media only screen and (min-width: 768px) {
+    .our-artist {
+        margin-bottom: 87px;
+        text-align: unset;
+        color: #F1F3F5;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+        text-transform: capitalize;
+    }
+
+    .profile-list-2 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .profile-list__item-2 {
+    
+    }
+    
+    .profile-list__picture-2 {
+    }
+    
+    .profile-list__cover-photo-2 {
+    }
+    
+    .profile-list__avt-2 {
+    }
+    
+    .profile-list__about-user-2 {
+    }
+    
+    .profile-list__user-2 {
+        position: relative;
+        justify-content: space-between;
+    }
+    
+    .profile-list__name-2 a {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    }
+    
+    .profile-list__bio-2 {
+        color: #A4A4A4;
+        /* font-family: Aeonik; */
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.13; /* 113.333% */
+        -webkit-line-clamp: 2;
+    }
+}

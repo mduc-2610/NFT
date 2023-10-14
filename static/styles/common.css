@@ -63,6 +63,10 @@ main {
     margin: 60px 0 150px;
 }
 
+.gap-between-section {
+    margin: 75px 0;
+}
+
 .flex_aic_jcc {
     display: flex;
     align-items: center;

@@ -1,3 +1,14 @@
+.our-artist {
+    margin-bottom: 70px;
+    color: #FFF;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.12; /* 112% */
+}
+
 .profile-list-1 {
     display: grid;
     grid-template-columns: 1fr;
@@ -24,13 +35,14 @@
 }
 
 .profile-list__avt-1 {
+    display: block;
+    padding: 12px 5px;
     top: -151px;
     left: -14px;
     position: absolute;
     width: 100px;
     height: 100px;
-    background: linear-gradient(90deg, #20E2A7 15%, #77DCCE 19.55%, #6FC7F2 35.51%, #A0A1ED 30.87%, #FE5CD6 60.52%, #FF669F 8.95%);   
-    -webkit-text-fill-color: transparent;
+    background-color: #c9ccd1;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -59,8 +71,8 @@
     gap: 5px;
     padding: 10px 26px;
     border-radius: 19px;
-    background: #0019FE;
-    color: #FFF;
+    background: #17E3A6;
+    color: #000;
     /* font-family: Aeonik; */
     font-size: 1.7rem;
     font-style: normal;
@@ -114,8 +126,62 @@
 }
 
 @media only screen and (min-width: 768px) {
+    .our-artist {
+        margin-bottom: 87px;
+        text-align: unset;
+        color: #F1F3F5;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+        text-transform: capitalize;
+    }
+
     .profile-list-1 {
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
+    }
+    
+    .profile-list__item-1 {
+    
+    }
+    
+    .profile-list__picture-1 {
+    }
+    
+    .profile-list__cover-photo-1 {
+    }
+    
+    .profile-list__avt-1 {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-list__about-user-1 {
+    }
+    
+    .profile-list__user-1 {
+        position: relative;
+        justify-content: space-between;
+    }
+    
+    .profile-list__name-1 a {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    }
+    
+    .profile-list__bio-1 {
+        color: #A4A4A4;
+        /* font-family: Aeonik; */
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.13; /* 113.333% */
+        -webkit-line-clamp: 2;
     }
 }

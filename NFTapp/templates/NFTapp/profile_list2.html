@@ -1,0 +1,46 @@
+{% load static %}
+<div class="container">
+    <h2 class="our-artist">Our artists</h2>
+</div>
+<div class="profile-list-wrap-2">
+    <div class="container">
+        <ul class="profile-list-2">
+            {% for user in users %}
+            {% if forloop.counter <= 6 %}
+            <li class="profile-list__item-2">
+                <div class="profile-list__picture-2">
+                    <a href="{% url 'profile' user.id %}" class="profile-list__cover-photo-2">
+                        <img src="{{user.cover_photo}}" alt="">
+                    </a>
+                </div>
+                <div class="profile-list__about-user-2">
+                    <div class="profile-list__user-2 flex_aic_jcc">
+                        <div class="profile-list__avt-wrap-2 flex_aic_jcc">
+                            <a href="{% url 'profile' user.id %}" class="profile-list__avt-2">
+                                <img src="{{user.avatar}}" alt="">
+                            </a>
+                        </div>
+                        <h3 class="profile-list__name-2">
+                            <a href="{% url 'profile' user.id %}">
+                                @{{user.name}}
+                            </a>
+                        </h3>
+                    </div>
+                    {% if user.bio %}
+                    <p class="profile-list__bio-2 limit-line">{{user.bio}}</p>
+                    {% else %} 
+                    <p class="profile-list__bio-2 limit-line" style="visibility: hidden;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum repellendus vitae placeat culpa beatae quaerat. Optio earum numquam eligendi sed non vero voluptates accusamus molestias veritatis labore laborum nam, a doloribus voluptatum adipisci. Excepturi fugiat, obcaecati nemo explicabo voluptates laudantium aut eveniet illo, vero, labore sequi temporibus. Quos, magni?</p>
+                    {% endif %}
+                    <a href="" class="profile-list__follow-2 flex_aic_jcc">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                            <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                        </svg>
+                        Follow
+                    </a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
