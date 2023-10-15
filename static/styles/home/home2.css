@@ -31,7 +31,8 @@
 }
 
 .hero__button-2 {
-    margin-top: 24px;
+    display: inline-block;
+    margin: 24px 0 40px 0;
 }
 
 .hero-img__section-2 {
@@ -58,7 +59,7 @@
     }
     
     .hero__heading-2 {
-        margin: 100px 0 20px 0;
+        /* margin: 100px 0 20px 0; */
         color: #FFF;
         font-size: 5.6rem;
         font-style: normal;
@@ -77,7 +78,7 @@
     }
     
     .hero__button-2 {
-        margin-top: 40px;
+        margin: 40px 0 0 ;
     }
     
     .hero-img__section-2 {

@@ -109,7 +109,14 @@
 }
 
 .artwork__owner {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #212127;
+    border-radius: 16px;
+    padding: 8.5px 12px 5.px 12px;
+    padding: 5px 5px;
+
     margin-top: 10px;
     color: #FFF;
     /* font-family: Aeonik; */
@@ -117,6 +124,16 @@
     font-style: normal;
     font-weight: 400;
     line-height: 1; /* 100% */
+}
+
+.artwork__owner:hover,
+.artwork__owner:hover circle,
+.artwork__owner:hover path,
+.artwork__owner:hover svg {
+    background-color: #fff;
+    fill: #000;
+    color: #000;
+    stroke: none;
 }
 
 .artwork__view-more {
@@ -245,7 +262,6 @@
     }
     
     .artwork__owner {
-        display: inline-block;
         margin-top: 22.5px;
     }
     

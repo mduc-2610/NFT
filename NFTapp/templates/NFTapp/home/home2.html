@@ -7,11 +7,133 @@
             <div class="hero__about-2">
                 <h1 class="hero__heading-2">Discover a universe of NFTs you can trade and collect</h1>
                 <p class="hero__desc-2">Find and trade everything from rare digital art and branded crypto-collectibles, to digital fashion and gaming items you can use in multiple worlds.</p>
-                <button class="hero__button hero__button-2">Explore now</button>
+                <a href="{% url 'collection1' %}" class="hero__button hero__button-2">Explore now</a>
             </div>
             <div class="hero-img__section-2 flex_aic_jcc">
                 <img src="{% static 'images/home_images/image7.svg'%}" alt="" class="hero__img-2">
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/partner.html' %}
+
+<div class="gap-between-section"></div>
+
+<div class="home-2">
+    <div class="container">
+        <div class="home-guide-2">
+            <a href="" class="home-guide__place-2">Enjin Marketplace</a>
+            <h2 class="home-guide__heading-2">Find your treasure</h2>
+            <ul class="home-guide__list-2">
+                <li class="home-guide__item-2">
+                    <img src="{% static 'images/vector/discover.svg' %}" alt="" class="home-guide__item-img-2">
+                    <h3 class="home-guide__item-heading-2">Discover</h3>
+                    <p class="home-guide__item-desc-2">Find pioneering blockchain projects featuring scarce digital assets.</p>
+                </li>
+                <li class="home-guide__item-2">
+                    <img src="{% static 'images/vector/trade.svg' %}" alt="" class="home-guide__item-img-2">
+                    <h3 class="home-guide__item-heading-2">Trade</h3>
+                    <p class="home-guide__item-desc-2">Use the Enjin Wallet to easily list and purchase gaming items.</p>
+                </li>
+                <li class="home-guide__item-2">
+                    <img src="{% static 'images/vector/gift.svg' %}" alt="" class="home-guide__item-img-2">
+                    <h3 class="home-guide__item-heading-2">Collect</h3>
+                    <p class="home-guide__item-desc-2">Grow your inventory with rare and unique digital treasures.</p>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="gap-between-section"></div>
+
+        <div class="home__hot-1">
+            <h1 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h1>
+            <div class="home-hot__classify-1">
+                <a href="" class="home-hot__nft-1">NFT</a>
+                <a href="" class="home-hot__desc-1">Description </a>
+                {% include 'NFTapp/explore/classify/classify1.html' %}
+            </div>
+            {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+            <!-- include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=41 -->
+        </div>
+    
+        <div class="gap-between-section"></div>
+        
+        <div class="home-curated-1">
+            <div class="home-curated__wrap-1">
+                <h2 class="home-curated__heading-1">Curated collection</h2>
+                <a href="{% url 'collection1' }" class="home-curated__view-all">View all</a>
+            </div>
+            {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=4 %}
+        </div>
+
+        <div class="gap-between-section"></div>
+
+        <div class="home-join-us-2">
+            <div class="home-join__info">
+                <h2 class="home-join__heading-2">Join Our Community</h2>
+                <p class="home-join__desc-2">Be part of our amazing community and stay tuned for the news.</p>
+                <a href="{% url 'about_us1' %}" class="home-join__link-2">Join us</a>
+            </div>
+            <img src="{% static 'images/vector/join_us_home_2.svg'}" alt="" class="home-join__img">
+        </div>
+
+        <div class="gap-between-section"></div>
+        
+        <div class="home-meecat-1">
+            {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+        </div>
+
+        <div class="gap-between-section"></div>
+
+        <div class="home-news-2">
+            <h2 class="home-news__heading-2"></h2>
+            <ul class="home-news__list">
+                {% for blog in blogs %}
+                {% if forloop.counter <= 3 %}
+                <li class="home-news__item">
+                    <img src="" alt="" class="home-news__item-img">
+                    <a href="" class="home-news__item-author">{{blog.author.name}}</a>
+                    <h3 class="home-news__item-heading"></h3>
+                    <div class="home-news__item-wrap">
+                        <a href="" class="home-news__item-link"></a>
+                        <p class="home-news__item-day-post"></p>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="gap-between-section"></div>
+        
+        <div class="home-faq-2">
+            <h2 class="home-faq__heading">FAQ</h2>
+            <ul class="home-faq__list-2">
+                {% for faq in faqs %}
+                <li class="home-faq__item-1">
+                    <button class="home-faq__feature-1 flex_aic_jcc">
+                        <svg class="home-faq__plus-1" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.58173 14V8.51442H14V5.48558H8.58173V0H5.41827V5.48558H0V8.51442H5.41827V14H8.58173Z" fill="#17E3A6"/>
+                            </svg>                                
+                        <svg class="home-faq__minus-1" width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.58173 3.51444H14V0.485596H8.58173H5.41827H0V3.51444H5.41827H8.58173Z" fill="#17E3A6"/>
+                        </svg>
+                    </button>
+                    <div class="home-faq__text-1">
+                        <p class="home-faq__question-1">{{faq.question}}
+                        </p>
+                        <p class="home-faq__answer-1">{{faq.answer}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="gap-between-section">
+
         </div>
     </div>
 </div>

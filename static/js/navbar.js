@@ -36,7 +36,7 @@ headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
     e.preventDefault();
     const url = document.querySelector('.header-nav-item-child__link').getAttribute('href');
     // window.location.href = "{% url 'home' %}";
-    // window.location.href = "/home2/";
+    window.location.href = "/home2/";
     // console.log("Hello");
   })
   
