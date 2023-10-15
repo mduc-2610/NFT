@@ -6,7 +6,7 @@
     <div class="artwork__buy-own">
         <div class="artwork__buy">
             <p class="artwork__price-text">Reserve Price</p>
-            <p class="artwork__price-eth">{{products.0.price}} ETH</p>
+            <p class="artwork__price-eth">{{products.0.price|floatformat:3}} ETH</p>
             <p class="artwork__price-dollar">${% multiply products.0.price 1547.74 %}</p>
         </div>
         <div class="artwork__own">

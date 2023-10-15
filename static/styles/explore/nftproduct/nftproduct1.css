@@ -1,18 +1,43 @@
 
 .nft-products-1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
     align-items: center;
-    gap: 20px;
 }
 
 .nft-product-1 {
-    background-color: lightgray;
-    background-position: 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
+    position: relative;
     width: 100%;
-    height: 70vh;
-    padding: 29px 12px 22px 12px;
+    height: 510px;
     justify-content: space-between;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.nft-product__link-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    /* display: block; */
+}
+
+.nft-product-image-1 {
+    object-fit: cover;
+    width: 100%;
+    height: 570px;
+    transition: transform 0.4s ease 0s;
+}
+
+.nft-product-image-1:hover {
+    transform: scale(1.1);
+}
+
+.product-topic-1 {
+    left: 7%;
+    position: absolute;
+    top: 10%;
 }
 
 .product-topic-1 a{
@@ -28,7 +53,9 @@
 }
 
 .creator-1 {
-    margin: 57px 0 33px 0;
+    position: absolute;
+    top: 25%;
+    left: 7%;
     border-radius: 33px;
     background: rgba(217, 217, 217, 0.27);
     backdrop-filter: blur(4.5px);
@@ -58,20 +85,24 @@
 }
 
 .product-info-1 {
+    position: absolute;
     padding: 0 15px;
     gap: 50px;
-    width: 100%;
+    width: 87%;
     height: 82px;
     background: rgba(246, 246, 246, 0.20);
     justify-content: space-evenly;
     backdrop-filter: blur(91.5px);
+    border-radius: 12px;
+    left: 7%;
+    bottom: 5%;
 }
 
-.artwork-1 {
+.product-artwork-1 {
     gap: 15px;
 }
 
-.artwork-key-1 {
+.product-artwork-key-1 {
     color: #FFF;
     /* font-family: Aeonik; */
     font-size: 1.6rem;
@@ -80,7 +111,7 @@
     line-height: 0.9375; /* 93.75% */
 }
 
-.artwork-value-1 {
+.product-artwork-value-1 {
     color: #FFF;
     /* font-family: Clash Display; */
     font-size: 2.4rem;
@@ -142,41 +173,22 @@
     margin-left: -10px;
 }
 
-/* .collected__user-avt-1 {
-    gap: 5px;
-    width: 30px;
-    height: 30px;    
-} */
-
-/* @media only screen and (min-width: 1000px)-1 { */
-@media only screen and (min-width: 700px) {
+/* @media only screen and (min-width: 700px) {
     .nft-products-1 {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 30px;
-        grid-row-gap: 30px;
-        align-items: center;
-        justify-items: center;
-        /* margin: 0 0; */
     }
 
+} */
+
+@media only screen and (min-width: 1000px) {
+    .nft-products-1 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
     .nft-product-1 {
-        background-color: lightgray;
-        background-position: 50%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        width: 100%;
-        height: 70vh;
-        padding: 48px 37px 43px 37px;
-        /* padding-top: 100%; */
-        justify-content: space-between;
     }
     
     .product-topic-1 {
-        background: linear-gradient(90deg, #20E2A7 7%, #77DCCE 10.55%, #6FC7F2 27.51%, #A0A1ED 12.87%, #FE5CD6 38.52%, #FF669F 32.95%);    background-clip: text;
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
         /* font-family: Clash Display; */
         font-size: 3.4rem;
         font-style: normal;
@@ -184,71 +196,4 @@
         line-height: 1.353; /* 135.294% */
         letter-spacing: 0.0476rem;
     }
-    
-    .creator-1 {
-        margin: 17px 0 150px 0;
-        /* padding-left: 20px; */
-    }
-    
-    .author-avatar-1 {
-    
-    }
-    
-    .creator-name-1 {
-      
-    }
-    
-    .product-info-1 {
-      
-    }
-    
-    .artwork-1 {
-        
-    }
-    
-    .artwork-key-1 {
-
-    }
-    
-    .artwork-value-1 {
-       
-    }
-    
-    .sale-1 {
-   
-    }
-    
-    .sale-key-1 {
-       
-    }
-    
-    .sale-value-1 {
-        
-    }
-    
-    .collected-1 {
-
-    }
-    
-    .collected-by-1 {
-
-    }
-    
-    .collected-list-1 {
-
-    }
-    
-    .collected__item-1 {
-
-    }
-    
-    .collected__item-1:not(:first-child) {
-        
-    }
-    
-    /* .collected__user-avt-1 {
-        gap: 5px;
-        width: 30px;
-        height: 30px;    
-    } */
 }

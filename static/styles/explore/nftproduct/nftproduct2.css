@@ -35,11 +35,23 @@
     background-color: #c9ccd1;
 }
 
-.nft-product__img-2 {
-    display: inline-block;
-    width: 100%;
+.nft-product__img-link-2 {
+    display: block;
     height: 360px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.nft-product__img-2 {
+    display: block;
     object-fit: cover;
+    height: 360px;
+    width: 100%;
+    transition: transform 0.4s ease 0s;
+}
+
+.nft-product__img-2:hover {
+    transform: scale(1.1);
 }
 
 .nft-product__info-2 {
@@ -143,11 +155,31 @@
     border-color: transparent;
 }
 
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
     .nft-products-2 {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
 
+}
+
+@media only screen and (min-width: 576px) {
+    .nft-products-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} */
+
+@media only screen and (min-width: 700px) {
+    .nft-products-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media only screen and (min-width: 1023px) {
+    .nft-products-2 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
 }

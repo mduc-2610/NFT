@@ -1,0 +1,39 @@
+<ul class="nft-products-3 flex_fdc_aif">
+    {% for product in products %}
+        {% if forloop.counter <= number_products %}
+        <li class="nft-product-3 flex_fdc_aif">
+            <div class="nft-product__img-block-3">
+                <a href="{% url 'collection1' product.id %}" class="nft-product__img-link-3">
+                    <img src="{{product.image}}" alt="" class="nft-product__img-3">
+                </a>
+                <ul class="nft-product__owner-list-3">
+                    {% for owner in product.owners.all %}
+                        {% if forloop.counter <= 5 %}
+                            <li class="nft-product__owner-item-3">
+                                <a href="{% url 'profile' product.author.id %}" class="nft-product__owner-3">
+                                    <img src="{{product.owners.all.0.avatar}}" alt="">
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if product.owners.all|length > 5 %}
+                        <span style="color: #fff;">...</span>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="nft-product__info-3">
+                <p class="nft-product__topic-3">{{product.topic.name}}</p>
+                <h2 class="nft-product__name-3">
+                    <a href="{% url 'collection1' product.id %}">
+                        {{product.name}}
+                    </a>
+                </h2>
+                <div class="nft-product__more-info-3 flex_aic_jcc">
+                    <p class="nft-product__time-created-3">{{product.created_at|date:"d M, Y"}}</p>
+                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2 nft-product__buy-3">Place bid</a>
+                </div>
+            </div>
+        </li>    
+        {% endif %}
+    {% endfor %}
+    </ul>      

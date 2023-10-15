@@ -8,7 +8,9 @@
                     @{{product.author.name}}
                 </a>
             </div>
-            <img src="{{product.image}}" alt="" class="nft-product__img-2">
+            <a href="{% url 'collection1' product.id %}" class="nft-product__img-link-2">
+                <img src="{{product.image}}" alt="" class="nft-product__img-2">
+            </a>
             <div class="nft-product__info-2">
                 <h2 class="nft-product__name-2">{{product.name}}</h2>
                 <div class="nft-product__more-info-2 flex_aic_jcc">

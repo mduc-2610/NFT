@@ -1,7 +1,10 @@
-<ul class="nft-products-1 flex_fdc_aif">
+<ul class="nft-products-1">
     {% for product in products %}
     {% if forloop.counter <= number_products %}
-        <li class="nft-product-1 flex_fdc_aif" style="background-image: url({{product.image}})">
+        <li class="nft-product-1 flex_fdc_aif">
+            <a href="{% url 'collection1' product.id %}" class="nft-product__link-1">
+                <img src="{{product.image}}" alt="" class="nft-product-image-1">
+            </a>
             <h3 class="product-topic-1">
                 <a href="{% url 'collection1' product.id %}">
                     {{product.topic}}
@@ -16,9 +19,9 @@
                 </a>
             </div>
             <div class="product-info-1 flex_aic_jcc">
-                <div class="artwork-1 flex_fdc_aif">
-                    <p class="artwork-key-1">Artwork:</p>
-                    <p class="artwork-value-1">{{product.artwork}}</p>
+                <div class="product-artwork-1 flex_fdc_aif">
+                    <p class="product-artwork-key-1">Artwork:</p>
+                    <p class="product-artwork-value-1">{{product.artwork}}</p>
                 </div>
                 <div class="sale-1 flex_fdc_aif">
                     <p class="sale-key-1">Total sale</p>

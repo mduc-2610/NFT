@@ -1,0 +1,135 @@
+.nft-products-3 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+}
+
+.nft-product-3 {
+    width: 100%;
+}
+
+.nft-product__img-block-3 {
+    width: 100%;
+    position: relative;
+}
+
+.nft-product__img-link-3 {
+    display: block;
+    width: 100%;
+    height: 280px;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+.nft-product__img-3 {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.4s ease 0s;
+}
+
+.nft-product__img-3:hover {
+    transform: scale(1.1);
+}
+
+.nft-product__owner-list-3 {
+    position: absolute;
+    padding: 8px 15px;
+    border-radius: 18px;
+    background: rgba(217, 217, 217, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    bottom: 10px;
+    left: 2%;
+}
+
+.nft-product__owner-item-3 {
+    margin-left: -8px;
+}
+
+.nft-product__owner-3 {
+    
+}
+
+.nft-product__owner-3 img {
+    background-color: #c9ccd1;
+    width: 24.839px;
+    height: 24.839px;
+    border-radius: 50%;
+    object-fit: contain;
+
+}
+
+.nft-product__info-3 {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;  
+}
+
+.nft-product__topic-3 {
+    color: #D3D3D3;
+    /* font-family: Aeonik; */
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1; /* 100% */
+}
+
+.nft-product__name-3 {
+    margin: 8px 0 20px;
+}
+
+.nft-product__name-3 a {
+    background: linear-gradient(90deg, #17E3A6 0%, #88DEBA 7.86%, #57DAF5 16.33%, #9FA2ED 29.94%, #FE5AE1 42.34%, #FF669F 58.07%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-family: Clash Display; */
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1; /* 100% */
+}
+
+.nft-product__more-info-3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nft-product__time-created-3 {
+    color: #D3D3D3;
+    /* font-family: Aeonik; */
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 0.85; /* 84.615% */
+}
+
+.nft-product__buy-3 {
+
+}
+
+/* Mobile	< 576px	(max-width: 576px)
+Tablet	576px - 1023px	(min-width: 576px) and (max-width: 1023px)
+Desktop/Laptop	> 1024px	(min-width: 1024px) */
+
+
+@media only screen and (min-width: 480px) {
+    .nft-products-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (min-width: 786px) {
+    .nft-products-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width: 1023px) {
+    .nft-products-3 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
