@@ -51,6 +51,274 @@
     position: absolute;
 }
 
+
+
+.home-2 {
+
+} 
+
+.home-guide-2 {
+
+} 
+
+.home-guide__place-2 {
+    display: block;
+    color: #D9D9D9;
+    text-align: center;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.143; /* 214.286% */
+    letter-spacing: 0.014rem;
+    text-decoration: underline;
+} 
+
+.home-guide__place-2:hover {
+    color: #17E3A6;
+}
+
+.home-guide__heading-2 {
+    margin-bottom: 40px;
+    color: #D9D9D9;
+    text-align: center;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+} 
+
+.home-guide__list-2 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 40px;
+} 
+
+.home-guide__item-2 {
+    align-items: center;
+    gap: 20px;
+} 
+
+.home-guide__item-img-2 {
+
+}
+
+.home-guide__item-heading-2 {
+    text-align: center;
+}
+
+.home-guide__item-heading-2 a {
+    color: #D9D9D9;
+    /* text-align: center; */
+    /* font-family: Clash Display; */
+    font-size: 2.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.385; /* 138.462% */
+}
+
+.home-guide__item-desc-2 {
+    width: 50%;
+    color: #CFCFCF;
+    text-align: center;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25; /* 125% */
+    letter-spacing: 0.016rem;
+}
+
+/* 
+home__hot-1 
+home-hot__heading-1 
+home-hot__classify-1 
+home-hot__nft-1 
+home-hot__desc-1 
+home-curated-1 
+home-curated__wrap-1 
+home-curated__heading-1 
+home-curated__view-all  */
+
+.home-join-us-2 {
+    gap: 47px;
+    position: relative;
+}
+
+.home-join-us-2::before {
+    content: '';
+    background-image: url('/static/images/vector/home_2_vector_1.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 82px;
+    height: 84px;
+    position: absolute;
+    left: 160px;
+    bottom: 0;
+
+}
+
+.home-join-us-2::after {
+    content: '';
+    background-image: url('/static/images/vector/home_2_vector_2.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 73px;
+    height: 128px;
+    position: absolute;
+    top: 183px;
+    right: -11px;
+}
+
+.home-join__info-2 {
+
+} 
+
+.home-join__heading-2 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+} 
+
+.home-join__desc-2 {
+    margin: 20px 0 40px;
+    color: #CFCFCF;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25; /* 125% */
+    letter-spacing: 0.016rem;
+} 
+
+.home-join__link-2 {
+    display: inline-block;
+    padding: 12px 24px;
+
+    /* color: #FFF; */
+    color: #000;
+    background-color: #17E3A6;
+    text-align: center;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 2.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    border-radius: 54px;
+} 
+
+.home-join__link-2:hover {
+    opacity: 0.9;
+}
+
+.home-join__img-2 {
+    align-self: flex-end;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #fff;
+}
+
+/*home-meecat-1  */
+.home-news-2 {
+    background-color: #212127;
+} 
+
+.home-news__heading-2 {
+    margin-bottom: 30px;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+} 
+
+.home-news__list-2 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 20px;
+} 
+
+.home-news__item-2  {
+    overflow: hidden;
+    padding: 20px;
+}
+
+.home-news__item-img-2 {
+    height: 161px;
+    width: 100%;
+    object-fit: contain;
+} 
+
+.home-news__item-author-2 {
+    color: #A4A4A4;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42; /* 141.667% */
+    text-transform: lowercase;
+} 
+
+.home-news__item-heading-2 {
+    margin: 6 0 20px;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.875; /* 187.5% */
+} 
+
+.home-news__item-wrap-2 {
+    justify-content: flex-start;
+    gap: 20px;
+} 
+
+.home-news__item-link-2 {
+    color: #17E3A6;
+    display: inline-block;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+    border-radius: 4px;
+} 
+
+.home-news__item-day-post-2 {
+    color: #A4A4A4;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.416; /* 141.667% */
+    text-transform: lowercase;
+} 
+
+.home-faq-2 {
+
+} 
+
+/* home-faq__heading  */
+.home-faq__list-2 {
+
+} 
+
+/* home-faq__item-1 
+home-faq__feature-1
+home-faq__plus-1
+home-faq__minus-1
+home-faq__text-1 
+home-faq__question-1 
+home-faq__answer-1  */
+
+
 @media only screen and (min-width: 1000px) {
     .hero__inner-2 {
         display: grid;
@@ -89,4 +357,252 @@
         width: 100%;
         height: 100%;
     }
+
+
+
+    .home-2 {
+
+    } 
+    
+    .home-guide-2 {
+    
+    } 
+    
+    .home-guide__place-2 {
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+        text-decoration: underline;
+    } 
+    
+    .home-guide__place-2:hover {
+        color: #17E3A6;
+    }
+    
+    .home-guide__heading-2 {
+        margin-bottom: 60px;
+        color: #D9D9D9;
+        text-align: center;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+    } 
+    
+    .home-guide__list-2 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 80px;
+    } 
+    
+    .home-guide__item-2 {
+        align-items: center;
+        gap: 20px;
+    } 
+    
+    .home-guide__item-img-2 {
+    
+    }
+    
+    .home-guide__item-heading-2 {
+        text-align: center;
+    }
+    
+    .home-guide__item-heading-2 a {
+        color: #D9D9D9;
+        text-align: center;
+        /* font-family: Clash Display; */
+        font-size: 3.6rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.28; /* 127.778% */
+    }
+    
+    .home-guide__item-desc-2 {
+        width: 100%;
+        color: #CFCFCF;
+        text-align: center;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+    
+    /* 
+    home__hot-1 
+    home-hot__heading-1 
+    home-hot__classify-1 
+    home-hot__nft-1 
+    home-hot__desc-1 
+    home-curated-1 
+    home-curated__wrap-1 
+    home-curated__heading-1 
+    home-curated__view-all  */
+    
+    .home-join-us-2 {
+        gap: 47px;
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 95px;
+    }
+    
+    .home-join-us-2::before {
+        left: 570px;
+        bottom: 0;
+    }
+    
+    .home-join-us-2::after {
+        top: -10px;
+        right: 20px;
+    }
+    
+    .home-join__info-2 {
+        align-self: center;
+    } 
+    
+    .home-join__heading-2 {
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+    } 
+    
+    .home-join__desc-2 {
+        margin: 20px 0 40px;
+        color: #CFCFCF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    } 
+    
+    .home-join__link-2 {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 54px;
+        background-color: #17E3A6;
+    
+        color: #000;
+        text-align: center;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+    } 
+    
+    .home-join__img-2 {
+        align-self: flex-end;
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #fff;
+    }
+    
+    /*home-meecat-1  */
+    .home-news-2 {
+    
+    } 
+    
+    .home-news__heading-2 {
+        margin-bottom: 87px;
+        color: #F1F3F5;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.2; /* 120% */
+        text-transform: lowercase;
+    } 
+    
+    .home-news__list-2 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 20px;
+    } 
+    
+    .home-news__item-2  {
+        overflow: hidden;
+        padding: 20px;
+    }
+    
+    .home-news__item-img-2 {
+        height: 161px;
+        width: 100%;
+        object-fit: contain;
+    } 
+    
+    .home-news__item-author-2 {
+        color: #A4A4A4;
+        /* font-family: Aeonik; */
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.13; /* 113.333% */
+        text-transform: lowercase;
+    } 
+    
+    .home-news__item-heading-2 {
+        margin: 6 0 30px;
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5; /* 150% */
+    } 
+    
+    .home-news__item-wrap-2 {
+        justify-content: flex-start;
+        gap: 20px;
+    } 
+    
+    .home-news__item-link-2 {
+        color: #000;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 1.7rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1; /* 100% */
+        text-transform: capitalize;
+    } 
+    
+    .home-news__item-day-post-2 {
+        color: #A4A4A4;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.13; /* 113.333% */
+    } 
+    
+    .home-faq-2 {
+    
+    } 
+    
+    /* home-faq__heading  */
+    .home-faq__list-2 {
+    
+    } 
+    
+    /* home-faq__item-1 
+    home-faq__feature-1
+    home-faq__plus-1
+    home-faq__minus-1
+    home-faq__text-1 
+    home-faq__question-1 
+    home-faq__answer-1  */
+    
+
+
 }

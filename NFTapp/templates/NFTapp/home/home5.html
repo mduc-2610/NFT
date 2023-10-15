@@ -16,5 +16,52 @@
     </div>
 </div>
 
+<div class="gap-between-section"></div>
+
 {% include 'NFTapp/partner.html' %}
+
+<div class="gap-between-section"></div>
+
+<div class="home-5">
+    <div class="home-hot-4">
+        <p class="home-hot__text">Hot NFTs on Live Action</p>
+        <a href="" class="home-hot__view-all">View all</a>
+    </div>
+    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=3 %}
+
+    <div class="gap-between-section"></div>
+
+    <div class="home-top-5">
+        <h2 class="home-top__collection">Our Top NFT Here</h2>
+        {% include 'NFTapp/explore/classify/classify1.html' %}
+    </div>
+
+    <div class="gap-between-section"></div>
+
+    <div class="home-join-us-1">
+        <h1 class="home-join__heading-1">Join leargest NFT community</h1>
+        <p class="home-join__desc-1">Join the millions of creators, collectors, and curators who are on this journey with you.</p>
+        <div class="home-join__img-block">
+            <ul class="home-join__img-list-1">
+                <li class="home-join__img-item-1"><img src="{% static 'images/vector/join_us_1'}" alt=""></li>
+                <li class="home-join__img-item-1"><img src="{% static 'images/vector/join_us_2'}" alt=""></li>
+                <li class="home-join__img-item-1"><img src="{% static 'images/vector/join_us_3'}" alt=""></li>
+            </ul>
+            <ul class="home-join__img-list-1">
+                <li class="home-join__img-item-1"><img src="{% static 'images/vector/join_us_4'}" alt=""></li>
+                <li class="home-join__img-item-1"><img src="{% static 'images/vector/join_us_5'}" alt=""></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="gap-between-section"></div>
+
+    {% include 'NFTapp/profile_list/profile_list1.html' %}
+
+    <div class="gap-between-section"></div>
+
+    {% include 'NFTapp/subscribe/subscribe4.html' %}
+    
+</div>
+
 {% endblock content %}

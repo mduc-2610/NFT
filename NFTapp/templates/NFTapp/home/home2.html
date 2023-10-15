@@ -28,19 +28,25 @@
             <a href="" class="home-guide__place-2">Enjin Marketplace</a>
             <h2 class="home-guide__heading-2">Find your treasure</h2>
             <ul class="home-guide__list-2">
-                <li class="home-guide__item-2">
-                    <img src="{% static 'images/vector/discover.svg' %}" alt="" class="home-guide__item-img-2">
-                    <h3 class="home-guide__item-heading-2">Discover</h3>
+                <li class="home-guide__item-2 flex_fdc_aif">
+                    <a href="">
+                        <img src="{% static 'images/vector/discover.svg' %}" alt="" class="home-guide__item-img-2">
+                    </a>
+                    <h3 class="home-guide__item-heading-2"><a href="">Discover</a></h3>
                     <p class="home-guide__item-desc-2">Find pioneering blockchain projects featuring scarce digital assets.</p>
                 </li>
-                <li class="home-guide__item-2">
-                    <img src="{% static 'images/vector/trade.svg' %}" alt="" class="home-guide__item-img-2">
-                    <h3 class="home-guide__item-heading-2">Trade</h3>
+                <li class="home-guide__item-2 flex_fdc_aif">
+                    <a href="">
+                        <img src="{% static 'images/vector/trade.svg' %}" alt="" class="home-guide__item-img-2">
+                    </a>
+                    <h3 class="home-guide__item-heading-2"><a href="">Trade</a></h3>
                     <p class="home-guide__item-desc-2">Use the Enjin Wallet to easily list and purchase gaming items.</p>
                 </li>
-                <li class="home-guide__item-2">
-                    <img src="{% static 'images/vector/gift.svg' %}" alt="" class="home-guide__item-img-2">
-                    <h3 class="home-guide__item-heading-2">Collect</h3>
+                <li class="home-guide__item-2 flex_fdc_aif">
+                    <a href="">
+                        <img src="{% static 'images/vector/gift.svg' %}" alt="" class="home-guide__item-img-2">
+                    </a>
+                    <h3 class="home-guide__item-heading-2"><a href="">Collect</a></h3>
                     <p class="home-guide__item-desc-2">Grow your inventory with rare and unique digital treasures.</p>
                 </li>
             </ul>
@@ -56,7 +62,6 @@
                 {% include 'NFTapp/explore/classify/classify1.html' %}
             </div>
             {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
-            <!-- include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=41 -->
         </div>
     
         <div class="gap-between-section"></div>
@@ -71,13 +76,13 @@
 
         <div class="gap-between-section"></div>
 
-        <div class="home-join-us-2">
-            <div class="home-join__info">
+        <div class="home-join-us-2 flex_fdc_aif">
+            <div class="home-join__info-2">
                 <h2 class="home-join__heading-2">Join Our Community</h2>
                 <p class="home-join__desc-2">Be part of our amazing community and stay tuned for the news.</p>
                 <a href="{% url 'about_us1' %}" class="home-join__link-2">Join us</a>
             </div>
-            <img src="{% static 'images/vector/join_us_home_2.svg'}" alt="" class="home-join__img">
+            <img src="{% static 'images/vector/join_us_home_2.svg' %}" alt="" class="home-join__img-2">
         </div>
 
         <div class="gap-between-section"></div>
@@ -89,17 +94,17 @@
         <div class="gap-between-section"></div>
 
         <div class="home-news-2">
-            <h2 class="home-news__heading-2"></h2>
-            <ul class="home-news__list">
+            <h2 class="home-news__heading-2">Latest Meecats News</h2>
+            <ul class="home-news__list-2">
                 {% for blog in blogs %}
                 {% if forloop.counter <= 3 %}
-                <li class="home-news__item">
-                    <img src="" alt="" class="home-news__item-img">
-                    <a href="" class="home-news__item-author">{{blog.author.name}}</a>
-                    <h3 class="home-news__item-heading"></h3>
-                    <div class="home-news__item-wrap">
-                        <a href="" class="home-news__item-link"></a>
-                        <p class="home-news__item-day-post"></p>
+                <li class="home-news__item-2">
+                    <img src="" alt="" class="home-news__item-img-2">
+                    <a href="" class="home-news__item-author-2">{{blog.author.name}}</a>
+                    <h3 class="home-news__item-heading-2"></h3>
+                    <div class="home-news__item-wrap-2 flex_aic_jcc">
+                        <a href="" class="home-news__item-link-2"></a>
+                        <p class="home-news__item-day-post-2"></p>
                     </div>
                 </li>
                 {% endif %}
