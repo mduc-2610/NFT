@@ -39,12 +39,25 @@
 .blog__item {
     position: relative;
     margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.blog-item__img-link {
+    display: block;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
 .blog-item__img {
     /* height: 92%; */
-    width: 100%;
     display: block;
+    width: 100%;
+    transition: transform 0.4s ease 0s;
+}
+
+
+.blog-item__img:hover {
+    transform: scale(1.1);
 }
 
 

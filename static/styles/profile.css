@@ -195,7 +195,6 @@
 
 .profile-product__img {
     display: block;
-    height: 250px;
     width: 100%;
     object-fit: cover;
     transition: transform 0.4s ease 0s;

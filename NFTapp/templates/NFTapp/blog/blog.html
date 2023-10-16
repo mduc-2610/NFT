@@ -9,7 +9,7 @@
         <ul class="blog-list">
             {% for blog, times_to_read in blogs.items %}
             <li class="blog__item">
-                <a href="{% url 'blog' blog.id %}" class="">
+                <a href="{% url 'blog' blog.id %}" class="blog-item__img-link">
                     <img src="{{blog.image}}" alt="" class="blog-item__img">
                 </a>
                 <div class="blog-item__author flex_aic_jcc">
