@@ -48,7 +48,9 @@
                     {% for product in products %}
                         <li class="profile-product__item">
                             <a href="{% url 'collection1' product.id %}" class="profile-product__link">
-                                <img src="{{product.image}}" alt="" class="profile-product__img">
+                                <div>
+                                    <img src="{{product.image}}" alt="" class="profile-product__img">
+                                </div>
                                 <div class="profile-product__info">
                                     <h2 class="profile-product__name limit-line">{{product.name}}</h2>
                                     <p class="profile-product__topic limit-line">{{product.topic.name}}</p>

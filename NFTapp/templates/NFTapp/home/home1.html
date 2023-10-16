@@ -2,7 +2,7 @@
 <!-- {% load static %} -->
 {% block content %}
 <div class="hero">
-    <div class="container ">
+    <div class="container hero-container">
         <div class="hero__inner">
             <div class="hero__about">
                 <p class="hero__type">Discover & Showcase</p>
@@ -34,7 +34,9 @@
     </div>
 </div>
 
-<div class="gap-between-section"></div>
+<div class="gap-between-section" style="visibility: hidden;">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis minima alias culpa hic perspiciatis necessitatibus quidem sint sit nesciunt tenetur neque velit tempora, quos fugiat inventore consectetur temporibus cupiditate quibusdam quaerat aliquid adipisci ad nobis mollitia quasi. Velit, odio tempora. Distinctio magnam ducimus molestias necessitatibus mollitia exercitationem magni recusandae dicta! Quam consectetur eaque facilis nemo quae nisi ad illo iure sapiente! Voluptatibus in neque cupiditate nemo voluptatum aliquam facilis! At, voluptate alias. Veritatis vel qui nam, aperiam esse recusandae ab dignissimos quaerat vitae soluta iure illum quod, excepturi vero eveniet aliquid minus animi odio consectetur placeat. Sapiente, porro? Facilis, consequatur.
+</div>
 
 <div class="home-1">
     <div class="container">
@@ -92,7 +94,11 @@
         <div class="gap-between-section"></div>
 
         <div class="home-join-us-1">
-            <h1 class="home-join__heading-1">Join largest NFT community</h1>
+            <h1 class="home-join__heading-1">
+                <a href="{% url 'about_us1' %}">
+                    Join largest NFT community
+                </a>
+            </h1>
             <p class="home-join__desc-1">Join the millions of creators, collectors, and curators who are on this journey with you.</p>
             <div class="home-join__img-block-1">
                 <ul class="home-join__img-list-1 flex_aic_jcc">

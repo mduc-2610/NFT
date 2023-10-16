@@ -4,6 +4,7 @@
 
 .home__header-4 {
     max-width: 100%;
+    padding: 20px;
 }
 
 .home__header--wrap-4 {
@@ -15,6 +16,7 @@
 }
 
 .home__heading-4 {
+    color: #fff;
     /* font-family: Clash Display; */
     font-size: 3.6rem;
     font-style: normal;
@@ -36,6 +38,13 @@
 }
 
 .home__search-input-4 {
+    color: #B6B6B6;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.43; /* 142.857% */
+    letter-spacing: 0.014rem;
 
 }
 
@@ -48,10 +57,12 @@
 }
 
 .home__header-img-4 {
+    width: 100%;
     /* position: absolute; */
 }
 
 .home__search-bar-4 {
+    margin-top: 24px;
     width: 100%;
     height: 62px;
     flex-shrink: 0;
@@ -137,6 +148,7 @@
 }
 
 .home-activity__desc-4 {
+    margin: 10px 0 30px;
     color: #CFCFCF;
     text-align: center;
     /* font-family: Aeonik; */
@@ -222,6 +234,124 @@
 }
 
 
+.home-top__nft-4 {
+
+}
+
+.home-top__wrapper-4 {
+
+}
+
+.home-top__heading-4 {
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+}
+
+.home-top__desc-4 {
+    color: #CFCFCF;
+    margin: 12px 0 30px;
+    /* font-family: Aeonik; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.83; /* 183.333% */
+    letter-spacing: 0.012rem;
+}
+
+.home-top__wrapper-4 {
+
+}
+
+.home-top__wrapper-4:nth-child(2) {
+    position: relative;
+    width: 100%;
+    height: 375px;
+}
+
+.home-top__block-picture-4 {
+    position: relative;
+}
+
+.home-top__img-4 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    object-fit: cover;
+}
+
+
+.home-top__block-picture-4:first-child {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 50%;
+}
+
+.home-top__block-picture-4:nth-child(2) {
+    position: absolute;
+    right: 5%;
+    bottom: -10%;
+    width: 50%;
+    z-index: -1;
+}
+
+.home-top__block-picture-4 > div {
+    /* width: 100%; */
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.home-top__block-desc-4 {
+    position: absolute;
+    background: rgba(246, 246, 246, 0.20);
+    backdrop-filter: blur(80.18616485595703px);
+    padding: 7px;
+    bottom: 6%;
+    left: 7%;
+    width: 87%;
+}
+
+.home-top__block-object-4 {
+    color: #FFF;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.06rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.13; /* 113.333% */
+}
+
+.home-top__block-statistics-4 {
+    margin-bottom: 7px;
+    color: #FFF;
+    /* font-family: Clash Display; */
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.47; /* 147.059% */
+}
+
+.home-top__block-message-4 {
+    color: #FFF;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.42rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: 0.0143rem;
+}
+
+
+
+
 .home__download-4 {
     margin: 60px 0;
     background-color: #272727;
@@ -277,6 +407,9 @@
     
     .home__header-4 {
         max-width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 130px;
     }
     
     .home__header--wrap-4 {
@@ -317,10 +450,15 @@
     }
     
     .home__header--wrap-4:nth-child(2) {
+        position: relative;
         margin-top: 20px;
     }
     
     .home__header-img-4 {
+        position: absolute;
+        top: -165%;
+        left: 2.5%;
+        width: 100%;
         /* position: absolute; */
     }
 
@@ -434,6 +572,130 @@
         line-height: 1.83; /* 183.333% */
         letter-spacing: 0.012rem;
     }
+
+
+    .home-top__nft-4 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        column-gap: 50px;
+    }
+    
+    .home-top__wrapper-4 {
+    
+    }
+    
+    .home-top__heading-4 {
+        color: #ECECEC;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.2; /* 120% */
+    }
+    
+    .home-top__desc-4 {
+        margin-top: 20px;
+        color: #FFF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+    
+    .home-top__wrapper-4 {
+    
+    }
+    
+    .home-top__wrapper-4:nth-child(2) {
+        position: relative;
+        width: 100%;
+        height: 525px;
+    }
+    
+    .home-top__block-picture-4 {
+        position: relative;
+    }
+    
+    .home-top__img-4 {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        object-fit: cover;
+    }
+    
+    
+    .home-top__block-picture-4:first-child {
+        position: absolute;
+        top: 0;
+        left: 5%;
+        width: 50%;
+    }
+    
+    .home-top__block-picture-4:nth-child(2) {
+        position: absolute;
+        right: 5%;
+        bottom: 1%;
+        width: 50%;
+        z-index: -1;
+    }
+    
+    .home-top__block-picture-4 > div {
+        /* width: 100%; */
+        position: relative;
+        width: 100%;
+        height: 337px;
+        overflow: hidden;
+    }
+    
+    .home-top__block-desc-4 {
+        position: absolute;
+        background: rgba(246, 246, 246, 0.20);
+        backdrop-filter: blur(80.18616485595703px);
+        padding: 7px;
+        bottom: 6%;
+        left: 7%;
+        width: 87%;
+    }
+    
+    .home-top__block-object-4 {
+        color: #FFF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.13; /* 113.333% */
+    }
+    
+    .home-top__block-statistics-4 {
+        margin-bottom: 10px;
+        color: #FFF;
+        /* font-family: Clash Display; */
+        font-size: 3.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.47; /* 147.059% */
+    }
+    
+    .home-top__block-message-4 {
+        color: #FFF;
+        /* font-family: Aeonik TRIAL; */
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5; /* 150% */
+        letter-spacing: 0.02rem;
+    }
+
+
+
+
+
 
     .home__download-4 {
         display: grid;

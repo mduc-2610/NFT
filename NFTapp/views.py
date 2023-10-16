@@ -25,7 +25,7 @@ def product_rarity():
 
 def home1(request):
     context = {
-        'hello': 'hellosss'
+        'hello': 'hellosss',
     }
     return render(request, 'NFTapp/home/home1.html', context)
 
@@ -42,8 +42,9 @@ def home3(request):
     return render(request, 'NFTapp/home/home3.html', context)
 
 def home4(request):
+    products = NFTProduct.objects.all()
     context = {
-        'hello': 'hellosss'
+        'products': [random.choice(products) for i in range(2)]
     }
     return render(request, 'NFTapp/home/home4.html', context)
 

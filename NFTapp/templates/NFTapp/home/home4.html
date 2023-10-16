@@ -20,7 +20,9 @@
             <img src="{% static 'images/vector/Frame13.svg' %}" alt="" class="home__header-img-4">
         </div>
     </div>
+
     <div class="gap-between-section"></div>
+    
     <div class="home__main-4">
         <div class="container">
             <div class="home__activity-4">
@@ -68,6 +70,7 @@
     </div>
     {% include 'NFTapp/profile_list/profile_list1.html' %}
     <div class="gap-between-section"></div>
+
     <div class="container">
         <div class="home-top__nft-4">
             <div class="home-top__wrapper-4">
@@ -79,25 +82,33 @@
             </div>
             <div class="home-top__wrapper-4">
                 <div class="home-top__block-picture-4">
-                    <img src="{products.9.image}" alt="" class="home-top__img-4">
-                    <div class="home-top__block-desc-4">
-                        <p class="home-top__block-object-4">Artworks</p>
-                        <p class="home-top__block-statistics">{{products|length}}</p>
-                        <p class="home-top__block-message">NFT's are transforming
-                            the way commerce</p>
+                    <div>
+                        <img src="{{products.0.image}}" alt="" class="home-top__img-4">
+                        <div class="home-top__block-desc-4">
+                            <p class="home-top__block-object-4">Artworks</p>
+                            <p class="home-top__block-statistics-4">{{products|length}}</p>
+                            <p class="home-top__block-message-4">NFT's are transforming
+                                the way commerce</p>
+                    </div>
                     </div>
                 </div>
                 <div class="home-top__block-picture-4">
-                    <img src="{products.9.image}" alt="" class="home-top__img-4">
-                    <div class="home-top__block-desc-4">
-                        <p class="home-top__block-object-4">Users</p>
-                        <p class="home-top__block-statistics">{{users|length}}</p>
-                        <p class="home-top__block-message">NFT's are more and more popular</p>
+                    <div>
+                        <img src="{{products.1.image}}" alt="" class="home-top__img-4">
+                        <div class="home-top__block-desc-4">
+                            <p class="home-top__block-object-4">Users</p>
+                            <p class="home-top__block-statistics-4">{{users|length}}</p>
+                            <p class="home-top__block-message-4">NFT's are more and more popular</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="gap-between-section"></div>
+    <div class="gap-between-section"></div>
+    <div class="gap-between-section"></div>
+    <div class="gap-between-section"></div>
 
     <div class="gap-between-section"></div>
     <div class="home__download-4 ">

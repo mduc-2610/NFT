@@ -4,7 +4,7 @@
 <ellipse cx="96.5829" cy="27.6556" rx="12.4716" ry="12.4486" stroke="#7C3FD0" stroke-width="2"/>
 <ellipse cx="21.4074" cy="96.8134" rx="10.7394" ry="10.7196" fill="url(#pattern1)"/>
 <ellipse cx="21.4074" cy="96.8134" rx="10.7394" ry="10.7196" fill="#7C3FD0"/>
-<ellipse cx="21.4074" cy="96.8134" rx="10.7394" ry="10.7196" stroke="#8CDF66" stroke-width="2"/>
+<ellipse cx="21.4074" cy="96.8134" rx="10.7394" ry="10.7196" stroke="#8CDF66zzz" stroke-width="2"/>
 <path d="M106.629 42.3057C104.139 43.7637 101.238 44.5997 98.1418 44.5997C88.8623 44.5997 81.3398 37.091 81.3398 27.8287C81.3398 22.4041 83.92 17.5811 87.9221 14.5156" stroke="#7C3FD0" stroke-width="3"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
