@@ -9,7 +9,7 @@
                 <h1 class="hero__heading">Your Favorite Crypto Art</h1>
                 <p class="hero__desc">A seamless NFT creation experience, from generation to mint in a few easy steps.</p>
                 <div class="hero__button--wrap flex_aic_jcc">
-                <button class="hero__button">Let's Explore</button>
+                <a href="{% url 'collection1' %}" class="hero__button">Let's Explore</a>
                 <img src="{% static 'images/home_images/image0.svg'%}" alt="" class="hero__img__">
                 </div>
             </div>
@@ -132,6 +132,6 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/subscribe/subscribe1.html' %}
+{% include 'NFTapp/subscribe/subscribe1.html' with img_src="/static/images/explore/collection/nft_image12.svg" %}
 
 {% endblock content %}
