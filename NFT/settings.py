@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'NFTapp.apps.NftappConfig', 
-    'django_extensions',       
+    'NFTapp.apps.NftappConfig',
+    'django_extensions',
     'fontawesomefree',
 ]
 
@@ -88,8 +88,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'NFT',
         'USER': 'root',
+        'HOST': '127.0.0.1',
         'PASSWORD': 'Duc.2003',
-    }
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'duckyyy2610$NFT',
+    #     'USER': 'duckyyy2610',
+    #     'PASSWORD': 'Duc.2003',
+    #     'HOST': 'duckyyy2610.mysql.pythonanywhere-services.com',
+    # }
 }
 
 

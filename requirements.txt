@@ -1,7 +1,6 @@
-fontawesomefree==6.4.2
 django
 django_extensions==3.2.3
+fontawesomefree==6.4.2
 Faker
 Pillow
-cairosvg
-svgwrite
+mysqlclient
