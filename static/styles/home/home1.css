@@ -1,6 +1,6 @@
 /* home 1 */
 .gap-between-section-2 {
-    margin-bottom: 250px;
+    margin-bottom: 40%;
 }
 
 .hero__inner {
@@ -180,9 +180,7 @@
 }
 
 .home-hot__nft-1:hover {
-    color: #FFF;
-    transform: scale(1.2);
-    -webkit-transform: scale(1.2);
+    color: #17E3A6;
 }
 
 .home-curated-1 {
@@ -555,7 +553,7 @@
     }
 
     .home-hot__classify--wrap-1 {
-        gap: 50px;
+
     }
     
     .home-hot__nft-1 {
@@ -571,12 +569,6 @@
         font-style: normal;
         font-weight: 400;
         line-height: 1.375;
-    }
-    
-    .home-hot__nft-1:hover {
-        color: #FFF;
-        transform: scale(1.2);
-        -webkit-transform: scale(1.2);
     }
     
     .home-curated-1 {
