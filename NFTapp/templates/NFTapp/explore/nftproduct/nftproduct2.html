@@ -12,7 +12,7 @@
                 <img src="{{product.image}}" alt="" class="nft-product__img-2">
             </a>
             <div class="nft-product__info-2">
-                <h2 class="nft-product__name-2">{{product.name}}</h2>
+                <h2 class="nft-product__name-2"><a href="{% url 'collection1' product.id %}">{{product.name}}</a></h2>
                 <div class="nft-product__more-info-2 flex_aic_jcc">
                     <div class="nft-product__owner-wrap-2">
                         <p class="nft-product__owner-text-2">Owner</p>

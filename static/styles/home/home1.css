@@ -1,4 +1,8 @@
 /* home 1 */
+.gap-between-section-2 {
+    margin-bottom: 250px;
+}
+
 .hero__inner {
     
 }
@@ -127,6 +131,9 @@
 }
 
 .home-hot__heading-1 {
+    width: 70%;
+    margin: 0 auto;
+
     color: #D9D9D9;
     text-align: center;
     /* font-family: Clash Display; */
@@ -137,7 +144,23 @@
 }
 
 .home-hot__classify-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border: 2px soild #3C3C3C;
+    margin: 33px 0 21px;
+}
+
+.home-hot__classify-1 .classify-1 {
+    margin: 0;
+}
+
+
+.home-hot__classify--wrap-1 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
 }
 
 .home-hot__nft-1 {
@@ -155,13 +178,10 @@
     line-height: 1.375;
 }
 
-.home-hot__desc-1 {
-    cursor: pointer;
-    color: #D2D2D2;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.375;
+.home-hot__nft-1:hover {
+    color: #FFF;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
 }
 
 .home-curated-1 {
@@ -169,7 +189,10 @@
 }
 
 .home-curated__wrap-1 {
-    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 .home-curated__heading-1 {
@@ -190,6 +213,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: 1.714; /* 171.429% */
+}
+
+.home-curated__view-all-1:hover {
+    color: #17E3A6;
 }
 
 .home-creator-1 {
@@ -381,7 +408,11 @@
 }
 
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 768px) {
+    .gap-between-section-2 {
+        margin-bottom: 0;
+    }
+    
     .hero__inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -497,7 +528,7 @@
 
 
 
-
+    
 
     .home-1 {
     
@@ -518,7 +549,12 @@
     }
     
     .home-hot__classify-1 {
+        margin: 62px 0 40px;
         border: 2px soild #3C3C3C;
+    }
+
+    .home-hot__classify--wrap-1 {
+        gap: 50px;
     }
     
     .home-hot__nft-1 {
@@ -536,13 +572,10 @@
         line-height: 1.375;
     }
     
-    .home-hot__desc-1 {
-        cursor: pointer;
-        color: #D2D2D2;
-        font-size: 1.6rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.375;
+    .home-hot__nft-1:hover {
+        color: #FFF;
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
     }
     
     .home-curated-1 {
@@ -550,7 +583,7 @@
     }
     
     .home-curated__wrap-1 {
-        
+        margin-bottom: 60px;
     }
     
     .home-curated__heading-1 {

@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from NFTapp.models import User, NFTProduct, Topic,\
                              OwnerNFTProduct, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle 
-
+                                FAQ, FAQTitle
 
 
 def cal_times_to_read(blogs):
@@ -24,33 +23,59 @@ def product_rarity():
         cnt += 1
 
 def home1(request):
+    blogs = NFTBlog.objects.all()
+    products = NFTProduct.objects.all()
+    users = User.objects.all()
     context = {
-        'hello': 'hellosss',
+        'blogs': blogs,
+        'products': products,
+        'users': users
     }
     return render(request, 'NFTapp/home/home1.html', context)
 
 def home2(request):
+    blogs = NFTBlog.objects.all()
+    products = NFTProduct.objects.all()
+    users = User.objects.all()
+    title = FAQTitle.objects.get(title="Enjin")
     context = {
-        'hello': 'hellosss'
+        'blogs': blogs,
+        'products': products,
+        'users': users,
+        'title': title
     }
     return render(request, 'NFTapp/home/home2.html', context)
 
 def home3(request):
+    blogs = NFTBlog.objects.all()
+    products = NFTProduct.objects.all()
+    users = User.objects.all()
     context = {
-        'hello': 'hellosss'
+        'blogs': blogs,
+        'products': products,
+        'users': users
     }
     return render(request, 'NFTapp/home/home3.html', context)
 
 def home4(request):
+    blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
+    users = User.objects.all()
     context = {
-        'products': [random.choice(products) for i in range(2)]
+        'blogs': blogs,
+        'products': products,
+        'users': users
     }
     return render(request, 'NFTapp/home/home4.html', context)
 
 def home5(request):
+    blogs = NFTBlog.objects.all()
+    products = NFTProduct.objects.all()
+    users = User.objects.all()
     context = {
-        'hello': 'hellosss'
+        'blogs': blogs,
+        'products': products,
+        'users': users
     }
     return render(request, 'NFTapp/home/home5.html', context)
 

@@ -21,126 +21,151 @@
 {% include 'NFTapp/partner.html' %}
 
 <div class="gap-between-section"></div>
-
-<div class="home-2">
-    <div class="container">
-        <div class="home-guide-2">
-            <a href="" class="home-guide__place-2">Enjin Marketplace</a>
-            <h2 class="home-guide__heading-2">Find your treasure</h2>
-            <ul class="home-guide__list-2">
-                <li class="home-guide__item-2 flex_fdc_aif">
-                    <a href="">
-                        <img src="{% static 'images/vector/discover.svg' %}" alt="" class="home-guide__item-img-2">
-                    </a>
-                    <h3 class="home-guide__item-heading-2"><a href="">Discover</a></h3>
-                    <p class="home-guide__item-desc-2">Find pioneering blockchain projects featuring scarce digital assets.</p>
-                </li>
-                <li class="home-guide__item-2 flex_fdc_aif">
-                    <a href="">
-                        <img src="{% static 'images/vector/trade.svg' %}" alt="" class="home-guide__item-img-2">
-                    </a>
-                    <h3 class="home-guide__item-heading-2"><a href="">Trade</a></h3>
-                    <p class="home-guide__item-desc-2">Use the Enjin Wallet to easily list and purchase gaming items.</p>
-                </li>
-                <li class="home-guide__item-2 flex_fdc_aif">
-                    <a href="">
-                        <img src="{% static 'images/vector/gift.svg' %}" alt="" class="home-guide__item-img-2">
-                    </a>
-                    <h3 class="home-guide__item-heading-2"><a href="">Collect</a></h3>
-                    <p class="home-guide__item-desc-2">Grow your inventory with rare and unique digital treasures.</p>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="gap-between-section"></div>
-
-        <div class="home__hot-1">
-            <h1 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h1>
-            <div class="home-hot__classify-1">
-                <a href="" class="home-hot__nft-1">NFT</a>
-                <a href="" class="home-hot__desc-1">Description </a>
-                {% include 'NFTapp/explore/classify/classify1.html' %}
-            </div>
-            {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
-        </div>
-    
-        <div class="gap-between-section"></div>
-        
-        <div class="home-curated-1">
-            <div class="home-curated__wrap-1">
-                <h2 class="home-curated__heading-1">Curated collection</h2>
-                <a href="{% url 'collection1' }" class="home-curated__view-all">View all</a>
-            </div>
-            {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=4 %}
-        </div>
-
-        <div class="gap-between-section"></div>
-
-        <div class="home-join-us-2 flex_fdc_aif">
-            <div class="home-join__info-2">
-                <h2 class="home-join__heading-2">Join Our Community</h2>
-                <p class="home-join__desc-2">Be part of our amazing community and stay tuned for the news.</p>
-                <a href="{% url 'about_us1' %}" class="home-join__link-2">Join us</a>
-            </div>
-            <img src="{% static 'images/vector/join_us_home_2.svg' %}" alt="" class="home-join__img-2">
-        </div>
-
-        <div class="gap-between-section"></div>
-        
-        <div class="home-meecat-1">
-            {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
-        </div>
-
-        <div class="gap-between-section"></div>
-
-        <div class="home-news-2">
-            <h2 class="home-news__heading-2">Latest Meecats News</h2>
-            <ul class="home-news__list-2">
-                {% for blog in blogs %}
-                {% if forloop.counter <= 3 %}
-                <li class="home-news__item-2">
-                    <img src="" alt="" class="home-news__item-img-2">
-                    <a href="" class="home-news__item-author-2">{{blog.author.name}}</a>
-                    <h3 class="home-news__item-heading-2"></h3>
-                    <div class="home-news__item-wrap-2 flex_aic_jcc">
-                        <a href="" class="home-news__item-link-2"></a>
-                        <p class="home-news__item-day-post-2"></p>
-                    </div>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="gap-between-section"></div>
-        
-        <div class="home-faq-2">
-            <h2 class="home-faq__heading">FAQ</h2>
-            <ul class="home-faq__list-2">
-                {% for faq in faqs %}
-                <li class="home-faq__item-1">
-                    <button class="home-faq__feature-1 flex_aic_jcc">
-                        <svg class="home-faq__plus-1" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.58173 14V8.51442H14V5.48558H8.58173V0H5.41827V5.48558H0V8.51442H5.41827V14H8.58173Z" fill="#17E3A6"/>
-                            </svg>                                
-                        <svg class="home-faq__minus-1" width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.58173 3.51444H14V0.485596H8.58173H5.41827H0V3.51444H5.41827H8.58173Z" fill="#17E3A6"/>
+<div class="container">
+    <div class="home-guide-2">
+        <a href="" class="home-guide__place-2">Enjin Marketplace</a>
+        <h2 class="home-guide__heading-2">Find your treasure</h2>
+        <ul class="home-guide__list-2">
+            <li class="home-guide__item-2 flex_fdc_aif">
+                <a href="{% url 'artworks1' %}" class="home-guide__item-link-2">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M40 0C17.9368 0 0 17.9368 0 40C0 62.0632 17.9368 80 40 80C62.0632 80 80 62.0632 80 40C80 17.9368 62.0632 0 40 0ZM40 73.5158C21.4737 73.5158 6.48421 58.5263 6.48421 40C6.48421 21.4737 21.4737 6.48421 40 6.48421C58.5263 6.48421 73.5158 21.4737 73.5158 40C73.5158 58.5263 58.5263 73.5158 40 73.5158Z" fill="#D9D9D9"/>
+                        <path d="M52.5474 19.8737L32.1685 29.4737C30.9895 30.0635 29.9791 30.9892 29.4734 32.1687L19.8734 52.5477C18.8631 54.737 19.2837 57.2633 20.9683 58.9475C22.0633 60.0425 23.4948 60.6316 24.9262 60.6316C25.7686 60.6316 26.6103 60.463 27.368 60.0418L47.747 50.4418C48.9259 49.8521 49.9363 48.9264 50.442 47.7468L60.042 27.3679C61.0524 25.1785 60.6318 22.6522 58.9471 20.968C57.263 19.284 54.7366 18.8634 52.5473 19.8737L52.5474 19.8737ZM44.8841 44.7158L35.2841 35.1158L53.3894 26.6107L44.8841 44.7158Z" fill="#D9D9D9"/>
                         </svg>
-                    </button>
-                    <div class="home-faq__text-1">
-                        <p class="home-faq__question-1">{{faq.question}}
-                        </p>
-                        <p class="home-faq__answer-1">{{faq.answer}}</p>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+                                        
+                    </a>
+                <h3 class="home-guide__item-heading-2"><a href="{% url 'artworks1' %}">Discover</a></h3>
+                <p class="home-guide__item-desc-2">Find pioneering blockchain projects featuring scarce digital assets.</p>
+            </li>
+            <li class="home-guide__item-2 flex_fdc_aif">
+                <a href="{% url 'collection1' %}" class="home-guide__item-link-2">
+                    <svg width="76" height="80" viewBox="0 0 76 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M61.4329 1.39569C57.5692 1.39569 53.8644 2.90456 51.1325 5.59038C48.4006 8.2762 46.8659 11.9185 46.8659 15.7172C46.8659 19.5149 48.4006 23.1581 51.1325 25.8431C53.8644 28.529 57.5692 30.0378 61.4329 30.0378C65.2958 30.0378 69.0005 28.5289 71.7325 25.8431C74.4644 23.1581 75.9991 19.5149 75.9991 15.7172C75.9955 11.9194 74.4599 8.27891 71.7288 5.59394C68.9978 2.90896 65.2949 1.39925 61.4327 1.39569H61.4329ZM61.4329 22.5657V22.5666C59.5845 22.5666 57.813 21.8447 56.5063 20.56C55.2004 19.2761 54.4662 17.5337 54.4662 15.7173C54.4662 13.9009 55.2004 12.1584 56.5063 10.8737C57.8131 9.58984 59.5845 8.86798 61.4329 8.86798C63.2804 8.86798 65.052 9.58984 66.3587 10.8737C67.6654 12.1584 68.3988 13.9009 68.3988 15.7173C68.3988 17.5337 67.6654 19.2762 66.3587 20.56C65.0519 21.8447 63.2804 22.5666 61.4329 22.5666V22.5657Z" fill="#D9D9D9"/>
+                        <path d="M68.3995 53.6986C68.3995 55.35 67.7325 56.9335 66.545 58.101C65.3575 59.2685 63.7459 59.9252 62.0662 59.9252H48.4374L55.8858 52.6023L50.5156 47.3227L36.5819 61.0215L36.581 61.0206C35.8698 61.7216 35.4704 62.6711 35.4704 63.6605C35.4704 64.6507 35.8698 65.6002 36.581 66.3012L50.5147 80L55.8849 74.7204L48.4374 67.3966H62.0662C65.7621 67.3966 69.3061 65.9538 71.9188 63.3843C74.5324 60.8156 75.9999 57.3314 75.9999 53.6987V36.2639H68.3995L68.3995 53.6986Z" fill="#D9D9D9"/>
+                        <path d="M14.5666 49.9627C10.7038 49.9627 6.99902 51.4716 4.26711 54.1574C1.5352 56.8423 0.00050354 60.4855 0.00050354 64.2833C0.00050354 68.0819 1.53524 71.7242 4.26711 74.4101C6.99898 77.0959 10.7038 78.6048 14.5666 78.6048C18.4304 78.6048 22.1351 77.0959 24.867 74.4101C27.599 71.7243 29.1337 68.0819 29.1337 64.2833C29.1301 60.4864 27.5945 56.8459 24.8634 54.1607C22.1324 51.4757 18.4295 49.966 14.5666 49.9625V49.9627ZM14.5666 71.1327C12.7191 71.1327 10.9476 70.4108 9.64091 69.127C8.33415 67.8422 7.6008 66.0998 7.6008 64.2834C7.6008 62.467 8.33415 60.7245 9.64091 59.4407C10.9477 58.156 12.7191 57.4341 14.5666 57.4341C16.415 57.4341 18.1866 58.156 19.4932 59.4407C20.7991 60.7246 21.5334 62.467 21.5334 64.2834C21.5334 66.0998 20.7991 67.8423 19.4932 69.127C18.1865 70.4108 16.415 71.1327 14.5666 71.1327Z" fill="#D9D9D9"/>
+                        <path d="M4.48678e-05 41.2455H7.60045V26.3012C7.60045 24.6498 8.26752 23.0662 9.45502 21.8988C10.6425 20.7313 12.2541 20.0746 13.9338 20.0746H26.9044L20.2671 26.0276L25.3333 31.5566L39.267 19.1035C40.0348 18.4155 40.4827 17.4487 40.5066 16.4281C40.5305 15.4074 40.1284 14.4206 39.3933 13.6988L25.4596 0L20.0894 5.27966L27.5625 12.6034H13.9337C10.2378 12.6034 6.69384 14.0463 4.08113 16.6157C1.46751 19.1844 0 22.6686 0 26.3014L4.48678e-05 41.2455Z" fill="#D9D9D9"/>
+                        </svg>
+                                        </a>
+                <h3 class="home-guide__item-heading-2"><a href="{% url 'collection1' %}">Trade</a></h3>
+                <p class="home-guide__item-desc-2">Use the Enjin Wallet to easily list and purchase gaming items.</p>
+            </li>
+            <li class="home-guide__item-2 flex_fdc_aif">
+                <a href="{% url 'profile' users.10.id %}" class="home-guide__item-link-2">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M77.5903 14.6223H56.7473C57.5828 13.7004 58.2385 12.6709 58.6654 11.5424C60.0147 7.98099 58.8491 4.12884 55.5476 1.2394C54.622 0.428572 53.5024 0 52.3083 0C47.7802 0 42.9174 6.81973 40.0009 11.74C37.0831 6.81987 32.2217 0 27.6934 0C26.5004 0 25.3797 0.428572 24.4535 1.2394C21.1536 4.12998 19.9881 7.98099 21.3368 11.5419C21.7643 12.6708 22.4205 13.7003 23.256 14.6227L2.41008 14.6222C1.07926 14.6222 0 15.6964 0 17.0223V29.4782C0 30.8035 1.07866 31.8783 2.41008 31.8783H7.83414V77.5998C7.83414 78.9252 8.91281 80 10.2442 80H69.7552C71.086 80 72.1653 78.9258 72.1653 77.5998V31.8798H77.5899C78.9207 31.8798 80 30.8055 80 29.4796V17.0237C80 15.6978 78.9212 14.6223 77.5903 14.6223ZM43.9761 19.4226V27.0789H36.0248V19.4226H43.9761ZM52.2984 4.79541C52.2984 4.79541 52.3208 4.80657 52.3651 4.84507C54.1509 6.40808 54.7863 8.18608 54.1553 9.85008C53.2554 12.2251 49.7354 14.6212 43.8988 14.6235C47.0994 9.18208 50.7658 4.79984 52.2984 4.79541ZM27.6353 4.84452C27.6661 4.81773 27.6869 4.80378 27.6925 4.80099C29.2334 4.80155 32.9004 9.18328 36.1004 14.6236C30.2634 14.6213 26.7443 12.2246 25.8444 9.85014C25.0381 7.71614 26.3735 5.95052 27.6353 4.84452ZM4.81986 19.4231H31.2043V27.0794L10.2436 27.0789H4.81958L4.81986 19.4231ZM12.6534 31.8801H31.2042L31.2047 75.2002H12.654L12.6534 31.8801ZM36.024 75.2002V31.8801H43.9754V75.2002H36.024ZM67.3446 75.2002H48.7938V31.8801H67.3446V75.2002ZM75.1793 27.0801H48.7948V19.4238H75.1793V27.0801Z" fill="#D9D9D9"/>
+                        </svg>
+                                        </a>
+                <h3 class="home-guide__item-heading-2"><a href="{% url 'profile' users.10.id %}">Collect</a></h3>
+                <p class="home-guide__item-desc-2">Grow your inventory with rare and unique digital treasures.</p>
+            </li>
+        </ul>
+    </div>
+</div>
+        
+<div class="gap-between-section"></div>
 
-        <div class="gap-between-section">
-
+<div class="container">
+    <div class="home__hot-1">
+        <h1 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h1>
+        <div class="home-hot__classify-1">
+            <a href="" class="home-hot__nft-1">NFT</a>
+            <a href="" class="home-hot__desc-1">Description </a>
+            {% include 'NFTapp/explore/classify/classify1.html' %}
         </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+    </div>
+</div>
+    
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="home-curated-1">
+        <div class="home-curated__wrap-1">
+            <h2 class="home-curated__heading-1">Curated collection</h2>
+            <a href="{% url 'collection1' }" class="home-curated__view-all">View all</a>
+        </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=4 %}
     </div>
 </div>
 
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="home-join-us-2 flex_fdc_aif">
+        <div class="home-join__info-2">
+            <h2 class="home-join__heading-2">Join Our Community</h2>
+            <p class="home-join__desc-2">Be part of our amazing community and stay tuned for the news.</p>
+            <a href="{% url 'about_us1' %}" class="home-join__link-2">Join us</a>
+        </div>
+        <img src="{% static 'images/vector/join_us_home_2.svg' %}" alt="" class="home-join__img-2">
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="home-meecat-1">
+        {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container-full">
+    <div class="home-news-2">
+        <h2 class="home-news__heading-2">Latest Meecats News</h2>
+        <ul class="home-news__list-2">
+            {% for blog in blogs %}
+                {% if forloop.counter <= 3 %}
+                    <li class="home-news__item-2">
+                        <a href="{% url 'blog' blog.id %}" class="home-news__item-img-link-2">
+                            <img src="{{blog.image}}" alt="" class="home-news__item-img-2">
+                        </a>
+                        <div>
+                            <a href="{% url 'profile' blog.author.id %}" class="home-news__item-author-2">@{{blog.author.name}}</a>
+                            <h3 class="home-news__item-heading-2"><a href="{% url 'blog' blog.id %}">{{blog.title}}</a></h3>
+                            <div class="home-news__item-wrap-2 flex_aic_jcc">
+                                <a href="{% url 'blog' blog.id %}" class="home-news__item-link-2">News</a>
+                                <p class="home-news__item-day-post-2">{{blog.post_date|date:"M d, Y"}}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <h1 class="faq__heading-1">FAQs</h1>
+    <div class="faq__main-1">
+        <ul class="faq__list-1">
+            {% for faq in title.questions.all %}
+            <li class="faq__item-1">
+                <button class="faq__feature-1 flex_aic_jcc">
+                    <svg class="faq__plus-1" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.58173 14V8.51442H14V5.48558H8.58173V0H5.41827V5.48558H0V8.51442H5.41827V14H8.58173Z" fill="#17E3A6"/>
+                        </svg>                                
+                    <svg class="faq__minus-1" width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.58173 3.51444H14V0.485596H8.58173H5.41827H0V3.51444H5.41827H8.58173Z" fill="#17E3A6"/>
+                    </svg>
+                </button>
+                <div class="faq__text-1">
+                    <p class="faq__question-1">{{faq.question}}
+                    </p>
+                    <p class="faq__answer-1">{{faq.answer}}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="gap-between-setion"></div>
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/subscribe/subscribe2.html' %}
 {% endblock content %}

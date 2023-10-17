@@ -1,4 +1,83 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
-{% include 'NFTapp/subscribe/subscribe1.html' %}
+
+<div class="hero-5"">
+    <div class="container">
+        <div class="hero__inner-5">
+            <div class="hero__about-5">
+                <h1 class="hero__heading-5">Explore Virtual Worlds</h1>
+                <p class="hero__desc-5">Virtual worlds are blockchain-fueled alternative realities where users can create and trade digital goods, play games, and display NFTs in galleries, among other intriguing use cases.</p>
+                <a class="hero__button hero__button-5">Explore now</a>
+            </div>
+            <div class="hero-img__section-5 flex_aic_jcc">
+                <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="hero__img-5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="home__hot-1">
+        <h2 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h2>
+        <div class="home-hot__classify-1">
+            <div class="home-hot__classify--wrap-1">
+                <a href="" class="home-hot__nft-1">NFT</a>
+                <a href="" class="home-hot__desc-1">Description </a>
+            </div>
+            {% include 'NFTapp/explore/classify/classify1.html' %}
+        </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+        <!-- include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=41 -->
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+  
+<div class="container">
+    <div class="home-curated-1">
+        <div class="home-curated__wrap-1">
+            <h2 class="home-curated__heading-1">Curated collection</h2>
+            <a href="{% url 'collection1' }" class="home-curated__view-all-1">View all</a>
+        </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=4 %}
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/profile_list/profile_list2.html' %}
+
+<div class="gap-between-section"></div>
+
+<div class="container-full">
+    <div class="home-news-2">
+        <h2 class="home-news__heading-2">Latest Meecats News</h2>
+        <ul class="home-news__list-2">
+            {% for blog in blogs %}
+                {% if forloop.counter <= 3 %}
+                    <li class="home-news__item-2">
+                        <a href="{% url 'blog' blog.id %}" class="home-news__item-img-link-2">
+                            <img src="{{blog.image}}" alt="" class="home-news__item-img-2">
+                        </a>
+                        <div>
+                            <a href="{% url 'profile' blog.author.id %}" class="home-news__item-author-2">@{{blog.author.name}}</a>
+                            <h3 class="home-news__item-heading-2"><a href="{% url 'blog' blog.id %}">{{blog.title}}</a></h3>
+                            <div class="home-news__item-wrap-2 flex_aic_jcc">
+                                <a href="{% url 'blog' blog.id %}" class="home-news__item-link-2">News</a>
+                                <p class="home-news__item-day-post-2">{{blog.post_date|date:"M d, Y"}}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/subscribe/subscribe2.html' %}
 {% endblock content %}

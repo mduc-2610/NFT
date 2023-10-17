@@ -60,6 +60,11 @@
 }
 
 .nft-product__name-2 {
+    
+}
+
+.nft-product__name-2 a {
+    display: inline-block;
     margin: 25px 0 30px;
     background: linear-gradient(90deg, #20E2A7 7%, #77DCCE 10.55%, #6FC7F2 27.51%, #A0A1ED 12.87%, #FE5CD6 38.52%, #FF669F 32.95%);
     background-clip: text;

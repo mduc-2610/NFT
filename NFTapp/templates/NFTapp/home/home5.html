@@ -7,7 +7,7 @@
             <div class="hero__about-5">
                 <h1 class="hero__heading-5">Explore Virtual Worlds</h1>
                 <p class="hero__desc-5">Virtual worlds are blockchain-fueled alternative realities where users can create and trade digital goods, play games, and display NFTs in galleries, among other intriguing use cases.</p>
-                <button class="hero__button hero__button-5">Explore now</button>
+                <a class="hero__button hero__button-5">Explore now</a>
             </div>
             <div class="hero-img__section-5 flex_aic_jcc">
                 <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="hero__img-5">
@@ -22,22 +22,26 @@
 
 <div class="gap-between-section"></div>
 
-<div class="home-5">
-    <div class="home-hot-4">
-        <p class="home-hot__text">Hot NFTs on Live Action</p>
-        <a href="" class="home-hot__view-all">View all</a>
+<div class="container">
+    <div class="home-hot-4 flex_aic_jcc">
+        <p class="home-hot__text-4">Hot NFTs on Live Action</p>
+        <a href="{% url 'artworks1' %}" class="home-hot__view-all-4">View all</a>
     </div>
-    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=3 %}
+    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=8 %}
+</div>
 
-    <div class="gap-between-section"></div>
+<div class="gap-between-section"></div>
 
+<div class="container">
     <div class="home-top-5">
         <h2 class="home-top__collection">Our Top NFT Here</h2>
         {% include 'NFTapp/explore/classify/classify1.html' %}
     </div>
+</div>
 
-    <div class="gap-between-section"></div>
+<div class="gap-between-section"></div>
 
+<div class="container">
     <div class="home-join-us-1">
         <h1 class="home-join__heading-1">
             <a href="{% url 'about_us1' %}">
@@ -57,15 +61,14 @@
             </ul>
         </div>
     </div>
-
-    <div class="gap-between-section"></div>
-
-    {% include 'NFTapp/profile_list/profile_list1.html' %}
-
-    <div class="gap-between-section"></div>
-
-    {% include 'NFTapp/subscribe/subscribe4.html' %}
-    
 </div>
 
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/profile_list/profile_list1.html' %}
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/subscribe/subscribe4.html' %}
+    
 {% endblock content %}

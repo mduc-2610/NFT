@@ -63,8 +63,13 @@ main {
     margin: 60px 0 150px;
 }
 
+.container-full {
+    width: 100%;
+    /* max-width: calc(100% - 24px); */
+}
+
 .gap-between-section {
-    margin-bottom: 150px;
+    margin-bottom: 60px;
 }
 
 .flex_aic_jcc {
@@ -91,4 +96,10 @@ main {
     width: 1170px;
     max-width: calc(100% - 24px);
     margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+    .gap-between-section {
+        margin-bottom: 150px;
+    }
 }

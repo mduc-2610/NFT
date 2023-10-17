@@ -13,7 +13,10 @@ from datetime import datetime
 from faker import Faker
 from PIL import Image
 from django.core.management.base import BaseCommand
-from NFTapp.models import User, NFTProduct, Topic, OwnerNFTProduct, Type, NFTBlog, Comment, BlogSection
+from NFTapp.models import User, NFTProduct, Topic,\
+                             OwnerNFTProduct, Type, NFTBlog, \
+                                BlogSection, BlogComment, ProductComment,\
+                                FAQ, FAQTitle
 from NFT.settings import MEDIA_ROOT
 fake = Faker()
 
@@ -67,9 +70,11 @@ def run():
 #     context["products2"] = product_favorited
 #     {print(k, v) for k, v in context.items()}
 
-    type_instance = Type.objects.get(name="artworks")
-    products = NFTProduct.objects.filter(type_product__name="artworks")
-    # print(type_instance)
-    products = type_instance.products_type.all()
-    print(len(products))
-    [print(product) for product in products]
+    # type_instance = Type.objects.get(name="artworks")
+    # products = NFTProduct.objects.filter(type_product__name="artworks")
+    # # print(type_instance)
+    # products = type_instance.products_type.all()
+    # print(len(products))
+    # [print(product) for product in products]
+
+    print(FAQTitle.objects.filter(title="Enjin"))
