@@ -124,28 +124,28 @@ def collection_detail_1(request, pk):
 def collection2(request):
     products = NFTProduct.objects.all()
     context = {
-        "products": products
+        "products": classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection2.html', context)
 
 def collection3(request):
     products = NFTProduct.objects.all()
     context = {
-        "products": products
+        "products": classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection3.html', context)
 
 def collection4(request):
     products = NFTProduct.objects.all()
     context = {
-        "products": products
+        "products": classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection4.html', context)
 
 def collection5(request):
     products = NFTProduct.objects.all()
     context = {
-        "products": products
+        "products": classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
@@ -343,12 +343,12 @@ def profile(request, pk):
     product_filter = request.GET.get('filter', 'collected')
     if product_filter == "collected":
         product_collection = user.nftproduct_set.all()
-        context["products"] = product_collection
+        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_collection)
     elif product_filter == "created":
         product_created = user.author.all()
-        context["products"] = product_created  
+        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_created)  
     else:
         product_favorited = user.likes.all()
-        context["products"] = product_favorited
+        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
     return render(request, 'NFTapp/profile.html', context)
 
