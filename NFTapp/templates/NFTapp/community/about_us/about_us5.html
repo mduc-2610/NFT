@@ -1,44 +1,55 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<div class="about-1">
-    <div class="container">
-        <div class="about__header-1 flex_fdc_aif">
-            <h1 class="about__heading-1">Where art meets Team</h1>
-            <p class="about__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
+<div class="container">
+    <div class="about__header-1 flex_fdc_aif">
+        <h1 class="about__heading-1">Where art meets Team</h1>
+        <p class="about__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="about__statistic">
+        <h1 class="about-statistic__heading">About Meecats</h1>
+        <div class="about-figure">
+            <p class="about-figure__key">2023</p>
+            <p class="about-figure__value">Founded</p>
         </div>
-        <div class="about__main-1">
-            <div class="about__statistic">
-                <h1 class="about-statistic__heading">About Meecats</h1>
-                <div class="about-figure">
-                    <p class="about-figure__key">2023</p>
-                    <p class="about-figure__value">Founded</p>
-                </div>
-                <div class="about-figure">
-                    <p class="about-figure__key">24.2B</p>
-                    <p class="about-figure__value">Created</p>
-                </div>
-                <div class="about-figure">
-                    <p class="about-figure__key">42.6M</p>
-                    <p class="about-figure__value">Locked Assets</p>
-                </div>
-            </div>
-            <div class="about__section-1">
-                <div class="about__mission-1">
-                    <h2 class="mission__heading-1">We believe in the power of creators.</h2>
-                    <p class="mission__desc-1">We’re a fully distributed team spread across five continents and 20 countries—unified by a mission to build futuristic, world-class products.</p>
-                    <a href="https://www.facebook.com/profile.php?id=100028365798333" class="mission__link-5">Join Us</a>
-                </div>
-                <div class="about__img-section-3 flex_aic_jcc">
-                    <img src="{% static 'images/vector/nft_piece_1.svg' %}" alt="" class="about__img-1 about__img-3">
-                    <img src="{% static 'images/vector/nft_piece_2.svg' %}" alt="" class="about__img-1 about__img-3">
-                    <img src="{% static 'images/vector/nft_piece_3.svg' %}" alt="" class="about__img-1 about__img-3">
-                </div>
-            </div>
+        <div class="about-figure">
+            <p class="about-figure__key">24.2B</p>
+            <p class="about-figure__value">Created</p>
+        </div>
+        <div class="about-figure">
+            <p class="about-figure__key">42.6M</p>
+            <p class="about-figure__value">Locked Assets</p>
         </div>
     </div>
 </div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="about__section-1">
+        <div class="about__mission-1">
+            <h2 class="mission__heading-1">We believe in the power of creators.</h2>
+            <p class="mission__desc-1">We’re a fully distributed team spread across five continents and 20 countries—unified by a mission to build futuristic, world-class products.</p>
+            <a href="https://www.facebook.com/profile.php?id=100028365798333" class="mission__link-5">Join Us</a>
+        </div>
+        <div class="about__img-section-3 flex_aic_jcc">
+            <img src="{% static 'images/vector/nft_piece_1.svg' %}" alt="" class="about__img-1 about__img-3">
+            <img src="{% static 'images/vector/nft_piece_2.svg' %}" alt="" class="about__img-1 about__img-3">
+            <img src="{% static 'images/vector/nft_piece_3.svg' %}" alt="" class="about__img-1 about__img-3">
+        </div>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
 {% include 'NFTapp/partner.html' %}
-<div class="about__margin-5"></div>
+
+<div class="gap-between-section"></div>
+
 {% include 'NFTapp/subscribe/subscribe3.html' %}
 {% endblock content %}

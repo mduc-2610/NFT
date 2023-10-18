@@ -1,50 +1,58 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<div class="about-1">
-    <div class="container">
-        <div class="about__header-1 flex_fdc_aif">
-            <h1 class="about__heading-1">Where art meets Team</h1>
-            <p class="about__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
-            <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="about__heading-img-4">
-        </div>
-        <div class="about__main-1">
-            <div class="about__section-1">
-                <div class="about__mission-1">
-                    <h2 class="mission__heading-1">We believe in the power of creators.</h2>
-                    <p class="mission__desc-1">Web3 is changing the world as we know it.
+<div class="container">
+    <div class="about__header-1 flex_fdc_aif">
+        <h1 class="about__heading-1">Where art meets Team</h1>
+        <p class="about__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
+        <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="about__heading-img-4">
+    </div>
+</div>
 
-                        We’re seeing the start of a decentralized digital space where art, videos, writing, and other forms of creativity can be bought and sold on the blockchain—and we want to help everyone launch their own NFTs.
-                        
-                        Most creators don't have access to a dev team or hours of studying code to turn digital art into tokens. That’s why we are committed to create the tools to make it easier, more accessible, and seamless for creators to enter this new space.
-                        
-                        Our mission is to empower the web3 creator economy, and we hope you'll join us!</p>
-                </div>
-                <div class="about__img-section-3 flex_aic_jcc">
-                    <img src="{% static 'images/vector/nft_piece_1.svg' %}" alt="" class="about__img-1 about__img-3">
-                    <img src="{% static 'images/vector/nft_piece_2.svg' %}" alt="" class="about__img-1 about__img-3">
-                    <img src="{% static 'images/vector/nft_piece_3.svg' %}" alt="" class="about__img-1 about__img-3">
-                </div>
-            </div>
-            <div class="about__download-4 ">
-                <div class="download__guide-4 ">
-                    <p class="download__text-4">Download Meecats app to track your NFT portfolio and discover drops</p>
-                    <div class="download__app-4 flex_aic_jcc">
-                        <a href="">
-                            <img src="{% static 'images/vector/google_play.svg' %}" alt="" class="download__google-play-4">
-                        </a>
-                        <a href="">
-                            <img src="{% static 'images/vector/app_store.svg' %}" alt="" class="download__app-store-4">
-                        </a>
-                    </div>
-                </div>
-                <div class="download__phone-4">
-                    <img src="{% static 'images/vector/phone1.svg' %}" alt="" class="download__phone-1-4">
-                    <img src="{% static 'images/vector/phone2.svg' %}" alt="" class="download__phone-2-4">
-                </div>
-            </div>
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="about__section-1">
+        <div class="about__mission-1">
+            <h2 class="mission__heading-1">We believe in the power of creators.</h2>
+            <p class="mission__desc-1">Web3 is changing the world as we know it.
+
+                We’re seeing the start of a decentralized digital space where art, videos, writing, and other forms of creativity can be bought and sold on the blockchain—and we want to help everyone launch their own NFTs.
+                
+                Most creators don't have access to a dev team or hours of studying code to turn digital art into tokens. That’s why we are committed to create the tools to make it easier, more accessible, and seamless for creators to enter this new space.
+                
+                Our mission is to empower the web3 creator economy, and we hope you'll join us!</p>
+        </div>
+        <div class="about__img-section-3 flex_aic_jcc">
+            <img src="{% static 'images/vector/nft_piece_1.svg' %}" alt="" class="about__img-1 about__img-3">
+            <img src="{% static 'images/vector/nft_piece_2.svg' %}" alt="" class="about__img-1 about__img-3">
+            <img src="{% static 'images/vector/nft_piece_3.svg' %}" alt="" class="about__img-1 about__img-3">
         </div>
     </div>
 </div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="about__download-4 ">
+        <div class="download__guide-4 ">
+            <p class="download__text-4">Download Meecats app to track your NFT portfolio and discover drops</p>
+            <div class="download__app-4 flex_aic_jcc">
+                <a href="">
+                    <img src="{% static 'images/vector/google_play.svg' %}" alt="" class="download__google-play-4">
+                </a>
+                <a href="">
+                    <img src="{% static 'images/vector/app_store.svg' %}" alt="" class="download__app-store-4">
+                </a>
+            </div>
+        </div>
+        <div class="download__phone-4">
+            <img src="{% static 'images/vector/phone1.svg' %}" alt="" class="download__phone-1-4">
+            <img src="{% static 'images/vector/phone2.svg' %}" alt="" class="download__phone-2-4">
+        </div>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
 {% include 'NFTapp/subscribe/subscribe3.html' %}
 {% endblock content %}

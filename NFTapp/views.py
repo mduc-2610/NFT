@@ -141,86 +141,111 @@ def collection5(request):
 def artworks1(request):
     users = User.objects.all()
     products = NFTProduct.objects.filter(type_product__name="artworks")
+    product_list = list(products)
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
-        'products': products,
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
+        'random_product': random.choice(products),
     }
     return render(request, 'NFTapp/explore/artworks/artworks1.html', context)
 
 def artworks2(request):
     users = User.objects.all()
-    products = NFTProduct.objects.all()
+    products = NFTProduct.objects.filter(type_product__name="artworks")
+    product_list = list(products)
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
-        'products': products,
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
+        'random_product': products.get(image='/static/images/explore/artworks/nft_image1.svg'),
     }
     return render(request, 'NFTapp/explore/artworks/artworks2.html', context)
 
 def artworks3(request):
     users = User.objects.all()
-    products = NFTProduct.objects.all()
+    products = NFTProduct.objects.filter(type_product__name="artworks")
+    product_list = list(products)
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
-        'products': products,
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
+        'random_product': random.choice(products),
     }
     return render(request, 'NFTapp/explore/artworks/artworks3.html', context)
 
 def artworks4(request):
     users = User.objects.all()
-    products = NFTProduct.objects.all()
+    products = NFTProduct.objects.filter(type_product__name="artworks")
+    product_list = list(products)
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
-        'products': products,
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
+        'random_product': random.choice(products),
     }
     return render(request, 'NFTapp/explore/artworks/artworks4.html', context)
 
 def artworks5(request):
     users = User.objects.all()
-    products = NFTProduct.objects.all()
+    products = NFTProduct.objects.filter(type_product__name="artworks")
+    product_list = list(products)
     authors = []
     for user in users:
         if user.author.all().count():
             authors.append(user)
     context = {
         'authors': authors,
-        'products': products,
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
+        'random_product': random.choice(products),
     }
     return render(request, 'NFTapp/explore/artworks/artworks5.html', context)
 
 
 def about_us1(request):
     titles = FAQTitle.objects.all()
+    users = User.objects.all()
     context = {
-        'titles': titles
+        'titles': titles,
+        'users': users,
     }
-    return render(request, 'NFTapp/community/about_us/about_us1.html', {})
+    return render(request, 'NFTapp/community/about_us/about_us1.html', context)
 
 def about_us2(request):
-    return render(request, 'NFTapp/community/about_us/about_us2.html', {})
+    titles = FAQTitle.objects.all()
+    users = User.objects.all()
+    context = {
+        'titles': titles,
+        'users': users,
+    }
+    return render(request, 'NFTapp/community/about_us/about_us2.html', context)
 
 def about_us3(request):
-    return render(request, 'NFTapp/community/about_us/about_us3.html', {})
+    titles = FAQTitle.objects.all()
+    users = User.objects.all()
+    context = {
+        'titles': titles,
+        'users': users,
+    }
+    return render(request, 'NFTapp/community/about_us/about_us3.html', context)
+
 
 def about_us4(request):
     return render(request, 'NFTapp/community/about_us/about_us4.html', {})

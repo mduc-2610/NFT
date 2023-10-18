@@ -91,7 +91,7 @@
     width: 87%;
     height: 82px;
     background: rgba(246, 246, 246, 0.20);
-    justify-content: space-evenly;
+    justify-content: space-between;
     backdrop-filter: blur(91.5px);
     border-radius: 12px;
     left: 7%;
@@ -121,6 +121,7 @@
 }
 
 .sale-1 {
+    display: none;
     gap: 15px;
 }
 
@@ -180,7 +181,7 @@
 
 } */
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 768px) {
     .nft-products-1 {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -196,4 +197,20 @@
         line-height: 1.353; /* 135.294% */
         letter-spacing: 0.0476rem;
     }
+
+    .sale-1 {
+        display: flex;
+    }
+     
+
 }
+
+@media only screen and (min-width: 1130px) {
+    .sale-1 {
+        display: flex;
+    }
+    
+    .product-info-1 {
+        justify-content: space-evenly;
+    }  
+} 

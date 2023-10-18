@@ -1,23 +1,22 @@
 {% extends 'main.html' %}
 <!-- {% load static %} -->
 {% block content %}
-
-<div class="nft-2">
-    <div class="introduce-2">
-        <div class="container introduce-wrap-2">
-            <div class="introduce-info-2 flex_fdc_aif">
-                <h1 class="introduce-heading-2">Explore our features of all collection</h1>
-                <p class="introduce-desc-2">Our goal is to make all usefully collectibles open and accessible, giving creators and designers a new realm to play in, enabling them to publish their own items.</p>
-            </div>
-            <button class="introduce-explore-2 hero__button" onclick="window.location.href='#product-section-2'">Explore now</button>
-            <div class="introduce-video-2">
-                <img src="{% static 'images/home_images/image9.svg' %}" alt="">
-            </div>
-        </div>
+<div class="container introduce-wrap-2">
+    <div class="introduce-info-2 flex_fdc_aif">
+        <h1 class="introduce-heading-2">Explore our features of all collection</h1>
+        <p class="introduce-desc-2">Our goal is to make all usefully collectibles open and accessible, giving creators and designers a new realm to play in, enabling them to publish their own items.</p>
     </div>
-    <div id="product-section-2" class="container">
-        {% include 'NFTapp/explore/classify/classify1.html' %}
-        {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=41 %}                                       
+    <button class="introduce-explore-2 hero__button" onclick="window.location.href='#product-section-2'">Explore now</button>
+    <div class="introduce-video-2">
+        <img src="{% static 'images/home_images/image9.svg' %}" alt="">
     </div>
 </div>
+
+<div class="gap-between-section"></div>
+
+<div id="product-section-2" class="container">
+    {% include 'NFTapp/explore/classify/classify1.html' %}
+    {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=41 %}                                       
+</div>
+
 {% endblock content %}

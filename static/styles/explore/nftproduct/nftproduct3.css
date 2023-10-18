@@ -116,7 +116,7 @@ Tablet	576px - 1023px	(min-width: 576px) and (max-width: 1023px)
 Desktop/Laptop	> 1024px	(min-width: 1024px) */
 
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 520px) {
     .nft-products-3 {
         grid-template-columns: repeat(2, 1fr);
     }

@@ -1,4 +1,34 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
+
+<div class="container-artwork-1">
+    <div class="artwork__inner-1">
+        <a href="{% url 'collection1' random_product.id %}" class="artwork__img-wrap-1">
+            <img src="{{random_product.image}}" alt="" class="artwork__img-1">
+        </a>
+        
+        {% include 'NFTapp/explore/artworks/artworks_common.html' with url_product_artwork=url %}
+        
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+    
+<div class="container">
+    <div class="artworks-header-1">
+        <p class="artworks-header__amount-1">Artworks ({{products|length}})</p>
+        {% include 'NFTapp/explore/classify/classify1.html' %}
+    </div>
+    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=41 %}
+</div>
+
+<div class="gap-between-section"></div>
+
 {% include 'NFTapp/subscribe/subscribe1.html' %}
+
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list1.html' %} -->
+<!-- <div class="gap-between-section"></div> -->
+<!-- {% include 'NFTapp/profile_list/profile_list2.html' %} -->
 {% endblock content %}

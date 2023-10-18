@@ -14,8 +14,6 @@
 }
 
 .artwork__img-wrap {
-    display: grid;
-    grid-template-columns: 9.9fr 0.1fr;
 
 }
 
@@ -36,24 +34,27 @@
     line-height: 1.25; /* 125% */
 }
 
-.artwork__author.web {
-    display: none;
-}
 
-.artwork__author.mobile {
-    margin: 62px 0 0 -27px;
-    height: 5%;
-    width: 200%;
-    transform: rotate(90deg);
-    /* transform-origin: center; */
+.artwork__author {
+    margin: 5px 0 20px;
     color: #C7C7C7;
     /* font-family: Aeonik; */
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1;
+    line-height: 1.29; /* 128.571% */
 }
 
+.artwork__author a {
+    
+    color: #17E3A6;
+    /* font-family: Aeonik; */
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.29; /* 128.571% */
+    text-decoration: underline;   
+}
 
 .artwork__buy-own {
     display: grid;
@@ -192,7 +193,7 @@
         line-height: 1.12; /* 112% */
     }
     
-    .artwork__author.web {
+    .artwork__author {
         margin: 14px 0 43px;
         display: block;
         color: #C7C7C7;
@@ -203,8 +204,12 @@
         line-height: 1; /* 100% */
     }
     
-    .artwork__author.mobile {
-        display: none;
+    .artwork__author a{
+        /* font-family: Aeonik; */
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1; /* 100% */
     }
     
     

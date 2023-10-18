@@ -1,3 +1,4 @@
+{% load my_custom_tags %}
 <div class="comment">
     <div class="container">
         <div class="comment__inner scroll">
@@ -11,7 +12,7 @@
                     <a href="{% url 'profile' comment.user.id %}" class="comment__user">
                         <img src="{{user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
                     </a>
-                    <p class="comment__time">{{comment.added_at|timesince}} ago</p>
+                    <p class="comment__time">{{comment.added_at|facebook_time}}</p>
                     <div class="comment__edit">
                         <button class="comment__modify">Edit</button>
                         <button class="comment__delete">Delete</button>

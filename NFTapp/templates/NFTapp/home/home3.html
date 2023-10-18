@@ -2,17 +2,15 @@
 {% load static %}
 {% block content %}
 
-<div class="hero-5"">
-    <div class="container">
-        <div class="hero__inner-5">
-            <div class="hero__about-5">
-                <h1 class="hero__heading-5">Explore Virtual Worlds</h1>
-                <p class="hero__desc-5">Virtual worlds are blockchain-fueled alternative realities where users can create and trade digital goods, play games, and display NFTs in galleries, among other intriguing use cases.</p>
-                <a href="{% url 'collection1' %}" class="hero__button hero__button-5">Explore now</a>
-            </div>
-            <div class="hero-img__section-5 flex_aic_jcc">
-                <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="hero__img-5">
-            </div>
+<div class="container">
+    <div class="hero__inner-5">
+        <div class="hero__about-5">
+            <h1 class="hero__heading-5">Explore Virtual Worlds</h1>
+            <p class="hero__desc-5">Virtual worlds are blockchain-fueled alternative realities where users can create and trade digital goods, play games, and display NFTs in galleries, among other intriguing use cases.</p>
+            <a href="{% url 'artworks3' %}" class="hero__button hero__button-5">Explore now</a>
+        </div>
+        <div class="hero-img__section-5 flex_aic_jcc">
+            <img src="{% static 'images/home_images/image9.svg' %}" alt="" class="hero__img-5">
         </div>
     </div>
 </div>
@@ -25,7 +23,7 @@
         <div class="home-hot__classify-1">
             <div class="home-hot__classify--wrap-1">
                 <a href="" class="home-hot__nft-1">NFT</a>
-                <a href="" class="home-hot__desc-1">Description </a>
+                <a href="" class="home-hot__nft-1">Description </a>
             </div>
             {% include 'NFTapp/explore/classify/classify1.html' %}
         </div>

@@ -3,6 +3,20 @@
     flex-direction: column-reverse;
 }
 
+.artwork__img-wrap-2 {
+    width: 100%;
+
+}
+
+.about__img-3 {
+    display: block;
+    transition: transform 0.4s ease 0s;
+}
+
+.about__img-3:hover {
+    transform: scale(1.1);
+}
+
 @media only screen and (min-width: 768px) {
     .artwork__inner-2 {
         display: grid;

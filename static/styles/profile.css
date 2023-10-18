@@ -198,6 +198,7 @@
     width: 100%;
     object-fit: cover;
     transition: transform 0.4s ease 0s;
+    height: 230px;
 }
 
 .profile-product__img:hover {

@@ -21,18 +21,14 @@
                 </div>
                 <img src="{% static 'images/explore/collection/nft_image5.svg' %}" alt="" class="about__img-1 about__img-2">
             </div>
-            <div class="about__team-1">
-                <p class="team__introduce-1">Our team</p>
-                <ul class="team__list-1">
-                    {% for author in authors %}
-                    <li class="team__member-1">
-                        <img src="{{author.avatar}}" alt="" class="team__member-avatar-1">
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            
         </div>
     </div>
 </div>
+
+<div class="gap-between-section"></div>
+{% include 'NFTapp/profile_list/profile_list2.html' %}
+
+<div class="gap-between-section"></div>
 {% include 'NFTapp/subscribe/subscribe1.html' %}
 {% endblock content %}
