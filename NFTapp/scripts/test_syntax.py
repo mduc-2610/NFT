@@ -6,6 +6,7 @@
 #     }
 #     print(d.a.b)
 
+from collections import Counter
 from math import ceil
 import random
 import os
@@ -18,6 +19,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle
 from NFT.settings import MEDIA_ROOT
+
+from django.db.models import Count
 fake = Faker()
 
 def run():
@@ -77,4 +80,5 @@ def run():
     # print(len(products))
     # [print(product) for product in products]
 
-    print(FAQTitle.objects.filter(title="Enjin"))
+    # print(FAQTitle.objects.filter(title="Enjin"))
+    print(NFTProduct.objects.annotate(num_owners=Count('owners')).order_by('-num_owners'))

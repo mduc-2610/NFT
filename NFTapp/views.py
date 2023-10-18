@@ -1,6 +1,8 @@
+from collections import Counter
 from math import ceil
 import random
 from django.shortcuts import render, redirect, HttpResponse
+from django.db.models import Count
 from NFTapp.models import User, NFTProduct, Topic,\
                              OwnerNFTProduct, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -21,6 +23,15 @@ def product_rarity():
     for product in products:
         rarity.update({product: cnt})
         cnt += 1
+
+def classify_1(data, query_set):
+    if data == 'trending':
+        return query_set.annotate(num_owners=Count('owners')).order_by('-num_owners')
+        # return query_set  
+    elif data == 'date-created-old':
+        return query_set.order_by('created_at')
+    return query_set.order_by('-created_at')
+
 
 def home1(request):
     blogs = NFTBlog.objects.all()
@@ -81,8 +92,9 @@ def home5(request):
 
 def collection1(request):
     products = NFTProduct.objects.all()
+    data = request.GET.get('filter', 'trending')
     context = {
-        "products": products
+        "products": classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
