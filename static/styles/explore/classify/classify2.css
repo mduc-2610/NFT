@@ -10,12 +10,13 @@
     gap: 10px;
 }
 
-.classify__item-2 {
+.classify__item-2 a{
     display: flex;
     padding: 10px 20px;
     align-items: center;
     justify-content: center;
     border: 1.5px solid #212127;
+    border-radius: 8px;
     width: 100%;
     color: #CFCFCF;
     /* font-family: Clash Display; */
@@ -25,7 +26,7 @@
     line-height: 2.143; /* 214.286% */
 }
 
-.classify__item-2:hover {
+.classify__item-2 a:hover {
     cursor: pointer;
     background-color: #17E3A6;
     color: #212127; 
@@ -61,7 +62,7 @@
         gap: 10px;
     }
     
-    .classify__item-2 {
+    .classify__item-2 a{
         color: #CFCFCF;
         /* font-family: Clash Display; */
         font-size: 2rem;
@@ -70,7 +71,7 @@
         line-height: 1.5; /* 150% */
     }
     
-    .classify__item-2:hover {
+    .classify__item-2 a:hover {
         cursor: pointer;
         background-color: #17E3A6;
         color: #212127; 
