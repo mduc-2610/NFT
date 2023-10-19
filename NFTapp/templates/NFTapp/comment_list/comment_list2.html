@@ -1,3 +1,35 @@
 <div class="conainter-full">
-    
+    <div class="comment-list-head-2">
+        <h2 class="comment-list-heading-2">Why people love</h2>
+        <span class="comment-list-topic-2">{{topic}}</span>
+    </div>
+    <div class="comment-list-section-2">
+        <ul class="comment-list-2">
+            {% for comment in comments %}
+            <li class="comment-list__item-2">
+                <div class="comment-list-item__info-2">
+                    <a href="{% url 'profile' comment.user.id %}" class="comment-list-item__user-2">{{comment.user.name}}</a>
+                    <a href="{% url 'profile' comment.user.id %}" class="avatar-wrap comment-list-item__avt-link-2">
+                        <img src="{{comment.user.avatar }}" alt="" class="avatar comment-list-item__avt-2">
+                    </a>
+                </div>
+                <p class="comment-list-item__content-2 limit-line scroll">{{comment.content}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="comment-list__control-2 flex_aic_jcc">
+            <button class="comment-list__control-direction-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15Z" fill="#212127"/>
+                    <path d="M14.3056 6.66797L5.97225 15.0013L14.3056 23.3346V19.168H21.9445C22.1286 19.168 22.3053 19.0948 22.4355 18.9646C22.5658 18.8343 22.6389 18.6577 22.6389 18.4735V11.5291C22.6389 11.3449 22.5658 11.1683 22.4355 11.038C22.3053 10.9078 22.1286 10.8346 21.9445 10.8346H14.3056V6.66797Z" fill="#212127" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+            </button>
+            <button class="comment-list__control-direction-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M0 15C0 23.2843 6.71573 30 15 30C23.2843 30 30 23.2843 30 15C30 6.71573 23.2843 0 15 0C6.71573 0 0 6.71573 0 15Z" fill="#212127"/>
+                    <path d="M15.6944 6.66797L24.0278 15.0013L15.6944 23.3346V19.168H8.05553C7.87135 19.168 7.69472 19.0948 7.56448 18.9646C7.43425 18.8343 7.36108 18.6577 7.36108 18.4735V11.5291C7.36108 11.3449 7.43425 11.1683 7.56448 11.038C7.69472 10.9078 7.87135 10.8346 8.05553 10.8346H15.6944V6.66797Z" fill="#212127" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </button>
+        </div>
+    </div>
 </div>

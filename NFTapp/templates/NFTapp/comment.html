@@ -7,7 +7,7 @@
                 <input type="text" placeholder="Write your comment here ..." name="content">
             </form>
             {% for comment in comments %}
-            <div class="comment__section">
+            <div class="comment__section flex_fdc_aif">
                 <div class="comment__from">
                     <a href="{% url 'profile' comment.user.id %}" class="comment__user">
                         <img src="{{user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
@@ -18,7 +18,7 @@
                         <button class="comment__delete">Delete</button>
                     </div>
                 </div>
-                <p class="comment__content scroll ">{{comment.content}}</p>
+                <p class="comment__content  scroll ">{{comment.content}}</p>
             </div>
             {% endfor %}
         </div>

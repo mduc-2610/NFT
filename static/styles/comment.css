@@ -1,11 +1,3 @@
-.scroll::-webkit-scrollbar {
-    width: 0.6rem;
-    background-color: rgb(41, 41, 46);
-}
-.scroll::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-    background-color: gray;
-}
 
 /* .scroll::-webkit-scrollbar-track {
     border-radius: 1rem;
@@ -13,7 +5,7 @@
 } */
 
 .comment {
-    margin-top: 50px;
+
 }
 
 .comment__inner {
@@ -29,8 +21,8 @@
 
 .comment__section {
     border-left: 2px solid #17E3A6;;
-    margin: 18px;
-    padding: 18px;
+    margin: 10px;
+    padding: 10px;
 }
 
 .comment__from {
@@ -43,7 +35,7 @@
 .comment__user {
     color: #17E3A6;
     /* font-family: Aeonik; */
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 450;
     line-height: 1;
@@ -57,7 +49,7 @@
 .comment__time {
     color: #17E3A6;
     /* font-family: Aeonik; */
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-style: normal;
     font-weight: 450;
     line-height: 1;
@@ -83,7 +75,7 @@
     display: none;
     color: #17E3A6;
     /* font-family: Aeonik; */
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-style: normal;
     font-weight: 450;
     line-height: 1;
@@ -94,13 +86,13 @@
     margin-top: 7px;
     color: #fff;
     /* font-family: Aeonik; */
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-style: normal;
     font-weight: 300;
     line-height: 1;
     letter-spacing: 0.05rem;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
+    height: 75px;
 }
 
 .comment__write {
@@ -111,7 +103,7 @@
     right: 0;
     padding: 10px;
     width: 100%;
-    height: 60px;
+    height: 50px;
     background-color: #17E3A6;
     border-radius: 6.5px;
     z-index: 1;
@@ -124,14 +116,49 @@
     background-color: transparent;
     border: none;
     outline: none;
-    height: 30px;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 500;
     
 }
 
 .comment__write input::placeholder {
     color: #000;
+}
+
+@media only screen and (min-width: 768px) {
+    .comment__section {
+        margin: 18px;
+        padding: 18px;
+    }
+
+    .comment__user {
+        font-size: 2.4rem;
+    }
+    .comment__time {
+        font-size: 1.6rem;
+    }
+    
+    .comment__modify {
+        font-size: 1.6rem;
+    }
+    
+    .comment__delete {
+        font-size: 1.6rem;
+    }
+    
+    .comment__content {
+        font-size: 2rem;
+        height: auto;
+        max-height: 200px;
+    }
+    
+    .comment__write {
+    }
+    
+    .comment__write input {
+        font-size: 2rem;
+    }
+    
 }
 

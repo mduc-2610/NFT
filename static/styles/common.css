@@ -71,6 +71,7 @@ main {
     width: 100%;
     max-width: calc(100% - 24px);
     margin: 0 auto;
+    overflow: hidden;
 }
 
 
@@ -89,6 +90,16 @@ main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 0.6rem;
+    background-color: rgb(41, 41, 46);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: gray;
 }
 
 .limit-line {

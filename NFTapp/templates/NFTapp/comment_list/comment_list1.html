@@ -1,6 +1,6 @@
 <div class="container">
     <div class="comment-list-head-1">
-        <h2 class="comment-list-heading-1">Whay people are saying about</h2>
+        <h2 class="comment-list-heading-1">What people are saying about</h2>
         <span class="comment-list-topic-1">{{topic}}</span>
     </div>
     <ul class="comment-list-1">
@@ -12,7 +12,7 @@
                 </a>
                 <a href="{% url 'profile' comment.user.id %}" class="comment-list-item__user-1">{{comment.user.name}}</a>
             </div>
-            <p class="comment-list-item__content-1">{{comment.content}}</p>
+            <p class="comment-list-item__content-1 limit-line scroll">{{comment.content}}</p>
         </li>
         {% endfor %}
     </ul>

@@ -42,8 +42,6 @@
 
 .comment-list__item-1:hover {
     border: 2px solid rgba(23, 227, 166, 0.61);
-
-
 }
 
 .comment-list-item__info-1 {
@@ -85,6 +83,17 @@
     font-style: normal;
     font-weight: 400;
     line-height: 1.429; /* 142.857% */
+    overflow-y: auto;
+    /* overflow-x: auto; */
+}
+
+.comment-list__item-1:nth-child(odd) .comment-list-item__content-1 {
+    -webkit-line-clamp: 4;
+}
+
+
+.comment-list__item-1:nth-child(even) .comment-list-item__content-1 {
+    -webkit-line-clamp: 5;
 }
 
 @media only screen and (min-width: 768px) {
