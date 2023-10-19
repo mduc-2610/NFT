@@ -81,4 +81,12 @@ def run():
     # [print(product) for product in products]
 
     # print(FAQTitle.objects.filter(title="Enjin"))
-    print(NFTProduct.objects.annotate(num_owners=Count('owners')).order_by('-num_owners'))
+    # print(NFTProduct.objects.annotate(num_owners=Count('owners')).order_by('-num_owners'))
+    products = NFTProduct.objects.all()
+    comments = []
+    for product in products.filter(topic__name="ALternate Medium Space"):
+        for comment in product.product_comments.all():      
+            comments.append(comment) 
+    # print(comments[0].user_product_comments.all())
+    for comment in comments:
+        print(f"{comment.user.id} {comment.content}")

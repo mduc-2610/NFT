@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="comment-list-head-1">
+        <h2 class="comment-list-heading-1">Whay people are saying about</h2>
+        <span class="comment-list-topic-1">{{topic}}</span>
+    </div>
+    <ul class="comment-list-1">
+        {% for comment in comments %}
+        <li class="comment-list__item-1">
+            <div class="comment-list-item__info-1">
+                <a href="{% url 'profile' comment.user.id %}" class="avatar-wrap comment-list-item__avt-link-1">
+                    <img src="{{comment.user.avatar }}" alt="" class="avatar comment-list-item__avt-1">
+                </a>
+                <a href="{% url 'profile' comment.user.id %}" class="comment-list-item__user-1">{{comment.user.name}}</a>
+            </div>
+            <p class="comment-list-item__content-1">{{comment.content}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -65,13 +65,16 @@
 
 <div class="container">
     <div class="home__hot-1">
-        <h1 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h1>
+        <h2 class="home-hot__heading-1">Latest  artworks  with most  valued bids</h2>
         <div class="home-hot__classify-1">
-            <a href="" class="home-hot__nft-1">NFT</a>
-            <a href="" class="home-hot__desc-1">Description </a>
+            <div class="home-hot__classify--wrap-1">
+                <a href="" class="home-hot__nft-1">NFT</a>
+                <a href="" class="home-hot__nft-1">Description </a>
+            </div>
             {% include 'NFTapp/explore/classify/classify1.html' %}
         </div>
         {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+        <!-- include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=41 -->
     </div>
 </div>
     
@@ -166,5 +169,5 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/subscribe/subscribe2.html' %}
+{% include 'NFTapp/comment_list/comment_list1.html' with topic='Alternate Medium Space' %}
 {% endblock content %}

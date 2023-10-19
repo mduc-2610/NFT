@@ -1,34 +1,32 @@
 {% extends 'main.html' %}
 <!-- {% load static %} -->
 {% block content %}
-<div class="hero">
-    <div class="container hero-container">
-        <div class="hero__inner">
-            <div class="hero__about">
-                <p class="hero__type">Discover & Showcase</p>
-                <h1 class="hero__heading">Your Favorite Crypto Art</h1>
-                <p class="hero__desc">A seamless NFT creation experience, from generation to mint in a few easy steps.</p>
-                <div class="hero__button--wrap flex_aic_jcc">
-                <a href="{% url 'collection1' %}" class="hero__button">Let's Explore</a>
-                <img src="{% static 'images/home_images/image0.svg'%}" alt="" class="hero__img__">
-                </div>
+<div class="container hero-container">
+    <div class="hero__inner">
+        <div class="hero__about">
+            <p class="hero__type">Discover & Showcase</p>
+            <h1 class="hero__heading">Your Favorite Crypto Art</h1>
+            <p class="hero__desc">A seamless NFT creation experience, from generation to mint in a few easy steps.</p>
+            <div class="hero__button--wrap flex_aic_jcc">
+            <a href="{% url 'collection1' %}" class="hero__button">Let's Explore</a>
+            <img src="{% static 'images/home_images/image0.svg'%}" alt="" class="hero__img__">
             </div>
-            <div class="hero__img-section">
-                <div class="hero__img--wrap">
-                
-                        <img src="{% static 'images/home_images/image1.svg'%}" alt="" class="hero__img">
-                        <img src="{% static 'images/home_images/image2.svg'%}" alt="" class="hero__img">
-                        <img src="{% static 'images/home_images/image3.svg'%}" alt="" class="hero__img">
-                
-                            
-                </div>
-                <div class="hero__img--wrap">
-                    <img src="{% static 'images/home_images/image5.svg'%}" alt="" class="hero__img">
-                    <img src="{% static 'images/home_images/image4.svg'%}" alt="" class="hero__img">
-                </div>
-                <div class="hero__img--wrap">
-                    <img src="{% static 'images/home_images/image6.svg'%}" alt="" class="hero__img">
-                </div>
+        </div>
+        <div class="hero__img-section">
+            <div class="hero__img--wrap">
+            
+                    <img src="{% static 'images/home_images/image1.svg'%}" alt="" class="hero__img">
+                    <img src="{% static 'images/home_images/image2.svg'%}" alt="" class="hero__img">
+                    <img src="{% static 'images/home_images/image3.svg'%}" alt="" class="hero__img">
+            
+                        
+            </div>
+            <div class="hero__img--wrap">
+                <img src="{% static 'images/home_images/image5.svg'%}" alt="" class="hero__img">
+                <img src="{% static 'images/home_images/image4.svg'%}" alt="" class="hero__img">
+            </div>
+            <div class="hero__img--wrap">
+                <img src="{% static 'images/home_images/image6.svg'%}" alt="" class="hero__img">
             </div>
         </div>
     </div>
@@ -53,6 +51,7 @@
 </div>
 
 <div class="gap-between-section"></div>
+
 <div class="container">
     <div class="home-curated-1">
         <div class="home-curated__wrap-1">

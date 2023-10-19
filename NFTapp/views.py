@@ -30,7 +30,11 @@ def classify_1(data, query_set):
         # return query_set  
     elif data == 'date-created-old':
         return query_set.order_by('created_at')
-    return query_set.order_by('-created_at')
+    elif data == 'date-created-new': 
+        return query_set.order_by('-created_at')
+    elif data == 'price-highest':
+        return query_set.order_by('-price')
+    return query_set.order_by('price')
 
 
 def home1(request):
@@ -49,11 +53,16 @@ def home2(request):
     products = NFTProduct.objects.all()
     users = User.objects.all()
     title = FAQTitle.objects.get(title="Enjin")
+    comments = []
+    for product in products.filter(topic__name="ALternate Medium Space"):
+        for comment in product.product_comments.all():      
+            comments.append(comment)
     context = {
         'blogs': blogs,
         'products': products,
         'users': users,
-        'title': title
+        'title': title,
+        'comments': comments
     }
     return render(request, 'NFTapp/home/home2.html', context)
 
@@ -94,7 +103,7 @@ def collection1(request):
     products = NFTProduct.objects.all()
     data = request.GET.get('filter', 'trending')
     context = {
-        "products": classify_1(request.GET.get('filter', 'trending'), products)
+        "products": classify_1(request.GET.get('sort-by', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
@@ -343,12 +352,15 @@ def profile(request, pk):
     product_filter = request.GET.get('filter', 'collected')
     if product_filter == "collected":
         product_collection = user.nftproduct_set.all()
-        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_collection)
+        context["products"] = product_collection
+        # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
     elif product_filter == "created":
         product_created = user.author.all()
-        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_created)  
+        context["products"] = product_created 
+        # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
     else:
         product_favorited = user.likes.all()
-        context["products"] = classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
+        context["products"] = product_favorited 
+        # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
     return render(request, 'NFTapp/profile.html', context)
 

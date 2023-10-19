@@ -69,8 +69,11 @@ main {
 
 .container-full {
     width: 100%;
-    /* max-width: calc(100% - 24px); */
+    max-width: calc(100% - 24px);
+    margin: 0 auto;
 }
+
+
 
 .gap-between-section {
     margin-bottom: 60px;
@@ -102,8 +105,28 @@ main {
     margin: 0 auto;
 }
 
+.avatar-wrap {
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #c9ccd1;
+}
+
+.avatar {
+    display: inline-block;
+    padding: 5px;
+    object-fit: cover;
+}
+
 @media only screen and (min-width: 768px) {
     .gap-between-section {
         margin-bottom: 150px;
+    }
+
+    .avatar-wrap {
+        height: 50px;
+        width: 50px;
     }
 }

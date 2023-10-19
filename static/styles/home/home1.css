@@ -8,8 +8,7 @@
 }
 
 .hero-container {
-    width: 100%;
-    max-width: calc(100% - 24px);
+
 }
 
 .hero__about {
@@ -115,8 +114,7 @@
 .hero__img--wrap:nth-child(2) {
     display: flex;
     flex-direction: column;   
-    gap: 6px
-    ;
+    gap: 3px;
 }
 
 .hero__img--wrap:nth-child(2) .hero__img {
@@ -411,6 +409,11 @@
     .gap-between-section-2 {
         margin-bottom: 0;
     }
+
+    .hero-container {
+        width: 100%;
+        max-width: 100%;
+    }
     
     .hero__inner {
         display: grid;
@@ -521,7 +524,7 @@
     }
     
     .hero__img--wrap:nth-child(2) {
-        gap: 6px;
+        /* gap: 6px; */
     }
 
 
