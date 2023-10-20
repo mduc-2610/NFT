@@ -102,6 +102,7 @@
     font-weight: 400;
     line-height: 1.5; /* 150% */
     -webkit-line-clamp: 4;
+    overflow-y: auto;
 }
 
 .comment-list__control-1 {
@@ -221,7 +222,6 @@
         font-style: normal;
         font-weight: 400;
         line-height: 1.7; /* 170% */
-        overflow-y: auto;
     }
     
     .comment-list__control-1 {

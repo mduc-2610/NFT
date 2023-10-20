@@ -82,7 +82,8 @@
 }
 
 .profile-list__follow-1:hover {
-    opacity: 0.7;
+    opacity: 0.8;
+    color: #000;
 }
 
 .profile-list__contribute-all-1 {

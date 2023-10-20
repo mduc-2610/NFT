@@ -1,3 +1,4 @@
+{% if comments|length != 0 %}
 <div class="container">
     <div class="comment-list-head-2">
         <h2 class="comment-list-heading-2">What people are saying about</h2>
@@ -20,6 +21,7 @@
         </li>
     </ul>
 </div>
+{% endif %}
 
 <script>
     const viewAllButton = document.getElementById('view-all-comments');

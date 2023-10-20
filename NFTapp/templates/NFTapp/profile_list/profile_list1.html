@@ -44,7 +44,11 @@
                             <p class="profile-list__contribute-key-1">Followers</p>
                         </li>
                     </ul>
+                    {% if user.bio %}
                     <p class="profile-list__bio-1 limit-line">{{user.bio}}</p>
+                    {% else %}
+                    <p class="profile-list__bio-1 limit-line" style="visibility: hidden;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis, tempore dolores accusantium rem inventore, temporibus quaerat eligendi aperiam architecto sint deserunt qui? Velit recusandae rerum repellat beatae repudiandae voluptas ullam fugiat temporibus itaque tempora, molestias, nisi, soluta culpa ea voluptates esse error perferendis consectetur? Error deserunt vel autem odio.</p>
+                    {% endif %}
                 </div>
             </li>
             {% endif %}

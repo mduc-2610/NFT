@@ -31,17 +31,17 @@ def run():
     print("USER:")
     user_obj_list = []
     for _ in range(30):
-            data = {
-                "name": fake.email().split('@')[0],
-                "email": fake.email(),
-                "username": fake.email().split('@')[0],
-                "password":fake.password(),
-                "bio": fake.text(max_nb_chars=300),
-            }
-            # user, _ = User.objects.get_or_create(**data)
-            user = User.objects.create(**data)
-            print(f"\tSuccessfully created user with info {user.name}, {user.email}, {user.bio} ")
-            user_obj_list.append(user)
+        data = {
+            "name": fake.email().split('@')[0],
+            "email": fake.email(),
+            "username": fake.email().split('@')[0],
+            "password":fake.password(),
+            "bio": fake.text(max_nb_chars=300),
+        }
+        # user, _ = User.objects.get_or_create(**data)
+        user = User.objects.create(**data)
+        print(f"\tSuccessfully created user with info {user.name}, {user.email}, {user.bio} ")
+        user_obj_list.append(user)
 
     # Load type obj
     print("----------------------------------------------------------------")

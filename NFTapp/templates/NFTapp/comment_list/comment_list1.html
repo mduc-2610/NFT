@@ -1,3 +1,4 @@
+{% if comments|length != 0 %}
 <div class="conainter-full">
     <div class="comment-list-head-1">
         <h2 class="comment-list-heading-1">Why people love</h2>
@@ -33,6 +34,7 @@
         </div>
     </div>
 </div>
+ {% endif %}
 
 <script>
     const commentList = document.querySelector('.comment-list-1');

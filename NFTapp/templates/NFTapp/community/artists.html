@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                {% if forloop.counter <= 15%} 
+                {% if forloop.counter <= 16 and not user.is_superuser %} 
                 <tr>
                   <td>#{{forloop.counter}}</td>
                   <td>
