@@ -82,11 +82,17 @@ def run():
 
     # print(FAQTitle.objects.filter(title="Enjin"))
     # print(NFTProduct.objects.annotate(num_owners=Count('owners')).order_by('-num_owners'))
-    products = NFTProduct.objects.all()
-    comments = []
-    for product in products.filter(topic__name="ALternate Medium Space"):
-        for comment in product.product_comments.all():      
-            comments.append(comment) 
-    # print(comments[0].user_product_comments.all())
-    for comment in comments:
-        print(f"{comment.user.id} {comment.content}")
+    # products = NFTProduct.objects.all()
+    # comments = []
+    # for product in products.filter(topic__name="ALternate Medium Space"):
+    #     for comment in product.product_comments.all():      
+    #         comments.append(comment) 
+    # # print(comments[0].user_product_comments.all())
+    # for comment in comments:
+    product = NFTProduct.objects.get(pk="b237108e-4ad9-41e4-ac58-558aa435084e")
+    #     print(f"{comment.user.id} {comment.content}")
+    product_favorite_list = product.favorites_by.all()
+    [print(favorite.user, favorite.product, sep="\t\t") for favorite in product_favorite_list]
+    print("________________________________________________________________")
+    product_owner_list = product.owners.all()
+    [print(owner) for owner in product_owner_list]

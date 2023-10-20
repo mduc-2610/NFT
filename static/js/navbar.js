@@ -1,5 +1,3 @@
-// Get references to the elements
-console.log("hello worlsdffsdfdsfd");
 const menuIcon = document.querySelector('.header__menu-icon');
 const logoWrap = document.querySelector('.header__logo--wrap');
 const navbar = document.querySelector('.header__navbar');
@@ -45,9 +43,7 @@ headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
     //   // Delete the input tag
     //   const input = document.querySelector('.searchTerm');
     // });
-    
-    
-    console.log("asfsdfsdffsdfsdf")
+
     const connectButton = document.querySelector(".header-login__button");
     connectButton.addEventListener('click', () => {
       console.log("abc");

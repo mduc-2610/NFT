@@ -392,10 +392,10 @@
 }
 
 .home-meecat-1 {
-    
 }
 
 .home-meecat__heading-1 {
+    margin-bottom: 30px;
     color: #FFF;
     /* font-family: Clash Display; */
     font-size: 2rem;
@@ -783,6 +783,7 @@
     }
     
     .home-meecat__heading-1 {
+        margin-bottom: 60px;
         color: #FFF;
         text-align: center;
         /* font-family: Clash Display; */

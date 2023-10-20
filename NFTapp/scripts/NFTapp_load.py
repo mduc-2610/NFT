@@ -9,7 +9,7 @@ from NFT.settings import MEDIA_ROOT
 from NFTapp.models import User, NFTProduct, Topic,\
                              OwnerNFTProduct, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle 
+                                FAQ, FAQTitle, NFTProductFavorite
 fake = Faker()
 
 def run():
@@ -117,7 +117,7 @@ def run():
             data = {
                 "name": random.choice(nft_names),
                 "price": round(random.uniform(0, 3), 8),
-                "rarity": round(random.uniform(0, 2), 8),
+                "rarity": round(random.uniform(0, 0.1), 8),
                 "author": random.choice(user_obj_list),
                 "image": image,
                 "topic": random.choice(topic_obj_list),
@@ -147,6 +147,22 @@ def run():
             # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
             owner_nft_product = OwnerNFTProduct.objects.create(**data)
             print(f"\tUser with uuid {data['owner'].id} owns the nft product with uuid {data['product'].id}")
+
+    # Load who like the product 
+    print("----------------------------------------------------------------")
+    print("FAVORITES:")
+    for user in user_obj_list:
+        tmp_list = nft_product_obj_list.copy()
+        for i in range(random.randint(3, 15)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "product": random_data
+            }
+            # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
+            owner_nft_product = NFTProductFavorite.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} likes the nft product with uuid {data['product'].id}")
+
 
     #Load blog 
     print("----------------------------------------------------------------")

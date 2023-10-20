@@ -1,0 +1,121 @@
+.container-favorite {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+}
+
+.favorite {
+    border-radius: 16px;
+    background: #212127;
+    width: 550px;
+    max-width: 100%;
+    /* max-height: calc(100vh - 64px);
+    max-width: calc(100% - 32px); */
+    max-height: 430px;
+    padding-bottom: 5px;
+
+}
+
+.favorite__head {
+    padding: 32px 24px 16px;
+    justify-content: space-between;
+}
+
+.favorite__by {
+    color: #fff;
+    font-size: 2.4rem;
+    font-style: normal;
+    line-height: 1;
+}
+
+.favorite__close {
+
+}
+
+.favorite__close > svg {
+    display: block;
+}
+
+.favorite__close:hover path {
+    fill: #17E3A6;
+}
+
+.favorite__list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.favorite__item {
+    padding: 16px 24px;
+}
+
+.favorite__info {
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.favorite-person {
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.favorite-person__avt-link {
+    width: 30px;
+    height: 30px;
+}
+
+.favorite-person__avt {
+
+}
+
+.favorite-person__text-block {
+
+}
+
+.favorite-person__name {
+    color: #fff;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.favorite-person__id {
+    margin-top: 5px;
+    width: 120px;
+    color: #cfcfcf;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.favorite-person__follow {
+    gap: 5px;
+    padding: 10px 26px;
+    border-radius: 19px;
+    background: #17E3A6;
+    color: #000;
+    /* font-family: Aeonik; */
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+}
+
+.favorite-person__follow:hover {
+    opacity: 0.8;
+    color: #000;
+}
+

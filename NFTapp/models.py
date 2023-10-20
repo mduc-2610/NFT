@@ -13,7 +13,7 @@ default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400.jpg'
                   '/static/images/generic/Acer_Wallpaper_05_3840x2400.jpg']
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/default_avatar.svg")
     cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos)) 
@@ -34,8 +34,8 @@ class Follow(models.Model):
 class NFTProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, null=True)
-    price = models.DecimalField(max_digits=8, decimal_places=6)
-    rarity = models.DecimalField(max_digits=10, decimal_places=8)
+    price = models.DecimalField(max_digits=6, decimal_places=4)
+    rarity = models.DecimalField(max_digits=6, decimal_places=4)
     owners = models.ManyToManyField(User, through="OwnerNFTProduct")
     author = models.ForeignKey('User', related_name= "author", on_delete=models.CASCADE)
     image = models.ImageField(upload_to=f"nft_product_images/%Y/%m/%d/")
@@ -44,12 +44,20 @@ class NFTProduct(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     quantity = models.PositiveIntegerField()
     description = models.TextField(null=True)
-    likes = models.ManyToManyField(User, related_name="likes", default=0)
+    favorites = models.ManyToManyField(User, related_name="favorites", through='NFTProductFavorite', default=0)
     type_product = models.ForeignKey('Type', related_name="products_type",on_delete=models.SET_NULL, null=True)
     artwork = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return f"{self.name} {self.price}"
+
+
+class NFTProductFavorite(models.Model):
+    product = models.ForeignKey('NFTProduct', related_name='favorites_by', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', related_name='favorite_products', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.product.name} {self.user.name}"
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -87,8 +95,6 @@ class OwnerNFTProduct(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(NFTProduct, on_delete=models.CASCADE)
     # author = models.BooleanField()
-
-    
     
 class NFTBlog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -14,7 +14,7 @@
             <div class="blog-item__author flex_aic_jcc">
                 <a href="{% url 'profile' blog.author.id %}"class="blog-item__author-name flex_aic_jcc limit-line">
                     <img src="{{blog.author.avatar}}" alt="" class="blog-item__author-avatar">
-                    {{blog.author.name}}
+                    @{{blog.author.name}}
                 </a>
             </div>
             {% if times_to_read != 1 %}
@@ -32,4 +32,8 @@
         {% endfor %}
     </ul>
 </div>
+
+<div class="gap-between-section"></div>
+
+{% include 'NFTapp/comment_list/comment_list1.html' with topic=topic %}
 {% endblock content %}

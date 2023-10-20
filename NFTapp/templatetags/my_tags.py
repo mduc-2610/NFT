@@ -31,3 +31,8 @@ def facebook_time(value):
     else:
         days_ago = int(time_difference / 86400)
         return f'{days_ago} day{"s" if days_ago != 1 else ""} ago'
+    
+@register.filter(name='limit_length_id')
+def limit_length_id(id):
+    id = str(id)
+    return id[:6] + "..." + id[len(id) - 4::]

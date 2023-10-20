@@ -131,6 +131,10 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/subscribe/subscribe1.html' with img_src="/static/images/explore/collection/nft_image12.svg" %}
+{% if comments|length > 0 %}
+{% include 'NFTapp/comment_list/comment_list1.html' with topic=topic %}
+{% endif %}
+<div class="gap-between-section"></div>
 
+{% include 'NFTapp/subscribe/subscribe1.html' with img_src="/static/images/explore/collection/nft_image12.svg" %}
 {% endblock content %}

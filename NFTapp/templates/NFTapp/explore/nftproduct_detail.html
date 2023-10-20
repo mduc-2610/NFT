@@ -25,8 +25,26 @@
                 Owned by
                 <a href="{% url 'profile' product.author.id %}">{{product.author.name}}</a>
             </p>
-            <p class="product-detail__rarity">Rarity {{product.rarity}}</p>
-            <p class="product-detail__ranking">Rank #{{rarity}} / #{{product_quantity}}</p>
+            <div class="product-statistic">
+                <div class="product-statistic__list flex_aic_jcc">
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.rarity}}</p>
+                        <p class="product-statistic__key">Rarity</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">#{{rarity}} / #{{product_quantity}}</p>
+                        <p class="product-statistic__key">Rank</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.owners.all|length}}</p>
+                        <button class="product-statistic__key product-owner-button">Owners</button>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product_favorite_list|length}}</p>
+                        <button class="product-statistic__key product-favorite-button">Favorites</button>
+                    </li>
+                </div>
+            </div>
             <div class="product-detail__offer">
                 <p class="product-detail__current-price">
                     Current price
@@ -69,8 +87,26 @@
             </div>
         </div>
         <div class="product-detail__info">
-            <p class="product-detail__rarity">Rarity {{product.rarity}}</p>
-            <p class="product-detail__ranking">Rank #{{rarity}} / #{{product_quantity}}</p>
+            <div class="product-statistic">
+                <div class="product-statistic__list flex_aic_jcc">
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.rarity}}</p>
+                        <p class="product-statistic__key">Rarity</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">#{{rarity}} / #{{product_quantity}}</p>
+                        <p class="product-statistic__key">Rank</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.owners.all|length}}</p>
+                        <button class="product-statistic__key product-owner-button">Owners</button>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product_favorite_list|length}}</p>
+                        <button class="product-statistic__key product-favorite-button">Favorites</button>
+                    </li>
+                </div>
+            </div>
             <div class="product-detail__offer">
                 <p class="product-detail__current-price">
                     Current price
@@ -91,7 +127,24 @@
     </div>
 </div>
 
+{% include 'NFTapp/favorite.html' %}
+{% include 'NFTapp/owner.html' %}
 
 <div class="gap-between-section"></div>
+
 {% include 'NFTapp/comment.html' %}
+<script>
+    console.log("------------------------------------------");
+    productOwnerButton = document.querySelector(".product-owner-button");
+    productFavoriteButton = document.querySelector(".product-favorite-button");
+    console.log(document.querySelector(".container-favorite"));
+    console.log(document.querySelector(".container-owner"));
+    productOwnerButton.onclick = (e) => {
+        document.querySelector(".container-owner").style.display = 'flex';
+    }
+    
+    productFavoriteButton.onclick = (e) => {
+        document.querySelector(".container-favorite").style.display = 'flex';
+    }
+</script>
 {% endblock content %}
