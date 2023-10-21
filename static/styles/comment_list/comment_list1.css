@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    overflow: hidden;
+    overflow-x: auto;
 }
 
 .comment-list__item-1 {

@@ -104,13 +104,17 @@ main {
 
 .scroll::-webkit-scrollbar {
     width: 0.6rem;
+    height: 0.8rem;
     background-color: rgb(41, 41, 46);
 }
 
+
 .scroll::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
+    width: 5%;
     background-color: gray;
+    border-radius: 0.2rem;
 }
+
 
 .limit-line {
     overflow: hidden;
