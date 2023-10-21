@@ -1,57 +1,83 @@
-const menuIcon = document.querySelector('.header__menu-icon');
-const logoWrap = document.querySelector('.header__logo--wrap');
-const navbar = document.querySelector('.header__navbar');
-const search = document.querySelector('.header__search');
+const headerMenuIcon = document.querySelector('.header__menu-icon');
+    headerMenuIcon.onclick = (e) => {
+        document.querySelector('.navbar').style.display = 'block';
+    }
+    const navbarBack = document.querySelector('.navbar-back');
+    navbarBack.onclick = (e) => {
+        document.querySelector('.navbar').style.display = 'none';
+    }
+    const headerBackIcon = document.querySelector('.header-back');
+    const navbarLinkDefault = document.querySelectorAll('.navbar__link--default');
+    navbarLinkDefault.forEach((link) => {
+        link.onclick = (e) => {
+            e.preventDefault();
+        }
+    });
+    const navbarItem = document.querySelectorAll('.navbar__item');
+    navbarItem.forEach((link) => {
+        link.onclick = (e) => {
+            const navbarChild = link.querySelector(".navbar-child__list");
+            if (navbarChild) {
+                navbarChild.classList.toggle('show');
+                link.querySelector('.navbar__link svg').classList.toggle('rotate');
+                navbarItem2 = navbarChild.querySelectorAll(".navbar-child__item");
+                console.log(navbarItem2);
+                navbarItem2.forEach((link2) => {
+                    link2.onclick = (e) => {
+                        e.stopPropagation();
+                        const navbarChild2 = link2.querySelector(".navbar-child-2__list");
+                        if (navbarChild2) {
+                            navbarChild2.classList.toggle('show');
+                            link2.querySelector('.navbar__link svg:nth-child(2)').classList.toggle('rotate');
+                        }
+                    }
+                });     
+            }
+        }
+    });
 
-// menuIcon.addEventListener('click', () => {
-  //   // Toggle the visibility of the elements
-  //   if (menuIcon.style.display !== 'none') {
-    //     menuIcon.style.display = 'none';
-    //     logoWrap.style.display = 'none';
-    //     search.style.display = 'none';
-    //     navbar.style.display = 'block';
-    //   }
-    // });
+    // const ownerCloseButton = document.querySelector(".owner__close");
+    // const ownerBlock = document.querySelector(".owner");
+    // const ownerContainer = document.querySelector(".container-owner");
+    // ownerCloseButton.onclick = (e) => {
+    //     ownerContainer.style.display = "none";
+    // }
     
-    // const headerNavItemLink = document.querySelector(".header-nav-item__link");
-    // const headerNavChild = document.querySelector(".header-nav-child");
+    // ownerContainer.onclick =  (e) => {
+    //     if (e.target !== ownerBlock) {
+    //         ownerContainer.style.display = "none";
+    //     }
+    // };
     
-    // headerNavItemLink.addEventListener('click', (e) => {
-//     // if(headerNavChild.style.display == 'none') {
-//         e.preventDefault();
-//         e.stopPropagation();
-//         headerNavChild.style.display == 'block';
-//     // }
-// })
+    // ownerBlock.onclick = (e) => {
+    //     e.stopPropagation();
+    // }
 
-headerNavItemChild =  document.querySelectorAll(".header-nav-item-child");
-// console.log("1")
-// for (var element of headerNavItemChild){
-  
-  //   console.log(element.textContent.trim());
-  // }
-  headerNavItemChild[1].addEventListener('click', (e) =>{
-    e.preventDefault();
-    const url = document.querySelector('.header-nav-item-child__link').getAttribute('href');
-    // window.location.href = "{% url 'home' %}";
-    window.location.href = "/home2/";
-    // console.log("Hello");
-  })
-  
-  // const deleteIcon = document.querySelector('.delete-icon');
-  // deleteIcon.addEventListener('click', () => {
-    //   // Delete the input tag
-    //   const input = document.querySelector('.searchTerm');
-    // });
+    const connectButton = document.querySelectorAll('.header-login__button');
+    const connect = document.querySelector('.connect');
+    const connectContainer = document.querySelector('.container-connect');
+    connectButton.forEach((button) => {
+        button.onclick = (e) => {
+          connect.style.display = 'flex';
+        };
+    });
+    console.log( document.querySelector('.connect'));
+    connect.onclick = (e) => {
+        console.log(e.target);
+        if(e.target !== connectContainer) {
+            console.log("OKOKOK");
+            connect.style.display = 'none';
+        }
+    }
 
-    const connectButton = document.querySelector(".header-login__button");
-    connectButton.addEventListener('click', () => {
-      console.log("abc");
-      document.querySelector(".connect").style.display = 'flex';
-    })
+    connectContainer.onclick = (e) => {
+        e.stopPropagation();
+    }
 
-    const connect = document.querySelector(".connect");
-    connect.addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.querySelector(".connect").style.display = 'none';
-    })
+
+
+    // const connect = document.querySelector(".connect");
+    // connect.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    //   document.querySelector(".connect").style.display = 'none';
+    // })

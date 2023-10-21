@@ -20,6 +20,12 @@ input, textarea, select, button {
     font-size: inherit;
 }
 
+input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
 button {
     background-color: transparent;
     padding: 0;
@@ -42,6 +48,10 @@ a:hover {
 
 i {
     color: #BFBFBF;
+}
+
+li {
+    list-style: none;
 }
 
 /* .svg_hover:hover { 
