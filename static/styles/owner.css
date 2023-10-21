@@ -33,18 +33,6 @@
     line-height: 1;
 }
 
-.owner__close {
-
-}
-
-.owner__close > svg {
-    display: block;
-}
-
-.owner__close:hover path {
-    fill: #17E3A6;
-}
-
 .owner__list {
     max-height: 350px;
     overflow-y: auto;

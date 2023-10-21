@@ -141,6 +141,37 @@ main {
     object-fit: cover;
 }
 
+.close-button {
+
+}
+
+.close-button > svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.close-button:hover path {
+    fill: #17E3A6;
+}
+
+
+.show {
+    display: block;
+}
+
+.show-ib {
+    display: inline-block;
+}
+
+.show-flex {
+    display: flex;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
 @media only screen and (min-width: 768px) {
     .gap-between-section {
         margin-bottom: 150px;

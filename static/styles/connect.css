@@ -22,6 +22,10 @@
     padding: 24px;
 }
 
+.connect__head {
+    justify-content: space-between;
+}
+
 .connect__heading {
     color: #E5E5E5;
     /* font-family: Clash Display; */

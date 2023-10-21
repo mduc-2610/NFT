@@ -33,18 +33,6 @@
     line-height: 1;
 }
 
-.favorite__close {
-
-}
-
-.favorite__close > svg {
-    display: block;
-}
-
-.favorite__close:hover path {
-    fill: #17E3A6;
-}
-
 .favorite__list {
     max-height: 350px;
     overflow-y: auto;

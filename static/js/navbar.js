@@ -36,44 +36,56 @@ const headerMenuIcon = document.querySelector('.header__menu-icon');
         }
     });
 
-    // const ownerCloseButton = document.querySelector(".owner__close");
-    // const ownerBlock = document.querySelector(".owner");
-    // const ownerContainer = document.querySelector(".container-owner");
-    // ownerCloseButton.onclick = (e) => {
-    //     ownerContainer.style.display = "none";
-    // }
-    
-    // ownerContainer.onclick =  (e) => {
-    //     if (e.target !== ownerBlock) {
-    //         ownerContainer.style.display = "none";
-    //     }
-    // };
-    
-    // ownerBlock.onclick = (e) => {
-    //     e.stopPropagation();
-    // }
+const headerSearchButton = document.querySelector('.header__search-button');
+const headerSearchInput = document.querySelector('.header__search-input');
+const navbarList = document.querySelector('.navbar__list');
+const headerMenuBack = document.querySelector('.header__menu-back');
 
-    const connectButton = document.querySelectorAll('.header-login__button');
-    const connect = document.querySelector('.connect');
-    const connectContainer = document.querySelector('.container-connect');
-    connectButton.forEach((button) => {
-        button.onclick = (e) => {
-          connect.style.display = 'flex';
-        };
+function getWindowWidth() {
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        console.log("Window width: " + width + " pixels");
+}
+var prevSize = "";
+headerSearchInput.addEventListener('click', (e) => {
+    prevSize = window.getComputedStyle(headerSearchInput.parentElement).getPropertyValue('width');
+    headerSearchInput.parentElement.style.width = "70%";
+    navbarList.style.display = 'none';
+    headerMenuBack.style.display = 'block';
+});
+console.log("Previous size" + prevSize + "*********" + window.getComputedStyle(headerSearchInput.parentElement).getPropertyValue('width'));
+window.addEventListener("resize", (e) => {
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    headerMenuBack.addEventListener('click', (e) => {
+        headerSearchInput.parentElement.style.width = prevSize;
+        navbarList.style.display = 'flex';
+        headerMenuBack.style.display = 'none';
     });
-    console.log( document.querySelector('.connect'));
-    connect.onclick = (e) => {
-        console.log(e.target);
-        if(e.target !== connectContainer) {
-            console.log("OKOKOK");
-            connect.style.display = 'none';
-        }
-    }
+});
 
-    connectContainer.onclick = (e) => {
-        e.stopPropagation();
+const connectButton = document.querySelectorAll('.header-login__button');
+const connect = document.querySelector('.connect');
+const connectContainer = document.querySelector('.container-connect');
+connectButton.forEach((button) => {
+    button.onclick = (e) => {
+        connect.style.display = 'flex';
+    };
+});
+connect.onclick = (e) => {
+    console.log(e.target);
+    if(e.target !== connectContainer) {
+        console.log("OKOKOK");
+        connect.style.display = 'none';
     }
+}
 
+connectContainer.onclick = (e) => {
+    e.stopPropagation();
+}
+
+const connectCloseButton = document.querySelector('.connect__close-button');
+connectCloseButton.onclick = (e) => {
+    connect.style.display = 'none';
+};
 
 
     // const connect = document.querySelector(".connect");

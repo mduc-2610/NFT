@@ -8,7 +8,7 @@
             </a>
             
             <div class="navbar scroll">
-                <form method="POST" class="header__search-bar flex_aic_jcc">
+                <form method="GET" class="header__search-bar flex_aic_jcc">
                     {% csrf_token %}
                     <button type="submit" class="header__search-button">
                       <i class="fa fa-search"></i>
@@ -459,6 +459,7 @@
                         <button class=" header-login__button">Connect</button>
                     </li>
                 </ul>
+                <button class="header__menu-back">Back</button>
             </div>
             <div class=" header-login header-login-web">
                 <button class=" header-login header-login__button">Connect</button>

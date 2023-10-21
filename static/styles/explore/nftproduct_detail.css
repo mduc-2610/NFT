@@ -71,7 +71,6 @@
     -webkit-text-fill-color: transparent;
     font-size: 3.6rem;
     font-weight: 600;
-    max-width: 100%;
     margin: 12px 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -328,7 +327,8 @@
         -webkit-text-fill-color: transparent;
         font-size: 5rem;
         font-weight: 600;
-        max-width: 100%;
+        width: 120%;
+        max-width: 120%;
         margin: 12px 0 5px;
         overflow: hidden;
         text-overflow: ellipsis;
