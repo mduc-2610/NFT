@@ -78,6 +78,7 @@
 }
 
 .comment-list-item__content-2 {
+    height: 180px;
     margin-top: 20px;
     color: #FFF;
     /* font-family: Aeonik TRIAL; */

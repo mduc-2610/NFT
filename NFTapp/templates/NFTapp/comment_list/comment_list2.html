@@ -13,7 +13,7 @@
                 </a>
                 <a href="{% url 'profile' comment.user.id %}" class="comment-list-item__user-2">{{comment.user.name}}</a>
             </div>
-            <p class="comment-list-item__content-2 limit-line scroll">{{comment.content}}</p>
+            <p class="comment-list-item__content-2 scroll">{{comment.content}}</p>
         </li>
         {% endfor %}
         <li class="comment-list__view-2 flex_aic_jcc">

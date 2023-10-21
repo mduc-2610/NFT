@@ -50,7 +50,7 @@
     stroke-width: 2px;
     stroke: rgba(23, 227, 166, 0.61);
     width: 288px;
-    height: 218px;
+    height: 255px;
 }
 
 .comment-list__item-1:hover {
@@ -96,6 +96,7 @@
 .comment-list-item__content-1 {
     margin-top: 36px;
     color: #FFF;
+    height: 150px;
     /* font-family: Aeonik; */
     font-size: 1.6rem;
     font-style: normal;
