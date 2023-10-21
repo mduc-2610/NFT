@@ -22,6 +22,8 @@ def run():
     BlogSection.objects.all().delete()
     FAQ.objects.all().delete()
     FAQTitle.objects.all().delete()
+    ProductComment.objects.all().delete()
+    BlogComment.objects.all().delete()
     
     username_superuser = 'duc'
     email_superuser = 'duc@fgmail.com'
@@ -184,7 +186,7 @@ def run():
         'The Moral Complexity of Ethics in NFTs',
         'Integrates Pinata to Provide Creators with IPFS Upload'
     ]
-    blog_images = []
+    blog_images, blog_obj_list = [], []
     blog_dir = os.path.join(MEDIA_ROOT, 'blog')
     for file in os.listdir(blog_dir):
         blog_images.append("/static/images/blog/" + file)
@@ -196,6 +198,7 @@ def run():
         }
         # blog, _ = NFTBlog.objects.get_or_create(**data)
         blog = NFTBlog.objects.create(**data)
+        blog_obj_list.append(blog)
         print(f"\tSuccessfully create blog {blog} {blog.image}")
         num_sections = random.randint(2, 5)
         for _ in range(num_sections):
@@ -207,7 +210,7 @@ def run():
             }
             # blog_section, _ = BlogSection.objects.get_or_create(**data)
             blog_section = BlogSection.objects.create(**data)
-            print(f"\t\t Successfully create blog section {blog_section}")
+            print(f"\t Successfully create blog section {blog_section}")
 
 
     print("----------------------------------------------------------------")
@@ -280,8 +283,34 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 }
                 # faq, _ = FAQ.objects.get_or_create(**data)
                 faq = FAQ.objects.create(**data)
-                print(f"\t\tSuccessfully created FAQ question {faq.question} with answer {faq.answer}")
-
-
+                print(f"\tSuccessfully created FAQ question {faq.question} with answer {faq.answer}")
+                
+    print("----------------------------------------------------------------")
+    print("BLOG COMMENT:")
+    for blog in blog_obj_list:
+        tmp_user = user_obj_list.copy()
+        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
+            data = {
+                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
+                "blog": blog,
+                "content": fake.text(max_nb_chars=random.randint(300, 750))
+            } 
+            # blog_comment, _ = BlogComment.objects.get_or_create(blog_comment)
+            blog_comment = BlogComment.objects.create(**data)
+            print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
+            
+    print("----------------------------------------------------------------")
+    print("PRODUCT COMMENT:")
+    for product in nft_product_obj_list:
+        tmp_user = user_obj_list.copy()
+        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
+            data = {
+                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
+                "product": product,
+                "content": fake.text(max_nb_chars=random.randint(100, 750))
+            }
+            # product_comment, _ = ProductComment.objects.get_or_create(product_comment)
+            product_comment = ProductComment.objects.create(**data)
+            print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ")
+            
         
-# dc8a40dc-6be0-411d-8ca9-9c98491650f8
