@@ -127,7 +127,9 @@ main {
 }
 
 .avatar-wrap {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 34px;
     width: 34px;
     overflow: hidden;
