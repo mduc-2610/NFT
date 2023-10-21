@@ -11,8 +11,10 @@
                 <form method="GET" class="header__search-bar flex_aic_jcc">
                     {% csrf_token %}
                     <button type="submit" class="header__search-button">
-                      <i class="fa fa-search"></i>
-                    </button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                        <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>                    </button>
                     <input type="text" class="header__search-input" placeholder="Search for artworks, collections, artists, etc..."/>
                 </form>
                 <ul class="navbar__list ">
@@ -464,12 +466,23 @@
             <div class=" header-login header-login-web">
                 <button class=" header-login header-login__button">Connect</button>
             </div>
-            <button class="header__search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                    <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+            <button type="submit" class="header__search-button header__search-button-mobile-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                      <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
             </button>
+            <form method="GET" class="header__search-bar-mobile header__search-bar flex_aic_jcc">
+                <span class="header__menu-back-mobile">Back</span>
+                {% csrf_token %}
+              <input type="text" class="header__search-input-mobile header__search-input" placeholder="Search for artworks, collections, artists, etc..."/>
+              <button type="submit" class="header__search-button header__search-button-mobile">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                      <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+              </button>
+          </form>
         </div>
     </div>
 </header>
