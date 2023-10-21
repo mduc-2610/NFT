@@ -132,11 +132,13 @@
 }
 
 .product-owner-button:hover {
-    opacity: 0.8;
+    color:#17E3A6
+    /* opacity: 0.8; */
 }
 
 .product-favorite-button:hover {
-    opacity: 0.8;
+    color: #17E3A6;
+    /* opacity: 0.8; */
 }
 
  .product-detail-mobile .product-detail__rarity {
@@ -241,6 +243,14 @@
 
 .product-detail-mobile .add-to-cart:hover svg path {
     fill: #000;
+}
+
+.product-owner-number:hover {
+    color: #17E3A6;
+}
+
+.product-favorite-number:hover {
+    color: #17E3A6;
 }
 
 @media only screen and (min-width: 768px) {

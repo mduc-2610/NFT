@@ -151,6 +151,10 @@ main {
     height: 18px;
 }
 
+.close-button path {
+    fill: #fff;
+}
+
 .close-button:hover path {
     fill: #17E3A6;
 }

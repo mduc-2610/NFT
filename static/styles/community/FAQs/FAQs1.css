@@ -67,11 +67,11 @@
 .faq__feature-1 {
     border: 1px solid #A3A3A3;
     border-radius: 50%;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     justify-self: center;
     transition: max-height 0.4s ease;
+    margin: 7px 10px 0 6px;
 }
 
 .faq__feature-1:hover,
@@ -185,17 +185,13 @@
     }
     
     .faq__feature-1 {
+        border-radius: 50%;
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+        margin: 0;
     }
-    
-    .faq__feature-1:hover,
-    .faq__feature-1:hover svg,
-    .faq__feature-1:hover path {
-        background-color: #17E3A6;
-        fill: #000;
-        stroke: #000;
-        border-color: #17E3A6;
-    }
-    
+
     .faq__plus-1 {
     
     }
@@ -215,14 +211,6 @@
         margin-top: 20px;
     }       
 }
-/* 
-.faq__answer-1 {
-    display: none;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 1s ease-in-out, opacity 1s ease-in-out;
-} */
 
 .show {
     display: block;
