@@ -99,8 +99,12 @@ def run():
     # for product in product_favorite_list_2:
     #     print(product)
 
-    user = User.objects.get(name="lisa45")
-    [print(f"{user.name}: {user.password}\n") for user in User.objects.all()]
+    user = User.objects.get(name="smithbrandy")
+    [print(user) for user in user.owners.all()]
+    print("___________________________________________")
+    product = NFTProduct.objects.get(name="BlockchainBrushstrokes")
+    # print(product)
+    [print(pro) for pro in product.owners.all()]
     # [print(product) for product in user.owned_products.all()]
     # print("_________________________________________________")
     # [print(product) for product in user.nftproduct_set.all()]

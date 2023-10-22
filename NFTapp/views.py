@@ -426,7 +426,7 @@ def profile(request, pk):
     product_filter = request.GET.get('filter', 'collected')
     if product_filter == "collected":
         # product_collection = [product.product for product in user.owned_products.all()]
-        product_collection = user.nftproduct_set.all();
+        product_collection = user.owners.all()
         context["products"] = product_collection
         # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
     elif product_filter == "created":
