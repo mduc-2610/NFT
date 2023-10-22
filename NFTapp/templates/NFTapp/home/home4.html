@@ -24,8 +24,6 @@
 
 <div class="gap-between-section"></div>
 
-<div class="container">
-    <div class="home__main-4">
         <div class="container">
             <div class="home__activity-4">
                 <h2 class="home-activity__heading-4">What we actually do?</h2>
@@ -48,17 +46,17 @@
                     </li>
                 </ul>
             </div>
-            
-            <div class="gap-between-section"></div>
-            
-            <div class="home-hot-4">
-                <p class="home-hot__text">Hot NFTs on Live Action</p>
-                <a href="" class="home-hot__view-all">View all</a>
-            </div>
-            {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=3 %}
         </div>
+            <div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="home-hot-4 flex_aic_jcc">
+        <p class="home-hot__text-4">Hot NFTs on Live Action</p>
+        <a href="{% url 'artworks1' %}" class="home-hot__view-all-4">View all</a>
     </div>
-</div>    
+    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=8 %}
+</div>
+
 <div class="gap-between-section"></div>
 
 {% include 'NFTapp/partner.html' %}
@@ -71,12 +69,20 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=3 %}
+<div class="container">
+    <div class="home-curated-1">
+        <div class="home-curated__wrap-1">
+            <h2 class="home-curated__heading-1">Curated collection</h2>
+            <a href="{% url 'collection1' %}" class="home-curated__view-all-1">View all</a>
+        </div>
+        {% include 'NFTapp/explore/nftproduct/nftproduct1.html' with number_products=4 %}
+    </div>
+</div>
 
 <div class="gap-between-section"></div>
 
 <div class="container">
-    <h2 class="home-join-us-4">Join to be a popular creator</h3>
+    <h2 class="home-join-us-4">Join to be a popular creator</h2>
 </div>
 
 {% include 'NFTapp/profile_list/profile_list1.html' %}
