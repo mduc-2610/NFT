@@ -15,7 +15,7 @@ from faker import Faker
 from PIL import Image
 from django.core.management.base import BaseCommand
 from NFTapp.models import User, NFTProduct, Topic,\
-                             OwnerNFTProduct, Type, NFTBlog, \
+                             NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle
 from NFT.settings import MEDIA_ROOT
@@ -91,15 +91,19 @@ def run():
     # for comment in comments:
     # #     print(f"{comment.user.id} {comment.content}")
 
-    product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image1.svg")
-    product_favorite_list = product.favorites.all()
-    product_favorite_list_2 = product.favorites_by.all()
-    for product in product_favorite_list:
-        print(product)
-    for product in product_favorite_list_2:
-        print(product)
+    # product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image1.svg")
+    # product_favorite_list = product.favorites.all()
+    # product_favorite_list_2 = product.favorites_by.all()
+    # for product in product_favorite_list:
+    #     print(product)
+    # for product in product_favorite_list_2:
+    #     print(product)
 
-
+    user = User.objects.get(name="lisa45")
+    [print(f"{user.name}: {user.password}\n") for user in User.objects.all()]
+    # [print(product) for product in user.owned_products.all()]
+    # print("_________________________________________________")
+    # [print(product) for product in user.nftproduct_set.all()]
     # [print(favorite.user, favorite.product, sep="\t\t") for favorite in product_favorite_list]
     # print("________________________________________________________________")
     # product_owner_list = product.owners.all()

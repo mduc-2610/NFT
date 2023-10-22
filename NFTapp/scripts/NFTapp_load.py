@@ -7,7 +7,7 @@ from PIL import Image
 from django.core.management.base import BaseCommand
 from NFT.settings import MEDIA_ROOT
 from NFTapp.models import User, NFTProduct, Topic,\
-                             OwnerNFTProduct, Type, NFTBlog, \
+                             NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite
 fake = Faker()
@@ -16,7 +16,7 @@ def run():
     User.objects.all().delete()
     NFTProduct.objects.all().delete()
     Topic.objects.all().delete()
-    OwnerNFTProduct.objects.all().delete()
+    NFTProductOwner.objects.all().delete()
     Type.objects.all().delete()
     NFTBlog.objects.all().delete()
     BlogSection.objects.all().delete()
@@ -143,12 +143,12 @@ def run():
         for i in range(random.randint(3, 20)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
-                "owner": user,
+                "user": user,
                 "product": random_data
             }
-            # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
-            owner_nft_product = OwnerNFTProduct.objects.create(**data)
-            print(f"\tUser with uuid {data['owner'].id} owns the nft product with uuid {data['product'].id}")
+            # owner_nft_product, _ = NFTProductOwner.objects.get_or_create(**data)
+            owner_nft_product = NFTProductOwner.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} owns the nft product with uuid {data['product'].id}")
 
     # Load who like the product 
     print("----------------------------------------------------------------")
@@ -161,7 +161,7 @@ def run():
                 "user": user,
                 "product": random_data
             }
-            # owner_nft_product, _ = OwnerNFTProduct.objects.get_or_create(**data)
+            # owner_nft_product, _ = NFTProductFavorite.objects.get_or_create(**data)
             owner_nft_product = NFTProductFavorite.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} likes the nft product with uuid {data['product'].id}")
 

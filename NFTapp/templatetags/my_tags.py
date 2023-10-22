@@ -6,7 +6,7 @@ from django import template
 register = template.Library()
 
 @register.simple_tag()
-def multiply(qty, unit_price, *args, **kwargs):
+def multiply(qty, unit_price):
     return round(float(qty) * float(unit_price), 3)
 
 @register.filter(name='facebook_time')

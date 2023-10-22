@@ -4,7 +4,7 @@ import random
 from django.shortcuts import render, redirect, HttpResponse
 from django.db.models import Count
 from NFTapp.models import User, NFTProduct, Topic,\
-                             OwnerNFTProduct, Type, NFTBlog, \
+                             NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite
 
@@ -425,7 +425,8 @@ def profile(request, pk):
     }
     product_filter = request.GET.get('filter', 'collected')
     if product_filter == "collected":
-        product_collection = user.nftproduct_set.all()
+        # product_collection = [product.product for product in user.owned_products.all()]
+        product_collection = user.nftproduct_set.all();
         context["products"] = product_collection
         # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
     elif product_filter == "created":
