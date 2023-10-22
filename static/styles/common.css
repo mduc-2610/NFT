@@ -74,7 +74,7 @@ svg:hover path {
 }
 
 main {
-    margin: 60px 0 150px;
+    margin: 20px 0 60px;
 }
 
 .container-full {
@@ -183,6 +183,9 @@ main {
 }
 
 @media only screen and (min-width: 768px) {
+    main {
+        margin: 60px 0 150px;
+    }
     .gap-between-section {
         margin-bottom: 150px;
     }
