@@ -27,7 +27,8 @@ def product_rarity():
 def classify_1(data, query_set):
     if data == 'trending':
         return query_set.annotate(num_owners=Count('owners')).order_by('-num_owners')
-        # return query_set  
+    elif data == 'rarity':
+        return query_set.order_by('rarity')
     elif data == 'date-created-old':
         return query_set.order_by('created_at')
     elif data == 'date-created-new': 
@@ -432,7 +433,7 @@ def profile(request, pk):
         context["products"] = product_created 
         # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
     else:
-        product_favorited = user.likes.all()
+        product_favorited = user.favorites.all()
         context["products"] = product_favorited 
         # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
     return render(request, 'NFTapp/profile.html', context)

@@ -7,6 +7,7 @@
             <thead >
                 <tr>
                     <th>Rank</th>
+                    <th></th>
                     <th>Name</th>
                     <th>Unique Collectors</th>
                     <th>NFTs Sold</th>
@@ -17,24 +18,61 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                {% if forloop.counter <= 16 and not user.is_superuser %} 
-                <tr>
-                  <td>#{{forloop.counter}}</td>
-                  <td>
-                    <!-- <img src="{{user.avatar}}" alt=""class="artist-avt">  -->
-                    {{user.name}}</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
+                <tr class="artist__info">
+                    <td>#{{forloop.counter}}</td>
+                    <td>
+                      <a href="{% url 'profile' user.id %}" class="avatar-wrap">
+                        <img src="{{user.avatar}}" alt=""class="avatar"> 
+                      </a>
+                    </td>
+                    <td class="artist__name">
+                      <a href="{% url 'profile' user.id %}">{{user.name}}</a>
+                    </td>
+                    <td>{{user.nftproduct_set.all|length}}</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
                 </tr>
-                {% endif %}
                 {% endfor %}
             </tbody>
           </table>
-          <button href="" class="more__artists">More Creators</button>
+          <button href="" id="view-all-creators" class="more__artists">More Creators</button>
     </div>
 </div>
 {% include 'NFTapp/subscribe/subscribe2.html' %}
+<script>
+  const viewAllCreators = document.getElementById('view-all-creators');
+    const commentListItems = document.querySelectorAll('.artist__info');
+
+    let isViewingAll = false;
+
+    function showFirstSixComments() {
+        for (let i = 0; i < commentListItems.length; i++) {
+            if (i < 15) {
+                commentListItems[i].style.display = 'table-row';
+            } else {
+                commentListItems[i].style.display = 'none';
+            }
+        }
+    }
+
+    viewAllCreators.addEventListener('click', function () {
+        if (isViewingAll) {
+            isViewingAll = false;
+            viewAllCreators.textContent = 'More Creators';
+            viewAllCreators.parentElement.style.bottom = '0';
+            showFirstSixComments();
+        } else {
+            isViewingAll = true;
+            viewAllCreators.textContent = 'Back';
+            viewAllCreators.parentElement.style.bottom = window.innerWidth >= 768 ? '-90px' : '-70px';
+            commentListItems.forEach(item => {
+                item.style.display = 'table-row';
+            });
+        }  
+    });
+
+    showFirstSixComments();
+</script>
 {% endblock content %}

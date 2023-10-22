@@ -42,6 +42,9 @@
     height: 76px;
 }
 
+.artist tbody td:first-child {
+}
+
 .artist tbody td {
     color: #FFF;
     text-align: center;
@@ -50,7 +53,28 @@
     font-size: 1.8rem;
     font-style: normal;
     font-weight: 600;
-    line-height: 0.77; /* 77.778% */
+    line-height: 1; /* 77.778% */
+    gap: 10px;
+}
+
+.artist tbody a {
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    /* font-family: Clash Display; */
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1; /* 77.778% */
+}
+
+
+.artist tbody a:hover {
+    color:#17E3A6;
+}
+
+.artist__name {
+    text-align: start;
 }
 
 .artist-avt  {

@@ -89,11 +89,20 @@ def run():
     #         comments.append(comment) 
     # # print(comments[0].user_product_comments.all())
     # for comment in comments:
-    # product = NFTProduct.objects.get(pk="b237108e-4ad9-41e4-ac58-558aa435084e")
     # #     print(f"{comment.user.id} {comment.content}")
-    # product_favorite_list = product.favorites_by.all()
+
+    product = NFTProduct.objects.get(image="/static/images/explore/collection/nft_image1.svg")
+    product_favorite_list = product.favorites.all()
+    product_favorite_list_2 = product.favorites_by.all()
+    for product in product_favorite_list:
+        print(product)
+    for product in product_favorite_list_2:
+        print(product)
+
+
     # [print(favorite.user, favorite.product, sep="\t\t") for favorite in product_favorite_list]
     # print("________________________________________________________________")
     # product_owner_list = product.owners.all()
     # [print(owner) for owner in product_owner_list]
-    print(User.objects.all()[2])
+
+    # print(User.objects.all()[2])
