@@ -235,7 +235,7 @@ def artworks2(request):
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         'users': users,
-        'random_product': products.get(image='/static/images/explore/artworks/nft_image1.svg'),
+        'random_product': NFTProduct.objects.get(image='/static/images/explore/artworks/nft_image1.svg'),
     }
     return render(request, 'NFTapp/explore/artworks/artworks2.html', context)
 
