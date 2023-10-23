@@ -1525,7 +1525,6 @@
         navbarChild.classList.toggle("show");
         link.querySelector(".navbar__link svg").classList.toggle("rotate");
         navbarItem2 = navbarChild.querySelectorAll(".navbar-child__item");
-        console.log(navbarItem2);
         navbarItem2.forEach((link2) => {
           link2.onclick = (e) => {
             e.stopPropagation();
@@ -1636,12 +1635,11 @@
   const jsDataSearch = JSON.parse(rawDataSearch.replace(/&quot;/g, '"'));
   headerSearchInput.addEventListener("keyup", (e) => {
     filteredArr = jsDataSearch.filter((dataSearch) =>
-      dataSearch["name"].toLowerCase().startsWith(e.target.value)
+      dataSearch["name"].toLowerCase().startsWith(e.target.value.toLowerCase())
     );
     searchList.innerHTML = "";
     if (filteredArr.length > 0) {
       filteredArr.forEach((dataSearch) => {
-        console.log(dataSearch["image"]);
         if (dataSearch["image"]) {
           searchList.innerHTML += `
             <li class="search-item">
@@ -1677,15 +1675,14 @@
       searchList.innerHTML = `<p class="search-desc">No results found...</p>`;
     }
   });
-  console.log(jsDataSearch);
+
   headerSearchInputMobile.addEventListener("keyup", (e) => {
     filteredArr = jsDataSearch.filter((dataSearch) =>
-      dataSearch["name"].toLowerCase().startsWith(e.target.value)
+      dataSearch["name"].toLowerCase().startsWith(e.target.value.toLowerCase())
     );
     headerSearchBarMobile.querySelector('.search-list').innerHTML = "";
     if (filteredArr.length > 0) {
       filteredArr.forEach((dataSearch) => {
-        console.log(dataSearch["image"]);
         if (dataSearch["image"]) {
           headerSearchBarMobile.querySelector('.search-list').innerHTML += `
             <li class="search-item">

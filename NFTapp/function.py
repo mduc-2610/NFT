@@ -32,9 +32,9 @@ def classify_1(data, query_set):
         return query_set.annotate(num_owners=Count('owners')).order_by('-num_owners')
     elif data == 'rarity':
         return query_set.order_by('rarity')
-    elif data == 'date-created-old':
-        return query_set.order_by('created_at')
     elif data == 'date-created-new':
+        return query_set.order_by('created_at')
+    elif data == 'date-created-old':
         return query_set.order_by('-created_at')
     elif data == 'price-highest':
         return query_set.order_by('-price')

@@ -3,6 +3,10 @@ from django.urls import path
 from . import views
 # app_name = 'NFTapp'
 urlpatterns = [
+    path('login/', views.loginPage, name="login"),
+    path('logout/', views.logoutUser, name="logout"),
+    path('register/', views.registerPage, name="register"),
+    
     path('home1/', views.home1, name='home1'),
     path('home2/', views.home2, name='home2'),
     path('home3/', views.home3, name='home3'),

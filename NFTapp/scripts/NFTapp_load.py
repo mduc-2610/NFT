@@ -37,7 +37,8 @@ def run():
             "name": fake.email().split('@')[0],
             "email": fake.email(),
             "username": fake.email().split('@')[0],
-            "password":fake.password(),
+            # "password":fake.password(),
+            "password": "123456",
             "bio": fake.text(max_nb_chars=300),
         }
         # user, _ = User.objects.get_or_create(**data)

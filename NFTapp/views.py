@@ -2,16 +2,81 @@ from collections import Counter
 from math import ceil
 import random, json
 from django.shortcuts import render, redirect, HttpResponse
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .function import cal_times_to_read, product_rarity, classify_1, add_search_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite
+from .forms import MyUserCreationForm
+from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
+def error_403_csrf_failure(request, reason=""):
+    """
+    To fix this issue:
+        1. User opens tab A and tab B, and both show the login in form.
+        2. User logs in on tab A, this will destroy the Anonymous session, and create a new one (for security)
+        3. Then user logs in on tab B
+            - The CSRF token for the Anonymous session is now invalid
+            - Since the user is already logged, we just redirect them to refresh the page
+    """
+    if request.path == '/login/' and request.user.is_authenticated:
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(next)
 
+    url = reverse('login') + '?next=' + request.path
+    context = {
+        'page_title': "Authentication Error",
+        'continue_url': url,
+        'reason': reason,
+    }
+    response = render(request, "core.base/403_csrf.html", context=context)
+    response.status_code = 403
+    return response
 
+@csrf_protect
+def loginPage(request):
+    page = 'login'
+    if request.method == 'POST':
+        email = request.POST.get('email').lower()
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(email=email)
+        except:
+            messages.error(request, 'User does not exist')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(request, 'home1')
+        else:
+            messages.error(request, 'Username or password does not exist ')
+    context = {'page': page}
+    return render(request, 'NFTapp/login_register.html', context)
 
+def logoutUser(request):
+    logout(request)
+    return redirect('home1')
 
+def registerPage(request):
+    page = 'register'
+    form = MyUserCreationForm()
+    if request.method == 'POST':
+        form = MyUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home1')
+        else:
+            messages.error(request, 'An error occurred during registration')
+    return render(request, 'NFTapp/login_register.html', {'form': form})
+
+@login_required(login_url='login')
 @add_search_data
 def home1(request):
     blogs = NFTBlog.objects.all()
@@ -31,7 +96,8 @@ def home1(request):
         'title': title,
         'comments': comments,
         'topic': topic,
-        'search_data': request.search_data 
+        'search_data': request.search_data,
+        'user__1': request.user 
     }
     return render(request, 'NFTapp/home/home1.html', context)
 
@@ -135,6 +201,7 @@ def collection1(request):
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
+@login_required(login_url='login')
 @add_search_data
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)

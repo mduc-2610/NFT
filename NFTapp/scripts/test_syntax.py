@@ -118,21 +118,30 @@ def run():
 
     # print(User.objects.all()[2])
 
-    user_search = []
-    for user in User.objects.filter(is_superuser=0).values():
-        user_search.append(user['id'])
+    # user_search = []
+    # for user in User.objects.filter(is_superuser=0).values():
+    #     user_search.append(user['id'])
     
-    product_search = []
-    for product in NFTProduct.objects.values():
-        product_search.append(product['id'])
+    # product_search = []
+    # for product in NFTProduct.objects.values():
+    #     product_search.append(product['id'])
 
-    blog_search = []
-    for blog in NFTBlog.objects.values():
-        blog_search.append(blog['id'])
+    # blog_search = []
+    # for blog in NFTBlog.objects.values():
+    #     blog_search.append(blog['id'])
 
-    search_data = user_search + product_search + blog_search
+    # search_data = user_search + product_search + blog_search
     
-    print(search_data)
+    # print(search_data)
+    # x = None
+    # x.y = 1
+    # print(x)
+
+    
+    a = 1
+    x = {}
+    x = 2
+    print(x)
     # d = {
     #     'a': 'aaa',
     #     'b': 'bbb',
