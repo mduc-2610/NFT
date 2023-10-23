@@ -1,499 +1,1724 @@
-{% load static %}
+{% load my_custom_tags %} {% load static %}
 <header class="header">
-    <div class="container-header-web container-header-mobile">
-        <div class="header__inner">
-            <button class="header__menu-icon">&#9776;</button>
-            <a href="{% url 'home1' %}" class=".header__logo-link">
-                <img src="{% static 'images/generic/logo.svg' %}" alt="" class="header__logo-img"/>
-            </a>
-            
-            <div class="navbar scroll">
-                <form method="GET" class="header__search-bar flex_aic_jcc">
-                    {% csrf_token %}
-                    <button type="submit" class="header__search-button">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                        <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>                    </button>
-                    <input type="text" class="header__search-input" placeholder="Search for artworks, collections, artists, etc..."/>
-                </form>
-                <ul class="navbar__list ">
-                    <li class="navbar-feature">
-                        <button class="navbar-back">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M3.828 7.00066H16V9.00066H3.828L9.192 14.3647L7.778 15.7787L0 8.00066L7.778 0.222656L9.192 1.63666L3.828 7.00066Z" fill="#BFBFBF"/>
-                              </svg>   
-                        </button>
-                    </li>
-                    <!-- Home -->
-                    <li class="navbar__item">
-                        <a href="{% url 'home1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                            Home
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                        </a>
-                        <ul class="navbar-child__list">
-                            <li class="navbar-child__item">
-                                <a href="{% url 'home1' %}" class="navbar__link flex_aic_jcc">Home 1</a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'home2' %}" class="navbar__link flex_aic_jcc">Home 2</a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'home3' %}" class="navbar__link flex_aic_jcc">Home 3</a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'home4' %}" class="navbar__link flex_aic_jcc">Home 4</a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'home5' %}" class="navbar__link flex_aic_jcc">Home 5</a>
-                            </li>
-                        </ul>
-                    </li>
+  <div class="container-header-web container-header-mobile">
+    <div class="header__inner">
+      <button class="header__menu-icon">&#9776;</button>
+      <a href="{% url 'home1' %}" class=".header__logo-link">
+        <img
+          src="{% static 'images/generic/logo.svg' %}"
+          alt=""
+          class="header__logo-img"
+        />
+      </a>
 
-                    <!-- Explore -->
-                    <li class="navbar__item">
-                        <a href="{% url 'collection1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                            Explore
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                        </a>
-                        <ul class="navbar-child__list">
-                            <li class="navbar-child__item">
-                                <a href="{% url 'collection1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                    Collection
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                        <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                </a>
-                                <ul class="navbar-child-2__list">
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'collection1' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                              </svg>
-                                            Collection 1</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'collection2' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                              </svg>
-                                            Collection 2</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'collection3' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                              </svg>
-                                            Collection 3</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'collection4' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                              </svg>
-                                            Collection 4</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'collection5' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                              </svg>
-                                            Collection 5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'artworks1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                        <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    Artworks
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                        <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                </a>
-                                <ul class="navbar-child-2__list">
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'artworks1' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                                <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            Artworks 1</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'artworks2' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                                <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            Artworks 2</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'artworks3' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                                <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            Artworks 3</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'artworks4' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                                <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            Artworks 4</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'artworks5' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-                                                <path d="M1 5.78125V8.59375" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M1 7.1875H3.8125" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            Artworks 5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Community -->
-                    <li class="navbar__item">
-                        <a href="{% url 'about_us1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                            Community
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                        </a>
-                        <ul class="navbar-child__list">
-                            <li class="navbar-child__item">
-                                <a href="{% url 'about_us1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                    About us
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                        <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                </a>
-                                <ul class="navbar-child-2__list">
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'about_us1' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                            About us 1</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'about_us2' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                    <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                            About us 2</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'about_us3' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                    <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                            About us 3</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'about_us4' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                    <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                            About us 4</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'about_us5' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z" stroke="white" stroke-width="1.16667" stroke-miterlimit="10"/>
-                                    <path d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z" stroke="white" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                            About us 5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'artists' %}" class="navbar__link flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <g clip-path="url(#clip0_1111_17018)">
-                                          <path d="M15.3734 0.80094C15.2987 0.726527 15.2001 0.680753 15.095 0.671614C14.9899 0.662475 14.8849 0.690552 14.7984 0.75094H14.7734C9.47344 4.70094 6.97344 7.02594 5.14844 8.85094L7.29844 11.0259C9.12344 9.20094 11.4484 6.70094 15.3984 1.40094H15.4234C15.4907 1.31242 15.5228 1.20213 15.5136 1.09135C15.5043 0.980559 15.4544 0.87711 15.3734 0.80094V0.80094Z" stroke="white" stroke-width="1.17" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M4.50124 9.49961C4.21282 9.78803 4.05078 10.1792 4.05078 10.5871C4.05078 10.995 4.21282 11.3862 4.50124 11.6746C4.78966 11.963 5.18085 12.1251 5.58874 12.1251C5.99663 12.1251 6.38782 11.963 6.67624 11.6746L7.32624 11.0246L5.17624 8.84961L4.50124 9.49961Z" stroke="white" stroke-width="1.17" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M4.575 13.8756C4.85679 13.5939 5.0151 13.2117 5.0151 12.8131C5.0151 12.4146 4.85679 12.0324 4.575 11.7506C4.29321 11.4689 3.91101 11.3105 3.5125 11.3105C3.11399 11.3105 2.73179 11.4689 2.45 11.7506C1.375 12.8006 1.75 14.9756 0.5 15.3506C1.675 15.2756 3.375 15.0756 4.575 13.8756Z" stroke="white" stroke-width="1.17" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_1111_17018">
-                                            <rect width="16" height="16" fill="white"/>
-                                          </clipPath>
-                                        </defs>
-                                      </svg>
-                                    Artists</a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'editorial' %}" class="navbar__link flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M7.25 10C7.94036 10 8.5 9.44036 8.5 8.75C8.5 8.05964 7.94036 7.5 7.25 7.5C6.55964 7.5 6 8.05964 6 8.75C6 9.44036 6.55964 10 7.25 10Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 13.9996L6.36875 9.63086" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 14L10.7188 12.55C10.8048 12.5353 10.8854 12.4981 10.9524 12.4421C11.0194 12.3861 11.0703 12.3133 11.1 12.2312L12.5 8.5L7.5 3.5L3.76875 4.9C3.68653 4.93132 3.61389 4.98353 3.55799 5.05148C3.5021 5.11943 3.46488 5.20078 3.45 5.2875L2 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.5 8.49995L14.1437 6.85619C14.191 6.80967 14.2285 6.75421 14.2541 6.69305C14.2797 6.63189 14.2929 6.56625 14.2929 6.49995C14.2929 6.43364 14.2797 6.368 14.2541 6.30684C14.2285 6.24568 14.191 6.19022 14.1437 6.1437L9.85625 1.8562C9.80973 1.80895 9.75427 1.77144 9.69311 1.74583C9.63195 1.72022 9.56631 1.70703 9.5 1.70703C9.43369 1.70703 9.36805 1.72022 9.30689 1.74583C9.24573 1.77144 9.19027 1.80895 9.14375 1.8562L7.5 3.49995" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                    Editorial
-                                </a>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'FAQs1' %}" class="navbar__link navbar__link--default flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                    FAQs
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                        <path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                </a>
-                                <ul class="navbar-child-2__list">
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'FAQs1' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            FAQs 1</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'FAQs2' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            FAQs 2</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'FAQs3' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            FAQs 3</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'FAQs4' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            FAQs 4</a>
-                                    </li>
-                                    <li class="navbar-child-2__item">
-                                        <a href="{% url 'FAQs5' %}" class="navbar__link flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z" fill="white"/>
-                                            <path d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75" stroke="white" stroke-width="1.17" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            FAQs 5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="navbar-child__item">
-                                <a href="{% url 'blog' %}" class="navbar__link flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <g clip-path="url(#clip0_1111_17039)">
-                                          <path d="M13.3333 14.6673H2.66667C2.48986 14.6673 2.32029 14.5971 2.19526 14.4721C2.07024 14.347 2 14.1775 2 14.0007V2.00065C2 1.82384 2.07024 1.65427 2.19526 1.52925C2.32029 1.40422 2.48986 1.33398 2.66667 1.33398H13.3333C13.5101 1.33398 13.6797 1.40422 13.8047 1.52925C13.9298 1.65427 14 1.82384 14 2.00065V14.0007C14 14.1775 13.9298 14.347 13.8047 14.4721C13.6797 14.5971 13.5101 14.6673 13.3333 14.6673ZM12.6667 13.334V2.66732H3.33333V13.334H12.6667ZM4.66667 4.00065H7.33333V6.66732H4.66667V4.00065ZM4.66667 8.00065H11.3333V9.33398H4.66667V8.00065ZM4.66667 10.6673H11.3333V12.0007H4.66667V10.6673ZM8.66667 4.66732H11.3333V6.00065H8.66667V4.66732Z" fill="white"/>
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_1111_17039">
-                                            <rect width="16" height="16" fill="white"/>
-                                          </clipPath>
-                                        </defs>
-                                      </svg>
-                                    Blog</a>
-                            </li>
-                            <li class="navbar-child__item-social ">
-                                <div class="navbar-child__more">
-                                  <p
-                                    class="navbar-child__desc"
-                                    style="color: white; cursor: pointer"
-                                  >
-                                    Follow us on
-                                  </p>
-                                  <ul class="navbar-social flex_aic_jcc">
-                                    <li class="navbar-social__item">
-                                      <a href="#!" class="navbar-social__link">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          viewBox="0 0 20 20"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M10 13.125C11.7259 13.125 13.125 11.7259 13.125 10C13.125 8.27411 11.7259 6.875 10 6.875C8.27411 6.875 6.875 8.27411 6.875 10C6.875 11.7259 8.27411 13.125 10 13.125Z"
-                                            stroke="white"
-                                            stroke-width="1.5"
-                                            stroke-miterlimit="10"
-                                          />
-                                          <path
-                                            d="M13.4375 2.8125H6.5625C4.49143 2.8125 2.8125 4.49143 2.8125 6.5625V13.4375C2.8125 15.5086 4.49143 17.1875 6.5625 17.1875H13.4375C15.5086 17.1875 17.1875 15.5086 17.1875 13.4375V6.5625C17.1875 4.49143 15.5086 2.8125 13.4375 2.8125Z"
-                                            stroke="white"
-                                            stroke-width="1.5"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                          />
-                                          <path
-                                            d="M14.0625 6.875C14.5803 6.875 15 6.45527 15 5.9375C15 5.41973 14.5803 5 14.0625 5C13.5447 5 13.125 5.41973 13.125 5.9375C13.125 6.45527 13.5447 6.875 14.0625 6.875Z"
-                                            fill="white"
-                                          />
-                                        </svg>
-                                      </a>
-                                    </li>
-                                    <li class="navbar-social__item">
-                                      <a href="#!" class="navbar-social__link">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          viewBox="0 0 20 20"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M18.89 4.72157C18.5551 4.84649 18.2117 4.94757 17.8625 5.02407C17.8291 5.03157 17.7941 5.02786 17.7629 5.01351C17.7318 4.99915 17.7063 4.97495 17.6902 4.94464C17.6742 4.91433 17.6686 4.87958 17.6743 4.84576C17.6799 4.81195 17.6966 4.78093 17.7216 4.75751C18.122 4.37396 18.4519 3.92305 18.6963 3.42532C18.7104 3.39588 18.7149 3.36276 18.7092 3.33062C18.7036 3.29848 18.688 3.26892 18.6646 3.24609C18.6413 3.22327 18.6114 3.20833 18.5791 3.20337C18.5469 3.19842 18.5138 3.20369 18.4847 3.21845C17.8507 3.55855 17.1591 3.77799 16.445 3.86563C15.6966 3.12268 14.6871 2.70208 13.6325 2.69376C13.1246 2.69331 12.6216 2.79302 12.1522 2.98719C11.6829 3.18135 11.2564 3.46617 10.8972 3.82533C10.5381 4.18449 10.2533 4.61095 10.0591 5.08031C9.86493 5.54966 9.76522 6.0527 9.76567 6.56063C9.76435 6.84619 9.79379 7.13106 9.85348 7.41032C7.02598 7.3247 3.72536 5.95813 1.79692 3.58251C1.78084 3.56236 1.76002 3.54651 1.73633 3.53636C1.71263 3.5262 1.68679 3.52207 1.66111 3.52433C1.63543 3.52659 1.61071 3.53517 1.58915 3.5493C1.56759 3.56343 1.54986 3.58268 1.53755 3.60532C1.16593 4.37094 1.05506 5.23713 1.22185 6.07167C1.38864 6.9062 1.82394 7.66323 2.4613 8.22719C2.48691 8.24804 2.50526 8.27646 2.51371 8.30839C2.52217 8.34031 2.52029 8.37409 2.50835 8.40488C2.49641 8.43567 2.47502 8.46189 2.44725 8.47976C2.41948 8.49764 2.38677 8.50626 2.3538 8.50438C2.017 8.48939 1.68704 8.40424 1.38505 8.25438C1.36049 8.24194 1.33309 8.23621 1.30561 8.23777C1.27813 8.23932 1.25155 8.24811 1.22855 8.26324C1.20556 8.27836 1.18697 8.2993 1.17467 8.32392C1.16236 8.34854 1.15678 8.37597 1.15848 8.40345C1.18989 9.14187 1.44524 9.85326 1.89062 10.4431C2.33599 11.0329 2.9503 11.4733 3.65192 11.7056C3.6845 11.7174 3.71226 11.7396 3.73083 11.7689C3.7494 11.7981 3.75773 11.8327 3.75451 11.8671C3.75129 11.9016 3.7367 11.9341 3.71304 11.9594C3.68938 11.9847 3.65799 12.0014 3.6238 12.0069C3.32953 12.0403 3.03244 12.0403 2.73817 12.0069C2.71277 12.0045 2.68717 12.0083 2.66355 12.0179C2.63994 12.0276 2.61901 12.0428 2.60255 12.0623C2.5861 12.0818 2.5746 12.105 2.56905 12.1299C2.5635 12.1548 2.56406 12.1807 2.57067 12.2053C2.83598 13.2309 4.16192 14.4319 5.64536 14.5966C5.67509 14.6004 5.70307 14.6128 5.72598 14.6321C5.74888 14.6515 5.76574 14.677 5.77454 14.7057C5.78333 14.7343 5.7837 14.7649 5.77559 14.7938C5.76748 14.8226 5.75123 14.8486 5.7288 14.8684C4.49176 15.8592 2.93721 16.3675 1.3538 16.2988C1.31832 16.2972 1.28336 16.3077 1.25468 16.3287C1.226 16.3496 1.20532 16.3797 1.19604 16.414C1.18676 16.4483 1.18944 16.4847 1.20363 16.5173C1.21782 16.5498 1.24268 16.5766 1.27411 16.5931C2.9448 17.4693 4.80323 17.9268 6.68973 17.9263C8.15579 17.9359 9.60843 17.6465 10.9588 17.0757C12.3092 16.5048 13.529 15.6646 14.5436 14.6063C15.5582 13.5479 16.3463 12.2938 16.8596 10.9205C17.373 9.54728 17.6009 8.08373 17.5294 6.61938V6.47282C18.123 6.05688 18.6439 5.54597 19.0713 4.96063C19.0914 4.93348 19.1022 4.90053 19.1021 4.86672C19.1019 4.83291 19.0907 4.80007 19.0703 4.77313C19.0499 4.74619 19.0213 4.7266 18.9888 4.7173C18.9563 4.70801 18.9216 4.7095 18.89 4.72157Z"
-                                            fill="white"
-                                          />
-                                        </svg>
-                                      </a>
-                                    </li>
-                                    <li class="navbar-social__item">
-                                      <a href="#!" class="navbar-social__link">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          viewBox="0 0 20 20"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M19.3201 13.2656L16.6639 4.42187C16.6128 4.243 16.5215 4.07819 16.3969 3.94006C16.2724 3.80194 16.1178 3.69416 15.9451 3.62499H15.8983L15.9451 3.60937C15.0736 3.26014 14.1712 2.99335 13.2498 2.81249C13.1693 2.79657 13.0864 2.79668 13.0059 2.8128C12.9254 2.82892 12.8489 2.86074 12.7807 2.90645C12.7125 2.95215 12.6539 3.01085 12.6084 3.07918C12.5629 3.14751 12.5313 3.22413 12.5154 3.30468C12.4984 3.38475 12.4974 3.46742 12.5125 3.54788C12.5277 3.62833 12.5588 3.70496 12.6038 3.77331C12.6489 3.84166 12.7071 3.90035 12.7751 3.94597C12.8431 3.9916 12.9195 4.02324 12.9998 4.03905C13.3514 4.10937 13.6951 4.1953 14.0311 4.28905C14.1548 4.35328 14.2535 4.45703 14.3115 4.58381C14.3695 4.71059 14.3834 4.85311 14.3511 4.98872C14.3188 5.12433 14.242 5.24524 14.1331 5.33222C14.0241 5.41919 13.8892 5.46725 13.7498 5.46874H13.6873C12.4834 5.15476 11.244 4.99722 9.99982 4.99999C8.78486 4.99637 7.57446 5.14865 6.39826 5.45312C6.24859 5.49261 6.08959 5.47515 5.95205 5.40413C5.81451 5.33311 5.70822 5.21358 5.65376 5.06868C5.59931 4.92378 5.60056 4.76383 5.65727 4.6198C5.71398 4.47578 5.82213 4.35792 5.96076 4.28905H5.96857C6.30451 4.1953 6.64826 4.10937 6.99982 4.03905C7.08037 4.02317 7.15699 3.99157 7.22532 3.94606C7.29365 3.90055 7.35235 3.84203 7.39805 3.77383C7.44376 3.70563 7.47558 3.6291 7.4917 3.5486C7.50782 3.4681 7.50793 3.38522 7.49201 3.30468C7.45806 3.14302 7.36224 3.00105 7.22502 2.90908C7.0878 2.81712 6.92007 2.78245 6.75764 2.81249C5.83297 2.9974 4.92789 3.26944 4.05451 3.62499C3.88184 3.69416 3.72729 3.80194 3.60271 3.94006C3.47812 4.07819 3.38681 4.243 3.33576 4.42187L0.67951 13.2656C0.610601 13.4968 0.610078 13.7431 0.678006 13.9746C0.745934 14.2061 0.879408 14.413 1.06232 14.5703C1.13419 14.6395 1.20983 14.7047 1.28888 14.7656H1.2967C2.56232 15.7969 4.22638 16.5859 6.10138 17.0391C6.14937 17.0544 6.19944 17.0623 6.24982 17.0625C6.40435 17.0649 6.5543 17.0101 6.67073 16.9084C6.78716 16.8068 6.8618 16.6656 6.88026 16.5122C6.89871 16.3588 6.85966 16.2039 6.77064 16.0776C6.68163 15.9512 6.54896 15.8624 6.39826 15.8281C5.55533 15.6245 4.73583 15.3339 3.95295 14.9609C3.8458 14.8605 3.77742 14.7256 3.7598 14.5798C3.74219 14.434 3.77647 14.2867 3.85663 14.1637C3.93679 14.0406 4.0577 13.9498 4.19817 13.907C4.33864 13.8642 4.48969 13.8722 4.62482 13.9297C6.1092 14.5859 7.97639 15 9.99982 15C12.0233 15 13.8904 14.5859 15.3748 13.9297C15.51 13.8722 15.661 13.8642 15.8015 13.907C15.9419 13.9498 16.0629 14.0406 16.143 14.1637C16.2232 14.2867 16.2575 14.434 16.2398 14.5798C16.2222 14.7256 16.1538 14.8605 16.0467 14.9609C15.2638 15.3339 14.4443 15.6245 13.6014 15.8281C13.4507 15.8624 13.318 15.9512 13.229 16.0776C13.14 16.2039 13.1009 16.3588 13.1194 16.5122C13.1378 16.6656 13.2125 16.8068 13.3289 16.9084C13.4453 17.0101 13.5953 17.0649 13.7498 17.0625C13.8002 17.0623 13.8503 17.0544 13.8983 17.0391C15.7733 16.5859 17.4373 15.7969 18.7029 14.7656H18.7108C18.7898 14.7047 18.8655 14.6395 18.9373 14.5703C19.1202 14.413 19.2537 14.2061 19.3216 13.9746C19.3896 13.7431 19.389 13.4968 19.3201 13.2656ZM7.49982 12.1875C7.3144 12.1875 7.13315 12.1325 6.97898 12.0295C6.8248 11.9265 6.70464 11.7801 6.63369 11.6088C6.56273 11.4375 6.54416 11.249 6.58034 11.0671C6.61651 10.8852 6.7058 10.7182 6.83691 10.5871C6.96802 10.456 7.13507 10.3667 7.31693 10.3305C7.49878 10.2943 7.68728 10.3129 7.85859 10.3839C8.02989 10.4548 8.17631 10.575 8.27933 10.7291C8.38234 10.8833 8.43732 11.0646 8.43732 11.25C8.43732 11.4986 8.33855 11.7371 8.16273 11.9129C7.98692 12.0887 7.74846 12.1875 7.49982 12.1875ZM12.4998 12.1875C12.3144 12.1875 12.1331 12.1325 11.979 12.0295C11.8248 11.9265 11.7046 11.7801 11.6337 11.6088C11.5627 11.4375 11.5442 11.249 11.5803 11.0671C11.6165 10.8852 11.7058 10.7182 11.8369 10.5871C11.968 10.456 12.1351 10.3667 12.3169 10.3305C12.4988 10.2943 12.6873 10.3129 12.8586 10.3839C13.0299 10.4548 13.1763 10.575 13.2793 10.7291C13.3823 10.8833 13.4373 11.0646 13.4373 11.25C13.4373 11.4986 13.3385 11.7371 13.1627 11.9129C12.9869 12.0887 12.7485 12.1875 12.4998 12.1875Z"
-                                            fill="white"
-                                          />
-                                        </svg>
-                                      </a>
-                                    </li>
-                                    <li class="navbar-social__item">
-                                      <a href="#!" class="navbar-social__link">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          viewBox="0 0 20 20"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M10.625 10C10.625 12.9297 8.38281 15.3125 5.625 15.3125C2.86719 15.3125 0.625 12.9297 0.625 10C0.625 7.07031 2.86719 4.6875 5.625 4.6875C8.38281 4.6875 10.625 7.07031 10.625 10ZM14.375 5C13.9297 5 13.0938 5.21875 12.4766 6.66406C12.0859 7.5625 11.875 8.75 11.875 10C11.875 11.25 12.0859 12.4375 12.4766 13.3359C13.0938 14.7812 13.9297 15 14.375 15C14.8203 15 15.6562 14.7812 16.2734 13.3359C16.6641 12.4375 16.875 11.25 16.875 10C16.875 8.75 16.6641 7.5625 16.2734 6.66406C15.6562 5.21875 14.8203 5 14.375 5ZM18.75 5C18.5842 5 18.4253 5.06585 18.3081 5.18306C18.1908 5.30027 18.125 5.45924 18.125 5.625V14.375C18.125 14.5408 18.1908 14.6997 18.3081 14.8169C18.4253 14.9342 18.5842 15 18.75 15C18.9158 15 19.0747 14.9342 19.1919 14.8169C19.3092 14.6997 19.375 14.5408 19.375 14.375V5.625C19.375 5.45924 19.3092 5.30027 19.1919 5.18306C19.0747 5.06585 18.9158 5 18.75 5Z"
-                                            fill="white"
-                                          />
-                                        </svg>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </li>
-                        </ul>
-                    </li>
-                    <li class=" header-login header-login-mobile">
-                        <button class=" header-login__button">Connect</button>
-                    </li>
-                </ul>
-                <button class="header__menu-back">Back</button>
-            </div>
-            <div class=" header-login header-login-web">
-                <button class=" header-login header-login__button">Connect</button>
-            </div>
-            <button type="submit" class="header__search-button header__search-button-mobile-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                      <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+      <div class="navbar scroll">
+        <form method="GET" class="header__search-bar flex_aic_jcc">
+          {% csrf_token %}
+          <button type="submit" class="header__search-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+            >
+              <path
+                d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z"
+                stroke="#BFBFBF"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13.0195 13.0176L16.6266 16.6246"
+                stroke="#BFBFBF"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <input
+            type="text"
+            class="header__search-input"
+            placeholder="Search for artworks, collections, artists, etc..."
+          />
+          <ul class="search-list scroll">
+            {% for data in search_data %} {% if data.image is not None %}
+            <li class="search-item">
+              <a
+                href="{% url data.redirect_url data.id %}"
+                class="search-link avatar-wrap"
+              >
+                <img src="{{data.image}}" alt="" class="avatar" />
+                {{data.name}}
+              </a>
+            </li>
+            {% else %}
+            <li class="search-item">
+              <a href="{% url data.redirect_url data.id %}" class="search-link"
+                >{{data.name}}</a
+              >
+            </li>
+            {% endif %} {% endfor %}
+          </ul>
+        </form>
+        <ul class="navbar__list">
+          <li class="navbar-feature">
+            <button class="navbar-back">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M3.828 7.00066H16V9.00066H3.828L9.192 14.3647L7.778 15.7787L0 8.00066L7.778 0.222656L9.192 1.63666L3.828 7.00066Z"
+                  fill="#BFBFBF"
+                />
+              </svg>
             </button>
-            <form method="GET" class="header__search-bar-mobile header__search-bar flex_aic_jcc">
-                <span class="header__menu-back-mobile">Back</span>
-                {% csrf_token %}
-              <input type="text" class="header__search-input-mobile header__search-input" placeholder="Search for artworks, collections, artists, etc..."/>
-              <button type="submit" class="header__search-button header__search-button-mobile">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                      <path d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M13.0195 13.0176L16.6266 16.6246" stroke="#BFBFBF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-              </button>
-          </form>
-        </div>
+          </li>
+          <!-- Home -->
+          <li class="navbar__item">
+            <a
+              href="{% url 'home1' %}"
+              class="navbar__link navbar__link--default flex_aic_jcc"
+            >
+              Home
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="9"
+                height="7"
+                viewBox="0 0 9 7"
+                fill="none"
+              >
+                <path
+                  d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <ul class="navbar-child__list">
+              <li class="navbar-child__item">
+                <a href="{% url 'home1' %}" class="navbar__link flex_aic_jcc"
+                  >Home 1</a
+                >
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'home2' %}" class="navbar__link flex_aic_jcc"
+                  >Home 2</a
+                >
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'home3' %}" class="navbar__link flex_aic_jcc"
+                  >Home 3</a
+                >
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'home4' %}" class="navbar__link flex_aic_jcc"
+                  >Home 4</a
+                >
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'home5' %}" class="navbar__link flex_aic_jcc"
+                  >Home 5</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <!-- Explore -->
+          <li class="navbar__item">
+            <a
+              href="{% url 'collection1' %}"
+              class="navbar__link navbar__link--default flex_aic_jcc"
+            >
+              Explore
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="9"
+                height="7"
+                viewBox="0 0 9 7"
+                fill="none"
+              >
+                <path
+                  d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <ul class="navbar-child__list">
+              <li class="navbar-child__item">
+                <a
+                  href="{% url 'collection1' %}"
+                  class="navbar__link navbar__link--default flex_aic_jcc"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Collection
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="9"
+                    height="7"
+                    viewBox="0 0 9 7"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                      stroke="white"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+                <ul class="navbar-child-2__list">
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'collection1' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Collection 1</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'collection2' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Collection 2</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'collection3' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Collection 3</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'collection4' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Collection 4</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'collection5' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.9016 2.50391H9.86414C9.53359 2.50391 9.26562 2.77187 9.26562 3.10242V6.13761C9.26562 6.46816 9.53359 6.73612 9.86414 6.73612H12.9016C13.2321 6.73612 13.5001 6.46816 13.5001 6.13761V3.10242C13.5001 2.77187 13.2321 2.50391 12.9016 2.50391Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.9016 9.27734H9.86414C9.53359 9.27734 9.26562 9.54531 9.26562 9.87585V12.9111C9.26562 13.2416 9.53359 13.5096 9.86414 13.5096H12.9016C13.2321 13.5096 13.5001 13.2416 13.5001 12.9111V9.87585C13.5001 9.54531 13.2321 9.27734 12.9016 9.27734Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 2.5H3.09851C2.76796 2.5 2.5 2.76796 2.5 3.09851V6.13371C2.5 6.46426 2.76796 6.73222 3.09851 6.73222H6.13595C6.4665 6.73222 6.73446 6.46426 6.73446 6.13371V3.09851C6.73446 2.76796 6.4665 2.5 6.13595 2.5Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.13595 9.27148H3.09851C2.76796 9.27148 2.5 9.53945 2.5 9.86999V12.9052C2.5 13.2357 2.76796 13.5037 3.09851 13.5037H6.13595C6.4665 13.5037 6.73446 13.2357 6.73446 12.9052V9.86999C6.73446 9.53945 6.4665 9.27148 6.13595 9.27148Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Collection 5</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="navbar-child__item">
+                <a
+                  href="{% url 'artworks1' %}"
+                  class="navbar__link navbar__link--default flex_aic_jcc"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="14"
+                    viewBox="0 0 12 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 5.78125V8.59375"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1 7.1875H3.8125"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Artworks
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="9"
+                    height="7"
+                    viewBox="0 0 9 7"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                      stroke="white"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+                <ul class="navbar-child-2__list">
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'artworks1' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Artworks 1</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'artworks2' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Artworks 2</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'artworks3' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Artworks 3</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'artworks4' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Artworks 4</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'artworks5' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="14"
+                        viewBox="0 0 12 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 5.78125V8.59375"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 1H7.1875C6.87684 1 6.625 1.25184 6.625 1.5625V4.9375C6.625 5.24816 6.87684 5.5 7.1875 5.5H10.5625C10.8732 5.5 11.125 5.24816 11.125 4.9375V1.5625C11.125 1.25184 10.8732 1 10.5625 1Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10.5625 8.875H7.1875C6.87684 8.875 6.625 9.12684 6.625 9.4375V12.8125C6.625 13.1232 6.87684 13.375 7.1875 13.375H10.5625C10.8732 13.375 11.125 13.1232 11.125 12.8125V9.4375C11.125 9.12684 10.8732 8.875 10.5625 8.875Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M1 7.1875H3.8125"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.62501 11.125H5.50001C5.27815 11.1259 5.05829 11.0829 4.85314 10.9985C4.64798 10.914 4.46158 10.7897 4.3047 10.6328C4.14781 10.4759 4.02355 10.2895 3.93907 10.0844C3.8546 9.87924 3.81158 9.65938 3.81251 9.43752V4.93751C3.81158 4.71565 3.8546 4.49579 3.93907 4.29064C4.02355 4.08548 4.14781 3.89908 4.3047 3.7422C4.46158 3.58531 4.64798 3.46105 4.85314 3.37657C5.05829 3.2921 5.27815 3.24908 5.50001 3.25001H6.62501"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Artworks 5</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Community -->
+          <li class="navbar__item">
+            <a
+              href="{% url 'about_us1' %}"
+              class="navbar__link navbar__link--default flex_aic_jcc"
+            >
+              Community
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="9"
+                height="7"
+                viewBox="0 0 9 7"
+                fill="none"
+              >
+                <path
+                  d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <ul class="navbar-child__list">
+              <li class="navbar-child__item">
+                <a
+                  href="{% url 'about_us1' %}"
+                  class="navbar__link navbar__link--default flex_aic_jcc"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                      stroke="white"
+                      stroke-width="1.16667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  About us
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="9"
+                    height="7"
+                    viewBox="0 0 9 7"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                      stroke="white"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+                <ul class="navbar-child-2__list">
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'about_us1' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      About us 1</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'about_us2' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      About us 2</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'about_us3' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      About us 3</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'about_us4' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      About us 4</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'about_us5' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.99957 14.2218C11.436 14.2218 14.2218 11.436 14.2218 7.99957C14.2218 4.56313 11.436 1.77734 7.99957 1.77734C4.56313 1.77734 1.77734 4.56313 1.77734 7.99957C1.77734 11.436 4.56313 14.2218 7.99957 14.2218Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M9.1 9.10179L10.9213 5.07031L6.8963 6.89809L5.25 10.7481L9.1 9.10179Z"
+                          stroke="white"
+                          stroke-width="1.16667"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      About us 5</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'artists' %}" class="navbar__link flex_aic_jcc">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_1111_17018)">
+                      <path
+                        d="M15.3734 0.80094C15.2987 0.726527 15.2001 0.680753 15.095 0.671614C14.9899 0.662475 14.8849 0.690552 14.7984 0.75094H14.7734C9.47344 4.70094 6.97344 7.02594 5.14844 8.85094L7.29844 11.0259C9.12344 9.20094 11.4484 6.70094 15.3984 1.40094H15.4234C15.4907 1.31242 15.5228 1.20213 15.5136 1.09135C15.5043 0.980559 15.4544 0.87711 15.3734 0.80094V0.80094Z"
+                        stroke="white"
+                        stroke-width="1.17"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M4.50124 9.49961C4.21282 9.78803 4.05078 10.1792 4.05078 10.5871C4.05078 10.995 4.21282 11.3862 4.50124 11.6746C4.78966 11.963 5.18085 12.1251 5.58874 12.1251C5.99663 12.1251 6.38782 11.963 6.67624 11.6746L7.32624 11.0246L5.17624 8.84961L4.50124 9.49961Z"
+                        stroke="white"
+                        stroke-width="1.17"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M4.575 13.8756C4.85679 13.5939 5.0151 13.2117 5.0151 12.8131C5.0151 12.4146 4.85679 12.0324 4.575 11.7506C4.29321 11.4689 3.91101 11.3105 3.5125 11.3105C3.11399 11.3105 2.73179 11.4689 2.45 11.7506C1.375 12.8006 1.75 14.9756 0.5 15.3506C1.675 15.2756 3.375 15.0756 4.575 13.8756Z"
+                        stroke="white"
+                        stroke-width="1.17"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1111_17018">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Artists</a
+                >
+              </li>
+              <li class="navbar-child__item">
+                <a
+                  href="{% url 'editorial' %}"
+                  class="navbar__link flex_aic_jcc"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M7.25 10C7.94036 10 8.5 9.44036 8.5 8.75C8.5 8.05964 7.94036 7.5 7.25 7.5C6.55964 7.5 6 8.05964 6 8.75C6 9.44036 6.55964 10 7.25 10Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M2 13.9996L6.36875 9.63086"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M2 14L10.7188 12.55C10.8048 12.5353 10.8854 12.4981 10.9524 12.4421C11.0194 12.3861 11.0703 12.3133 11.1 12.2312L12.5 8.5L7.5 3.5L3.76875 4.9C3.68653 4.93132 3.61389 4.98353 3.55799 5.05148C3.5021 5.11943 3.46488 5.20078 3.45 5.2875L2 14Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 8.49995L14.1437 6.85619C14.191 6.80967 14.2285 6.75421 14.2541 6.69305C14.2797 6.63189 14.2929 6.56625 14.2929 6.49995C14.2929 6.43364 14.2797 6.368 14.2541 6.30684C14.2285 6.24568 14.191 6.19022 14.1437 6.1437L9.85625 1.8562C9.80973 1.80895 9.75427 1.77144 9.69311 1.74583C9.63195 1.72022 9.56631 1.70703 9.5 1.70703C9.43369 1.70703 9.36805 1.72022 9.30689 1.74583C9.24573 1.77144 9.19027 1.80895 9.14375 1.8562L7.5 3.49995"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Editorial
+                </a>
+              </li>
+              <li class="navbar-child__item">
+                <a
+                  href="{% url 'FAQs1' %}"
+                  class="navbar__link navbar__link--default flex_aic_jcc"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                      stroke="white"
+                      stroke-width="1.17"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  FAQs
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="9"
+                    height="7"
+                    viewBox="0 0 9 7"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438"
+                      stroke="white"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+                <ul class="navbar-child-2__list">
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'FAQs1' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      FAQs 1</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'FAQs2' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      FAQs 2</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'FAQs3' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      FAQs 3</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'FAQs4' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      FAQs 4</a
+                    >
+                  </li>
+                  <li class="navbar-child-2__item">
+                    <a
+                      href="{% url 'FAQs5' %}"
+                      class="navbar__link flex_aic_jcc"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12C8.41421 12 8.75 11.6642 8.75 11.25C8.75 10.8358 8.41421 10.5 8 10.5C7.58579 10.5 7.25 10.8358 7.25 11.25C7.25 11.6642 7.58579 12 8 12Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8 9V8.5C8.34612 8.5 8.68446 8.39736 8.97225 8.20507C9.26003 8.01278 9.48434 7.73947 9.61679 7.4197C9.74924 7.09993 9.7839 6.74806 9.71637 6.40859C9.64885 6.06913 9.48218 5.75731 9.23744 5.51256C8.9927 5.26782 8.68087 5.10115 8.34141 5.03363C8.00194 4.9661 7.65007 5.00076 7.3303 5.13321C7.01053 5.26566 6.73722 5.48997 6.54493 5.77775C6.35264 6.06554 6.25 6.40388 6.25 6.75"
+                          stroke="white"
+                          stroke-width="1.17"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      FAQs 5</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="navbar-child__item">
+                <a href="{% url 'blog' %}" class="navbar__link flex_aic_jcc">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_1111_17039)">
+                      <path
+                        d="M13.3333 14.6673H2.66667C2.48986 14.6673 2.32029 14.5971 2.19526 14.4721C2.07024 14.347 2 14.1775 2 14.0007V2.00065C2 1.82384 2.07024 1.65427 2.19526 1.52925C2.32029 1.40422 2.48986 1.33398 2.66667 1.33398H13.3333C13.5101 1.33398 13.6797 1.40422 13.8047 1.52925C13.9298 1.65427 14 1.82384 14 2.00065V14.0007C14 14.1775 13.9298 14.347 13.8047 14.4721C13.6797 14.5971 13.5101 14.6673 13.3333 14.6673ZM12.6667 13.334V2.66732H3.33333V13.334H12.6667ZM4.66667 4.00065H7.33333V6.66732H4.66667V4.00065ZM4.66667 8.00065H11.3333V9.33398H4.66667V8.00065ZM4.66667 10.6673H11.3333V12.0007H4.66667V10.6673ZM8.66667 4.66732H11.3333V6.00065H8.66667V4.66732Z"
+                        fill="white"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1111_17039">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Blog</a
+                >
+              </li>
+              <li class="navbar-child__item-social">
+                <div class="navbar-child__more">
+                  <p
+                    class="navbar-child__desc"
+                    style="color: white; cursor: pointer"
+                  >
+                    Follow us on
+                  </p>
+                  <ul class="navbar-social flex_aic_jcc">
+                    <li class="navbar-social__item">
+                      <a href="#!" class="navbar-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10 13.125C11.7259 13.125 13.125 11.7259 13.125 10C13.125 8.27411 11.7259 6.875 10 6.875C8.27411 6.875 6.875 8.27411 6.875 10C6.875 11.7259 8.27411 13.125 10 13.125Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                          />
+                          <path
+                            d="M13.4375 2.8125H6.5625C4.49143 2.8125 2.8125 4.49143 2.8125 6.5625V13.4375C2.8125 15.5086 4.49143 17.1875 6.5625 17.1875H13.4375C15.5086 17.1875 17.1875 15.5086 17.1875 13.4375V6.5625C17.1875 4.49143 15.5086 2.8125 13.4375 2.8125Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M14.0625 6.875C14.5803 6.875 15 6.45527 15 5.9375C15 5.41973 14.5803 5 14.0625 5C13.5447 5 13.125 5.41973 13.125 5.9375C13.125 6.45527 13.5447 6.875 14.0625 6.875Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="navbar-social__item">
+                      <a href="#!" class="navbar-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M18.89 4.72157C18.5551 4.84649 18.2117 4.94757 17.8625 5.02407C17.8291 5.03157 17.7941 5.02786 17.7629 5.01351C17.7318 4.99915 17.7063 4.97495 17.6902 4.94464C17.6742 4.91433 17.6686 4.87958 17.6743 4.84576C17.6799 4.81195 17.6966 4.78093 17.7216 4.75751C18.122 4.37396 18.4519 3.92305 18.6963 3.42532C18.7104 3.39588 18.7149 3.36276 18.7092 3.33062C18.7036 3.29848 18.688 3.26892 18.6646 3.24609C18.6413 3.22327 18.6114 3.20833 18.5791 3.20337C18.5469 3.19842 18.5138 3.20369 18.4847 3.21845C17.8507 3.55855 17.1591 3.77799 16.445 3.86563C15.6966 3.12268 14.6871 2.70208 13.6325 2.69376C13.1246 2.69331 12.6216 2.79302 12.1522 2.98719C11.6829 3.18135 11.2564 3.46617 10.8972 3.82533C10.5381 4.18449 10.2533 4.61095 10.0591 5.08031C9.86493 5.54966 9.76522 6.0527 9.76567 6.56063C9.76435 6.84619 9.79379 7.13106 9.85348 7.41032C7.02598 7.3247 3.72536 5.95813 1.79692 3.58251C1.78084 3.56236 1.76002 3.54651 1.73633 3.53636C1.71263 3.5262 1.68679 3.52207 1.66111 3.52433C1.63543 3.52659 1.61071 3.53517 1.58915 3.5493C1.56759 3.56343 1.54986 3.58268 1.53755 3.60532C1.16593 4.37094 1.05506 5.23713 1.22185 6.07167C1.38864 6.9062 1.82394 7.66323 2.4613 8.22719C2.48691 8.24804 2.50526 8.27646 2.51371 8.30839C2.52217 8.34031 2.52029 8.37409 2.50835 8.40488C2.49641 8.43567 2.47502 8.46189 2.44725 8.47976C2.41948 8.49764 2.38677 8.50626 2.3538 8.50438C2.017 8.48939 1.68704 8.40424 1.38505 8.25438C1.36049 8.24194 1.33309 8.23621 1.30561 8.23777C1.27813 8.23932 1.25155 8.24811 1.22855 8.26324C1.20556 8.27836 1.18697 8.2993 1.17467 8.32392C1.16236 8.34854 1.15678 8.37597 1.15848 8.40345C1.18989 9.14187 1.44524 9.85326 1.89062 10.4431C2.33599 11.0329 2.9503 11.4733 3.65192 11.7056C3.6845 11.7174 3.71226 11.7396 3.73083 11.7689C3.7494 11.7981 3.75773 11.8327 3.75451 11.8671C3.75129 11.9016 3.7367 11.9341 3.71304 11.9594C3.68938 11.9847 3.65799 12.0014 3.6238 12.0069C3.32953 12.0403 3.03244 12.0403 2.73817 12.0069C2.71277 12.0045 2.68717 12.0083 2.66355 12.0179C2.63994 12.0276 2.61901 12.0428 2.60255 12.0623C2.5861 12.0818 2.5746 12.105 2.56905 12.1299C2.5635 12.1548 2.56406 12.1807 2.57067 12.2053C2.83598 13.2309 4.16192 14.4319 5.64536 14.5966C5.67509 14.6004 5.70307 14.6128 5.72598 14.6321C5.74888 14.6515 5.76574 14.677 5.77454 14.7057C5.78333 14.7343 5.7837 14.7649 5.77559 14.7938C5.76748 14.8226 5.75123 14.8486 5.7288 14.8684C4.49176 15.8592 2.93721 16.3675 1.3538 16.2988C1.31832 16.2972 1.28336 16.3077 1.25468 16.3287C1.226 16.3496 1.20532 16.3797 1.19604 16.414C1.18676 16.4483 1.18944 16.4847 1.20363 16.5173C1.21782 16.5498 1.24268 16.5766 1.27411 16.5931C2.9448 17.4693 4.80323 17.9268 6.68973 17.9263C8.15579 17.9359 9.60843 17.6465 10.9588 17.0757C12.3092 16.5048 13.529 15.6646 14.5436 14.6063C15.5582 13.5479 16.3463 12.2938 16.8596 10.9205C17.373 9.54728 17.6009 8.08373 17.5294 6.61938V6.47282C18.123 6.05688 18.6439 5.54597 19.0713 4.96063C19.0914 4.93348 19.1022 4.90053 19.1021 4.86672C19.1019 4.83291 19.0907 4.80007 19.0703 4.77313C19.0499 4.74619 19.0213 4.7266 18.9888 4.7173C18.9563 4.70801 18.9216 4.7095 18.89 4.72157Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="navbar-social__item">
+                      <a href="#!" class="navbar-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M19.3201 13.2656L16.6639 4.42187C16.6128 4.243 16.5215 4.07819 16.3969 3.94006C16.2724 3.80194 16.1178 3.69416 15.9451 3.62499H15.8983L15.9451 3.60937C15.0736 3.26014 14.1712 2.99335 13.2498 2.81249C13.1693 2.79657 13.0864 2.79668 13.0059 2.8128C12.9254 2.82892 12.8489 2.86074 12.7807 2.90645C12.7125 2.95215 12.6539 3.01085 12.6084 3.07918C12.5629 3.14751 12.5313 3.22413 12.5154 3.30468C12.4984 3.38475 12.4974 3.46742 12.5125 3.54788C12.5277 3.62833 12.5588 3.70496 12.6038 3.77331C12.6489 3.84166 12.7071 3.90035 12.7751 3.94597C12.8431 3.9916 12.9195 4.02324 12.9998 4.03905C13.3514 4.10937 13.6951 4.1953 14.0311 4.28905C14.1548 4.35328 14.2535 4.45703 14.3115 4.58381C14.3695 4.71059 14.3834 4.85311 14.3511 4.98872C14.3188 5.12433 14.242 5.24524 14.1331 5.33222C14.0241 5.41919 13.8892 5.46725 13.7498 5.46874H13.6873C12.4834 5.15476 11.244 4.99722 9.99982 4.99999C8.78486 4.99637 7.57446 5.14865 6.39826 5.45312C6.24859 5.49261 6.08959 5.47515 5.95205 5.40413C5.81451 5.33311 5.70822 5.21358 5.65376 5.06868C5.59931 4.92378 5.60056 4.76383 5.65727 4.6198C5.71398 4.47578 5.82213 4.35792 5.96076 4.28905H5.96857C6.30451 4.1953 6.64826 4.10937 6.99982 4.03905C7.08037 4.02317 7.15699 3.99157 7.22532 3.94606C7.29365 3.90055 7.35235 3.84203 7.39805 3.77383C7.44376 3.70563 7.47558 3.6291 7.4917 3.5486C7.50782 3.4681 7.50793 3.38522 7.49201 3.30468C7.45806 3.14302 7.36224 3.00105 7.22502 2.90908C7.0878 2.81712 6.92007 2.78245 6.75764 2.81249C5.83297 2.9974 4.92789 3.26944 4.05451 3.62499C3.88184 3.69416 3.72729 3.80194 3.60271 3.94006C3.47812 4.07819 3.38681 4.243 3.33576 4.42187L0.67951 13.2656C0.610601 13.4968 0.610078 13.7431 0.678006 13.9746C0.745934 14.2061 0.879408 14.413 1.06232 14.5703C1.13419 14.6395 1.20983 14.7047 1.28888 14.7656H1.2967C2.56232 15.7969 4.22638 16.5859 6.10138 17.0391C6.14937 17.0544 6.19944 17.0623 6.24982 17.0625C6.40435 17.0649 6.5543 17.0101 6.67073 16.9084C6.78716 16.8068 6.8618 16.6656 6.88026 16.5122C6.89871 16.3588 6.85966 16.2039 6.77064 16.0776C6.68163 15.9512 6.54896 15.8624 6.39826 15.8281C5.55533 15.6245 4.73583 15.3339 3.95295 14.9609C3.8458 14.8605 3.77742 14.7256 3.7598 14.5798C3.74219 14.434 3.77647 14.2867 3.85663 14.1637C3.93679 14.0406 4.0577 13.9498 4.19817 13.907C4.33864 13.8642 4.48969 13.8722 4.62482 13.9297C6.1092 14.5859 7.97639 15 9.99982 15C12.0233 15 13.8904 14.5859 15.3748 13.9297C15.51 13.8722 15.661 13.8642 15.8015 13.907C15.9419 13.9498 16.0629 14.0406 16.143 14.1637C16.2232 14.2867 16.2575 14.434 16.2398 14.5798C16.2222 14.7256 16.1538 14.8605 16.0467 14.9609C15.2638 15.3339 14.4443 15.6245 13.6014 15.8281C13.4507 15.8624 13.318 15.9512 13.229 16.0776C13.14 16.2039 13.1009 16.3588 13.1194 16.5122C13.1378 16.6656 13.2125 16.8068 13.3289 16.9084C13.4453 17.0101 13.5953 17.0649 13.7498 17.0625C13.8002 17.0623 13.8503 17.0544 13.8983 17.0391C15.7733 16.5859 17.4373 15.7969 18.7029 14.7656H18.7108C18.7898 14.7047 18.8655 14.6395 18.9373 14.5703C19.1202 14.413 19.2537 14.2061 19.3216 13.9746C19.3896 13.7431 19.389 13.4968 19.3201 13.2656ZM7.49982 12.1875C7.3144 12.1875 7.13315 12.1325 6.97898 12.0295C6.8248 11.9265 6.70464 11.7801 6.63369 11.6088C6.56273 11.4375 6.54416 11.249 6.58034 11.0671C6.61651 10.8852 6.7058 10.7182 6.83691 10.5871C6.96802 10.456 7.13507 10.3667 7.31693 10.3305C7.49878 10.2943 7.68728 10.3129 7.85859 10.3839C8.02989 10.4548 8.17631 10.575 8.27933 10.7291C8.38234 10.8833 8.43732 11.0646 8.43732 11.25C8.43732 11.4986 8.33855 11.7371 8.16273 11.9129C7.98692 12.0887 7.74846 12.1875 7.49982 12.1875ZM12.4998 12.1875C12.3144 12.1875 12.1331 12.1325 11.979 12.0295C11.8248 11.9265 11.7046 11.7801 11.6337 11.6088C11.5627 11.4375 11.5442 11.249 11.5803 11.0671C11.6165 10.8852 11.7058 10.7182 11.8369 10.5871C11.968 10.456 12.1351 10.3667 12.3169 10.3305C12.4988 10.2943 12.6873 10.3129 12.8586 10.3839C13.0299 10.4548 13.1763 10.575 13.2793 10.7291C13.3823 10.8833 13.4373 11.0646 13.4373 11.25C13.4373 11.4986 13.3385 11.7371 13.1627 11.9129C12.9869 12.0887 12.7485 12.1875 12.4998 12.1875Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="navbar-social__item">
+                      <a href="#!" class="navbar-social__link">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10.625 10C10.625 12.9297 8.38281 15.3125 5.625 15.3125C2.86719 15.3125 0.625 12.9297 0.625 10C0.625 7.07031 2.86719 4.6875 5.625 4.6875C8.38281 4.6875 10.625 7.07031 10.625 10ZM14.375 5C13.9297 5 13.0938 5.21875 12.4766 6.66406C12.0859 7.5625 11.875 8.75 11.875 10C11.875 11.25 12.0859 12.4375 12.4766 13.3359C13.0938 14.7812 13.9297 15 14.375 15C14.8203 15 15.6562 14.7812 16.2734 13.3359C16.6641 12.4375 16.875 11.25 16.875 10C16.875 8.75 16.6641 7.5625 16.2734 6.66406C15.6562 5.21875 14.8203 5 14.375 5ZM18.75 5C18.5842 5 18.4253 5.06585 18.3081 5.18306C18.1908 5.30027 18.125 5.45924 18.125 5.625V14.375C18.125 14.5408 18.1908 14.6997 18.3081 14.8169C18.4253 14.9342 18.5842 15 18.75 15C18.9158 15 19.0747 14.9342 19.1919 14.8169C19.3092 14.6997 19.375 14.5408 19.375 14.375V5.625C19.375 5.45924 19.3092 5.30027 19.1919 5.18306C19.0747 5.06585 18.9158 5 18.75 5Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="header-login header-login-mobile">
+            <button class="header-login__button">Connect</button>
+          </li>
+        </ul>
+        <button class="header__menu-back">Back</button>
+      </div>
+      <div class="header-login header-login-web">
+        <button class="header-login header-login__button">Connect</button>
+      </div>
+      <button
+        type="submit"
+        class="header__search-button header__search-button-mobile-1"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+        >
+          <path
+            d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z"
+            stroke="#BFBFBF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.0195 13.0176L16.6266 16.6246"
+            stroke="#BFBFBF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <div class="header__search-bar-wrap flex_aic_jcc">
+        <span class="header__menu-back-mobile">Back</span>
+        <form
+          method="GET"
+          class="header__search-bar-mobile header__search-bar flex_aic_jcc"
+        >
+          {% csrf_token %}
+          <input
+            type="text"
+            class="header__search-input-mobile header__search-input"
+            placeholder="Search for artworks, collections, artists, etc..."
+          />
+          <button
+            type="submit"
+            class="header__search-button header__search-button-mobile"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+            >
+              <path
+                d="M8.60938 14.8438C12.0525 14.8438 14.8438 12.0525 14.8438 8.60938C14.8438 5.16622 12.0525 2.375 8.60938 2.375C5.16622 2.375 2.375 5.16622 2.375 8.60938C2.375 12.0525 5.16622 14.8438 8.60938 14.8438Z"
+                stroke="#BFBFBF"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13.0195 13.0176L16.6266 16.6246"
+                stroke="#BFBFBF"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <ul class="search-list scroll">
+            {% for data in search_data %} {% if data.image is not None %}
+            <li class="search-item">
+              <a href="{% url data.redirect_url data.id %}" class="search-link avatar-wrap">
+                <img src="{{data.image}}" alt="" class="avatar" />
+                {{data.name}}
+              </a>
+            </li>
+            {% else %}
+            <li class="search-item">
+              <a href="data.redirect_url" class="search-link">{{data.name}}</a>
+            </li>
+            {% endif %} {% endfor %}
+          </ul>
+        </form>
+      </div>
     </div>
+  </div>
 </header>
 
 <div class="header-mobile">
-    <div class="container-header-mobile">
-
-    </div>
+  <div class="container-header-mobile"></div>
 </div>
 
 <script>
-    
-    
+  const headerMenuIcon = document.querySelector(".header__menu-icon");
+  headerMenuIcon.onclick = (e) => {
+    document.querySelector(".navbar").style.display = "block";
+  };
+  const navbarBack = document.querySelector(".navbar-back");
+  navbarBack.onclick = (e) => {
+    document.querySelector(".navbar").style.display = "none";
+  };
+  const headerBackIcon = document.querySelector(".header-back");
+  const navbarLinkDefault = document.querySelectorAll(".navbar__link--default");
+  navbarLinkDefault.forEach((link) => {
+    link.onclick = (e) => {
+      e.preventDefault();
+    };
+  });
+  const navbarItem = document.querySelectorAll(".navbar__item");
+  navbarItem.forEach((link) => {
+    link.onclick = (e) => {
+      const navbarChild = link.querySelector(".navbar-child__list");
+      if (navbarChild) {
+        navbarChild.classList.toggle("show");
+        link.querySelector(".navbar__link svg").classList.toggle("rotate");
+        navbarItem2 = navbarChild.querySelectorAll(".navbar-child__item");
+        console.log(navbarItem2);
+        navbarItem2.forEach((link2) => {
+          link2.onclick = (e) => {
+            e.stopPropagation();
+            const navbarChild2 = link2.querySelector(".navbar-child-2__list");
+            if (navbarChild2) {
+              navbarChild2.classList.toggle("show");
+              link2
+                .querySelector(".navbar__link svg:nth-child(2)")
+                .classList.toggle("rotate");
+            }
+          };
+        });
+      }
+    };
+  });
+
+  const headerSearchButton = document.querySelector(".header__search-button");
+  const headerSearchInput = document.querySelector(".header__search-input");
+  const navbarList = document.querySelector(".navbar__list");
+  const headerMenuBack = document.querySelector(".header__menu-back");
+  const searchList = document.querySelector(".search-list");
+  let prevSize = "";
+  console.log(
+    "Previous size" +
+      prevSize +
+      "*********" +
+      window
+        .getComputedStyle(headerSearchInput.parentElement)
+        .getPropertyValue("width")
+  );
+  window.addEventListener("resize", (e) => {
+    var width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+    if (width <= 968 || window.innerWidth <= 968) {
+      headerSearchInput.addEventListener("click", (e) => {
+        prevSize = window
+          .getComputedStyle(headerSearchInput.parentElement)
+          .getPropertyValue("width");
+        headerSearchInput.parentElement.style.width = "70%";
+        searchList.style.display = "flex";
+        navbarList.style.display = "none";
+        headerMenuBack.style.display = "block";
+      });
+    }
+    headerMenuBack.addEventListener("click", (e) => {
+      headerSearchInput.parentElement.style.width =
+        width <= 968 || window.innerWidth <= 968 ? "20%" : "40%";
+      navbarList.style.display = "flex";
+      headerMenuBack.style.display = "none";
+    });
+  });
+
+  const headerSearchBarWrap = document.querySelector(
+    ".header__search-bar-wrap"
+  );
+  const headerSearchButtonMobile1 = document.querySelector(
+    ".header__search-button-mobile-1"
+  );
+  const headerMenuBackMobile = document.querySelector(
+    ".header__menu-back-mobile"
+  );
+  const headerSearchBarMobile = document.querySelector(
+    ".header__search-bar-mobile"
+  );
+  const headerSearchInputMobile = document.querySelector(
+    ".header__search-input-mobile"
+  );
+  const headerLogoImg = document.querySelector(".header__logo-img");
+
+  headerSearchButtonMobile1.onclick = (e) => {
+    headerSearchButtonMobile1.style.display = "none";
+    headerSearchBarWrap.style.display = "flex";
+    headerSearchBarMobile.style.display = "flex";
+    headerMenuBackMobile.style.display = "block";
+    headerLogoImg.style.display = "none";
+  };
+
+  headerMenuBackMobile.onclick = (e) => {
+    headerSearchButtonMobile1.style.display = "block";
+    headerSearchBarWrap.style.display = "none";
+    headerSearchBarMobile.style.display = "none";
+    headerMenuBackMobile.style.display = "none";
+    headerLogoImg.style.display = "inline-block";
+  };
+
+  headerSearchInput.onclick = (e) => {
+    searchList.style.display = "flex";
+  };
+  headerSearchInput.addEventListener("blur", (e) => {
+    if (e.relatedTarget === null) {
+      searchList.style.display = "none";
+    }
+  });
+
+  headerSearchInputMobile.onclick = (e) => {
+      headerSearchBarMobile.querySelector('.search-list').style.display = "flex";
+  };
+
+  headerSearchInputMobile.addEventListener("blur", (e) => {
+    if (e.relatedTarget === null) {
+      headerSearchBarMobile.querySelector('.search-list').style.display = "none";
+    }
+  });
+
+  const rawDataSearch = "{{search_data|templatevar_to_js}}";
+  const jsDataSearch = JSON.parse(rawDataSearch.replace(/&quot;/g, '"'));
+  headerSearchInput.addEventListener("keyup", (e) => {
+    filteredArr = jsDataSearch.filter((dataSearch) =>
+      dataSearch["name"].toLowerCase().startsWith(e.target.value)
+    );
+    searchList.innerHTML = "";
+    if (filteredArr.length > 0) {
+      filteredArr.forEach((dataSearch) => {
+        console.log(dataSearch["image"]);
+        if (dataSearch["image"]) {
+          searchList.innerHTML += `
+            <li class="search-item">
+              <a href="//${
+                window.location.hostname +
+                (window.location.port ? ":" : "") +
+                window.location.port +
+                "/" +
+                dataSearch["redirect_url"] +
+                "/" +
+                dataSearch["id"]
+              }" class="search-link avatar-wrap">
+                <img src="${dataSearch["image"]}" alt="" class="avatar">
+                ${dataSearch["name"]}
+              </a>
+            </li>`;
+        } else {
+          searchList.innerHTML = `
+            <li class="search-item">
+              <a href="//${
+                window.location.hostname +
+                (window.location.port ? ":" : "") +
+                window.location.port +
+                "/" +
+                dataSearch["redirect_url"] +
+                "/" +
+                dataSearch["id"]
+              }" class="search-link">${dataSearch["name"]}</a>
+            </li>`;
+        }
+      });
+    } else {
+      searchList.innerHTML = `<p class="search-desc">No results found...</p>`;
+    }
+  });
+  console.log(jsDataSearch);
+  headerSearchInputMobile.addEventListener("keyup", (e) => {
+    filteredArr = jsDataSearch.filter((dataSearch) =>
+      dataSearch["name"].toLowerCase().startsWith(e.target.value)
+    );
+    headerSearchBarMobile.querySelector('.search-list').innerHTML = "";
+    if (filteredArr.length > 0) {
+      filteredArr.forEach((dataSearch) => {
+        console.log(dataSearch["image"]);
+        if (dataSearch["image"]) {
+          headerSearchBarMobile.querySelector('.search-list').innerHTML += `
+            <li class="search-item">
+              <a href="//${
+                window.location.hostname +
+                (window.location.port ? ":" : "") +
+                window.location.port +
+                "/" +
+                dataSearch["redirect_url"] +
+                "/" +
+                dataSearch["id"]
+              }" class="search-link avatar-wrap">
+                <img src="${dataSearch["image"]}" alt="" class="avatar">
+                ${dataSearch["name"]}
+              </a>
+            </li>`;
+        } else {
+          headerSearchBarMobile.querySelector('.search-list').innerHTML = `
+            <li class="search-item">
+              <a href="//${
+                window.location.hostname +
+                (window.location.port ? ":" : "") +
+                window.location.port +
+                "/" +
+                dataSearch["redirect_url"] +
+                "/" +
+                dataSearch["id"]
+              }" class="search-link">${dataSearch["name"]}</a>
+            </li>`;
+        }
+      });
+    } else {
+      headerSearchBarMobile.querySelector('.search-list').innerHTML = `<p class="search-desc">No results found...</p>`;
+    }
+  });
 </script>

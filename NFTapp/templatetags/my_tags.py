@@ -1,3 +1,4 @@
+import json
 from django import template
 from django.utils.timesince import timesince
 from datetime import datetime, date
@@ -35,3 +36,7 @@ def facebook_time(value):
 def limit_length_id(id):
     id = str(id)
     return id[:6] + "..." + id[len(id) - 4::]
+
+@register.filter(name='templatevar_to_js')
+def templatevar_to_js(var):
+    return json.dumps(list(var))

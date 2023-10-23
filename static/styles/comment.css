@@ -33,6 +33,9 @@
 }
 
 .comment__user {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     color: #17E3A6;
     /* font-family: Aeonik; */
     font-size: 1.6rem;
@@ -43,7 +46,10 @@
 }
 
 .comment__user-avt {
-
+    background-color: #c9c9c9;
+    width: 30;
+    height: 30px;
+    border-radius: 50%;
 }
 
 .comment__time {
@@ -133,6 +139,12 @@
     .comment__user {
         font-size: 2.4rem;
     }
+
+    .comment__user-avt {
+        width: 40px;
+        height: 40px;
+    }
+
     .comment__time {
         font-size: 1.6rem;
     }

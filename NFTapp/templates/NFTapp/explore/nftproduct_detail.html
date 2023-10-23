@@ -133,6 +133,9 @@
 <div class="gap-between-section"></div>
 
 {% include 'NFTapp/comment.html' %}
+{% endblock content %}
+
+{% block scripts %}
 <script>
     console.log("------------------------------------------");
     const productOwnerNumber = document.querySelectorAll(".product-owner-number");
@@ -143,13 +146,13 @@
     console.log(productFavoriteButton);
 
     productOwnerNumber.forEach(element => {
-    element.onclick = (e) => {   
+    element.onclick = (e) => {
         document.querySelector(".container-owner").style.display = 'flex';
     }
     });
 
     productOwnerButton.forEach(button => {
-        button.onclick = (e) => {   
+        button.onclick = (e) => {
             document.querySelector(".container-owner").style.display = 'flex';
         }
     });
@@ -166,4 +169,4 @@
         }
     });
 </script>
-{% endblock content %}
+{% endblock scripts %}

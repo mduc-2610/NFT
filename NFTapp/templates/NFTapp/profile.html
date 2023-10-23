@@ -71,6 +71,9 @@
         <a href="{% url 'profile' user.id %}" class="user-id" style="display: none;"></a>
     </div>
 </div>
+{% endblock content %}
+
+{% block scripts %}
 <script>
     const links = document.querySelectorAll('.profile__activity-item a');
     var check = true;
@@ -78,10 +81,9 @@
         links[0].style.backgroundColor = '#17E3A6';
         links[0].style.color = '#000';
         check = false;
-    } 
+    }
 
     let prevLink = localStorage.getItem('prevClickedLink');
-    // console.log("Truoc " + prevLink)
     if (prevLink !== null && check) {
         prevLink = document.querySelector(`.profile__activity-item a[href="${prevLink}"]`);
         if (prevLink) {
@@ -89,13 +91,13 @@
             prevLink.style.color = '#000';
         }
     }
-    
+
     links.forEach(link => {
         link.addEventListener('click', function(event) {
             localStorage.setItem('prevClickedLink', link.getAttribute('href'));
       });
     });
   </script>
-  
-    
-{% endblock content %}
+{% endblock scripts %}
+
+

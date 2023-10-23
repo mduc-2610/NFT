@@ -2,6 +2,8 @@ import uuid
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 import random
 
@@ -28,6 +30,7 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.name} {self.email}"
 
+
 class Follow(models.Model):
     follower = models.ForeignKey('User', on_delete=models.CASCADE, related_name='following_set')
     followee = models.ForeignKey('User', on_delete=models.CASCADE, related_name='follower_set')
@@ -45,6 +48,7 @@ class Type(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
 
 class NFTProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -67,12 +71,14 @@ class NFTProduct(models.Model):
     def __str__(self):
         return f"{self.name} {self.price}"
 
+
 class NFTProductOwner(models.Model):
     user = models.ForeignKey('User', related_name="owned_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', related_name="owned_by", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user.name} {self.product.name}"
+
 
 class NFTProductFavorite(models.Model):
     product = models.ForeignKey('NFTProduct', related_name='favorites_by', on_delete=models.CASCADE)
@@ -102,6 +108,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} in Cart"
+
 
 class NFTBlog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -160,9 +167,6 @@ class Comment(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return f"{self.user.username}"
-
 
 class ProductComment(Comment):
     user = models.ForeignKey('User', related_name="user_product_comments", on_delete=models.CASCADE)
@@ -178,3 +182,25 @@ class BlogComment(Comment):
 
     def __str__(self):
         return f"{self.blog.title} {self.user.name}"
+
+
+class Search(models.Model):
+    user = models.ForeignKey('User', related_name="search_queries", on_delete=models.CASCADE)
+    query = models.ManyToManyField('SearchResult', related_name="query_results", through="QueryResult")
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.name}: {self.query}"
+
+class SearchResult(models.Model):
+    # result = models.CharField(max_length=350)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.UUIDField()
+    result_object = GenericForeignKey('content_type', 'object_id')
+    def __str__(self):
+        return f"{self.result}"
+
+class QueryResult(models.Model):
+    query = models.ForeignKey('Search', related_name="results", on_delete=models.CASCADE)
+    result = models.ForeignKey('SearchResult', related_name="queries", on_delete=models.CASCADE)
+

@@ -133,17 +133,17 @@ main {
 .avatar-wrap {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 34px;
-    width: 34px;
+    justify-content: flex-start;
+    gap: 10px;
     overflow: hidden;
-    border-radius: 50%;
-    background-color: #c9ccd1;
 }
 
 .avatar {
-    display: inline-block;
-    padding: 5px;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    /* padding: 5px; */
+    background-color: #c9ccd1;
     object-fit: cover;
 }
 
@@ -191,7 +191,7 @@ main {
     }
 
     .avatar-wrap {
-        height: 50px;
-        width: 50px;
+        height: 45px;
+        width: 45px;
     }
 }

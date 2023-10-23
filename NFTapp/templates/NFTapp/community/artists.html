@@ -41,6 +41,9 @@
     </div>
 </div>
 {% include 'NFTapp/subscribe/subscribe2.html' %}
+{% endblock content %}
+
+{% block scripts %}
 <script>
   const viewAllCreators = document.getElementById('view-all-creators');
     const commentListItems = document.querySelectorAll('.artist__info');
@@ -70,9 +73,9 @@
             commentListItems.forEach(item => {
                 item.style.display = 'table-row';
             });
-        }  
+        }
     });
 
     showFirstSixComments();
 </script>
-{% endblock content %}
+{% endblock scripts %}

@@ -96,7 +96,11 @@ def run():
         "MetaMasterpieces", "BitArtGallery", "EtherIcons", "NeonNomads", "CryptoCraftworks", "NFTUniverse", 
         "DigitalDynasty", "BlockchainBrushstrokes", "PixelPrestige", "EtherEnigmas", "CodeCanvas", 
         "CryptoChronicles", "VirtualVagabonds", "BitBliss", "NFTNirvana", "ArtisticAlgorithms", "CryptoCuriosities", 
-        "EtherEssence", "BitstreamBoulevard", "NFTNocturnes"
+        "EtherEssence", "Bitstream", "NFTNocturnes", "CryptoPulse", "DigitalDreams",
+        "PixelSculpture", "EtherVisions", "NFTNova", "VirtualCanvas",
+        "CryptoKaleidoscope", "BitGallery", "NFTSpectrum", "Decentralized",
+        "CyberCanvas", "BlockArt", "MetaMaster", "DigitalAlchemy", "CryptoGraffiti Gems",
+        "BitBrush", "PixelMystique", "DecentralArt", "EtherElegance", "NFTInfinite"
     ]
     nft_quantity = [random.randint(0, 20) for _ in range(30)]
     nft_image_files = {}
@@ -117,7 +121,7 @@ def run():
         type_product = type_obj_list[z]
         for i, image in enumerate(v):  
             data = {
-                "name": random.choice(nft_names),
+                "name": nft_names.pop(random.randint(0, len(nft_names) - 1)),
                 "price": round(random.uniform(0, 3), 8),
                 "rarity": round(random.uniform(0, 0.1), 8),
                 "author": random.choice(user_obj_list),

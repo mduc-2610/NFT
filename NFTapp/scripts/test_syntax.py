@@ -99,12 +99,15 @@ def run():
     # for product in product_favorite_list_2:
     #     print(product)
 
-    user = User.objects.get(name="smithbrandy")
-    [print(user) for user in user.owners.all()]
-    print("___________________________________________")
-    product = NFTProduct.objects.get(name="BlockchainBrushstrokes")
-    # print(product)
-    [print(pro) for pro in product.owners.all()]
+    # user = User.objects.get(name="smithbrandy")
+    
+    # [print(user) for user in user.owners.all()]
+    # print("___________________________________________")
+    # product = NFTProduct.objects.get(name="PixelPrestige")
+    # # print(product)
+    # print(type(Topic.objects.values()))
+    # [print(pro) for pro in Topic.objects.values()]
+
     # [print(product) for product in user.owned_products.all()]
     # print("_________________________________________________")
     # [print(product) for product in user.nftproduct_set.all()]
@@ -114,3 +117,28 @@ def run():
     # [print(owner) for owner in product_owner_list]
 
     # print(User.objects.all()[2])
+
+    user_search = []
+    for user in User.objects.filter(is_superuser=0).values():
+        user_search.append(user['id'])
+    
+    product_search = []
+    for product in NFTProduct.objects.values():
+        product_search.append(product['id'])
+
+    blog_search = []
+    for blog in NFTBlog.objects.values():
+        blog_search.append(blog['id'])
+
+    search_data = user_search + product_search + blog_search
+    
+    print(search_data)
+    # d = {
+    #     'a': 'aaa',
+    #     'b': 'bbb',
+    # }
+
+    # print(d.pop('a'))
+    # print(d)
+
+    # print([1] + [2] + [3])
