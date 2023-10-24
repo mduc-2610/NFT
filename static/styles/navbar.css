@@ -175,7 +175,7 @@
     display: none;
     color: #CFCFCF;
     /* font-family: Aeonik TRIAL; */
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
     line-height: 1;
@@ -215,7 +215,6 @@
     /* display: none; */
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 10px;
     padding-left: 10px;
     padding: 15px 0 15px 15px;
@@ -498,7 +497,7 @@
     .navbar__list {
         display: flex;
         flex-direction: row;
-        gap: 25px;
+        gap: 12px;
         padding: 0;
     }
     
@@ -622,6 +621,11 @@
         display: block;
         position: relative;
     }
+
+    .header-user svg {
+        display: inline-block;
+        height: 100%;
+    }
     
     .header-user-mobile {
         display: none;
@@ -640,12 +644,14 @@
     }
     
     .header-user__feature {
-        width: 120%;
+        width: 100%;
         top: 45px;
     }
 
     .header-user__feature-link {
-        font-size: 1.8rem;
+        display: flex;
+        gap: 10px;
+        font-size: 1.6rem;
     }
 
 

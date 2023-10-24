@@ -12,6 +12,10 @@
   overflow: hidden;
 }
 
+.nft-login.box {
+  height: 445px;
+}
+
 .nft-register.box {
   height: 708px;
 }
@@ -171,7 +175,6 @@
 .container-auth .box form .links {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
 }
 
 .container-auth .box form .links a {

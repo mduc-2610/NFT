@@ -1403,9 +1403,11 @@
               </li>
             </ul>
           </li>
+          {% if not request.user.is_authenticated %}
           <li class="header-login header-login-mobile">
             <button class="header-login__button">Connect</button>
           </li>
+          {% endif %}
         </ul>
         <button class="header__menu-back">Back</button>
       </div>
@@ -1420,7 +1422,7 @@
             <img src="{{request.user.avatar}}" alt="" class="avatar">
           </a>
           <div class="header-user__info flex_fdc_aif">
-            <a href="{% url 'profile' request.user.id %}" class="header-user__id">{{request.user.id|limit_length_id:3}}</a>
+            <a href="{% url 'profile' request.user.id %}" class="header-user__id">{{request.user.id|limit_length_id:"5: 3"}}</a>
             <a href="{% url 'profile' request.user.id %}" class="header-user__name">@{{request.user.name|limit_length_name:5}}</a>
           </div>
           <svg
