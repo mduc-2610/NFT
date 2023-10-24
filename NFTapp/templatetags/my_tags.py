@@ -33,9 +33,13 @@ def facebook_time(value):
         return f'{days_ago} day{"s" if days_ago != 1 else ""} ago'
     
 @register.filter(name='limit_length_id')
-def limit_length_id(id):
+def limit_length_id(id, first=6, second=4):
     id = str(id)
-    return id[:6] + "..." + id[len(id) - 4::]
+    return id[:first] + "..." + id[len(id) - second::]
+
+@register.filter(name='limit_length_name')
+def limit_length_name(id, length):
+    return str(id)[:length] + "..." 
 
 @register.filter(name='templatevar_to_js')
 def templatevar_to_js(var):

@@ -7,7 +7,32 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite
+from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
+def error_403_csrf_failure(request, reason=""):
+    """
+    To fix this issue:
+        1. User opens tab A and tab B, and both show the login in form.
+        2. User logs in on tab A, this will destroy the Anonymous session, and create a new one (for security)
+        3. Then user logs in on tab B
+            - The CSRF token for the Anonymous session is now invalid
+            - Since the user is already logged, we just redirect them to refresh the page
+    """
+    if request.path == '/login/' and request.user.is_authenticated:
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(next)
+
+    url = reverse('login') + '?next=' + request.path
+    context = {
+        'page_title': "Authentication Error",
+        'continue_url': url,
+        'reason': reason,
+    }
+    response = render(request, "core.base/403_csrf.html", context=context)
+    response.status_code = 403
+    return response
 
 def cal_times_to_read(blogs):
     average_wpm = 238
@@ -17,15 +42,14 @@ def cal_times_to_read(blogs):
         blogs_context[blog] = ceil(words_of_blog / average_wpm)
     return blogs_context
 
-rarity = {}
-def product_rarity():
-    rarity = {}
+def product_rarity_rank():
+    rarity_rank = {}
     products = NFTProduct.objects.all().order_by('rarity')
     cnt = 1
     for product in products:
-        rarity.update({product: cnt})
+        rarity_rank.update({product: cnt})
         cnt += 1
-    return rarity
+    return rarity_rank
 
 def classify_1(data, query_set):
     if data == 'trending':

@@ -23,7 +23,7 @@
     object-fit: cover;
 }
 
-.profile__user-avt {
+.profile__user-avt--wrap {
     position: absolute;
     top: -180px;
     left: -2%;
@@ -32,7 +32,11 @@
     border-radius: 50%;
     display: block;
     background:  #c9ccd1; 
-    padding: 14px;
+}
+
+.profile__user-avt {
+    object-fit: cover;
+    display: inline-block;
 }
 
 .profile .container {

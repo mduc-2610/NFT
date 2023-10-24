@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
+
 import random
 
 # Create your models here.
@@ -19,13 +20,13 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/default_avatar.svg")
+    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/avatar.svg")
     cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos))
-    bio = models.CharField(max_length=300)
+    bio = models.CharField(max_length=300, default="")
     followers = models.ManyToManyField('self', related_name='following', through="Follow", symmetrical=False)
 
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['username', 'password']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return f"{self.name} {self.email}"

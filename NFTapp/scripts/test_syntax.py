@@ -122,13 +122,13 @@ def run():
     # for user in User.objects.filter(is_superuser=0).values():
     #     user_search.append(user['id'])
     
-    # product_search = []
-    # for product in NFTProduct.objects.values():
-    #     product_search.append(product['id'])
+    product_search = []
+    for product in NFTProduct.objects.values():
+        product_search.append(product['id'])
 
-    # blog_search = []
-    # for blog in NFTBlog.objects.values():
-    #     blog_search.append(blog['id'])
+    blog_search = []
+    for blog in NFTBlog.objects.values():
+        blog_search.append(blog['id'])
 
     # search_data = user_search + product_search + blog_search
     
@@ -137,11 +137,9 @@ def run():
     # x.y = 1
     # print(x)
 
-    
-    a = 1
-    x = {}
-    x = 2
-    print(x)
+    # def s(a, b):
+    #     print(a, b)
+    # s(b=1, a=100)
     # d = {
     #     'a': 'aaa',
     #     'b': 'bbb',

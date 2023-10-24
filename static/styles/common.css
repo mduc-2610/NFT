@@ -191,6 +191,9 @@ main {
     }
 
     .avatar-wrap {
+    }
+    
+    .avatar {
         height: 45px;
         width: 45px;
     }

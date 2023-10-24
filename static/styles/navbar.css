@@ -146,6 +146,92 @@
     color: #000;
 }
 
+
+/* Header when login */
+.header-user {
+    display: none;
+}
+
+.header-user-mobile {
+    display: block; 
+    position: relative;
+}
+
+
+.header-user__info--wrap {
+
+}
+
+.header-user__info {
+}
+
+.header-user svg {
+    display: inline-block;
+    height: 100%;
+    margin-left: 10px;
+}
+
+.header-user__id {
+    display: none;
+    color: #CFCFCF;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+}
+
+
+.header-user__name {
+    display: none;
+    color: #FDFDFD;
+    /* font-family: Aeonik TRIAL; */
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.header-user__feature {
+    display: none;
+    position: absolute;
+    width: 245%;
+    top: 34px;
+    right: -10px;
+    background: #191919;
+    border-radius: 4px;
+}
+
+.header-user:hover .header-user__feature{
+    display: block;
+}
+
+.header-user__feature-item {
+
+}
+
+.header-user__feature-link {
+    border-radius: 4px;
+    /* display: none; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-left: 10px;
+    padding: 15px 0 15px 15px;
+    font-size: 1.4rem;
+}
+
+.header-user__feature-link:hover {
+    background-color: #9D9D9D;
+}
+
+.header-user__feature-link:hover svg {
+    fill: #17E3A6;
+}
+
+
+
 .header-login {
 
 } 
@@ -532,6 +618,37 @@
         display: block;
     }
 
+    .header-user {
+        display: block;
+        position: relative;
+    }
+    
+    .header-user-mobile {
+        display: none;
+    }
+
+    .header-user__info {
+        margin-left: 10px;
+    }
+
+    .header-user__id {
+        display: inline;
+    }
+
+    .header-user__name {
+        display: inline;
+    }
+    
+    .header-user__feature {
+        width: 120%;
+        top: 45px;
+    }
+
+    .header-user__feature-link {
+        font-size: 1.8rem;
+    }
+
+
     .header__search {
         display: none;
     }
@@ -549,7 +666,7 @@
     }
 }
 
-@media only screen and (min-width: 968px) {
+@media only screen and (min-width: 986px) {
     .header__search-bar {
         display: flex;
         width: 40%;
@@ -596,12 +713,20 @@
     .header__search-bar-wrap {
         display: none;
     }
+
+    .header-user-mobile {
+        display: none;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
     .navbar__item:nth-child(4) .navbar-child-2__list {
         left: 100%;
         top: 0;
+    }
+
+    .header-user-mobile {
+        display: none;
     }
 }
 

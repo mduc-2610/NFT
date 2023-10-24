@@ -8,7 +8,9 @@
     <div class="container">
         <div class="profile__info">
             <!-- <h1 style="color: #ffffff; font-size: 3.8rem;">{{url_method}}</h1> -->
-            <img src="{{user.avatar}}" alt="" class="profile__user-avt">
+            <div class="profile__user-avt--wrap">
+                <img src="{{user.avatar}}" alt="" class="profile__user-avt">
+            </div>
             <div class="profile__name--wrap">
                 <h1 class="profile__name">@{{user.name}}</h1>
                 <div class="profile__social">

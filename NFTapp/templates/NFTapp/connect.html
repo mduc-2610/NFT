@@ -1,56 +1,163 @@
 {% load static %}
 <div class="connect">
-    <div class="container-connect">
-        <div class="connect__head flex_aic_jcc">
-            <h1 class="connect__heading">Connect</h1>
-            <button class="connect__close-button close-button">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" fill="#fff"/></svg>
-            </button>
-        </div>
-        <ul class="connect__list flex_fdc_aif">
-            <li class="connect__item">MetaMask
-                <div class="content__item-img--wrap">
-                    <img src="{% static 'images/vector/metamask.svg' %}" alt="" class="connect__item-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-    <path d="M0 12H24M24 12L13 1M24 12L13 23" stroke="#E8E8E8" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-                </div>
-                
-            </li>
-            <li class="connect__item">
-                WalletConnect
-                <div class="content__item-img--wrap">
-                    <img src="{% static 'images/vector/walletconnect.svg' %}" alt="" class="connect__item-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-    <path d="M0 12H24M24 12L13 1M24 12L13 23" stroke="#E8E8E8" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-                </div>
-            </li>
-            <li class="connect__item">
-                CoinbaseWallet
-                <div class="content__item-img--wrap">
-                    <img src="{% static 'images/vector/coinbasewallet.svg' %}" alt="" class="connect__item-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-    <path d="M0 12H24M24 12L13 1M24 12L13 23" stroke="#E8E8E8" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-                </div>
-            </li>
-            <li class="connect__seperate flex_aic_jcc">
-                <div class="connect__seperate-line"></div>
-                <p class="connect__seperate-or">or</p>
-                <div class="connect__seperate-line"></div>
-            </li>
-            <li class="connect__item">Continue with email
-                <div class="content__item-img--wrap">
-                    <img src="{% static 'images/vector/email.svg' %}" alt="" class="connect__item-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-    <path d="M0 12H24M24 12L13 1M24 12L13 23" stroke="#E8E8E8" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-                </div>
-            </li>
-            <li class="connect__policy">
-                By continuing you agree to MeeCats <a href="">Privacy Policy</a> and <a href="">Terms and Conditions</a>
-            </li>
-        </ul>
+  <div class="container-connect">
+    <div class="connect__head flex_aic_jcc">
+      <h1 class="connect__heading">Connect</h1>
+      <button class="connect__close-button close-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1em"
+          viewBox="0 0 384 512"
+        >
+          <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <path
+            d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"
+            fill="#fff"
+          />
+        </svg>
+      </button>
     </div>
+    <ul class="connect__list flex_fdc_aif">
+      <li class="connect__item">
+        <a href="" class="connect__link">
+          MetaMask
+          <div class="content__item-img--wrap">
+            <img
+              src="{% static 'images/vector/metamask.svg' %}"
+              alt=""
+              class="connect__item-img"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M0 12H24M24 12L13 1M24 12L13 23"
+                stroke="#E8E8E8"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="connect__item">
+        <a href="" class="connect__link">
+          WalletConnect
+          <div class="content__item-img--wrap">
+            <img
+              src="{% static 'images/vector/walletconnect.svg' %}"
+              alt=""
+              class="connect__item-img"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M0 12H24M24 12L13 1M24 12L13 23"
+                stroke="#E8E8E8"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="connect__item">
+        <a href="" class="connect__link">
+          CoinbaseWallet
+          <div class="content__item-img--wrap">
+            <img
+              src="{% static 'images/vector/coinbasewallet.svg' %}"
+              alt=""
+              class="connect__item-img"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M0 12H24M24 12L13 1M24 12L13 23"
+                stroke="#E8E8E8"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="connect__seperate flex_aic_jcc">
+        <div class="connect__seperate-line"></div>
+        <p class="connect__seperate-or">or</p>
+        <div class="connect__seperate-line"></div>
+      </li>
+      <li class="connect__item">
+        <a href="" class="connect__link">
+           Email
+          <div class="content__item-img--wrap">
+            <img
+              src="{% static 'images/vector/email.svg' %}"
+              alt=""
+              class="connect__item-img"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M0 12H24M24 12L13 1M24 12L13 23"
+                stroke="#E8E8E8"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="connect__item">
+        <a href="{% url 'login' %}" class="connect__link">
+          Your account
+          <div class="content__item-img--wrap">
+            <img
+              src="{% static 'images/vector/join_us_4.svg' %}"
+              alt=""
+              class="connect__item-img"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M0 12H24M24 12L13 1M24 12L13 23"
+                stroke="#E8E8E8"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="connect__policy">
+        By continuing you agree to MeeCats
+        <a href="" class="connect__link">Privacy Policy</a> and
+        <a href="" class="connect__link">Terms and Conditions</a>
+      </li>
+    </ul>
+  </div>
 </div>
