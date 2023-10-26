@@ -198,7 +198,7 @@ def collection_detail_1(request, pk):
     rarity_rank = product_rarity_rank()
     comments = product.product_comments.all().order_by('-added_at')
     product_favorite_list = product.favorites_by.all()
-    product_owner_list = product.owners.all()
+    product_owner_list = product.owned_by.all()
     user = User.objects.all();
     
     like = False
@@ -529,6 +529,8 @@ def profile(request, pk):
     context = {
         'search_data': request.search_data,
         "user": user,
+        'profile_user_follower': user.follower_set.all(),
+        'profile_user_followee': user.following_set.all(),
     }
     product_filter = request.GET.get('filter', 'collected')
     if product_filter == "collected":

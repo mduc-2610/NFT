@@ -17,7 +17,8 @@ from django.core.management.base import BaseCommand
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle
+                                FAQ, FAQTitle, NFTProductFavorite, \
+                                VoteProductComment, VoteBlogComment
 from NFT.settings import MEDIA_ROOT
 
 from django.db.models import Count
@@ -149,5 +150,9 @@ def run():
     # print(d)
 
     # print([1] + [2] + [3])
-    users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
-    print(users)
+    # users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
+    # print(users)
+    user = User.objects.all()[5]
+    [print(user) for user in user.follower_set.all()]
+    print("________________________________________________________________")
+    [print(user) for user in user.following_set.all()]

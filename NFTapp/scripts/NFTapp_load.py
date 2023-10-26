@@ -11,7 +11,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment
+                                VoteProductComment, VoteBlogComment, Follow
 fake = Faker()
 
 def run():
@@ -47,6 +47,21 @@ def run():
         print(f"\tSuccessfully created user with info {user.name}, {user.email}, {user.bio} ")
         user_obj_list.append(user)
 
+    # Load follower
+    print("----------------------------------------------------------------")
+    print("FOLLOWER:")
+    for user in user_obj_list:
+        tmp_list = user_obj_list.copy()
+        for i in range(random.randint(0, 23)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "follower": random_data,
+                "followee": user
+            }
+            # follow, _ = Follow.objects.get_or_create(**data)
+            follow = Follow.objects.create(**data)
+            print(f"\tUser with uuid {data['followee'].id} was followed by {data['follower'].id}")
+
     # Load type obj
     print("----------------------------------------------------------------")
     print("TYPE:")
@@ -75,20 +90,6 @@ def run():
         topic_obj_list.append(topic_obj)
         print(f"\tSuccesfully created topic {topic}")
 
-    # Load author obj
-    # print("----------------------------------------------------------------")
-    # print("AUTHOR:")
-    # authors = [user.name for user in User.objects.all() if user.creator]
-    # author_obj_list = []
-    # for author in authors:
-    #     data = {
-    #         "name": author
-    #     }
-    #     # author_obj, _ = Author.objects.get_or_create(**data)
-    #     author_obj = Author.objects.create(**data)
-    #     author_obj_list.append(author_obj)
-    #     print(f"\tSuccesfully created author {author}")
-
     # Load nft product
     print("----------------------------------------------------------------")
     print("Product:")
@@ -114,7 +115,6 @@ def run():
         for file in os.listdir(inside_dir):
             print(path)
             nft_image_files[dir].append(path + file)
-    # [print(k, v) for k, v in nft_image_files.items()]
 
     cnt, z = 1, 0
     nft_product_obj_list = []
@@ -217,7 +217,6 @@ def run():
             # blog_section, _ = BlogSection.objects.get_or_create(**data)
             blog_section = BlogSection.objects.create(**data)
             print(f"\t Successfully create blog section {blog_section}")
-
 
     print("----------------------------------------------------------------")
     print("FAQs:")

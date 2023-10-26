@@ -133,9 +133,13 @@
         
     </div>
 </div>
+<div class="product-user-favorite" style="display: none;">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list behavior_container="container_favorite" behavior="Favorited by" %}
+</div>
 
-{% include 'NFTapp/favorite.html' %}
-{% include 'NFTapp/owner.html' %}
+<div class="product-user-owned" style="display: none;">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list behavior_container="container_owner" behavior="Owned by" %}
+</div>
 
 <div class="gap-between-section"></div>
 
@@ -144,38 +148,58 @@
 
 {% block scripts %}
 <script>
-    console.log("------------------------------------------");
     const productOwnerNumber = document.querySelectorAll(".product-owner-number");
     const productFavoriteNumber = document.querySelectorAll(".product-favorite-number");
 
     const productOwnerButton = document.querySelectorAll('.product-owner-button');
     const productFavoriteButton = document.querySelectorAll('.product-favorite-button');
-    console.log(productFavoriteButton);
-
+    
+    const productUserOwned = document.querySelector('.product-user-owned');
     productOwnerNumber.forEach(element => {
-    element.onclick = (e) => {
-        document.querySelector(".container-owner").style.display = 'flex';
-    }
+        element.onclick = (e) => {
+            productUserOwned.style.display = 'block';
+        }
     });
 
     productOwnerButton.forEach(button => {
         button.onclick = (e) => {
-            document.querySelector(".container-owner").style.display = 'flex';
+            productUserOwned.style.display = 'block';
         }
     });
 
+    const productUserFavorite = document.querySelector('.product-user-favorite');
     productFavoriteNumber.forEach(element => {
         element.onclick = (e) => {
-            document.querySelector(".container-favorite").style.display = 'flex';
+            productUserFavorite.style.display = 'block';
         }
     });
 
     productFavoriteButton.forEach(button => {
         button.onclick = (e) => {
-            document.querySelector(".container-favorite").style.display = 'flex';
+            productUserFavorite.style.display = 'block';
         }
     });
-
+    
+    const productUserBehavior = document.querySelectorAll('.container-user-behavior');
+    productUserBehavior.forEach(element => {
+        const userBehaviorBlock = element.querySelector(".user-behavior");
+        const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
+        userBehaviorCloseButton.onclick = (e) => {
+            element.parentNode.style.display = "none";
+        }
+        
+        element.onclick =  (e) => {
+            if (e.target !== userBehaviorBlock) {
+                element.parentNode.style.display = "none";
+            }
+        };
+    
+        userBehaviorBlock.onclick = (e) => {
+            e.stopPropagation();
+        }
+        
+    })
+    
     const likeButton = document.querySelectorAll('.like-button');
     // likeButton.forEach(button => {
     //     button.onclick = (e) => {

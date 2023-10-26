@@ -34,9 +34,11 @@ class User(AbstractUser):
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey('User', on_delete=models.CASCADE, related_name='following_set')
-    followee = models.ForeignKey('User', on_delete=models.CASCADE, related_name='follower_set')
-
+    follower = models.ForeignKey('User', related_name='following_set', on_delete=models.CASCADE)
+    followee = models.ForeignKey('User', related_name='follower_set', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.follower.name} {self.followee.name}"
 
 class Topic(models.Model):
     name = models.CharField(max_length=255)

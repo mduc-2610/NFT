@@ -1,5 +1,4 @@
-.container-owner {
-    display: none;
+.container-user-behavior {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,7 +8,7 @@
     z-index: 999;
 }
 
-.owner {
+.user-behavior {
     border-radius: 16px;
     background: #212127;
     width: 550px;
@@ -21,53 +20,53 @@
 
 }
 
-.owner__head {
+.user-behavior__head {
     padding: 32px 24px 16px;
     justify-content: space-between;
 }
 
-.owner__by {
+.user-behavior__by {
     color: #fff;
     font-size: 2.4rem;
     font-style: normal;
     line-height: 1;
 }
 
-.owner__list {
+.user-behavior__list {
     max-height: 350px;
     overflow-y: auto;
 }
 
-.owner__item {
+.user-behavior__item {
     padding: 16px 24px;
 }
 
-.owner__info {
+.user-behavior__info {
     display: grid;
     grid-template-columns: 1fr 8fr 1fr;
     gap: 10px;
     align-items: center;
 }
 
-.owner-person {
+.user-behavior-person {
     justify-content: flex-start;
     gap: 10px;
 }
 
-.owner-person__avt-link {
+.user-behavior-person__avt-link {
     /* width: 30px; */
     /* height: 30px; */
 }
 
-.owner-person__avt {
+.user-behavior-person__avt {
 
 }
 
-.owner-person__text-block {
+.user-behavior-person__text-block {
 
 }
 
-.owner-person__name {
+.user-behavior-person__name {
     color: #fff;
     font-size: 1.6rem;
     font-style: normal;
@@ -75,7 +74,7 @@
     line-height: 1;
 }
 
-.owner-person__id {
+.user-behavior-person__id {
     margin-top: 5px;
     width: 120px;
     color: #cfcfcf;
@@ -88,7 +87,7 @@
     text-overflow: clip;
 }
 
-.owner-person__follow {
+.user-behavior-person__follow {
     gap: 5px;
     padding: 10px 18px;
     border-radius: 19px;
@@ -102,22 +101,22 @@
     text-transform: capitalize;
 }
 
-.owner-person__follow:hover {
+.user-behavior-person__follow:hover {
     opacity: 0.8;
     color: #000;
 }
 
 @media only screen and (min-width: 768px) {
 
-    .owner-person__name {
+    .user-behavior-person__name {
         font-size: 1.8rem;
     }
     
-    .owner-person__id {
+    .user-behavior-person__id {
         font-size: 1.6rem;
     }
     
-    .owner-person__follow {
+    .user-behavior-person__follow {
         padding: 10px 26px;
         /* font-family: Aeonik; */
         font-size: 1.7rem;

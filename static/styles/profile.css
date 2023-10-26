@@ -25,14 +25,42 @@
 
 .profile__user-avt--wrap {
     position: absolute;
-    top: -180px;
+    top: -150px;
     left: -2%;
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     border-radius: 50%;
     display: block;
     background:  #c9ccd1; 
 }
+
+.profile__follow {
+    justify-content: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.profile__follow--wrap {
+    gap: 5px;
+    align-items: center;
+}
+
+.profile__follow-key {
+    color: #CFCFCF;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profile__follow-value {
+    color: #fff;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
 
 .profile__user-avt {
     object-fit: cover;
@@ -53,39 +81,57 @@
 }
 
 .profile__name--wrap {
-
+    justify-content: space-between;
 }
 
 .profile__name {
     color: #fff;
     font-weight: 600;
-    font-size: 3rem;
+    font-size: 2.4rem;
     letter-spacing: 0px;
 }
 
-.profile__social {
+.profile__follow-button--wrap {
 
+}
+
+.profile__follow-button {
+    gap: 5px;
+    padding: 10px 20px;
+    border-radius: 19px;
+    background: #17E3A6;
+    color: #000;
+    /* font-family: Aeonik; */
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+}
+
+.profile__follow-button:hover {
+    opacity: 0.8;
+    color: #000;
 }
 
 .profile__joined-day {
     margin: 15px 0;
-    color: #fff;
+    color: #CFCFCF;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .profile__bio {
-    color: #fff;
+    color: #CFCFCF;;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.2;
 }
 
 .profile__activity {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 .profile__activity-item:first-child a {
@@ -100,8 +146,10 @@
 .profile__activity-item  a {
     padding: 15px;
     display: inline-block;
+    text-align: center;
+    width: 100%;
     color: #FDFDFD;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 500;
     line-height: 1;
@@ -146,7 +194,7 @@
     background-color: transparent;
     height: 30px;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 500;
     
 }
@@ -247,7 +295,7 @@
     width: 100%;
     color: #FFF;
     /* font-family: Aeonik; */
-    font-size: 2.3rem;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 550;
     line-height: 1;
@@ -277,6 +325,9 @@
     fill: #000;
 }
 
+@media only screen and(min-width: 360px) {
+}
+
 @media only screen and (min-width: 520px) {
     .profile__activity-item  a {
         padding: 12px 24px;
@@ -287,6 +338,13 @@
         gap: 20px;
     }
     
+    .profile__activity {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 25px;
+    }
+    
 }
 
 @media only screen and (min-width: 768px) {
@@ -294,11 +352,68 @@
         /* top: -140%;
         left: -1%; */
     }
-
+    
     .profile-product__list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
+    }
+    
+    .profile__user-avt--wrap {
+        top: -180px;
+        left: -2%;
+        height: 150px;
+        width: 150px;
+    }
+
+    .profile__follow {
+        justify-content: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .profile__follow--wrap {
+        gap: 5px;
+        align-items: center;
+    }
+    
+    .profile__follow-key {
+        font-size: 1.6rem;
+    }
+    
+    .profile__follow-value {
+        font-size: 2rem;
+    }
+    
+    .profile__name {
+        font-size: 3rem;
+    }
+
+    .profile__follow-button {
+        padding: 10px 26px;
+        font-size: 1.7rem;
+    }
+
+    .profile__joined-day {
+        font-size: 1.6rem;
+    }
+
+
+    .profile__bio {
+        font-size: 1.6rem;
+    }
+
+    .profile__search-bar input{
+        font-size: 2rem;
+        
+    }
+
+    .profile__annouce-text {
+        font-size: 4rem;
+    }
+
+    .profile-product__buy-form .buy-button {
+        font-size: 2.3rem;
     }
 }
 

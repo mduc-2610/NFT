@@ -11,13 +11,30 @@
             <div class="profile__user-avt--wrap">
                 <img src="{{user.avatar}}" alt="" class="profile__user-avt">
             </div>
-            <div class="profile__name--wrap">
-                <h1 class="profile__name">@{{user.name}}</h1>
-                <div class="profile__social">
-    
+            <div class="profile__follow flex_aic_jcc">
+                <div class="profile__follow--wrap flex_fdc_aif">
+                    <button class="profile__follow-value">{{user.follower_set.all|length}}</button>
+                    <p class="profile__follow-key">Follower</p>
+                </div>
+                <div class="profile__follow--wrap flex_fdc_aif">
+                    <button class="profile__follow-value">{{user.following_set.all|length}}</button>
+                    <p class="profile__follow-key">Follow</p>
                 </div>
             </div>
-            <p class="profile__joined-day">{{user.date_joined}}</p>
+            <div class="profile__name--wrap flex_aic_jcc">
+                <h1 class="profile__name">@{{user.name}}</h1>
+                {% if user.id != request.user.id %}
+                <div class="profile__follow-button--wrap">
+                    <a href="" class="profile__follow-button flex_aic_jcc">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                            <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                        </svg>
+                        Follow
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            <p class="profile__joined-day">{{user.date_joined|date:"M d, Y"}}</p>
             <p class="profile__bio">{{user.bio}}</p>
             <button class="see__more">See more</button>
             
@@ -73,6 +90,15 @@
         <a href="{% url 'profile' user.id %}" class="user-id" style="display: none;"></a>
     </div>
 </div>
+
+<div class="profile-user-follower" style="display: none;">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower behavior="Follower" %}
+</div>
+
+<div class="profile-user-followee" style="display: none;">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee behavior="Follow" %}
+</div>
+
 {% endblock content %}
 
 {% block scripts %}
@@ -99,6 +125,50 @@
             localStorage.setItem('prevClickedLink', link.getAttribute('href'));
       });
     });
+
+    const profileFollowerNumber = document.querySelectorAll(".profile__follow-value")[0];
+    const profileFolloweeNumber = document.querySelectorAll(".profile__follow-value")[1];
+
+    const profileFollower = document.querySelectorAll('.profile__follow-key')[0];
+    const profileFollowee = document.querySelectorAll('.profile__follow-key')[1];
+    
+    const profileUserFollower = document.querySelector('.profile-user-follower');
+    profileFollowerNumber.onclick = (e) => {
+        profileUserFollower.style.display = 'block';
+    }
+
+    profileFollower.onclick = (e) => {
+        profileUserFollower.style.display = 'block';
+    }
+
+    const profileUserFollowee = document.querySelector('.profile-user-followee');
+    profileFolloweeNumber.onclick = (e) => {
+        profileUserFollowee.style.display = 'block';
+    }
+
+    profileFollowee.onclick = (e) => {
+        profileUserFollowee.style.display = 'block';
+    }
+    
+    const productUserBehavior = document.querySelectorAll('.container-user-behavior');
+    productUserBehavior.forEach(element => {
+    const userBehaviorBlock = element.querySelector(".user-behavior");
+    const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
+    userBehaviorCloseButton.onclick = (e) => {
+        element.parentNode.style.display = "none";
+    }
+    
+    element.onclick =  (e) => {
+        if (e.target !== userBehaviorBlock) {
+            element.parentNode.style.display = "none";
+        }
+    };
+
+    userBehaviorBlock.onclick = (e) => {
+        e.stopPropagation();
+    }
+    
+})
   </script>
 {% endblock scripts %}
 
