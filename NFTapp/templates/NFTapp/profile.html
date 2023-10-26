@@ -92,11 +92,11 @@
 </div>
 
 <div class="profile-user-follower" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower behavior="Follower" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower filter="follower" behavior="Follower" %}
 </div>
 
 <div class="profile-user-followee" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee behavior="Follow" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee filter="followee" behavior="Follow" %}
 </div>
 
 {% endblock content %}

@@ -153,6 +153,6 @@ def run():
     # users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
     # print(users)
     user = User.objects.all()[5]
-    [print(user) for user in user.follower_set.all()]
+    [print(user) for user in user["follower_set"].all()]
     print("________________________________________________________________")
-    [print(user) for user in user.following_set.all()]
+    [print(user) for user in user["following_set"].all()]

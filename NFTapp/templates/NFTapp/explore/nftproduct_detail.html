@@ -134,11 +134,11 @@
     </div>
 </div>
 <div class="product-user-favorite" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list behavior_container="container_favorite" behavior="Favorited by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior="Favorited by" %}
 </div>
 
 <div class="product-user-owned" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list behavior_container="container_owner" behavior="Owned by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list filter="user" behavior_container="container_owner" behavior="Owned by" %}
 </div>
 
 <div class="gap-between-section"></div>

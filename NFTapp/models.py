@@ -29,6 +29,12 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+    
     def __str__(self):
         return f"{self.name} {self.email}"
 
@@ -37,6 +43,12 @@ class Follow(models.Model):
     follower = models.ForeignKey('User', related_name='following_set', on_delete=models.CASCADE)
     followee = models.ForeignKey('User', related_name='follower_set', on_delete=models.CASCADE)
     
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+        
     def __str__(self):
         return f"{self.follower.name} {self.followee.name}"
 
@@ -72,6 +84,12 @@ class NFTProduct(models.Model):
     owners = models.ManyToManyField(User, related_name="owners", through="NFTProductOwner")
     favorites = models.ManyToManyField(User, related_name="favorites", through='NFTProductFavorite', default=0)
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+    
     def __str__(self):
         return f"{self.name} {self.price}"
 
@@ -79,7 +97,13 @@ class NFTProduct(models.Model):
 class NFTProductOwner(models.Model):
     user = models.ForeignKey('User', related_name="owned_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', related_name="owned_by", on_delete=models.CASCADE)
-
+    
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+        
     def __str__(self):
         return f"{self.user.name} {self.product.name}"
 
@@ -88,6 +112,12 @@ class NFTProductFavorite(models.Model):
     product = models.ForeignKey('NFTProduct', related_name='favorites_by', on_delete=models.CASCADE)
     user = models.ForeignKey('User', related_name='favorite_products', on_delete=models.CASCADE)
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+        
     def __str__(self):
         return f"{self.product.name} {self.user.name}"
 

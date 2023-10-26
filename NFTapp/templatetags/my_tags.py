@@ -10,6 +10,11 @@ register = template.Library()
 def multiply(qty, unit_price):
     return round(float(qty) * float(unit_price), 3)
 
+
+@register.filter(name="filter_queryset")
+def filter_queryset(query_set, filter):
+    return [query[filter] for query in query_set]
+
 @register.filter(name='facebook_time')
 def facebook_time(value):
     if not value:
