@@ -42,8 +42,9 @@
 
 }
 
-.product-detail-mobile .like-button {
-
+.like-button {
+    width: 20px;
+    height: 20px;
 }
 
 .product-detail-mobile .product-detail__info-1 {
@@ -490,4 +491,8 @@
         color:#17E3A6
     }
     
+}
+
+.like-fill-red {
+    fill: #ff3040;
 }

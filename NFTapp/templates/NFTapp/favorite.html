@@ -19,7 +19,7 @@
                     <div class="favorite-person flex_aic_jcc">
                         <div class="favorite-person__text-block flex_fdc_aif">
                             <a href="{% url 'profile' product_favorite.user.id %}" class="favorite-person__name">{{product_favorite.user.name}}</a>
-                            <a href="{% url 'profile' product_favorite.user.id %}" class="favorite-person__id">{{product_favorite.user.id|limit_length_id}}</a>
+                            <a href="{% url 'profile' product_favorite.user.id %}" class="favorite-person__id">{{product_favorite.user.id|limit_length_id:"6: 4"}}</a>
                         </div>
                     </div>
                     <div class="favorite-person">

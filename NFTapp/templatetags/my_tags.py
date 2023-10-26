@@ -34,15 +34,11 @@ def facebook_time(value):
     
 @register.filter(name='limit_length_id')
 def limit_length_id(value, arg):
-    # parts = str(arg).split(':')
+    value = str(value)
     parts = str(arg).split(':')
     if len(parts) == 2:
         first, second = int(parts[0]), int(parts[1])
-    else:
-        first = 6
-        second = 4
-    value = str(value)
-    return value[:first] + "..." + value[len(value) - second:]
+        return value[:first] + "..." + value[len(value) - second:]
 
 @register.filter(name='limit_length_name')
 def limit_length_name(id, length):

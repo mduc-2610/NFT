@@ -24,6 +24,7 @@ class User(AbstractUser):
     cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos))
     bio = models.CharField(max_length=300, default="")
     followers = models.ManyToManyField('self', related_name='following', through="Follow", symmetrical=False)
+    property = models.DecimalField(max_digits=8, decimal_places=3, default=0)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

@@ -19,7 +19,7 @@
                     <div class="owner-person flex_aic_jcc">
                         <div class="owner-person__text-block flex_fdc_aif">
                             <a href="{% url 'profile' owner.id %}" class="owner-person__name">{{owner.name}}</a>
-                            <a href="{% url 'profile' owner.id %}" class="owner-person__id">{{owner.id|limit_length_id}}</a>
+                            <a href="{% url 'profile' owner.id %}" class="owner-person__id">{{owner.id|limit_length_id:"6: 4"}}</a>
                         </div>
                     </div>
                     <div class="owner-person">

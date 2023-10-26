@@ -1,6 +1,7 @@
 from collections import Counter
 from math import ceil
 import random, json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +12,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite
 from .forms import MyUserCreationForm
+from django.db.models import Count
 
 
 def loginPage(request):
@@ -190,26 +192,41 @@ def collection1(request):
 @add_search_data
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
-    users = User.objects.filter(is_superuser=0)
-    
+    users = User.objects.filter(is_superuser=0)    
     rarity_rank = product_rarity_rank()
     comments = product.product_comments.all().order_by('-added_at')
-    # state = request.GET.get('state', None)
-    # state_list = []
-    # if state:
-    #     state_list =  product.favorites_by.all() if state == 'favorite' else product.owners.all()
     product_favorite_list = product.favorites_by.all()
     product_owner_list = product.owners.all()
     user = User.objects.all();
+    
+    like = False
+    if NFTProductFavorite.objects.filter(user=request.user, product=product).exists():
+        like = True
+
     if request.method == 'POST':
-        data = {
-            "content": request.POST.get('content'),
-            "vote": 0,
-            "user": random.choice(user),
-            "product": product,
-        }
-        product_comment = ProductComment.objects.create(**data)
-        # return redirect('collection1', pk=product.id)
+        action = request.POST.get('action')
+        if action == 'like':
+            data = {
+                'user': request.user,
+                'product': product
+            }
+            product_favorite_by = NFTProductFavorite.objects.filter(user=request.user, product=product)
+            if product_favorite_by.exists():
+                product_favorite_by.delete()
+                like = False
+            else:
+                product_favorite_by = NFTProductFavorite.objects.create(**data)
+                like = True
+                
+        elif action == 'comment':
+            data = {
+                "content": request.POST.get('content'),
+                "vote": 0,
+                "user": request.user,
+                "product": product,
+            }
+            product_comment = ProductComment.objects.create(**data)
+            # return redirect('collection1', pk=product.id)
     context = {
         'search_data': request.search_data,
         "product": product,
@@ -218,6 +235,7 @@ def collection_detail_1(request, pk):
         "product_quantity": len(rarity_rank),
         "product_favorite_list": product_favorite_list,
         'product_owner_list': product_owner_list,
+        'like': like,
     }
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
 
@@ -410,7 +428,7 @@ def about_us5(request):
 
 @add_search_data
 def artists(request):
-    users = User.objects.filter(is_superuser=0)
+    users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
     context = {
         'search_data': request.search_data,
         'users': users
