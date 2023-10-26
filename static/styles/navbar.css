@@ -169,6 +169,12 @@
     display: inline-block;
     height: 100%;
     margin-left: 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.header-user:hover > .header-user__info--wrap > svg {
+    transform: rotate(180deg);
 }
 
 .header-user__id {
@@ -736,15 +742,22 @@
     }
 }
 
-.show {
+.header-show {
     display: block;
 }
 
-.show-ib {
+.header-show-ib {
     display: inline-block;
 }
 
-.show-flex {
+.header-show-flex {
     display: flex;
 }
 
+.header-rotate {
+    transform: rotate(180deg);
+}
+
+.header-change-stroke-color {
+    stroke: #17E3A6;
+}

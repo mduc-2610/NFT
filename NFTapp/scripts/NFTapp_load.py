@@ -10,7 +10,8 @@ from django.contrib.auth.hashers import make_password
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle, NFTProductFavorite
+                                FAQ, FAQTitle, NFTProductFavorite, \
+                                VoteProductComment, VoteBlogComment
 fake = Faker()
 
 def run():
@@ -169,7 +170,7 @@ def run():
             # nft_product_Favorite, _ = NFTProductFavorite.objects.get_or_create(**data)
             nft_product_Favorite = NFTProductFavorite.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} likes the nft product with uuid {data['product'].id}")
-
+    
 
     #Load blog 
     print("----------------------------------------------------------------")
@@ -290,22 +291,10 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 faq = FAQ.objects.create(**data)
                 print(f"\tSuccessfully created FAQ question {faq.question} with answer {faq.answer}")
                 
-    print("----------------------------------------------------------------")
-    print("BLOG COMMENT:")
-    for blog in blog_obj_list:
-        tmp_user = user_obj_list.copy()
-        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
-            data = {
-                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
-                "blog": blog,
-                "content": fake.text(max_nb_chars=random.randint(300, 750))
-            } 
-            # blog_comment, _ = BlogComment.objects.get_or_create(blog_comment)
-            blog_comment = BlogComment.objects.create(**data)
-            print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
-            
+    # Load random data product comment
     print("----------------------------------------------------------------")
     print("PRODUCT COMMENT:")
+    product_comment_list = []
     for product in nft_product_obj_list:
         tmp_user = user_obj_list.copy()
         for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
@@ -316,6 +305,53 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             }
             # product_comment, _ = ProductComment.objects.get_or_create(product_comment)
             product_comment = ProductComment.objects.create(**data)
+            product_comment_list.append(product_comment)
             print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ")
             
-        
+    # Load ramdom user like product comment
+    print("----------------------------------------------------------------")
+    print("RANDOM USER LIKE PRODUCT COMMENT:")
+    for user in user_obj_list:
+        tmp_list = product_comment_list.copy()
+        for i in range(random.randint(0, 20)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "comment": random_data
+            }
+            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
+            product_comment_vote = VoteProductComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} likes the product comment with uuid {data['comment'].id}")
+    
+    # Load random data blog comment
+    print("----------------------------------------------------------------")
+    print("BLOG COMMENT:")
+    blog_comment_list = []
+    for blog in blog_obj_list:
+        tmp_user = user_obj_list.copy()
+        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
+            data = {
+                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
+                "blog": blog,
+                "content": fake.text(max_nb_chars=random.randint(300, 750)),
+            } 
+            # blog_comment, _ = BlogComment.objects.get_or_create(blog_comment)
+            blog_comment = BlogComment.objects.create(**data)
+            blog_comment_list.append(blog_comment)
+            print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
+
+    # Load ramdom user like blog comment
+    print("----------------------------------------------------------------")
+    print("RANDOM USER LIKE BLOG COMMENT:")
+    for user in user_obj_list:
+        tmp_list = blog_comment_list.copy()
+        for i in range(random.randint(0, 20)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "comment": random_data
+            }
+            # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
+            blog_comment_vote = VoteBlogComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} likes the blog comment with uuid {data['comment'].id}")
+    

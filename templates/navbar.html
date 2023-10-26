@@ -1802,4 +1802,12 @@
       headerSearchBarMobile.querySelector('.search-list').innerHTML = `<p class="search-desc">No results found...</p>`;
     }
   });
+  const headerUser = document.querySelectorAll('.header-user')[1];
+  const headerUserFeature = document.querySelectorAll('.header-user__feature')[1]; 
+  const headerUserSvg = headerUser.querySelector('svg');
+  headerUserSvg.onclick = (e) => {
+    headerUserSvg.classList.toggle('.header-rotate');
+    headerUserSvg.querySelector('path').classList.toggle('.header-change-stroke-color');
+    headerUserFeature.classList.toggle('header-show');
+  }
 </script>

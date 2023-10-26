@@ -10,7 +10,9 @@ from .function import cal_times_to_read, product_rarity_rank, classify_1, add_se
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle, NFTProductFavorite
+                                FAQ, FAQTitle, NFTProductFavorite, \
+                                VoteProductComment, VoteBlogComment
+
 from .forms import MyUserCreationForm
 from django.db.models import Count
 
@@ -221,7 +223,6 @@ def collection_detail_1(request, pk):
         elif action == 'comment':
             data = {
                 "content": request.POST.get('content'),
-                "vote": 0,
                 "user": request.user,
                 "product": product,
             }
@@ -494,6 +495,7 @@ def blog(request):
     return render(request, 'NFTapp/blog/blog.html', context)
 
 average_wpm = 238
+@login_required(login_url='/login')
 @add_search_data
 def blog_detail(request, pk):
 
@@ -509,7 +511,7 @@ def blog_detail(request, pk):
         data = {
             "vote": 0,
             "content": request.POST.get('content'),
-            "user": random.choice(user), 
+            "user": request.user, 
             "blog": blog_detail,
         }
         blog_comment = BlogComment.objects.create(**data)
