@@ -133,6 +133,11 @@
         
     </div>
 </div>
+
+<div class="product-user-comment">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_comment_list filter="user" behavior="Voted by" %}
+</div>
+
 <div class="product-user-favorite" style="display: none;">
     {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior="Favorited by" %}
 </div>

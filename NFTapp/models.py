@@ -206,6 +206,13 @@ class ProductComment(Comment):
     user = models.ForeignKey('User', related_name="user_product_comments", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', related_name="product_comments", on_delete=models.CASCADE)
     votes = models.ManyToManyField('User', related_name="voted_product_comments", through="VoteProductComment")
+    
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+    
     def __str__(self):
         return f"{self.product.name} {self.user.name}"
 
@@ -214,18 +221,41 @@ class BlogComment(Comment):
     user = models.ForeignKey('User', related_name="user_blog_comments", on_delete=models.CASCADE)
     blog = models.ForeignKey('NFTBlog', related_name="blog_comments", on_delete=models.CASCADE)
     votes = models.ManyToManyField('User', related_name="voted_blog_comments", through="VoteBlogComment")
+    
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
         
     def __str__(self):
         return f"{self.blog.title} {self.user.name}"
     
 class VoteProductComment(models.Model):
     user = models.ForeignKey('User', related_name="votes_on_product_comments", on_delete=models.CASCADE)
-    comment = models.ForeignKey('ProductComment', related_name="product_voted_by", on_delete=models.CASCADE)
+    comment = models.ForeignKey('ProductComment', related_name="product_comment_voted_by", on_delete=models.CASCADE)
+    
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+        
+    def __str__(self):
+        return f"{self.user.name} {self.comment.content}"
 
 class VoteBlogComment(models.Model):
     user = models.ForeignKey('User', related_name="votes_on_blog_comments", on_delete=models.CASCADE)
-    comment = models.ForeignKey('BlogComment', related_name="blog_voted_by", on_delete=models.CASCADE)
+    comment = models.ForeignKey('BlogComment', related_name="blog_comment_voted_by", on_delete=models.CASCADE)
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+    
+    def __str__(self):
+        return f"{self.user.name} {self.comment.id}"
 class Search(models.Model):
     user = models.ForeignKey('User', related_name="search_queries", on_delete=models.CASCADE)
     query = models.ManyToManyField('SearchResult', related_name="query_results", through="QueryResult")

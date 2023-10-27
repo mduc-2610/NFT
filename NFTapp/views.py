@@ -72,9 +72,9 @@ def home1(request):
     products = NFTProduct.objects.all()
 
     users = User.objects.filter(is_superuser=0)
-    title = FAQTitle.objects.get(title="Enjin")
+    title = FAQTitle.objects.get(title='Enjin')
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -95,9 +95,9 @@ def home2(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
-    title = FAQTitle.objects.get(title="Enjin")
+    title = FAQTitle.objects.get(title='Enjin')
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -117,9 +117,9 @@ def home3(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
-    title = FAQTitle.objects.get(title="Enjin")
+    title = FAQTitle.objects.get(title='Enjin')
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -140,9 +140,9 @@ def home4(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
-    title = FAQTitle.objects.get(title="Enjin")
+    title = FAQTitle.objects.get(title='Enjin')
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -163,9 +163,9 @@ def home5(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
-    title = FAQTitle.objects.get(title="Enjin")
+    title = FAQTitle.objects.get(title='Enjin')
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -186,7 +186,7 @@ def collection1(request):
     data = request.GET.get('filter', 'trending')
     context = {
         'search_data': request.search_data,
-        "products": classify_1(request.GET.get('sort-by', 'trending'), products)
+        'products': classify_1(request.GET.get('sort-by', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
@@ -197,6 +197,8 @@ def collection_detail_1(request, pk):
     users = User.objects.filter(is_superuser=0)    
     rarity_rank = product_rarity_rank()
     comments = product.product_comments.all().order_by('-added_at')
+    # product_comment_list = product.product_comments.all()
+    product_comment_list = product.product_comments.all()[1].product_comment_voted_by.all()
     product_favorite_list = product.favorites_by.all()
     product_owner_list = product.owned_by.all()
     user = User.objects.all();
@@ -222,19 +224,20 @@ def collection_detail_1(request, pk):
                 
         elif action == 'comment':
             data = {
-                "content": request.POST.get('content'),
-                "user": request.user,
-                "product": product,
+                'content': request.POST.get('content'),
+                'user': request.user,
+                'product': product,
             }
             product_comment = ProductComment.objects.create(**data)
             # return redirect('collection1', pk=product.id)
     context = {
         'search_data': request.search_data,
-        "product": product,
-        "comments": comments,
-        "rarity_rank": rarity_rank[product],
-        "product_quantity": len(rarity_rank),
-        "product_favorite_list": product_favorite_list,
+        'product': product,
+        'comments': comments,
+        'rarity_rank': rarity_rank[product],
+        'product_quantity': len(rarity_rank),
+        'product_comment_list': product_comment_list, 
+        'product_favorite_list': product_favorite_list,
         'product_owner_list': product_owner_list,
         'like': like,
     }
@@ -245,7 +248,7 @@ def collection2(request):
     products = NFTProduct.objects.all()
     context = {
         'search_data': request.search_data,
-        "products": classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection2.html', context)
 
@@ -254,7 +257,7 @@ def collection3(request):
     products = NFTProduct.objects.all()
     context = {
         'search_data': request.search_data,
-        "products": classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection3.html', context)
 
@@ -263,7 +266,7 @@ def collection4(request):
     products = NFTProduct.objects.all()
     context = {
         'search_data': request.search_data,
-        "products": classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection4.html', context)
 
@@ -272,7 +275,7 @@ def collection5(request):
     products = NFTProduct.objects.all()
     context = {
         'search_data': request.search_data,
-        "products": classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
@@ -280,7 +283,7 @@ def collection5(request):
 @add_search_data
 def artworks1(request):
     users = User.objects.filter(is_superuser=0)
-    products = NFTProduct.objects.filter(type_product__name="artworks")
+    products = NFTProduct.objects.filter(type_product__name='artworks')
     product_list = list(products)
     authors = []
     for user in users:
@@ -298,7 +301,7 @@ def artworks1(request):
 @add_search_data
 def artworks2(request):
     users = User.objects.filter(is_superuser=0)
-    products = NFTProduct.objects.filter(type_product__name="artworks")
+    products = NFTProduct.objects.filter(type_product__name='artworks')
     product_list = list(products)
     authors = []
     for user in users:
@@ -316,7 +319,7 @@ def artworks2(request):
 @add_search_data
 def artworks3(request):
     users = User.objects.filter(is_superuser=0)
-    products = NFTProduct.objects.filter(type_product__name="artworks")
+    products = NFTProduct.objects.filter(type_product__name='artworks')
     product_list = list(products)
     authors = []
     for user in users:
@@ -334,7 +337,7 @@ def artworks3(request):
 @add_search_data
 def artworks4(request):
     users = User.objects.filter(is_superuser=0)
-    products = NFTProduct.objects.filter(type_product__name="artworks")
+    products = NFTProduct.objects.filter(type_product__name='artworks')
     product_list = list(products)
     authors = []
     for user in users:
@@ -352,7 +355,7 @@ def artworks4(request):
 @add_search_data
 def artworks5(request):
     users = User.objects.filter(is_superuser=0)
-    products = NFTProduct.objects.filter(type_product__name="artworks")
+    products = NFTProduct.objects.filter(type_product__name='artworks')
     product_list = list(products)
     authors = []
     for user in users:
@@ -373,7 +376,7 @@ def about_us1(request):
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -412,7 +415,7 @@ def about_us3(request):
 @add_search_data
 def about_us4(request):
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in NFTProduct.objects.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -443,7 +446,7 @@ def editorial(request):
     context = {
         'search_data': request.search_data,
         'users': users,
-        "products": products
+        'products': products
     } 
     return render(request, 'NFTapp/community/editorial.html', context)
 
@@ -480,7 +483,7 @@ def blog(request):
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
     comments = []
-    topic = "Alternate Medium Space"
+    topic = 'Alternate Medium Space'
     for product in products.filter(topic__name=topic):
         for comment in product.product_comments.all():      
             comments.append(comment)
@@ -509,10 +512,10 @@ def blog_detail(request, pk):
     user = User.objects.all()
     if request.method == 'POST':
         data = {
-            "vote": 0,
-            "content": request.POST.get('content'),
-            "user": request.user, 
-            "blog": blog_detail,
+            'vote': 0,
+            'content': request.POST.get('content'),
+            'user': request.user, 
+            'blog': blog_detail,
         }
         blog_comment = BlogComment.objects.create(**data)
     context = {
@@ -528,23 +531,23 @@ def profile(request, pk):
     user = User.objects.get(pk=pk)
     context = {
         'search_data': request.search_data,
-        "user": user,
+        'user': user,
         'profile_user_follower': user.follower_set.all(),
         'profile_user_followee': user.following_set.all(),
     }
     product_filter = request.GET.get('filter', 'collected')
-    if product_filter == "collected":
+    if product_filter == 'collected':
         # product_collection = [product.product for product in user.owned_products.all()]
         product_collection = user.owners.all()
-        context["products"] = product_collection
+        context['products'] = product_collection
         # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
-    elif product_filter == "created":
+    elif product_filter == 'created':
         product_created = user.author.all()
-        context["products"] = product_created 
+        context['products'] = product_created 
         # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
     else:
         product_favorited = user.favorites.all()
-        context["products"] = product_favorited 
+        context['products'] = product_favorited 
         # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
     return render(request, 'NFTapp/profile.html', context)
 

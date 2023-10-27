@@ -305,22 +305,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             # product_comment, _ = ProductComment.objects.get_or_create(product_comment)
             product_comment = ProductComment.objects.create(**data)
             product_comment_list.append(product_comment)
-            print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ")
-            
-    # Load ramdom user like product comment
-    print("----------------------------------------------------------------")
-    print("RANDOM USER LIKE PRODUCT COMMENT:")
-    for user in user_obj_list:
-        tmp_list = product_comment_list.copy()
-        for i in range(random.randint(0, 20)):
-            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
-            data = {
-                "user": user,
-                "comment": random_data
-            }
-            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
-            product_comment_vote = VoteProductComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} likes the product comment with uuid {data['comment'].id}")
+            print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ") 
     
     # Load random data blog comment
     print("----------------------------------------------------------------")
@@ -339,12 +324,26 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             blog_comment_list.append(blog_comment)
             print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
 
+    # Load ramdom user like product comment
+    print("----------------------------------------------------------------")
+    print("RANDOM USER LIKE PRODUCT COMMENT:")
+    for user in user_obj_list:
+        tmp_list = product_comment_list.copy()
+        for i in range(random.randint(20, 50)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "comment": random_data
+            }
+            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
+            product_comment_vote = VoteProductComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} likes the product comment with uuid {data['comment'].id}")
     # Load ramdom user like blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER LIKE BLOG COMMENT:")
     for user in user_obj_list:
         tmp_list = blog_comment_list.copy()
-        for i in range(random.randint(0, 20)):
+        for i in range(random.randint(20, 50)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,

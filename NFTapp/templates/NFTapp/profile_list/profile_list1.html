@@ -40,8 +40,8 @@
                             <p class="profile-list__contribute-key-1">Collected</p>
                         </li>
                         <li class="profile-list__contribute">
-                            <p class="profile-list__contribute-value-1">{{user.following_set.all|length}}</p>
-                            <p class="profile-list__contribute-key-1">Followers</p>
+                            <p class="profile-list__contribute-value-1">{{user.follower_set.all|length}}</p>
+                            <p class="profile-list__contribute-key-1">Follower</p>
                         </li>
                     </ul>
                     {% if user.bio %}
