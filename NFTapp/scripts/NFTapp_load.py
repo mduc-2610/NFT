@@ -105,7 +105,7 @@ def run():
         "CyberCanvas", "BlockArt", "MetaMaster", "DigitalAlchemy", "CryptoGraffiti Gems",
         "BitBrush", "PixelMystique", "DecentralArt", "EtherElegance", "NFTInfinite"
     ]
-    nft_quantity = [random.randint(0, 20) for _ in range(30)]
+    nft_quantity = [random.randint(0, 50) for _ in range(50)]
     nft_image_files = {}
     explore_dir = os.path.join(MEDIA_ROOT, "explore")
     for dir in os.listdir(explore_dir):

@@ -84,8 +84,6 @@ main {
     overflow: hidden;
 }
 
-
-
 .gap-between-section {
     margin-bottom: 60px;
 }
@@ -94,6 +92,12 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.flex_aic_jcsb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .flex_fdc_aif {
@@ -143,7 +147,7 @@ main {
     width: 34px;
     height: 34px;
     /* padding: 5px; */
-    background-color: #c9ccd1;
+    /* background-color: #c9ccd1; */
     object-fit: cover;
 }
 

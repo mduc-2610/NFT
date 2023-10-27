@@ -1,0 +1,173 @@
+.container-cart {
+    background-color: #666;
+    width: 100%;
+    height: 100vw;
+    opacity: 0.8;
+}
+
+.cart-icon-block {
+
+}
+
+.cart-add {
+
+}
+
+.cart-add__svg {
+
+}
+
+.cart__inner {
+
+}
+
+.cart-text {
+    color: #fff;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.cart-text-2 {
+    color: #CFCFCF;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.cart__head {
+    padding: 24px 24px 12px 24px;
+    display: flex;
+    align-items: center;
+}   
+
+.cart__heading {
+    color: #fff;
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.cart__close {
+
+}
+
+.cart__body {
+    padding: 16px 24px;
+}
+
+.cart__ammount {
+    margin-bottom: 12px;
+}
+
+.cart__number {
+
+}
+
+.cart__clear {
+    
+}
+
+.cart-product__list {
+    max-height: 350px;
+    overflow-y: auto;
+    /* display: flex;
+    flex-direction: column;
+    gap: 8px; */
+}
+
+.cart-product__item {
+    padding: 8px;
+}
+
+.cart__product--wrap {
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.cart-product__img--wrap {
+
+}
+
+.cart-product__img {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+}
+
+.cart-product__info {
+
+}
+
+.cart-product__name {
+
+}
+
+.cart-product__topic {
+
+}
+
+.cart-product__price {
+    margin: 5px 0;
+}
+
+.cart-product__detail {
+    color: #17E3A6;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.cart-product__detail:hover {
+    opacity: 0.8;
+}
+
+.cart-product__delete {
+
+} 
+
+.cart-product__delete:hover svg {
+    fill: #17E3A6;
+}
+
+.cart__footer {
+    padding: 24px;
+}
+
+.cart__price {
+
+}
+
+.cart__price-key {
+
+}
+
+.cart__price-value {
+
+}
+
+.cart__price-value-eth {
+
+}
+
+.cart__price-value-dollar {
+    margin-top: 5px;
+}
+
+.cart__buy {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.cart__buy-button {
+    width: 100%;
+    color: #000;
+    font-size: 2rem;
+    padding: 12px 24px;
+    font-weight: 600;
+    background-color: #17E3A6;
+    border-radius: 3.2rem;
+}
+
+.cart__buy-button:hover {
+    opacity: 0.8;
+}

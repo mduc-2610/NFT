@@ -51,12 +51,14 @@
     top: -251px;
     left: -24px;
     /* position: absolute; */
-    width: 80px;
-    height: 80px;
-    background-color: #c9ccd1;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #FFF;
+}
+
+.profile-list__avt-2 > img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
 .profile-list__about-user-2 {
