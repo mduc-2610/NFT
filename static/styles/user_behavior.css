@@ -15,9 +15,8 @@
     max-width: 100%;
     /* max-height: calc(100vh - 64px);
     max-width: calc(100% - 32px); */
-    max-height: 430px;
+    max-height: 460px;
     padding-bottom: 5px;
-
 }
 
 .user-behavior__head {
@@ -33,7 +32,7 @@
 }
 
 .user-behavior__list {
-    max-height: 350px;
+    max-height: 385px;
     overflow-y: auto;
 }
 

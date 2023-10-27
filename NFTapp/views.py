@@ -197,8 +197,7 @@ def collection_detail_1(request, pk):
     users = User.objects.filter(is_superuser=0)    
     rarity_rank = product_rarity_rank()
     comments = product.product_comments.all().order_by('-added_at')
-    # product_comment_list = product.product_comments.all()
-    product_comment_list = product.product_comments.all()[1].product_comment_voted_by.all()
+    # product_comment_list = comments.product_comment_voted_by.all()
     product_favorite_list = product.favorites_by.all()
     product_owner_list = product.owned_by.all()
     user = User.objects.all();
@@ -236,7 +235,7 @@ def collection_detail_1(request, pk):
         'comments': comments,
         'rarity_rank': rarity_rank[product],
         'product_quantity': len(rarity_rank),
-        'product_comment_list': product_comment_list, 
+        # 'product_comment_list': product_comment_list, 
         'product_favorite_list': product_favorite_list,
         'product_owner_list': product_owner_list,
         'like': like,

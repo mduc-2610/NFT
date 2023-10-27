@@ -1,6 +1,5 @@
-{% extends 'main.html' %} {% block content %}
-<!-- <div class="blog-detail">
-  <div class="container"> -->
+{% extends 'main.html' %} 
+{% block content %}
 <div class="container">
   <div class="blog-header">
     <img src="{{blog_detail.0.image}}" alt="" class="blog-header__img" />
@@ -253,4 +252,48 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/comment.html' %} {% endblock content %}
+{% include 'NFTapp/comment.html' %} 
+{% for comment in comments %}
+<div class="product-user-comment{{comment.id}}" style="display: none;">
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_voted_by.all filter="user" behavior="Voted by" %}
+</div>
+{% endfor %}
+
+{% endblock content %}
+{% block scripts %}
+
+<script>
+
+  const commentVoteText = document.querySelectorAll('.comment__vote-text');
+    commentVoteText.forEach(element => {
+        element.onclick = (e) => {
+            const commentId = element.classList[1];
+            const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
+            if (productUserComment) {
+                productUserComment.style.display = 'block';
+            }
+        }
+    });
+
+    
+    const productUserBehavior = document.querySelectorAll('.container-user-behavior');
+    productUserBehavior.forEach(element => {
+        const userBehaviorBlock = element.querySelector(".user-behavior");
+        const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
+        userBehaviorCloseButton.onclick = (e) => {
+            element.parentNode.style.display = "none";
+        }
+        
+        element.onclick =  (e) => {
+            if (e.target !== userBehaviorBlock) {
+                element.parentNode.style.display = "none";
+            }
+        };
+    
+        userBehaviorBlock.onclick = (e) => {
+            e.stopPropagation();
+        }
+        
+    })
+</script>
+{% endblock scripts %}
