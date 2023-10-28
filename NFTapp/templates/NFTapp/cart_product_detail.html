@@ -17,18 +17,18 @@
                         <td class="cart-text-2">Creator</td>
                         <td class="cart-text-2">
                             <a href="{% url 'profile' product.author.id %}" class="cart-detail__author">{{product.author.name}}</a>
-                            <p class="">{{product.author.date_joined|date:"M d, Y"}}</p>
+                            <p class="">Joined in {{product.author.date_joined|date:"M d, Y"}}</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="cart-text-2">Total sales</td>
-                        <td class="cart-text-2">0</td>
+                        <td class="cart-text-2">0 ETH</td>
                     </tr>
                     <tr>
                         <td class="cart-text-2">Total volume</td>
                         <td class="cart-text-2">
-                            <p class="">96ETH</p>
-                            <p class="">$170,760.63</p>
+                            <p class="">0 ETH</p>
+                            <p class="">$</p>
                         </td>
                     </tr>
                     <tr>
@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <td class="cart-text-2">Created Date</td>
-                        <td class="cart-text-2">{{product.created_at}}</td>
+                        <td class="cart-text-2">{{product.created_at|date:"M d, Y"}}</td>
                     </tr>
                 </table>
             </div>

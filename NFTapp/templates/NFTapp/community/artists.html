@@ -9,11 +9,11 @@
                     <th>Rank</th>
                     <th></th>
                     <th>Name</th>
+                    <th>Follower</th>
                     <th>Unique Collectors</th>
                     <th>Created</th>
                     <th>NFTs Sold</th>
-                    <th>Primary Sales</th>
-                    <th>Revenue</th>
+                    <th>Property</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,11 +28,11 @@
                     <td class="artist__name">
                       <a href="{% url 'profile' user.id %}">{{user.name}}</a>
                     </td>
+                    <td>{{user.follower_set.all|length}}</td>
                     <td>{{user.owners.all|length}}</td>
                     <td>{{user.author.all|length}}</td>
                     <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td>{{user.property}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -100,6 +100,12 @@ main {
     justify-content: space-between;
 }
 
+.flex_fdc_aic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .flex_fdc_aif {
     display: flex;
     flex-direction: column;
@@ -149,6 +155,23 @@ main {
     /* padding: 5px; */
     /* background-color: #c9ccd1; */
     object-fit: cover;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-style: normal;
+    border-radius: 23px;
+}
+
+.button:hover {
+    background-color: #17E3A6;
+    color: #000;
+    border-color: transparent;
 }
 
 .close-button {
