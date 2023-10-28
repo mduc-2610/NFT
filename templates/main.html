@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Common css -->
     <link rel="stylesheet" href="{% static 'styles/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
     <link rel="stylesheet" href="{% static 'styles/login_register.css' %}">
     <link rel="stylesheet" href="{% static 'styles/common.css' %}">
     <link rel="stylesheet" href="{% static 'styles/navbar.css' %}">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'styles/profile.css' %}">
     <link rel="stylesheet" href="{% static 'styles/user_behavior.css' %}">
     <link rel="stylesheet" href="{% static 'styles/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/cart_product_detail.css' %}">
     <link rel="stylesheet" href="{% static 'styles/profile_list/profile_list1.css' %}">
     <link rel="stylesheet" href="{% static 'styles/profile_list/profile_list2.css' %}">
     <link rel="stylesheet" href="{% static 'styles/subscribe/subscribe1.css' %}">
@@ -90,10 +92,11 @@
   {% include 'NFTapp/connect.html' %}
   <main>
     {%block content%}
-
     {% endblock content %}
+    {% if page != 'login' and page != 'register' %}
+      {% include 'NFTapp/cart.html' %}
+    {% endif %}
   </main>
-
   {% include 'footer.html' %}
 
   {% block scripts %}

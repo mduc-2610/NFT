@@ -123,21 +123,20 @@ class NFTProductFavorite(models.Model):
 
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="user_cart", on_delete=models.CASCADE)
     products = models.ManyToManyField(NFTProduct, related_name="products", through="CartItem")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
 
     def total_price(self):
         return sum(item.product.price for item in self.cart_items.all())
 
     def __str__(self):
-        return f"Cart for {self.owner}"
+        return f"Cart for {self.user}"
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey('Cart', related_name="cart_items", on_delete=models.CASCADE)
+    cart = models.ForeignKey('Cart', related_name="cart_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', on_delete=models.CASCADE)
 
     def __str__(self):

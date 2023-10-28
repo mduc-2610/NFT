@@ -15,6 +15,14 @@ def multiply(qty, unit_price):
 def filter_queryset(query_set, filter):
     return [query[filter] for query in query_set]
 
+@register.filter(name='total_price')
+def total_price(query_set):
+    return round(sum([item.price for item in query_set]), 3)
+
+@register.filter(name='eth_to_usd')
+def eth_to_usd(value):
+    return value * 1789;
+
 @register.filter(name='facebook_time')
 def facebook_time(value):
     if not value:

@@ -18,7 +18,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment
+                                VoteProductComment, VoteBlogComment, Follow, \
+                                Cart, CartItem
 from NFT.settings import MEDIA_ROOT
 
 from django.db.models import Count
@@ -152,13 +153,16 @@ def run():
     # print([1] + [2] + [3])
     # users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
     # print(users)
-    # user = User.objects.all()[5]
+    user = User.objects.all()[5]
     # [print(user) for user in user["follower_set"].all()]
     # print("________________________________________________________________")
     # [print(user) for user in user["following_set"].all()]
-    product = NFTProduct.objects.all()[6]
+    # product = NFTProduct.objects.all()[6]
     # [[print(vote) for vote in product.votes.all()] for product in product.product_comments.all()]
-    [print(vote.comment) for vote in product.product_comments.all()[2].product_comment_voted_by.all()]
-
+    # [print(vote.comment) for vote in product.product_comments.all()[2].product_comment_voted_by.all()]
+    cart = Cart.objects.get(user=user).cart_products.all()
+    
+    [print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]
+    print(len([print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]))
     # product_favorite_list = product.favorites_by.all()
     # [print(product) for product in product_favorite_list]

@@ -1,0 +1,46 @@
+<div class="container-cart-detail">
+    <div class="cart-detail">
+        <div class="cart-detail__head flex_aic_jcsb">
+            <p class="cart-text cart-detail__heading">This is an unreviewed collection</p>
+            <button class="cart-detail__close close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+            </button>
+        </div>
+        <div class="cart-detail__info">
+            <div class="cart-detail__table--wrap">
+                <table class="cart-detail__table">
+                    <tr>
+                        <td class="cart-text-2">Collection name</td>
+                        <td class=""><a href="{% url 'collection1' product.id %}" class="cart-text-2">{{product.name}}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="cart-text-2">Creator</td>
+                        <td class="cart-text-2">
+                            <a href="{% url 'profile' product.author.id %}" class="cart-detail__author">{{product.author.name}}</a>
+                            <p class="">{{product.author.date_joined|date:"M d, Y"}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cart-text-2">Total sales</td>
+                        <td class="cart-text-2">0</td>
+                    </tr>
+                    <tr>
+                        <td class="cart-text-2">Total volume</td>
+                        <td class="cart-text-2">
+                            <p class="">96ETH</p>
+                            <p class="">$170,760.63</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cart-text-2">Total items</td>
+                        <td class="cart-text-2">{{product.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td class="cart-text-2">Created Date</td>
+                        <td class="cart-text-2">{{product.created_at}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

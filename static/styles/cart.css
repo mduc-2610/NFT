@@ -1,8 +1,37 @@
+.cart-add {
+    position: fixed;
+    display: block;
+    bottom: 15px;  
+    right: 15px;
+    background: rgba(217, 217, 217, 0.25);
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.cart-add__svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cart-add:hover {
+    background-color: #17E3A6;
+}
+
+.cart-add:hover svg path {
+    fill: #000;
+}
+
+
 .container-cart {
+    display: none;
     background-color: #666;
-    width: 100%;
-    height: 100vw;
-    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 998;
 }
 
 .cart-icon-block {
@@ -17,8 +46,14 @@
 
 }
 
-.cart__inner {
-
+.cart {
+    position: absolute;
+    background-color: #212127;
+    border-radius: 12px;
+    top: 3%;
+    /* right: 2%; */
+    height: 100%;
+    width: 100%;
 }
 
 .cart-text {
@@ -67,8 +102,12 @@
     
 }
 
+.cart__clear:hover {
+    color: #17E3A6;
+}
+
 .cart-product__list {
-    max-height: 350px;
+    height: 370px;
     overflow-y: auto;
     /* display: flex;
     flex-direction: column;
@@ -76,7 +115,7 @@
 }
 
 .cart-product__item {
-    padding: 8px;
+    padding: 8px 16px 8px 8px;
 }
 
 .cart__product--wrap {
@@ -85,13 +124,13 @@
 }
 
 .cart-product__img--wrap {
-
 }
 
 .cart-product__img {
     width: 72px;
     height: 72px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .cart-product__info {
@@ -99,7 +138,10 @@
 }
 
 .cart-product__name {
-
+    background: linear-gradient(90deg, #20E2A7 10%, #77DCCE 17.55%, #6FC7F2 43.51%, #A0A1ED 34.87%, #FE5CD6 74.52%, #FF669F 34.95%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .cart-product__topic {
@@ -161,7 +203,7 @@
 .cart__buy-button {
     width: 100%;
     color: #000;
-    font-size: 2rem;
+    font-size: 1.8rem;
     padding: 12px 24px;
     font-weight: 600;
     background-color: #17E3A6;
@@ -170,4 +212,23 @@
 
 .cart__buy-button:hover {
     opacity: 0.8;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .cart-add {
+        bottom: 30px;  
+        right: 30px;
+    }
+
+    .cart-add__svg {
+        width: 30px;
+        height: 30px;
+    }    
+    
+    .cart {
+        right: 2%;
+        width: 400px;
+        max-height: 100%;
+    }
 }

@@ -11,7 +11,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment, Follow
+                                VoteProductComment, VoteBlogComment, Follow, \
+                                Cart, CartItem
 fake = Faker()
 
 def run():
@@ -337,7 +338,8 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             }
             # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
             product_comment_vote = VoteProductComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} likes the product comment with uuid {data['comment'].id}")
+            print(f"\tUser with uuid {data['user'].id} likes the product comment with id {data['comment'].id}")
+    
     # Load ramdom user like blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER LIKE BLOG COMMENT:")
@@ -351,5 +353,33 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             }
             # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
             blog_comment_vote = VoteBlogComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} likes the blog comment with uuid {data['comment'].id}")
+            print(f"\tUser with uuid {data['user'].id} likes the blog comment with id {data['comment'].id}")
+    
+    # Load owner of a cart
+    print("----------------------------------------------------------------")
+    print("OWNER OF A CART:")
+    cart_obj_list = []
+    for user in user_obj_list:
+        data = {
+            "user": user
+        }
+        # cart_obj, _ = Cart.objects.get_or_create(**data)
+        cart_obj = Cart.objects.create(**data)
+        cart_obj_list.append(cart_obj)
+        print(f"\tCart belongs to {cart_obj.user.name}")
+
+    # Load cart product in a cart
+    print("----------------------------------------------------------------")
+    print("CART PRODUCT IN A CART:")
+    for cart in cart_obj_list:
+        tmp_list = nft_product_obj_list.copy()
+        for i in range(random.randint(0, 30)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "cart": cart,
+                "product": random_data
+            }
+            # cart_item, _ = CartItem.objects.get_or_create(**data)
+            cart_item = CartItem.objects.create(**data)
+            print(f"\tCart from {cart_item.cart.user.name} has {cart_item.product.name}")
     

@@ -150,6 +150,11 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+.comment__vote-text:hover {
+    color: #17E3A6;
+}
+
 .comment__vote--wrap svg {
     width: 22px;
     height: 22px;

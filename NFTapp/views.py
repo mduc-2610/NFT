@@ -11,7 +11,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment
+                                VoteProductComment, VoteBlogComment, Follow, \
+                                Cart, CartItem
 
 from .forms import MyUserCreationForm
 from django.db.models import Count
@@ -40,8 +41,9 @@ def loginPage(request):
             return redirect('home1')
         else:
             messages.error(request, 'Username or password is incorrect')
-    
-    context = {'page': page}
+    context = {
+        'page': page,
+    }
     return render(request, 'NFTapp/login_register.html', context)
 
 
@@ -51,6 +53,7 @@ def logoutUser(request):
 
 
 def registerPage(request):
+    page = 'register'
     form = MyUserCreationForm()
 
     if request.method == 'POST':
@@ -63,13 +66,19 @@ def registerPage(request):
             return redirect('home1')
         else:
             messages.error(request, 'An error occurred during registration')
-
-    return render(request, 'NFTapp/login_register.html', {'form': form})
+    context = {
+        'page': page,
+        'form': form
+    }
+    return render(request, 'NFTapp/login_register.html', context)
 
 @add_search_data
 def home1(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
+    cart_products = []
+    if request.user.is_authenticated:
+        cart_products = Cart.objects.get(user=request.user).products.all()
 
     users = User.objects.filter(is_superuser=0)
     title = FAQTitle.objects.get(title='Enjin')
@@ -86,7 +95,8 @@ def home1(request):
         'comments': comments,
         'topic': topic,
         'search_data': request.search_data,
-        'user__1': request.user 
+        'user__1': request.user,  
+        'cart_products': cart_products
     }
     return render(request, 'NFTapp/home/home1.html', context)
 
