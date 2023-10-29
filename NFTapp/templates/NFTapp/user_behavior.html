@@ -41,12 +41,13 @@
                     </form>
                     {% endif %}
                 </div>
+                <div class="get_behavior_id" style="display: none;">{{behavior.id}}</div>
             </li>
             {% endif %}
             {% endfor %}
         </ul>    
     </div>
-    <div class="to_get_variable" style="display: none;">{{behavior_of_user|lower}}</div>
+    <div class="get_behavior_of_user" style="display: none;">{{behavior_of_user|lower}}</div>
 </div>
 
 <script>

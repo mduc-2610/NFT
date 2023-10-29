@@ -74,7 +74,7 @@ def registerPage(request):
     return render(request, 'NFTapp/login_register.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def home1(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
@@ -87,7 +87,7 @@ def home1(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'blogs': blogs,
         'products': products,
         'users': users,
@@ -96,12 +96,11 @@ def home1(request):
         'topic': topic,
         'search_data': request.search_data,
         'user__1': request.user,  
-        'cart_products': request.cart_products
     }
     return render(request, 'NFTapp/home/home1.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def home2(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
@@ -113,7 +112,7 @@ def home2(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'blogs': blogs,
         'products': products,
         'users': users,
@@ -125,7 +124,7 @@ def home2(request):
     return render(request, 'NFTapp/home/home2.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def home3(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
@@ -137,7 +136,7 @@ def home3(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blogs': blogs,
         'products': products,
@@ -150,7 +149,7 @@ def home3(request):
 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def home4(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
@@ -162,7 +161,7 @@ def home4(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blogs': blogs,
         'products': products,
@@ -175,7 +174,7 @@ def home4(request):
 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def home5(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
@@ -187,7 +186,7 @@ def home5(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blogs': blogs,
         'products': products,
@@ -199,12 +198,12 @@ def home5(request):
     return render(request, 'NFTapp/home/home5.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection1(request):
     products = NFTProduct.objects.all()
     data = request.GET.get('filter', 'trending')
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': classify_1(request.GET.get('sort-by', 'trending'), products)
     }
@@ -212,7 +211,7 @@ def collection1(request):
 
 @login_required(login_url='login')
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
     users = User.objects.filter(is_superuser=0)    
@@ -251,7 +250,7 @@ def collection_detail_1(request, pk):
             product_comment = ProductComment.objects.create(**data)
             # return redirect('collection1', pk=product.id)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'product': product,
         'comments': comments,
@@ -265,44 +264,44 @@ def collection_detail_1(request, pk):
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection2(request):
     products = NFTProduct.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection2.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection3(request):
     products = NFTProduct.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection3.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection4(request):
     products = NFTProduct.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
     return render(request, 'NFTapp/explore/collection/collection4.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def collection5(request):
     products = NFTProduct.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': classify_1(request.GET.get('filter', 'trending'), products)
     }
@@ -310,7 +309,7 @@ def collection5(request):
 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artworks1(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.filter(type_product__name='artworks')
@@ -320,7 +319,7 @@ def artworks1(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
@@ -330,7 +329,7 @@ def artworks1(request):
     return render(request, 'NFTapp/explore/artworks/artworks1.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artworks2(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.filter(type_product__name='artworks')
@@ -340,7 +339,7 @@ def artworks2(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
@@ -350,7 +349,7 @@ def artworks2(request):
     return render(request, 'NFTapp/explore/artworks/artworks2.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artworks3(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.filter(type_product__name='artworks')
@@ -360,7 +359,7 @@ def artworks3(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
@@ -370,7 +369,7 @@ def artworks3(request):
     return render(request, 'NFTapp/explore/artworks/artworks3.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artworks4(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.filter(type_product__name='artworks')
@@ -380,7 +379,7 @@ def artworks4(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
@@ -390,7 +389,7 @@ def artworks4(request):
     return render(request, 'NFTapp/explore/artworks/artworks4.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artworks5(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.filter(type_product__name='artworks')
@@ -400,7 +399,7 @@ def artworks5(request):
         if user.author.all().count():
             authors.append(user)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'authors': authors,
         'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
@@ -411,7 +410,7 @@ def artworks5(request):
 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def about_us1(request):
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
@@ -421,7 +420,7 @@ def about_us1(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'products': products,
         'users': users,
@@ -431,12 +430,12 @@ def about_us1(request):
     return render(request, 'NFTapp/community/about_us/about_us1.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def about_us2(request):
     titles = FAQTitle.objects.all()
     users = User.objects.filter(is_superuser=0)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'titles': titles,
         'users': users,
@@ -444,12 +443,12 @@ def about_us2(request):
     return render(request, 'NFTapp/community/about_us/about_us2.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def about_us3(request):
     titles = FAQTitle.objects.all()
     users = User.objects.filter(is_superuser=0)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'titles': titles,
         'users': users,
@@ -458,7 +457,7 @@ def about_us3(request):
 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def about_us4(request):
     comments = []
     topic = 'Alternate Medium Space'
@@ -466,7 +465,7 @@ def about_us4(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'comments': comments,
         'topic': topic
@@ -474,28 +473,28 @@ def about_us4(request):
     return render(request, 'NFTapp/community/about_us/about_us4.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def about_us5(request):
     return render(request, 'NFTapp/community/about_us/about_us5.html', {})
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def artists(request):
     users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'users': users
     } 
     return render(request, 'NFTapp/community/artists.html', context) 
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def editorial(request):
     users = User.objects.filter(is_superuser=0)
     products = NFTProduct.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'users': users,
         'products': products
@@ -503,40 +502,40 @@ def editorial(request):
     return render(request, 'NFTapp/community/editorial.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def FAQs1(request):
     titles = FAQTitle.objects.all()
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'titles': titles
     }
     return render(request, 'NFTapp/community/FAQs/FAQs1.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def FAQs2(request):
     return render(request, 'NFTapp/community/FAQs/FAQs2.html', {})
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def FAQs3(request):
     return render(request, 'NFTapp/community/FAQs/FAQs3.html', {})
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def FAQs4(request):
     return render(request, 'NFTapp/community/FAQs/FAQs4.html', {})
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def FAQs5(request):
     return render(request, 'NFTapp/community/FAQs/FAQs5.html', {})
 
 
 blogs = NFTBlog.objects.all().order_by('image')
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def blog(request):
     blogs_context = cal_times_to_read(blogs)
     products = NFTProduct.objects.all()
@@ -547,7 +546,7 @@ def blog(request):
         for comment in product.product_comments.all():      
             comments.append(comment)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blogs': blogs_context,
         'products': products,
@@ -560,7 +559,7 @@ def blog(request):
 average_wpm = 238
 @login_required(login_url='/login')
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def blog_detail(request, pk):
 
     blog_detail = NFTBlog.objects.get(pk=pk)
@@ -580,7 +579,7 @@ def blog_detail(request, pk):
         }
         blog_comment = BlogComment.objects.create(**data)
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blog_detail': [blog_detail, times_to_read],
         'blog_more': blog_more_context,
@@ -589,15 +588,15 @@ def blog_detail(request, pk):
     return render(request, 'NFTapp/blog/blog_detail.html', context)
 
 @add_search_data
-@add_cart_data
+# @add_cart_data
 def profile(request, pk):
     user = User.objects.get(pk=pk)
     profile_user_follower = user.follower_set.all()
     profile_user_followee = user.following_set.all()
     if request.method == 'POST':
         action = request.POST.get('action')
-        state = ""
         if action == 'follow':
+            state = ""
             user_follow_id = request.POST.get('user_follow_id')
             request_user_following = request.user.following_set.all()
             request_user_follow = None
@@ -617,29 +616,27 @@ def profile(request, pk):
                     'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
                 })
         elif action == 'list_follow':
+            state = ""
             user_follow_id = request.POST.get('user_follow_id')
-            # user_target = User.objects.get(id=user_follow_id)
-            # request_user_following = request.user.following_set.all()
-            # request_user_follow = None
-            # if user not in [follow.followee for follow in request_user_following]: 
-            #     request_user_follow = Follow.objects.create(follower=request.user, followee=user)
-            #     # request_user_following.add(user)
-            #     state = "follow"
-            # else:
-            #     request_user_follow = Follow.objects.get(follower=request.user, followee=user)
-            #     Follow.objects.get(follower=request.user, followee=user).delete()
-            #     # request_user_following.remove(user)
-            #     state = "unfollow"
-            # return JsonResponse({
-            #         'action': action,
-            #         'state': state,
-            #         'user_follow_id': user_follow_id,
-            #         'number_follower': len(user.follower_set.all()),
-            #         # 'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
-            #     })
+            user_target = User.objects.get(id=user_follow_id)
+            request_user_following = request.user.following_set.all()
+            if user_target not in [follow.followee for follow in request_user_following]: 
+                request_user_follow = Follow.objects.create(follower=request.user, followee=user_target)
+                state = "follow"
+            else:
+                # request_user_follow = Follow.objects.get(follower=request.user, followee=user_target)
+                Follow.objects.get(follower=request.user, followee=user_target).delete()
+                state = "unfollow"
+            return JsonResponse({
+                    'action': action,
+                    'state': state,
+                    'user_follow_id': user_follow_id,
+                    # 'number_follower': len(user.follower_set.all()),
+                    # 'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
+                })
 
     context = {
-        'cart_products': request.cart_products,
+        # 'cart_products': request.cart_products,
         'search_data': request.search_data,
         'user': user,
         'profile_user_follower': profile_user_follower,
