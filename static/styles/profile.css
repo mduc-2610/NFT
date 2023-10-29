@@ -91,29 +91,6 @@
     letter-spacing: 0px;
 }
 
-.profile__follow-button--wrap {
-
-}
-
-.profile__follow-button {
-    gap: 5px;
-    padding: 10px 20px;
-    border-radius: 19px;
-    background: #17E3A6;
-    color: #000;
-    /* font-family: Aeonik; */
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1; /* 100% */
-    text-transform: capitalize;
-}
-
-.profile__follow-button:hover {
-    opacity: 0.8;
-    color: #000;
-}
-
 .profile__joined-day {
     margin: 15px 0;
     color: #CFCFCF;

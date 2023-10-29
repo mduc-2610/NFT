@@ -136,16 +136,16 @@
 
 {% for comment in comments %}
 <div class="product-user-comment{{comment.id}}" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior="Voted by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Voted by" %}
 </div>
 {% endfor %}
 
 <div class="product-user-favorite" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior="Favorited by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior_of_user="Favorited by" %}
 </div>
 
 <div class="product-user-owned" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list filter="user" behavior_container="container_owner" behavior="Owned by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list filter="user" behavior_container="container_owner" behavior_of_user="Owned by" %}
 </div>
 
 <div class="gap-between-section"></div>

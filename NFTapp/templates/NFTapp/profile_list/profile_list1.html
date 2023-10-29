@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_custom_tags %}
 <div class="container">
     <h2 class="our-artist">Our artists</h2>
 </div>
@@ -23,12 +24,29 @@
                                 @{{user.name}}
                             </a>
                         </h3>
-                        <a href="" class="profile-list__follow-1 flex_aic_jcc">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
-                                </svg>
-                            Follow
-                        </a>
+                        {% if user.id != request.user.id %}
+                            <div class="follow-button-wrap">
+                                {% if request.user not in user.follower_set.all|filter_queryset:"follower" %}
+                                    <form method="POST" action="">
+                                        {% csrf_token %}
+                                        <button type="submit" class="follow-button flex_aic_jcc">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                                <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                            </svg>
+                                            Follow
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="">
+                                        {% csrf_token %}
+                                        <button type="submit" class="unfollow-button flex_aic_jcc">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                            Unfollow
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                     <ul class="profile-list__contribute-all-1 flex_aic_jcc">
                         <li class="profile-list__contribute-1">

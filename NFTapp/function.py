@@ -6,7 +6,8 @@ from django.db.models import Count
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle, NFTProductFavorite
+                                FAQ, FAQTitle, NFTProductFavorite, \
+                                Cart, CartItem
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -97,4 +98,11 @@ def add_search_data(view_func):
         request.search_data = sorted(search_data, key=lambda x : x['name'])
         return view_func(request, *args, **kwargs)
 
+    return wrapper
+
+def add_cart_data(view_func):
+    def wrapper(request, *args, **kwargs):
+        cart_products = Cart.objects.get(user=request.user).products.all()
+        request.cart_products = cart_products
+        return view_func(request, *args, **kwargs)
     return wrapper

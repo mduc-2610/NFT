@@ -162,7 +162,11 @@ def run():
     # [print(vote.comment) for vote in product.product_comments.all()[2].product_comment_voted_by.all()]
     cart = Cart.objects.get(user=user).cart_products.all()
     
-    [print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]
-    print(len([print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]))
+    # [print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]
+    # print(len([print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]))
     # product_favorite_list = product.favorites_by.all()
     # [print(product) for product in product_favorite_list]
+
+    user__ = User.objects.get(id="233c3b24-01b5-4716-bb95-5866bf516831")
+    # print(user__.id, end="\n\n\n")
+    [print(user.follower.id) for user in user__.follower_set.all()]

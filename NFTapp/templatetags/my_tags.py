@@ -19,6 +19,11 @@ def filter_queryset(query_set, filter):
 def total_price(query_set):
     return round(sum([item.price for item in query_set]), 3)
 
+@register.filter(name='append')
+def append(query_set, eleemnt):
+    query_set = list(query_set).append(eleemnt)
+    return query_set
+
 @register.filter(name='eth_to_usd')
 def eth_to_usd(value):
     return value * 1789;

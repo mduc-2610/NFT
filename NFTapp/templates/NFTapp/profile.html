@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load my_custom_tags %}
 {% block content %}
 <div class="profile">
     <div class="profile__picture">
@@ -13,10 +14,10 @@
             </div>
             <div class="profile__follow flex_aic_jcc">
                 <div class="profile__follow--wrap flex_fdc_aif">
-                    <button class="profile__follow-value">{{user.follower_set.all|length}}</button>
+                    <button class="profile__follow-value profile__follower-value">{{user.follower_set.all|length}}</button>
                     <p class="profile__follow-key">Follower</p>
                 </div>
-                <div class="profile__follow--wrap flex_fdc_aif">
+                <div class="profile__follow--wrap profile__followee-value flex_fdc_aif">
                     <button class="profile__follow-value">{{user.following_set.all|length}}</button>
                     <p class="profile__follow-key">Follow</p>
                 </div>
@@ -24,14 +25,24 @@
             <div class="profile__name--wrap flex_aic_jcc">
                 <h1 class="profile__name">@{{user.name}}</h1>
                 {% if user.id != request.user.id %}
-                <div class="profile__follow-button--wrap">
-                    <a href="" class="profile__follow-button flex_aic_jcc">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                            <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
-                        </svg>
-                        Follow
-                    </a>
-                </div>
+                    <form method="POST" action="" class="profile follow-button-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="follow">
+                        {% if request.user not in user.follower_set.all|filter_queryset:"follower" %}     
+                           <button type="submit" class="follow-button flex_aic_jcc">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                    <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                </svg>
+                                Follow
+                            </button>
+                        {% else %}
+                            <button type="submit" class="unfollow-button flex_aic_jcc">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                Unfollow
+                            </button>
+                        {% endif %}
+                    </form>
+                
                 {% endif %}
             </div>
             <p class="profile__joined-day">{{user.date_joined|date:"M d, Y"}}</p>
@@ -92,11 +103,11 @@
 </div>
 
 <div class="profile-user-follower" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower filter="follower" behavior="Follower" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower filter="follower" behavior_of_user="Follower" %}
 </div>
 
 <div class="profile-user-followee" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee filter="followee" behavior="Follow" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee filter="followee" behavior_of_user="Follow" %}
 </div>
 
 {% endblock content %}
@@ -169,6 +180,76 @@
     }
     
 })
+
+    var jqry = document.createElement('script')
+    jqry.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+    jqry.setAttribute('type', 'text/javascript');
+    document.head.appendChild(jqry)
+
+    jqry.onload = function() {
+        $('.follow-button-form').submit((e) => {
+        // document.querySelector('.follow-button-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = '{{user|escapejs}}';
+            const user_id = '{{user.id|escapejs}}';
+            $.ajax({
+                type: "POST",
+                // url: `/profile/${user_id}`,
+                data: {
+                    'user_follow': user,
+                    'user_follow_id': user_id,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'action': 'follow', 
+                },
+                success: function(response) {
+                    console.log('success', response);
+
+                    // console.log(response['profile_user_follower']);
+                    $('.profile__follower-value').text(`${response['number_follower']}`);
+                    if(response['state'] == 'unfollow') {
+                        
+                        $('.profile.follow-button-form').html(``);
+                        $('.profile.follow-button-form').html(`
+                        <input type="hidden" name="action" value="follow">
+                        {% csrf_token %}
+                        <button type="submit" class="follow-button flex_aic_jcc">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                             <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                         </svg>
+                         Follow
+                    </button>`);
+                    }
+                    else {
+                        $('.profile.follow-button-form').html(``);
+                        $('.profile.follow-button-form').html(`
+                        <input type="hidden" name="action" value="follow">
+                        {% csrf_token %}
+                        <button type="submit" class="unfollow-button flex_aic_jcc">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                         Unfollow
+                    </button>`);
+                    $('.follower.user-behavior__list')
+                    // $('.follower.user-behavior__list').html(``);
+        //             $('.follower.user-behavior__list').html(`
+           
+        // `);
+
+
+
+
+
+
+
+
+                    }
+                    // Update the button or handle the response as needed
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('error', jqXHR, textStatus, errorThrown);
+                }
+            });
+        });
+    }
   </script>
 {% endblock scripts %}
 

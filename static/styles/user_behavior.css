@@ -32,7 +32,7 @@
 }
 
 .user-behavior__list {
-    max-height: 385px;
+    height: 340px;
     overflow-y: auto;
 }
 
@@ -86,27 +86,12 @@
     text-overflow: clip;
 }
 
-.user-behavior-person__follow {
-    gap: 5px;
-    padding: 10px 18px;
-    border-radius: 19px;
-    background: #17E3A6;
-    color: #000;
-    /* font-family: Aeonik; */
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1; /* 100% */
-    text-transform: capitalize;
-}
-
-.user-behavior-person__follow:hover {
-    opacity: 0.8;
-    color: #000;
-}
 
 @media only screen and (min-width: 768px) {
-
+    .user-behavior__list {
+        height: 385px;
+    }
+    
     .user-behavior-person__name {
         font-size: 1.8rem;
     }
@@ -114,11 +99,5 @@
     .user-behavior-person__id {
         font-size: 1.6rem;
     }
-    
-    .user-behavior-person__follow {
-        padding: 10px 26px;
-        /* font-family: Aeonik; */
-        font-size: 1.7rem;
-    }
-    
+        
 }

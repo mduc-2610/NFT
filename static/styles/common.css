@@ -192,6 +192,40 @@ main {
     fill: #17E3A6;
 }
 
+.follow-button-text {
+    
+}
+
+.follow-button {
+    gap: 5px;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 19px;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+    background-color: #17E3A6;
+}
+
+.unfollow-button {
+    gap: 5px;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 19px;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+    background-color: #FDFDFD;
+}
+
+.follow-button-text:hover,
+.unfollow-button-text:hover {
+    opacity: 0.8;
+}
 
 .show {
     display: block;
@@ -225,4 +259,13 @@ main {
         height: 45px;
         width: 45px;
     }
+
+    .follow-button {
+        padding: 12px 24px;
+    }
+    
+    .unfollow-button {
+        padding: 12px 24px;
+    }
+    
 }

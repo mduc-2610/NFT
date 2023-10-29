@@ -2,13 +2,13 @@
 <div class="container-user-behavior flex_aic_jcc {{behavior_container}}">
     <div class="user-behavior">
         <div class="user-behavior__head flex_aic_jcc">
-            <p class="user-behavior__by">{{behavior}}</p>
+            <p class="user-behavior__by">{{behavior_of_user}}</p>
             <button class="user-behavior__close close-button">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
             </button>
         </div>
         
-        <ul class="user-behavior__list scroll">
+        <ul class="{{behavior_of_user|lower}} user-behavior__list scroll">
             {% for behavior in user_behavior_list|filter_queryset:filter %}
             {% if forloop.counter <= user_behavior_list|length %}
             <li class="user-behavior__item flex_aic_jcc">
@@ -22,14 +22,24 @@
                             <a href="{% url 'profile' behavior.id %}" class="user-behavior-person__id">{{behavior.id|limit_length_id:"6: 4"}}</a>
                         </div>
                     </div>
-                    <div class="user-behavior-person">
-                        <a href="" class="user-behavior-person__follow flex_aic_jcc">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+            
+                    <form method="POST" action="" class="{{behavior_of_user|lower}} follow-button-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="follow">
+                        {% if behavior not in request.user.following_set.all|filter_queryset:"followee" %}
+                            <button type="submit" class="follow-button flex_aic_jcc">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                    <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
                                 </svg>
-                            Follow
-                        </a>
-                    </div>
+                                Follow
+                            </button>
+                            {% else %}
+                            <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                Unfollow
+                            </button>
+                            {% endif %}
+                    </form>
                 
                 </div>
             </li>
@@ -60,6 +70,6 @@
     // userBehaviorBlock.onclick = (e) => {
     //     e.stopPropagation();
     // }
-    
+   
     
 </script>
