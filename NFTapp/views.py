@@ -594,8 +594,6 @@ def profile(request, pk):
     user = User.objects.get(pk=pk)
     profile_user_follower = user.follower_set.all()
     profile_user_followee = user.following_set.all()
-    profile_user_follower_list = list(user.follower_set.all())
-    profile_user_followee_list = list(user.following_set.all())
     if request.method == 'POST':
         action = request.POST.get('action')
         state = ""
@@ -604,32 +602,47 @@ def profile(request, pk):
             request_user_following = request.user.following_set.all()
             request_user_follow = None
             if user not in [follow.followee for follow in request_user_following]: 
-            # if user_follow_id not in [user.followee for user in request_user_following]: 
                 request_user_follow = Follow.objects.create(follower=request.user, followee=user)
-                profile_user_follower_list.append(request_user_follow)
                 # request_user_following.add(user)
                 state = "follow"
             else:
                 request_user_follow = Follow.objects.get(follower=request.user, followee=user)
-                profile_user_follower_list.remove(request_user_follow)
                 Follow.objects.get(follower=request.user, followee=user).delete()
                 # request_user_following.remove(user)
                 state = "unfollow"
-        
-        return JsonResponse({
-                'csrfmiddlewaretoken': request.POST.get('csrfmiddlewaretoken'),
-                'action': request.POST.get('action'),
-                'state': state,
-                'user_follow_id': user_follow_id,
-                'number_follower': len(user.follower_set.all()),
-                'profile_user_follower': serializers.serialize("json", profile_user_follower_list),
-            })
+            return JsonResponse({
+                    'state': state,
+                    'user_follow_id': user_follow_id,
+                    'number_follower': len(user.follower_set.all()),
+                    'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
+                })
+        elif action == 'list_follow':
+            user_follow_id = request.POST.get('user_follow_id')
+            # user_target = User.objects.get(id=user_follow_id)
+            # request_user_following = request.user.following_set.all()
+            # request_user_follow = None
+            # if user not in [follow.followee for follow in request_user_following]: 
+            #     request_user_follow = Follow.objects.create(follower=request.user, followee=user)
+            #     # request_user_following.add(user)
+            #     state = "follow"
+            # else:
+            #     request_user_follow = Follow.objects.get(follower=request.user, followee=user)
+            #     Follow.objects.get(follower=request.user, followee=user).delete()
+            #     # request_user_following.remove(user)
+            #     state = "unfollow"
+            # return JsonResponse({
+            #         'action': action,
+            #         'state': state,
+            #         'user_follow_id': user_follow_id,
+            #         'number_follower': len(user.follower_set.all()),
+            #         # 'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
+            #     })
 
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
         'user': user,
-        'profile_user_follower': profile_user_follower_list,
+        'profile_user_follower': profile_user_follower,
         'profile_user_followee': profile_user_followee,
     }
     product_filter = request.GET.get('filter', 'collected')

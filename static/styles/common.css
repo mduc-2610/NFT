@@ -222,9 +222,9 @@ main {
     background-color: #FDFDFD;
 }
 
-.follow-button-text:hover,
-.unfollow-button-text:hover {
-    opacity: 0.8;
+.follow-button:hover,
+.unfollow-button:hover {
+    opacity: 0.9;
 }
 
 .show {
