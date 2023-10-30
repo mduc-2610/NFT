@@ -356,8 +356,9 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 "user": user,
                 "comment": random_data
             }
-            # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
-            product_comment_vote = DisvoteProductComment.objects.create(**data)
+            if not VoteProductComment.objects.filter(user=user, comment=random_data).exists():
+                # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
+                product_comment_vote = DisvoteProductComment.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")
     
 
@@ -387,8 +388,9 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 "user": user,
                 "comment": random_data
             }
-            # blog_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
-            blog_comment_vote = DisvoteBlogComment.objects.create(**data)
+            if not VoteBlogComment.objects.filter(user=user, comment=random_data).exists():
+                # blog_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
+                blog_comment_vote = DisvoteBlogComment.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} disvotes the blog comment with id {data['comment'].id}")
 
     # Load owner of a cart

@@ -181,27 +181,17 @@
         }
     });
     
-    const commentVoteText = document.querySelectorAll('.comment__vote-text');
-    commentVoteText.forEach(element => {
+    const commentUpvoteNumber = document.querySelectorAll('.comment__upvote-number');
+    commentUpvoteNumber.forEach(element => {
         element.onclick = (e) => {
-            // const commentId = element.classList[1];
-            // const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
-            // if (productUserComment) {
-            //     productUserComment.style.display = 'block';
-            // 
             element.nextElementSibling.style.display = 'block';
         }
         }
     );
 
-    const commentDisvoteText = document.querySelectorAll('.comment__disvote-text');
-    commentDisvoteText.forEach(element => {
+    const commentDisvoteNumber = document.querySelectorAll('.comment__downvote-number');
+    commentDisvoteNumber.forEach(element => {
         element.onclick = (e) => {
-            // const commentId = element.classList[1];
-            // const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
-            // if (productUserComment) {
-            //     productUserComment.style.display = 'block';
-            // }
             element.nextElementSibling.style.display = 'block';
         }
     });

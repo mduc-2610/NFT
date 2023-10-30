@@ -154,20 +154,25 @@ def run():
     # print([1] + [2] + [3])
     # users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
     # print(users)
-    user = User.objects.all()[5]
+    # user = User.objects.all()[5]
     # [print(user) for user in user["follower_set"].all()]
     # print("________________________________________________________________")
     # [print(user) for user in user["following_set"].all()]
     # product = NFTProduct.objects.all()[6]
     # [[print(vote) for vote in product.votes.all()] for product in product.product_comments.all()]
     # [print(vote.comment) for vote in product.product_comments.all()[2].product_comment_voted_by.all()]
-    cart = Cart.objects.get(user=user).cart_products.all()
+    # cart = Cart.objects.get(user=user).cart_products.all()
     
     # [print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]
     # print(len([print(product) for product in Cart.objects.get(user=User.objects.get(id="17514970-75fa-4586-9781-7de6460c15b2")).products.all()]))
     # product_favorite_list = product.favorites_by.all()
     # [print(product) for product in product_favorite_list]
 
-    user__ = User.objects.get(id="233c3b24-01b5-4716-bb95-5866bf516831")
-    # print(user__.id, end="\n\n\n")
-    [print(user.follower.id) for user in user__.follower_set.all()]
+    # user__ = User.objects.get(id="233c3b24-01b5-4716-bb95-5866bf516831")
+    # # print(user__.id, end="\n\n\n")
+    # [print(user.follower.id) for user in user__.follower_set.all()]
+
+    product_comment = ProductComment.objects.get(id="3245")
+    [print(user) for user in product_comment.votes.all()]
+    # print(VoteProductComment.objects.get(user=User.objects.get(id="1380fd40-aac0-4a10-94ff-54dac9e0b623"), comment=ProductComment.objects.get(id='3242')))
+    

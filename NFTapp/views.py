@@ -214,6 +214,7 @@ def collection1(request):
 @login_required(login_url='login')
 @add_search_data
 @add_cart_data
+@csrf_exempt
 def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
     users = User.objects.filter(is_superuser=0)    
@@ -250,6 +251,53 @@ def collection_detail_1(request, pk):
                 'product': product,
             }
             product_comment = ProductComment.objects.create(**data)
+        
+        elif action == 'upvote': 
+            state = ""
+            state2 = ""
+            comment_id = request.POST.get('comment_id') 
+            comment = ProductComment.objects.get(id=comment_id)
+            user_vote_list = list(comment.votes.all())
+            if request.user not in user_vote_list:
+                if DisvoteProductComment.objects.filter(user=request.user, comment=comment).exists():
+                    DisvoteProductComment.objects.get(user=request.user, comment=comment).delete()
+                    state2 = "deactivate_downvote"
+                VoteProductComment.objects.create(user=request.user, comment=comment)
+                state = "activate_upvote"
+            else:
+                VoteProductComment.objects.get(user=request.user, comment=comment).delete()
+                state = "deactivate_upvote"
+
+            return JsonResponse({
+                'state': state,
+                'state2': state2,
+                'number_upvotes': len(comment.votes.all()),
+                'user_upvote': serializers.serialize('json', [request.user, ])
+            })
+        
+        elif action == 'downvote': 
+            state = ""
+            state2 = ""
+            comment_id = request.POST.get('comment_id') 
+            comment = ProductComment.objects.get(id=comment_id)
+            user_disvote_list = list(comment.disvotes.all())
+            if request.user not in user_disvote_list:
+                if VoteProductComment.objects.filter(user=request.user, comment=comment).exists():
+                    VoteProductComment.objects.get(user=request.user, comment=comment).delete()
+                    state2 = "deactivate_upvote"
+                DisvoteProductComment.objects.create(user=request.user, comment=comment)
+                state = "activate_downvote"
+            else:
+                DisvoteProductComment.objects.get(user=request.user, comment=comment).delete()
+                state = "deactivate_downvote"
+
+            return JsonResponse({
+                'state': state,
+                'state2': state2,
+                'number_downvotes': len(comment.disvotes.all()),
+                'user_downvote': serializers.serialize('json', [request.user, ])
+            })
+
             # return redirect('collection1', pk=product.id)
     context = {
         'cart_products': request.cart_products,

@@ -187,13 +187,8 @@
     }
     
 })
-
-    var jqry = document.createElement('script')
-    jqry.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
-    jqry.setAttribute('type', 'text/javascript');
-    document.head.appendChild(jqry)
-
-    jqry.onload = function() {
+  
+    $( document ).ready(function() {
         $('.profile.follow-button-form').submit((e) => {
             e.preventDefault();
             const user = '{{user|escapejs}}';
@@ -429,7 +424,8 @@
                 }
             });
         });
-      }
+    });
+      
   </script>
 {% endblock scripts %}
 
