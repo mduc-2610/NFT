@@ -102,7 +102,9 @@ def add_search_data(view_func):
 
 def add_cart_data(view_func):
     def wrapper(request, *args, **kwargs):
-        cart_products = Cart.objects.get(user=request.user).products.all()
-        request.cart_products = cart_products
+        request.cart_products = None
+        if request.user.is_authenticated:
+            cart_products = Cart.objects.get(user=request.user).products.all()
+            request.cart_products = cart_products
         return view_func(request, *args, **kwargs)
     return wrapper
