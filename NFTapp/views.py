@@ -293,7 +293,7 @@ def collection_detail_1(request, pk):
 
             return JsonResponse({
                 'state': state,
-                'state2': state2,
+                'state2': state,
                 'number_downvotes': len(comment.disvotes.all()),
                 'user_downvote': serializers.serialize('json', [request.user, ])
             })

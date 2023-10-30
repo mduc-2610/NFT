@@ -10,7 +10,7 @@
         <ul class="{{behavior_of_user|lower}} {{behavior_of_user_for_ajax}} user-behavior__list scroll">
             {% for behavior in user_behavior_list|filter_queryset:filter %}
             {% if forloop.counter <= user_behavior_list|length %}
-            <li class="user-behavior__item {{behavior.id}} flex_aic_jcc">
+            <li class="user-behavior__item {{behavior.name}} flex_aic_jcc">
                 <div class="user-behavior__info">
                     <a href="{% url 'profile' behavior.id %}" class="avatar-wrap user-behavior-person__avt-link">
                         <img src="{{behavior.avatar}}" alt="" class="user-behavior-person__avt avatar">
