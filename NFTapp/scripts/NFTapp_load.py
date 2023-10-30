@@ -53,6 +53,7 @@ def run():
     print("FOLLOWER:")
     for user in user_obj_list:
         tmp_list = user_obj_list.copy()
+        tmp_list.remove(user)
         for i in range(random.randint(0, 23)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
