@@ -10,7 +10,7 @@
         <ul class="{{behavior_of_user|lower}} user-behavior__list scroll">
             {% for behavior in user_behavior_list|filter_queryset:filter %}
             {% if forloop.counter <= user_behavior_list|length %}
-            <li class="user-behavior__item flex_aic_jcc">
+            <li class="user-behavior__item {{behavior.id}} flex_aic_jcc">
                 <div class="user-behavior__info">
                     <a href="{% url 'profile' behavior.id %}" class="avatar-wrap user-behavior-person__avt-link">
                         <img src="{{behavior.avatar}}" alt="" class="user-behavior-person__avt avatar">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     {% if behavior != request.user %}
-                    <form method="POST" action="" class="{{behavior.id}} {{behavior.name}} {{behavior_of_user|lower}} follow-button-form">
+                    <form method="POST" action="" class="{{behavior.id}} {{behavior_of_user|lower}} follow-button-form">
                         {% csrf_token %}
                         <input type="hidden" name="action" value="list_follow">
                         {% if behavior not in request.user.following_set.all|filter_queryset:"followee" %}

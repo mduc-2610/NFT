@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .function import cal_times_to_read, product_rarity_rank, classify_1, add_search_data, add_cart_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
@@ -587,6 +588,7 @@ def blog_detail(request, pk):
     }
     return render(request, 'NFTapp/blog/blog_detail.html', context)
 
+@csrf_exempt
 @add_search_data
 # @add_cart_data
 def profile(request, pk):
@@ -621,18 +623,17 @@ def profile(request, pk):
             user_target = User.objects.get(id=user_follow_id)
             request_user_following = request.user.following_set.all()
             if user_target not in [follow.followee for follow in request_user_following]: 
-                request_user_follow = Follow.objects.create(follower=request.user, followee=user_target)
+                Follow.objects.create(follower=request.user, followee=user_target)
                 state = "follow"
             else:
                 # request_user_follow = Follow.objects.get(follower=request.user, followee=user_target)
                 Follow.objects.get(follower=request.user, followee=user_target).delete()
                 state = "unfollow"
             return JsonResponse({
-                    'action': action,
                     'state': state,
-                    'user_follow_id': user_follow_id,
-                    # 'number_follower': len(user.follower_set.all()),
-                    # 'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
+                    'user_follow_id': user_follow_id, 
+                    'number_follow': len(request.user.following_set.all()),
+                    'profile_user_follower': serializers.serialize("json", [user_target,]),
                 })
 
     context = {
