@@ -18,8 +18,9 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment, Follow, \
-                                Cart, CartItem
+                                VoteProductComment, VoteBlogComment, \
+                                DisvoteProductComment, DisvoteBlogComment, \
+                                Follow, Cart, CartItem
 from NFT.settings import MEDIA_ROOT
 
 from django.db.models import Count

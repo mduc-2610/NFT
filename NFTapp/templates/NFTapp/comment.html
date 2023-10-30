@@ -22,26 +22,58 @@
                 <p class="comment__content">{{comment.content}}</p>
                 <div class="comment__vote">
                     <div href="" class="comment__vote--wrap">
-                        <svg class="comment__upvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                              <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                          </svg>
-                          <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                        {% if request.user not in comment.votes.all %}
+                        <form method="POST" action="" class="comment__upvote-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="activate-upvote">
+                            <svg class="comment__upvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                  <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                              </svg>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="" class="comment__upvote-fill-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="deactivate-upvote">
                         <svg class="comment__upvote-fill" fill="#fff" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z"/>
+                            <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
                         </svg>
-                         <span class="comment__vote-text {{comment.id}}">
+                        </form>
+                        {% endif %}
+                         <span class="comment__behavior-text comment__vote-text {{comment.id}}">
                              {{comment.votes.all|length}}
                          </span>
-                        <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                         <div class="comment__vote-list" style="display: none;">
+                             {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Voted by" %}
+                         </div>
+                         
+                         {% if request.user not in comment.disvotes.all %}
+                         <form method="POST" action="" class="comment__downvote-form">
+                             {% csrf_token %}
+                             <input type="hidden" name="action" value="activate-downvote">
+                            <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                <g transform="rotate(180 12 12)">
+                                <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                </g>
+                            </svg>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="" class="comment__downvote-fill-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="deactivate-downvote">
+                            <svg class="comment__downvote-fill" fill="#fff" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <g transform="rotate(180 12 12)">
-                              <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                            </g>
-                          </svg>
-                          <svg class="comment__downvote-fill" fill="#fff" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <g transform="rotate(180 12 12)">
-                            <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z"/>
+                            <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
                             </g>
                         </svg>
+                        </form>
+                        {% endif %}
+                        <span class="comment__behavior-text comment__disvote-text {{comment.id}}">
+                            {{comment.disvotes.all|length}}
+                        </span>
+                        <div class="comment__disvote-list" style="display: none;">
+                            {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_disvoted_by.all filter="user" behavior_of_user="Disvoted by" %}
+                        </div>
+
                     </div>
                 </div>
             </div>

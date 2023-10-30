@@ -761,3 +761,11 @@
 .header-change-stroke-color {
     stroke: #17E3A6;
 }
+
+.header-navbar-mobile-show {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}

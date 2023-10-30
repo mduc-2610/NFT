@@ -9,24 +9,28 @@ from NFT.settings import MEDIA_ROOT
 from django.contrib.auth.hashers import make_password
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
-                                BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle, NFTProductFavorite, \
-                                VoteProductComment, VoteBlogComment, Follow, \
-                                Cart, CartItem
+                                BlogSection, FAQ, FAQTitle,\
+                                BlogComment, ProductComment, NFTProductFavorite, \
+                                VoteProductComment, VoteBlogComment, \
+                                DisvoteProductComment, DisvoteBlogComment, \
+                                Follow, Cart, CartItem
 fake = Faker()
 
+models_to_delete = [
+    User, NFTProduct, Topic,
+    NFTProductOwner, Type, NFTBlog, 
+    BlogSection, FAQ, FAQTitle,
+    BlogComment, ProductComment, NFTProductFavorite,
+    VoteProductComment, VoteBlogComment,
+    DisvoteProductComment, DisvoteBlogComment,
+    Follow, Cart, CartItem
+]
+
+
 def run():
-    User.objects.all().delete()
-    NFTProduct.objects.all().delete()
-    Topic.objects.all().delete()
-    NFTProductOwner.objects.all().delete()
-    Type.objects.all().delete()
-    NFTBlog.objects.all().delete()
-    BlogSection.objects.all().delete()
-    FAQ.objects.all().delete()
-    FAQTitle.objects.all().delete()
-    ProductComment.objects.all().delete()
-    BlogComment.objects.all().delete()
+    for model in models_to_delete:
+        print("Delete sucessfully")
+        model.objects.all().delete()
     
     username_superuser = 'duc'
     email_superuser = 'duc@gmail.com'
@@ -326,9 +330,24 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             blog_comment_list.append(blog_comment)
             print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
 
-    # Load ramdom user like product comment
+    # Load ramdom user vote product comment
     print("----------------------------------------------------------------")
-    print("RANDOM USER LIKE PRODUCT COMMENT:")
+    print("RANDOM USER VOTE PRODUCT COMMENT:")
+    for user in user_obj_list:
+        tmp_list = product_comment_list.copy()
+        for i in range(random.randint(20, 55)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "comment": random_data
+            }
+            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
+            product_comment_vote = VoteProductComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} votes the product comment with id {data['comment'].id}")
+    
+    # Load ramdom user disvote product comment
+    print("----------------------------------------------------------------")
+    print("RANDOM USER DISVOTE PRODUCT COMMENT:")
     for user in user_obj_list:
         tmp_list = product_comment_list.copy()
         for i in range(random.randint(20, 50)):
@@ -337,13 +356,29 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 "user": user,
                 "comment": random_data
             }
-            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
-            product_comment_vote = VoteProductComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} likes the product comment with id {data['comment'].id}")
+            # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
+            product_comment_vote = DisvoteProductComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")
     
-    # Load ramdom user like blog comment
+
+    # Load ramdom user vote blog comment
     print("----------------------------------------------------------------")
-    print("RANDOM USER LIKE BLOG COMMENT:")
+    print("RANDOM USER VOTE BLOG COMMENT:")
+    for user in user_obj_list:
+        tmp_list = blog_comment_list.copy()
+        for i in range(random.randint(20, 60)):
+            random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            data = {
+                "user": user,
+                "comment": random_data
+            }
+            # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
+            blog_comment_vote = VoteBlogComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} votes the blog comment with id {data['comment'].id}")
+    
+    # Load ramdom user disvote blog comment
+    print("----------------------------------------------------------------")
+    print("RANDOM USER DISVOTE BLOG COMMENT:")
     for user in user_obj_list:
         tmp_list = blog_comment_list.copy()
         for i in range(random.randint(20, 50)):
@@ -352,10 +387,10 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 "user": user,
                 "comment": random_data
             }
-            # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
-            blog_comment_vote = VoteBlogComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} likes the blog comment with id {data['comment'].id}")
-    
+            # blog_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
+            blog_comment_vote = DisvoteBlogComment.objects.create(**data)
+            print(f"\tUser with uuid {data['user'].id} disvotes the blog comment with id {data['comment'].id}")
+
     # Load owner of a cart
     print("----------------------------------------------------------------")
     print("OWNER OF A CART:")

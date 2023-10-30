@@ -134,12 +134,6 @@
     </div>
 </div>
 
-{% for comment in comments %}
-<div class="product-user-comment{{comment.id}}" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Voted by" %}
-</div>
-{% endfor %}
-
 <div class="product-user-favorite" style="display: none;">
     {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior_of_user="Favorited by" %}
 </div>
@@ -190,11 +184,25 @@
     const commentVoteText = document.querySelectorAll('.comment__vote-text');
     commentVoteText.forEach(element => {
         element.onclick = (e) => {
-            const commentId = element.classList[1];
-            const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
-            if (productUserComment) {
-                productUserComment.style.display = 'block';
-            }
+            // const commentId = element.classList[1];
+            // const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
+            // if (productUserComment) {
+            //     productUserComment.style.display = 'block';
+            // 
+            element.nextElementSibling.style.display = 'block';
+        }
+        }
+    );
+
+    const commentDisvoteText = document.querySelectorAll('.comment__disvote-text');
+    commentDisvoteText.forEach(element => {
+        element.onclick = (e) => {
+            // const commentId = element.classList[1];
+            // const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
+            // if (productUserComment) {
+            //     productUserComment.style.display = 'block';
+            // }
+            element.nextElementSibling.style.display = 'block';
         }
     });
 
