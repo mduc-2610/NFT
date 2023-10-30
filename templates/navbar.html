@@ -1587,12 +1587,19 @@
 
 <script>
   const headerMenuIcon = document.querySelector(".header__menu-icon");
+  const navbar = document.querySelector(".navbar");
   headerMenuIcon.onclick = (e) => {
-    document.querySelector(".navbar").style.display = "block";
+    navbar.style.display = "block";
+    navbar.style.position = "fixed";
+    navbar.style.top = "0";
+    navbar.style.left = "0";
+    navbar.style.right = "0";
+    // document.querySelector('.header-user').classList.toggle('header-show');
+
   };
   const navbarBack = document.querySelector(".navbar-back");
   navbarBack.onclick = (e) => {
-    document.querySelector(".navbar").style.display = "none";
+    navbar.style.display = "none";
   };
   const headerBackIcon = document.querySelector(".header-back");
   const navbarLinkDefault = document.querySelectorAll(".navbar__link--default");
