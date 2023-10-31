@@ -11,9 +11,12 @@
                 <form method="POST" class="like-button-form">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="like">
-                    <button class="like-button">
-                        {{product.like.all.count}}
+                    <button type="submit" class="like-button">
+                        {% if request.user in product.favorites.all %}
+                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#ff3040"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                        {% else %}
                         <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                        {% endif %}
                     </button>
                 </form>
             </div>
@@ -83,9 +86,12 @@
                 <form method="POST" class="like-button-form">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="like">
-                    <button class="like-button">
-                        {{product.like.all.count}}
+                    <button type="submit" class="like-button">
+                        {% if request.user in product.favorites.all %}
+                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#ff3040"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                        {% else %}
                         <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                        {% endif %}
                     </button>
                 </form>
             </div>
@@ -135,11 +141,11 @@
 </div>
 
 <div class="product-user-favorite" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior_of_user="Favorited by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior_of_user="Favorited by" behavior_of_user_for_ajax="favorite" %}
 </div>
 
 <div class="product-user-owned" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list filter="user" behavior_container="container_owner" behavior_of_user="Owned by" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_owner_list filter="user" behavior_container="container_owner" behavior_of_user="Owned by" behavior_of_user_for_ajax="owner" %}
 </div>
 
 <div class="gap-between-section"></div>
@@ -215,30 +221,79 @@
         }
         
     })
-    
-    const likeButton = document.querySelectorAll('.like-button');
-    // likeButton.forEach(button => {
-    //     button.onclick = (e) => {
-    //         button.querySelector('.product-detail__svg').style.fill = '{{clicked|escapejs}}';
-    //     }
-    //          $.ajax({
-    //             type: 'POST',
-    //             url: '/collection1/{{product.id|escapejs}}',
-    //             data: {
-    //                 clicked: clicked,
-    //                 csrfmiddlewaretoken: button.parentElement.querySelector('input[name="csrfmiddlewaretoken"]').value,
-    //             },
-    //             success: function(data) {
+
+    // <form method="POST" class="like-button-form">
+    //                 {% csrf_token %}
+    //                 <input type="hidden" name="action" value="like">
+    //                 <button type="submit" class="like-button">
+    //                     {% if request.user in product.favorites.all %}
+    //                     <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#ff3040"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+    //                     {% else %}
+    //                     <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+    //                     {% endif %}
+    //                 </button>
+    //             </form>
+    $(document).ready(function() {
+        const likeButtonForm = document.querySelectorAll('.like-button-form');
+        const userFavoriteId = '{{request.user.id|escapejs}}';
+        const userName = '{{request.user.name|escapejs}}';
+        const favoriteList = document.querySelector('.favorite.user-behavior__list');
+        const productFavoriteNumber = document.querySelectorAll('.product-favorite-number');
+
+        console.log(favoriteList);
+        likeButtonForm.forEach((element, index) => {
+            element.onsubmit = (e) => {
+                const likeButton = element.children[2];
+                console.log(likeButton);
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    // url: ,
+                    data: {
+                        'action': 'like',
+                        'csrfmiddlewaretoken': element.children[0].value, 
+                    },
+                    success: function(response) {
+                        const userFavorite = JSON.parse(response['user_favorites'])[0];
+                        const userFavoriteField = userFavorite.fields;
+                        console.log(userFavoriteField)
+                        productFavoriteNumber[index].textContent = `${response['number_favorites']}`;
+                        if(response['state'] == 'like') {
+                            likeButton.innerHTML = `
+                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#ff3040"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                            `;
+                            let new_user_favorite = `
+                            <li class="user-behavior__item ${userName} flex_aic_jcc">
+                                <div class="user-behavior__info">
+                                    <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFavoriteId}/" class="avatar-wrap user-behavior-person__avt-link">
+                                        <img src="${userFavoriteField.avatar}" alt="" class="user-behavior-person__avt avatar">
+                                    </a>
+                                    <div class="user-behavior-person flex_aic_jcc">
+                                        <div class="user-behavior-person__text-block flex_fdc_aif">
+                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFavoriteId}/" class="user-behavior-person__name">${userFavoriteField.name}</a>
+                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFavoriteId}/" class="user-behavior-person__id">${userFavoriteId.slice(0,6) + '...' +userFavoriteId.slice(-4)}</a>
+                                        </div>
+                                    </div>     
+                                </div>
+                            </li>
+                            `;
+                            favoriteList.innerHTML += new_user_favorite;
+                        } else {
+                            likeButton.innerHTML = `
+                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                            `;
+                            if(favoriteList.querySelector(`.user-behavior__item.${userName}`)) {
+                                favoriteList.removeChild(favoriteList.querySelector(`.user-behavior__item.${userName}`));
+                            }
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(jqXHR, textStatus, errorThrown);  
+                    }
+                })
                 
-    //             }
-    //         });
-    // });
-    likeButton.forEach(button => {
-        if('{{like|escapejs}}' === 'True') {
-            button.querySelector('.product-detail__svg').style.fill = '#ff3040';
-        } else {
-            button.querySelector('.product-detail__svg').style.fill = '#fff';
-        }
-    });
+            }
+        })
+    })
 </script>
 {% endblock scripts %}

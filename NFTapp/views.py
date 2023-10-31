@@ -231,26 +231,27 @@ def collection_detail_1(request, pk):
 
     if request.method == 'POST':
         action = request.POST.get('action')
-        if action == 'like':
-            data = {
-                'user': request.user,
-                'product': product
-            }
-            product_favorite_by = NFTProductFavorite.objects.filter(user=request.user, product=product)
-            if product_favorite_by.exists():
-                product_favorite_by.delete()
-                like = False
-            else:
-                product_favorite_by = NFTProductFavorite.objects.create(**data)
-                like = True
-                
-        elif action == 'comment':
+        if action == 'comment':
             data = {
                 'content': request.POST.get('content'),
                 'user': request.user,
                 'product': product,
             }
             product_comment = ProductComment.objects.create(**data)
+        
+        elif action == 'like':
+            state = ""
+            if request.user not in list(product.favorites.all()):
+                NFTProductFavorite.objects.create(product=product, user=request.user)
+                state = "like"
+            else:
+                NFTProductFavorite.objects.get(product=product, user=request.user).delete()
+                state = "unlike"
+            return JsonResponse({
+                'state': state,
+                'number_favorites': len(product.favorites.all()),
+                'user_favorites': serializers.serialize('json', [request.user, ])
+            })
         
         elif action == 'upvote': 
             state = ""
