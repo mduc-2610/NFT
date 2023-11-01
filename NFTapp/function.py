@@ -2,6 +2,7 @@ from collections import Counter
 from math import ceil
 import random
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
 from django.db.models import Count
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
@@ -106,5 +107,24 @@ def add_cart_data(view_func):
         if request.user.is_authenticated:
             cart_products = Cart.objects.get(user=request.user).products.all()
             request.cart_products = cart_products
+            if request.method == 'POST':
+                action = request.POST.get('action')
+                if action == 'clear_cart_product':
+                    state = 'clear_cart_product'
+                    request.user.user_cart.cart_products.all().delete()
+                    return JsonResponse({
+                        'state': state,
+                    })
+                elif action == 'delete_cart_product':
+                    state = "delete_cart_product"
+                    product_id = request.POST.get('product_id')
+                    product_delete = NFTProduct.objects.get(id=product_id)
+                    user_cart = Cart.objects.get(user=request.user)
+                    CartItem.objects.get(cart=user_cart, product=product_delete).delete()
+                    return JsonResponse({
+                        'state': state,
+                        'number_cart_products': len(cart_products),
+                    })
+        
         return view_func(request, *args, **kwargs)
     return wrapper

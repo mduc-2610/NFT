@@ -80,7 +80,23 @@ def registerPage(request):
 def home1(request):
     blogs = NFTBlog.objects.all()
     products = NFTProduct.objects.all()
+    # cart_products = Cart.objects.get(user=request.user).products.all()
 
+    # if request.method == 'POST':
+    #     action = request.POST.get('action')
+    #     if action == 'clear_cart_product':
+    #         state = 'clear_cart_product'
+    #         cart_products.delete()
+    #         return JsonResponse({
+    #             'state': state,
+    #         })
+    #     # elif action == 'delete_cart_product':
+    #     #     state = "delete_cart_product"
+    #     #     product_id = request.POST.get('product_id')
+    #     #     Cart.objects.get(user=request.user).products.get(id=product_id).delete()
+    #     #     return JsonResponse({
+    #     #         'state': state
+    #     #     })
     users = User.objects.filter(is_superuser=0)
     title = FAQTitle.objects.get(title='Enjin')
     comments = []

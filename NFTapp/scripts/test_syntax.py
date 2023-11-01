@@ -177,11 +177,12 @@ def run():
     # print(VoteProductComment.objects.get(user=User.objects.get(id="1380fd40-aac0-4a10-94ff-54dac9e0b623"), comment=ProductComment.objects.get(id='3242')))
     
 
-    user = User.objects.get(id="028d967f-bee2-4e4c-b1e4-55a3bfd1eb06")
+    user = User.objects.all()[5]
     # print(user.user_cart)
     # [print(product) for product in NFTProduct.objects.all()]
     # [print(product) for product in user.user_cart.cart_products.all()]
     # print("_____________________________________")
     # [print(product) for product in user.owners.all()]
-    print("YES") if NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8") not in [item.product for item in user.user_cart.cart_products.all()] else print("NO")
-    print(NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8").id)
+    # print("YES") if NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8") not in [item.product for item in user.user_cart.cart_products.all()] else print("NO")
+    # print(NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8").id)
+    print(Cart.objects.get(user=user).products.all())
