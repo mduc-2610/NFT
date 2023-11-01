@@ -2,7 +2,7 @@
 <div class="comment">
     <div class="container">
         <div class="comment__inner scroll">
-            <form method="POST" class="comment__write flex_aic_jcc">
+            <form method="POST" class="comment__post flex_aic_jcc">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="comment" style="display: none;">
                 <input type="text" placeholder="Write your comment here ..." name="content">
@@ -84,7 +84,6 @@
 
 <script>
     $( document ).ready(function() {
-    
     const commentSection = document.querySelectorAll('.comment__section');
     commentSection.forEach(element => {
         const userId = '{{request.user.id|escapejs}}';

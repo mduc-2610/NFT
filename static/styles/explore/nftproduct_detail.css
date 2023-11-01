@@ -197,7 +197,8 @@
     letter-spacing: 0.05rem;
 }
 
-.product-detail-mobile .product-detail__buy-form {
+.product-detail-mobile .cart-add-feature-form {
+    position: relative;
     margin-top: 16px;
     border-radius: 51px;
     border: 1px solid #17E3A6;
@@ -219,13 +220,19 @@
     letter-spacing: 0.05rem;
 }
 
+.product-detail-mobile .cart-add-feature svg:nth-child(2) {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+}
+
 .product-detail-mobile .buy-button:hover,
-.product-detail-mobile .add-to-cart:hover {
+.product-detail-mobile .cart-add-feature:hover {
     background-color: #17E3A6;
     color: #000;
 }
 
-.product-detail-mobile .add-to-cart {
+.product-detail-mobile .cart-add-feature {
     padding: 12px;
     border-left: 1px solid #17E3A6;    
     width: 100%;
@@ -233,7 +240,7 @@
     border-radius: 0px 51px 51px 0px;
 }
 
-.product-detail-mobile .add-to-cart:hover svg path {
+.product-detail-mobile .cart-add-feature:hover svg path {
     fill: #000;
 }
 
@@ -446,7 +453,8 @@
         letter-spacing: 0.05rem;
     }
     
-    .product-detail-web .product-detail__buy-form {
+    .product-detail-web .cart-add-feature-form {
+        position: relative;
         margin-top: 16px;
         border-radius: 51px;
         border: 1px solid #17E3A6;
@@ -467,14 +475,20 @@
         border-radius: 51px 0px 0px 51px;
         letter-spacing: 0.05rem;
     }
+
+    .product-detail-web .cart-add-feature svg:nth-child(2) {
+        position: absolute;
+        width: 27px;
+        height: 27px;
+    }
     
     .product-detail-web .buy-button:hover,
-    .product-detail-web .add-to-cart:hover {
+    .product-detail-web .cart-add-feature:hover {
         background-color: #17E3A6;
         color: #000;
     }
     
-    .product-detail-web .add-to-cart {
+    .product-detail-web .cart-add-feature {
         padding: 12px;
         border-left: 1px solid #17E3A6;    
         width: 100%;
@@ -482,7 +496,7 @@
         border-radius: 0px 51px 51px 0px;
     }
     
-    .product-detail-web .add-to-cart:hover svg path {
+    .product-detail-web .cart-add-feature:hover svg path {
         fill: #000;
     }
     

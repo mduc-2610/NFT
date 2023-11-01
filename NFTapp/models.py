@@ -65,6 +65,7 @@ class Type(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+                    # {% if product  in request.user.user_cart.all and product  in request.user.owners.all %}
 
 class NFTProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -124,7 +125,7 @@ class NFTProductFavorite(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(User, related_name="user_cart", on_delete=models.CASCADE)
-    products = models.ManyToManyField(NFTProduct, related_name="products", through="CartItem")
+    products = models.ManyToManyField(NFTProduct, related_name="cart_products", through="CartItem")
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
 
@@ -139,6 +140,12 @@ class CartItem(models.Model):
     cart = models.ForeignKey('Cart', related_name="cart_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', on_delete=models.CASCADE)
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            raise KeyError(f"'{key}' attribute not found")
+      
     def __str__(self):
         return f"{self.product.name} in Cart"
 

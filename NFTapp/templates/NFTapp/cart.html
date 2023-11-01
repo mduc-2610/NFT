@@ -22,12 +22,16 @@
         {% if cart_products|length != 0 %}
             <div class="cart__body">
                 <div class="cart__ammount flex_aic_jcsb">
+                    {% if cart_products|length == 1 %}
+                    <p class="cart-text cart__number">{{cart_products|length}} item</p>
+                    {% else %}
                     <p class="cart-text cart__number">{{cart_products|length}} items</p>
+                    {% endif %}
                     <button class="cart-text cart__clear">Clear all</button>
                 </div>
-                <ul class="cart-product__list scroll">
+                <ul class="{{request.user.name}} cart-product__list scroll">
                     {% for product in cart_products %}
-                    <li class="cart-product__item flex_aic_jcsb">
+                    <li class="{{product.name}} cart-product__item flex_aic_jcsb">
                         <div class="cart__product--wrap flex_aic_jcsb">
                             <a href="{% url 'collection1' product.id %}" class="cart-product__img--wrap">
                                 <img src="{{product.image}}" alt="" class="cart-product__img">

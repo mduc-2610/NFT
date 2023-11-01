@@ -1,10 +1,11 @@
 .cart-add {
     position: fixed;
-    bottom: 15px;  
+    bottom: 15px;
     right: 15px;
     background: rgba(217, 217, 217, 0.25);
     padding: 15px;
     border-radius: 50%;
+    z-index: 999;
 }
 
 .cart-add__svg {

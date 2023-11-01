@@ -99,7 +99,7 @@
     letter-spacing: 0.05rem;
 }
 
-.comment__write {
+.comment__post {
     /* position: absolute; */
     position: sticky;
     top: 0;
@@ -113,7 +113,7 @@
     z-index: 1;
 }
 
-.comment__write input {
+.comment__post input {
     resize: none;
     color: #000;
     font-weight: 300;
@@ -125,7 +125,7 @@
     font-weight: 500;
 }
 
-.comment__write input::placeholder {
+.comment__post input::placeholder {
     color: #000;
 }
 
@@ -217,10 +217,10 @@
         font-size: 1.8rem;
     }
     
-    .comment__write {
+    .comment__post {
     }
     
-    .comment__write input {
+    .comment__post input {
         font-size: 1.6rem;
     }
     

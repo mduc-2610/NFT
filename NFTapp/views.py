@@ -250,7 +250,7 @@ def collection_detail_1(request, pk):
             return JsonResponse({
                 'state': state,
                 'number_favorites': len(product.favorites.all()),
-                'user_favorites': serializers.serialize('json', [request.user, ])
+                'user_favorites': serializers.serialize('json', [request.user,])
             })
         
         elif action == 'upvote': 
@@ -299,6 +299,21 @@ def collection_detail_1(request, pk):
                 'number_upvotes': len(comment.votes.all()),
                 'number_downvotes': len(comment.disvotes.all()),
                 'user_downvote': serializers.serialize('json', [request.user, ])
+            })
+
+        elif action == 'cart_add':
+            state = ""
+            cart, _ = Cart.objects.get_or_create(user=request.user)
+            if product not in [item.product for item in request.user.user_cart.cart_products.all()]:
+                CartItem.objects.create(cart=cart, product=product)
+                state = 'cart_add'
+            else :
+                CartItem.objects.get(cart=cart, product=product).delete()
+                state = 'cart_remove'
+            return JsonResponse({
+                'state': state,
+                'number_products_cart': len(request.user.user_cart.cart_products.all()),
+                'product': serializers.serialize('json', [product, ]),
             })
 
             # return redirect('collection1', pk=product.id)

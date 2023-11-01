@@ -1,3 +1,4 @@
+{% load my_custom_tags %}
 {% load static %}
 <div class="container">
     <h2 class="our-artist">Our artists</h2>
@@ -31,12 +32,28 @@
                         {% else %} 
                         <p class="profile-list__bio-2 limit-line" style="visibility: hidden;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum repellendus vitae placeat culpa beatae quaerat. Optio earum numquam eligendi sed non vero voluptates accusamus molestias veritatis labore laborum nam, a doloribus voluptatum adipisci. Excepturi fugiat, obcaecati nemo explicabo voluptates laudantium aut eveniet illo, vero, labore sequi temporibus. Quos, magni?</p>
                         {% endif %}
-                        <a href="" class="profile-list__follow-2 flex_aic_jcc">
+                        {% if user != request.user %}
+                            {% if request.user not in user.follower_set.all|filter_queryset:"follower" %}     
+                                <a href="{% url 'profile' user.id%}" class="follow-button profile-list__follow-2 flex_aic_jcc">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                        <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                    </svg>
+                                    Follow
+                                </a>
+                                {% else %}
+                                <a href="{% url 'profile' user.id%}" class="unfollow-button profile-list__follow-2 flex_aic_jcc" style="background-color: #fff;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                    Unfollow
+                                </a>
+                            {% endif %}
+                        {% else %}
+                        <a href="{% url 'profile' user.id%}" class="follow-button profile-list__follow-2 flex_aic_jcc" style="visibility: hidden;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
                                 <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
                             </svg>
                             Follow
                         </a>
+                        {% endif %}
                     </div>
                 </li>
             {% endif %}

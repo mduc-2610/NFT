@@ -49,7 +49,6 @@
                             </button>
                         {% endif %}
                     </form>
-                
                 {% endif %}
             </div>
             <p class="profile__joined-day">{{user.date_joined|date:"M d, Y"}}</p>
@@ -57,6 +56,23 @@
             <button class="see__more">See more</button>
             
         </div>
+        <!-- <ul class="profile__activity">
+            <li class="profile__activity-item">
+                <form action="" method="POST" class="profile__activity-form">
+                    <button type="submit" class="profile__activity-button">Collected</button>
+                </form>
+            </li>
+            <li class="profile__activity-item">
+                <form action="" method="POST" class="profile__activity-form">
+                    <button type="submit" class="profile__activity-button">Created</button>
+                </form>
+            </li>
+            <li class="profile__activity-item">
+                <form action="" method="POST" class="profile__activity-form">
+                    <button type="submit" class="profile__activity-button">Favorited</button>
+                </form>
+            </li>
+        </ul> -->
         <ul class="profile__activity">
             <li class="profile__activity-item">
                 <a href="?filter=collected&">Collected</a>
@@ -94,10 +110,10 @@
                                 </div>
                                 <form action="{% url 'collection1' product.id %}" class="profile-product__buy-form">
                                     <button class="buy-button">Buy now</button>
-                                    <a href="?filter=add-to-cart" class="add-to-cart flex_aic_jcc">
+                                    <button type="submit" href="?filter=add-to-cart" class="add-to-cart flex_aic_jcc">
                                         <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                         </svg>
-                                    </a>
+                                    </button>
                                 </form>
                             </a>
                         </li>
@@ -121,8 +137,31 @@
 
 {% block scripts %}
 <script>
-    const links = document.querySelectorAll('.profile__activity-item a');
+    // <ul class="profile__activity">
+    //         <li class="profile__activity-item">
+    //             <form action="" method="POST" class="profile__activity-form">
+    //                 <button type="submit" class="profile__activity-button">Collected</button>
+    //             </form>
+    //         </li>
+    // $( document ).ready(function() {
+    //     const profileActivityForm = document.querySelectorAll('.profile__activity-form');
+    //     const activityList = ['user_collected', 'user_created', 'user_favorited']
+    //     profileActivityForm.forEach((element, index) => {
+    //         element.onsubmit = (e) => {
+    //             e.preventDefault()
+    //             $.ajax({
+    //                 type: "POST",
+    //                 // url:,
+    //                 data: {
+    //                     'action': activityList[index],
+    //                     'csrfmiddlewartoken': element.children[0],
+    //                 }
+    //             })
+    //         }
+    //     })
+    // })
     var check = true;
+    const links = document.querySelectorAll('.profile__activity-item a');
     if(window.location.href == document.querySelector(".user-id")) {
         links[0].style.backgroundColor = '#17E3A6';
         links[0].style.color = '#000';

@@ -91,7 +91,7 @@
     width: 87%;
     height: 82px;
     background: rgba(246, 246, 246, 0.20);
-    justify-content: space-between;
+    justify-content: space-evenly;
     backdrop-filter: blur(91.5px);
     border-radius: 12px;
     left: 7%;
