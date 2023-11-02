@@ -185,4 +185,5 @@ def run():
     # [print(product) for product in user.owners.all()]
     # print("YES") if NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8") not in [item.product for item in user.user_cart.cart_products.all()] else print("NO")
     # print(NFTProduct.objects.get(id="0a958ed4-2042-4ecc-83a2-08bf623ff7d8").id)
-    print(Cart.objects.get(user=user).products.all())
+    # print(Cart.objects.get(user=user).products.all())
+    [print(product.price) for product in Cart.objects.get(user=user).products.all()]

@@ -139,7 +139,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey('Cart', related_name="cart_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', on_delete=models.CASCADE)
-
+    added_at = models.DateTimeField(auto_now_add=True)
     def __getitem__(self, key):
         if hasattr(self, key):
             return getattr(self, key)

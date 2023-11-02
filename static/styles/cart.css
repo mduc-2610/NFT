@@ -90,7 +90,7 @@
     padding: 16px 24px;
 }
 
-.cart__ammount {
+.cart__amount {
     margin-bottom: 12px;
 }
 
@@ -246,4 +246,8 @@
         width: 400px;
         max-height: 100%;
     }
+}
+
+.cart-show-block {
+    display: block;
 }

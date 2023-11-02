@@ -319,7 +319,7 @@
         padding: 12px 20px 20px 20px;
         background: #212127;
         border-radius: 12px;
-        height: 80%;
+        height: 100%;
     }
     
     .product-detail-web .product-detail__topic {
@@ -334,7 +334,7 @@
     
     
     .product-detail-web .product-detail__name {
-        background: linear-gradient(90deg, #20E2A7 7%, #77DCCE 10.55%, #6FC7F2 20.51%, #A0A1ED 12.87%, #FE5CD6 38.52%, #FF669F 32.95%);   
+        background: linear-gradient(90deg, #20E2A7 7%, #77DCCE 10.55%, #6FC7F2 20.51%, #A0A1ED 12.87%, #FE5CD6 38.52%, #FF669F 32.95%);
         background-clip: text;
         background-clip: text;
         -webkit-background-clip: text;
@@ -377,7 +377,7 @@
 
 
     .product-detail-web .product-statistic {
-        margin: 24px 0;
+        margin: 63px 0;
     }
     
      .product-detail-web .product-statistic__list {

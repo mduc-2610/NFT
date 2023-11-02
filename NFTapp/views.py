@@ -328,8 +328,9 @@ def collection_detail_1(request, pk):
                 state = 'cart_remove'
             return JsonResponse({
                 'state': state,
-                'number_products_cart': len(request.user.user_cart.cart_products.all()),
-                'product': serializers.serialize('json', [product, ]),
+                'total_price': sum([product.price for product in Cart.objects.get(user=request.user).products.all()]),
+                'number_cart_products': len(request.user.user_cart.cart_products.all()),
+                'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
 
             # return redirect('collection1', pk=product.id)

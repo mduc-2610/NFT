@@ -12,6 +12,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core import serializers
 
 def error_403_csrf_failure(request, reason=""):
     """
@@ -106,7 +107,10 @@ def add_cart_data(view_func):
         request.cart_products = None
         if request.user.is_authenticated:
             cart_products = Cart.objects.get(user=request.user).products.all()
-            request.cart_products = cart_products
+            cart_products_length = len(cart_products)
+            total_price = sum([product.price for product in cart_products])
+            request.total_price = total_price
+            request.number_cart_products = cart_products
             if request.method == 'POST':
                 action = request.POST.get('action')
                 if action == 'clear_cart_product':
@@ -115,16 +119,21 @@ def add_cart_data(view_func):
                     return JsonResponse({
                         'state': state,
                     })
+                
                 elif action == 'delete_cart_product':
                     state = "delete_cart_product"
                     product_id = request.POST.get('product_id')
                     product_delete = NFTProduct.objects.get(id=product_id)
                     user_cart = Cart.objects.get(user=request.user)
                     CartItem.objects.get(cart=user_cart, product=product_delete).delete()
+                    cart_products_length -= 1
+
                     return JsonResponse({
                         'state': state,
-                        'number_cart_products': len(cart_products),
+                        'total_price': total_price,
+                        'number_cart_products': cart_products_length,
                     })
+            request.cart_products = cart_products
         
         return view_func(request, *args, **kwargs)
     return wrapper

@@ -20,7 +20,7 @@
             </button>
         </div>
         <div class="cart__body">
-            <div class="cart__ammount flex_aic_jcsb">
+            <div class="cart__amount flex_aic_jcsb">
                 {% if cart_products|length != 0 %}
                     {% if cart_products|length == 1 %}
                     <p class="cart-text cart__number">{{cart_products|length}} item</p>
@@ -50,7 +50,7 @@
                             {% include 'NFTapp/cart_product_detail.html' %}
                         </div>
                     </div>
-                    <form action="" class="cart-product__delete-form">
+                    <form action="" class="{{product.name}} cart-product__delete-form">
                         {% csrf_token %}
                         <input type="hidden" name="action" value="delete_cart_product">
                         <button class="cart-product__delete">
@@ -71,16 +71,18 @@
         </div>
         <div class="cart__footer">
             {% if cart_products|length != 0 %}
-            <div class="cart__price flex_aic_jcsb">
-                <p class="cart-text cart__price-key">Total price</p>
-                <div class="cart__price-value">
-                    <p class="cart-text cart__price-value-eth">{{cart_products|total_price}} ETH</p>
-                    <p class="cart-text-2 cart__price-value-dollar">${{cart_products|total_price|eth_to_usd}}</p>
+                <div class="cart__price flex_aic_jcsb">
+                    <p class="cart-text cart__price-key">Total price</p>
+                    <div class="cart__price-value">
+                        <p class="cart-text cart__price-value-eth">{{cart_products|total_price}} ETH</p>
+                        <p class="cart-text-2 cart__price-value-dollar">${{cart_products|total_price|eth_to_usd}}</p>
+                    </div>
                 </div>
-            </div>
-            <form action="" class="cart__buy" method="POST">
-                <button class="cart__buy-button">Complete purchase</button>
-            </form>
+                <form action="" class="cart__buy" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="purchase_nft">
+                    <button type="submit" class="cart__buy-button">Complete purchase</button>
+                </form>
             {% endif %}
         </div>
     </div>
@@ -128,6 +130,7 @@
     cartProductDetail.forEach(element => {
         element.onclick = (e) => {
             element.nextElementSibling.style.display = 'block';
+            // element.nextElementSibling.classList.toggle('cart-show-block');
         }
     });
     const cartAdd = document.querySelector('.cart-add-redirect');
@@ -150,6 +153,12 @@
     //                 </form>
     const cartClearForm = document.querySelector('.cart__clear-form');
     const cartNumber = document.querySelector('.cart__number');
+    
+    const cartProductItem = document.querySelectorAll('.cart-product__item');
+    const cartProductList = document.querySelector(`.cart-product__list`);
+    const cartAmount =  document.querySelector('.cart__amount');
+    const cartFooter = document.querySelector('.cart__footer');
+    
     console.log(window.location.href);
     cartClearForm.onsubmit = (e) => {
         e.preventDefault();
@@ -172,6 +181,8 @@
                             </div>
                         </div>
                     `
+                    cartAmount.innerHTML = ``;
+                    cartFooter.innerHTML = ``;
                 }
             },
             error: function(jqXHR, textStatus, errorTh) {
@@ -180,10 +191,6 @@
         })
     }
 
-    const cartProductItem = document.querySelectorAll('.cart-product__item');
-    const cartProductList = document.querySelector(`.cart-product__list`);
-    const cartAmount =  document.querySelector('.cart__ammount');
-    const cartFooter = document.querySelector('.cart__footer');
     cartProductItem.forEach(element => {
         const cartProductDeleteForm = element.querySelector('.cart-product__delete-form');
         cartProductDeleteForm.onsubmit = (e) => {
