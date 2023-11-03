@@ -319,16 +319,16 @@
             }
         })
 
-        const addCartFeatureForm = document.querySelectorAll('.cart-add-feature-form');
-        const requestUserData = addCartFeatureForm[0].getAttribute('data-user');
-        const requestUserDataId = addCartFeatureForm[0].getAttribute('data-user-id');
-        const requestUserDataName = addCartFeatureForm[0].getAttribute('data-user-name'); 
+        const cartAddFeatureForm = document.querySelectorAll('.cart-add-feature-form');
+        const requestUserData = cartAddFeatureForm[0].getAttribute('data-user');
+        const requestUserDataId = cartAddFeatureForm[0].getAttribute('data-user-id');
+        const requestUserDataName = cartAddFeatureForm[0].getAttribute('data-user-name'); 
         const requestUserCart = document.querySelector(`.${requestUserDataName}.cart-product__list`);
         const cartNumber_ = document.querySelector('.cart__number');
         const cartAmount_ = document.querySelector('.cart__amount');
         const cartFooter_ = document.querySelector('.cart__footer');
 
-        addCartFeatureForm.forEach(element => {
+        cartAddFeatureForm.forEach(element => {
             element.onsubmit = (e) => {
                 const cartAddFeature = element.querySelector('.cart-add-feature');
                 e.preventDefault();
