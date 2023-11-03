@@ -108,6 +108,7 @@
                                     <h2 class="profile-product__name limit-line">{{product.name}}</h2>
                                     <p class="profile-product__topic limit-line">{{product.topic.name}}</p>
                                 </div>
+                                {% if product not in request.user.owners.all and product.author != request.user %}
                                 <form method="POST" action="" data-user="{{request.user}}" data-user-id="{{request.user.id}}" data-user-name="{{request.user.name}}" class="cart-add-feature-form">
                                     {% csrf_token %}
                                     <button type="submit" class="buy-button">Buy now</button>
@@ -122,6 +123,11 @@
                                         {% endif %}
                                     </button> 
                                 </form>
+                                {% else %}
+                                <div class="profile__announce flex_aic_jcc">
+                                    <p class="profile__announce-text">Owned</p>
+                                </div>
+                                {% endif %}
                             </a>
                         </li>
                     {% endfor %}

@@ -411,8 +411,10 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("CART PRODUCT IN A CART:")
     for cart in cart_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(0, 30)):
+        for i in range(random.randint(0, 25)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            if random_data in cart.user.owners.all():
+                continue
             data = {
                 "cart": cart,
                 "product": random_data
