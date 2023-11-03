@@ -720,6 +720,24 @@ def profile(request, pk):
                     'user_position': serializers.serialize("json", [user,]),
                     'profile_user_follower': serializers.serialize("json", [user_target,]),
                 })
+        
+        elif action == 'cart_add':
+            state = ""
+            cart, _ = Cart.objects.get_or_create(user=request.user)
+            product_id = request.POST.get('product_id')
+            product = NFTProduct.objects.get(id=product_id)
+            if product not in [item.product for item in request.user.user_cart.cart_products.all()]:
+                CartItem.objects.create(cart=cart, product=product)
+                state = 'cart_add'
+            else :
+                CartItem.objects.get(cart=cart, product=product).delete()
+                state = 'cart_remove'
+            return JsonResponse({
+                'state': state,
+                'total_price': sum([product.price for product in Cart.objects.get(user=request.user).products.all()]),
+                'number_cart_products': len(request.user.user_cart.cart_products.all()),
+                'product': serializers.serialize('json', [product, product.author, product.topic]),
+            })
 
     context = {
         'cart_products': request.cart_products,

@@ -144,29 +144,6 @@
 
 {% block scripts %}
 <script>
-    // <ul class="profile__activity">
-    //         <li class="profile__activity-item">
-    //             <form action="" method="POST" class="profile__activity-form">
-    //                 <button type="submit" class="profile__activity-button">Collected</button>
-    //             </form>
-    //         </li>
-    // $( document ).ready(function() {
-    //     const profileActivityForm = document.querySelectorAll('.profile__activity-form');
-    //     const activityList = ['user_collected', 'user_created', 'user_favorited']
-    //     profileActivityForm.forEach((element, index) => {
-    //         element.onsubmit = (e) => {
-    //             e.preventDefault()
-    //             $.ajax({
-    //                 type: "POST",
-    //                 // url:,
-    //                 data: {
-    //                     'action': activityList[index],
-    //                     'csrfmiddlewartoken': element.children[0],
-    //                 }
-    //             })
-    //         }
-    //     })
-    // })
     var check = true;
     const links = document.querySelectorAll('.profile__activity-item a');
     if(window.location.href == document.querySelector(".user-id")) {
@@ -233,19 +210,33 @@
     }
     
 })
-  
+    function convertDateTimeString(inputDateString) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        const date = new Date(inputDateString);
+        const month = months[date.getMonth()];
+        const day = date.getDate();
+        const year = date.getFullYear();
+
+        return `${month} ${day.toString().padStart(2, '0')}, ${year}`;
+    }
     $( document ).ready(function() {
-        const addCartFeatureForm = document.querySelectorAll('.cart-add-feature-form');
-        const requestUserData = addCartFeatureForm[0].getAttribute('data-user');
-        const requestUserDataId = addCartFeatureForm[0].getAttribute('data-user-id');
-        const requestUserDataName = addCartFeatureForm[0].getAttribute('data-user-name'); 
-        const requestUserCart = document.querySelector(`.${requestUserDataName}.cart-product__list`);
+        const profileProductList = document.querySelector('.profile-product__list');
+        const profileProductItem = document.querySelectorAll('.profile-product__item');
+        
         const cartNumber_ = document.querySelector('.cart__number');
         const cartAmount_ = document.querySelector('.cart__amount');
         const cartFooter_ = document.querySelector('.cart__footer');
-
-        addCartFeatureForm.forEach(element => {
-            element.onsubmit = (e) => {
+        profileProductItem.forEach(element => {
+            const productId = element.getAttribute('data-product-id');
+            
+            const addCartFeatureForm = element.querySelector('.cart-add-feature-form');
+            const requestUserData = addCartFeatureForm.getAttribute('data-user');
+            const requestUserDataId = addCartFeatureForm.getAttribute('data-user-id');
+            const requestUserDataName = addCartFeatureForm.getAttribute('data-user-name'); 
+            const requestUserCart = document.querySelector(`.${requestUserDataName}.cart-product__list`);
+            console.log(requestUserCart);
+            addCartFeatureForm.onsubmit = (e) => {
                 const cartAddFeature = element.querySelector('.cart-add-feature');
                 e.preventDefault();
                 $.ajax({
@@ -253,18 +244,19 @@
                     // url: '',
                     data: {
                         'action': 'cart_add',
+                        'product_id': productId,
                         'csrfmiddlewaretoken': element.children[0].value,
                     },
                     success: function(response) {
                         const product = JSON.parse(response['product']);
-
+    
                         const productData = product[0];
                         const productAuthorData = product[1];
                         const productTopicData = product[2];
-
+    
                         const productDataId = productData.pk;
                         const productDataField = productData.fields;
-
+    
                         const productAuthorDataId = productAuthorData.pk;
                         const productAuthorDataField = productAuthorData.fields;
                         
@@ -276,11 +268,11 @@
                             let new_cart_product = `
                                 <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
                                     <div class="cart__product--wrap flex_aic_jcsb">
-                                        <a href="{% url 'collection1' product.id %}" class="cart-product__img--wrap">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
                                             <img src="${productDataField.image}" alt="" class="cart-product__img">
                                         </a>
                                         <div class="cart-product__info">
-                                            <p class=" cart-product__name"><a href="{% url 'collection1' product.id %}" class="cart-text">${productDataField.name}</a></p>
+                                            <p class=" cart-product__name"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
                                             <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
                                             <p class="cart-text-2 cart-product__price">${productDataField.price} ETH</p>
                                             <button class="cart-product__detail">Show Details</button>
@@ -341,13 +333,13 @@
                                     </form>
                                 </li>
                             `
-
+    
                             cartAddFeature.innerHTML = `
                                 <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>    
                             `
-
+                            
                             if(response['number_cart_products'] == 1) {
                                 cartAmount_.innerHTML = `
                                     <p class="cart-text cart__number">${response['number_cart_products']} ${itemAmount}</p>
@@ -357,7 +349,7 @@
                                         <button type="submit" class="cart-text cart__clear">Clear all</button>
                                     </form>
                                     `
-
+    
                                 const cartClearForm = document.querySelector('.cart__clear-form');
                                 cartClearForm.onsubmit = (e) => {
                                     e.preventDefault();
@@ -415,11 +407,33 @@
                                 requestUserCart.insertAdjacentHTML('beforeend', new_cart_product);
                             } 
                         } else {
-                            cartAddFeature.innerHTML = `
-                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                </svg>
-                            `
-                            requestUserCart.removeChild(requestUserCart.querySelector(`.${productDataField.name}.cart-product__item`));
+                            if(response['number_cart_products'] == 0) {
+                                console.log("okokkoaksodkaosdkaod");
+                                // cartAddFeature.innerHTML = `
+                                cartAddFeature.innerHTML = `
+                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                            </svg>`
+                                // cartProductList.innerHTML = `
+                                document.querySelector(`.cart-product__list`).innerHTML = `
+                                    <div class="cart__hint flex_aic_jcc">
+                                        <div class="cart-hint__inner flex_fdc_aic">
+                                            <p class="cart-hint__announce">Add items to get started</p>
+                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                        </div>
+                                    </div>
+                                `
+                                document.querySelector('.cart__amount').innerHTML = ``;
+                                document.querySelector('.cart__footer').innerHTML = ``;
+                                // cartAmount.innerHTML = ``;
+                                // cartFooter.innerHTML = ``;
+                            }
+                            else {
+                                cartAddFeature.innerHTML = `
+                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                    </svg>
+                                `
+                                requestUserCart.removeChild(requestUserCart.querySelector(`.${productDataField.name}.cart-product__item`));
+                            }
                         }
                         const cartClose = document.querySelector('.cart__close');
                         const containerCart = document.querySelector('.container-cart');
@@ -427,7 +441,7 @@
                         cartClose.onclick = (e) => {
                             containerCart.style.display = 'none';
                         }
-
+    
                         containerCart.onclick = (e) => {
                             if(e.target !== cart) {
                                 containerCart.style.display = 'none';
@@ -437,7 +451,7 @@
                         cart.onclick = (e) => {
                             e.stopPropagation();
                         }
-
+    
                         console.log(typeof productDataField.created_at);
                         const containerCartDetail = document.querySelectorAll('.container-cart-detail');
                         containerCartDetail.forEach(element => {
@@ -457,20 +471,20 @@
                                 e.stopPropagation();
                             }
                         })
-
+    
                         const cartProductDetail = document.querySelectorAll('.cart-product__detail');
                         cartProductDetail.forEach(element => {
                             element.onclick = (e) => {
                                 element.nextElementSibling.style.display = 'block';
                             }
                         });
-
+    
                         const cartNumber = document.querySelector('.cart__number'); 
                         const cartProductList = document.querySelector(`.cart-product__list`);
                         const cartAmount =  document.querySelector('.cart__amount');
                         const cartFooter = document.querySelector('.cart__footer');
                         const cartClearForm = document.querySelector('.cart__clear-form');
-
+    
                         const newCartProductItem = cartProductList.lastElementChild;
                         const cartProductDeleteForm = newCartProductItem.querySelector('.cart-product__delete-form');
                         
@@ -547,14 +561,16 @@
                             })
                         }
                         
-
+    
                     },
                     error: function(xhr, status, status) {
                         console.log(xhr, status, status);
                     }
                 });
-            }
-        })        
+            }     
+        })
+
+
 
 
 
