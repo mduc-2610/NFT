@@ -319,9 +319,6 @@
             }
         })
 
-        const options = { year: '2-digit', month: 'short', day: 'numeric' };
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-
         const addCartFeatureForm = document.querySelectorAll('.cart-add-feature-form');
         const requestUserData = addCartFeatureForm[0].getAttribute('data-user');
         const requestUserDataId = addCartFeatureForm[0].getAttribute('data-user-id');
@@ -357,38 +354,9 @@
                         
                         const productTopicDataField = productTopicData.fields;
                         const itemAmount = response['number_cart_products'] == 1 ? 'item' : 'items';
-                        cartNumber_.innerHTML = `${response['number_cart_products']} ${itemAmount}`
+                        console.log(response['number_cart_products']);
                         if(response['state'] == 'cart_add') {
-                            if(response['number_cart_products'] == 0) {
-                                console.log("ok");
-                                cartAmount_.innerHTML = `
-                                    <p class="cart-text cart__number">${response['number_cart_products']} ${itemAmount}</p>
-                                    <form method="POST" action="" class="cart__clear-form">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="clear_cart_product">
-                                        <button type="submit" class="cart-text cart__clear">Clear all</button>
-                                    </form>
-                                `
-                                cartFooter_.innerHTML = `
-                                    <div class="cart__price flex_aic_jcsb">
-                                        <p class="cart-text cart__price-key">Total price</p>
-                                        <div class="cart__price-value">
-                                            <p class="cart-text cart__price-value-eth">${totalPrice} ETH</p>
-                                            <p class="cart-text-2 cart__price-value-dollar">${totalPrice * 1789}</p>
-                                        </div>
-                                    </div>
-                                    <form action="" class="cart__buy" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="purchase_nft">
-                                        <button type="submit" class="cart__buy-button">Complete purchase</button>
-                                    </form>
-                                `
-                            }
-                            cartAddFeature.innerHTML = `
-                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>    
-                            `
+                            const totalPrice = response['total_price'];
                             let new_cart_product = `
                                 <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
                                     <div class="cart__product--wrap flex_aic_jcsb">
@@ -457,18 +425,107 @@
                                     </form>
                                 </li>
                             `
-                            if(response['number_cart_products'] == 1) {
-                                requestUserCart.innerHTML = new_cart_product
-                            } else {
-                                // requestUserCart.innerHTML += new_cart_product
-                                requestUserCart.insertAdjacentHTML('beforeend', new_cart_product);
-                            }
-                        } else {
+
                             cartAddFeature.innerHTML = `
                                 <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                 </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>    
                             `
-                            requestUserCart.removeChild(requestUserCart.querySelector(`.${productDataField.name}.cart-product__item`));
+                            
+                            if(response['number_cart_products'] == 1) {
+                                cartAmount_.innerHTML = `
+                                    <p class="cart-text cart__number">${response['number_cart_products']} ${itemAmount}</p>
+                                    <form method="POST" action="" class="cart__clear-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="clear_cart_product">
+                                        <button type="submit" class="cart-text cart__clear">Clear all</button>
+                                    </form>
+                                    `
+
+                                const cartClearForm = document.querySelector('.cart__clear-form');
+                                cartClearForm.onsubmit = (e) => {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: window.location.href,
+                                        data: {
+                                            'action': 'clear_cart_product',
+                                            'csrfmiddlewaretoken': cartClearForm.children[0].value,
+                                        },
+                                        success: function(response) {
+                                            console.log(response['state']);
+                                            if(response['state'] == 'clear_cart_product') {
+                                                cartProductList.innerHTML = `
+                                                    <div class="cart__hint flex_aic_jcc">
+                                                        <div class="cart-hint__inner flex_fdc_aic">
+                                                            <p class="cart-hint__announce">Add items to get started</p>
+                                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                        </div>
+                                                    </div>
+                                                `
+                                                cartAmount.innerHTML = ``;
+                                                cartFooter.innerHTML = ``;
+                                            }
+                                        },
+                                        error: function(jqXHR, textStatus, errorTh) {
+                                            console.log(jqXHR, textStatus, errorTh);
+                                        }
+                                    })
+                                }
+                                
+                                // cartNumber_.innerHTML = `${response['number_cart_products']} ${itemAmount}`
+                                if(requestUserCart) {
+                                    requestUserCart.innerHTML = new_cart_product
+                                }
+                                
+                                cartFooter_.innerHTML = `
+                                    <div class="cart__price flex_aic_jcsb">
+                                        <p class="cart-text cart__price-key">Total price</p>
+                                        <div class="cart__price-value">
+                                            <p class="cart-text cart__price-value-eth">${totalPrice} ETH</p>
+                                            <p class="cart-text-2 cart__price-value-dollar">${totalPrice * 1789}</p>
+                                        </div>
+                                    </div>
+                                    <form action="" class="cart__buy" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="purchase_nft">
+                                        <button type="submit" class="cart__buy-button">Complete purchase</button>
+                                    </form>
+                                `
+                            }
+                            
+                            else if(response['number_cart_products'] > 1) {
+                                cartNumber_.innerHTML = `${response['number_cart_products']} ${itemAmount}`
+                                requestUserCart.insertAdjacentHTML('beforeend', new_cart_product);
+                            } 
+                        } else {
+                            if(response['number_cart_products'] == 0) {
+                                console.log("okokkoaksodkaosdkaod");
+                                // cartAddFeature.innerHTML = `
+                                cartAddFeature.innerHTML = `
+                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                            </svg>`
+                                // cartProductList.innerHTML = `
+                                document.querySelector(`.cart-product__list`).innerHTML = `
+                                    <div class="cart__hint flex_aic_jcc">
+                                        <div class="cart-hint__inner flex_fdc_aic">
+                                            <p class="cart-hint__announce">Add items to get started</p>
+                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                        </div>
+                                    </div>
+                                `
+                                document.querySelector('.cart__amount').innerHTML = ``;
+                                document.querySelector('.cart__footer').innerHTML = ``;
+                                // cartAmount.innerHTML = ``;
+                                // cartFooter.innerHTML = ``;
+                            }
+                            else {
+                                cartAddFeature.innerHTML = `
+                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                    </svg>
+                                `
+                                requestUserCart.removeChild(requestUserCart.querySelector(`.${productDataField.name}.cart-product__item`));
+                            }
                         }
                         const cartClose = document.querySelector('.cart__close');
                         const containerCart = document.querySelector('.container-cart');
@@ -511,7 +568,6 @@
                         cartProductDetail.forEach(element => {
                             element.onclick = (e) => {
                                 element.nextElementSibling.style.display = 'block';
-                                // element.nextElementSibling.classList.toggle('cart-show-block');
                             }
                         });
 
@@ -519,11 +575,12 @@
                         const cartProductList = document.querySelector(`.cart-product__list`);
                         const cartAmount =  document.querySelector('.cart__amount');
                         const cartFooter = document.querySelector('.cart__footer');
+                        const cartClearForm = document.querySelector('.cart__clear-form');
+
                         const newCartProductItem = cartProductList.lastElementChild;
                         const cartProductDeleteForm = newCartProductItem.querySelector('.cart-product__delete-form');
-                        console.log(newCartProductItem, cartProductDeleteForm);
+                        
                         cartProductDeleteForm.onsubmit = (e) => {
-                            console.log("OK");
                             e.preventDefault();
                             $.ajax({
                                 type: 'POST',
@@ -557,6 +614,38 @@
                                     }
                                     
                                     
+                                },
+                                error: function(jqXHR, textStatus, errorTh) {
+                                    console.log(jqXHR, textStatus, errorTh);
+                                }
+                            })
+                        }
+                        cartClearForm.onsubmit = (e) => {
+                            e.preventDefault();
+                            $.ajax({
+                                type: 'POST',
+                                url: window.location.href,
+                                data: {
+                                    'action': 'clear_cart_product',
+                                    'csrfmiddlewaretoken': cartClearForm.children[0].value,
+                                },
+                                success: function(response) {
+                                    console.log(response['state']);
+                                    if(response['state'] == 'clear_cart_product') {
+                                        cartAddFeature.innerHTML = `
+                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                            </svg>`
+                                        cartProductList.innerHTML = `
+                                            <div class="cart__hint flex_aic_jcc">
+                                                <div class="cart-hint__inner flex_fdc_aic">
+                                                    <p class="cart-hint__announce">Add items to get started</p>
+                                                    <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                </div>
+                                            </div>
+                                        `
+                                        cartAmount.innerHTML = ``;
+                                        cartFooter.innerHTML = ``;
+                                    }
                                 },
                                 error: function(jqXHR, textStatus, errorTh) {
                                     console.log(jqXHR, textStatus, errorTh);

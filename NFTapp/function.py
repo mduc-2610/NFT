@@ -133,6 +133,7 @@ def add_cart_data(view_func):
                         'total_price': total_price,
                         'number_cart_products': cart_products_length,
                     })
+                
             request.cart_products = cart_products
         
         return view_func(request, *args, **kwargs)

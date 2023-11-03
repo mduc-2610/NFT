@@ -158,78 +158,86 @@
     const cartProductList = document.querySelector(`.cart-product__list`);
     const cartAmount =  document.querySelector('.cart__amount');
     const cartFooter = document.querySelector('.cart__footer');
-    
-    console.log(window.location.href);
-    cartClearForm.onsubmit = (e) => {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: window.location.href,
-            data: {
-                'action': 'clear_cart_product',
-                'csrfmiddlewaretoken': cartClearForm.children[0].value,
-            },
-            success: function(response) {
-                console.log(response['state']);
-                if(response['state'] == 'clear_cart_product') {
-                    cartNumber.textContent = `0 item`;
-                    cartProductList.innerHTML = `
-                        <div class="cart__hint flex_aic_jcc">
-                            <div class="cart-hint__inner flex_fdc_aic">
-                                <p class="cart-hint__announce">Add items to get started</p>
-                                <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                            </div>
-                        </div>
-                    `
-                    cartAmount.innerHTML = ``;
-                    cartFooter.innerHTML = ``;
-                }
-            },
-            error: function(jqXHR, textStatus, errorTh) {
-                console.log(jqXHR, textStatus, errorTh);
-            }
-        })
-    }
-
-    cartProductItem.forEach(element => {
-        const cartProductDeleteForm = element.querySelector('.cart-product__delete-form');
-        cartProductDeleteForm.onsubmit = (e) => {
-            console.log(cartProductDeleteForm);
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                // url: ,
-                data: {
-                    'action': 'delete_cart_product',
-                    'product_id': element.getAttribute('data-product-id'),
-                    'csrfmiddlewaretoken': cartProductDeleteForm.children[0].value,
-                },
-                success: function(response) {
-                    console.log(response['number_cart_products']);
-                    if(response['state'] == 'delete_cart_product') {
-                        cartNumber.textContent = `${response['number_cart_products']} ${response['number_cart_products'] == 1 ? 'item' : 'items'}`;
-                        if(response['number_cart_products'] != 0) {
-                            cartProductList.removeChild(element);
-                        }
-                        else {
+    function clearCartProduct() {
+        
+        console.log(window.location.href);
+        if(cartClearForm) {
+            cartClearForm.onsubmit = (e) => {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: {
+                        'action': 'clear_cart_product',
+                        'csrfmiddlewaretoken': cartClearForm.children[0].value,
+                    },
+                    success: function(response) {
+                        console.log(response['state']);
+                        if(response['state'] == 'clear_cart_product') {
+                            cartNumber.textContent = `0 item`;
                             cartProductList.innerHTML = `
                                 <div class="cart__hint flex_aic_jcc">
                                     <div class="cart-hint__inner flex_fdc_aic">
                                         <p class="cart-hint__announce">Add items to get started</p>
                                         <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
                                     </div>
-                                </div>`;
+                                </div>
+                            `
                             cartAmount.innerHTML = ``;
                             cartFooter.innerHTML = ``;
                         }
+                    },
+                    error: function(jqXHR, textStatus, errorTh) {
+                        console.log(jqXHR, textStatus, errorTh);
                     }
-                    
-                    
-                },
-                error: function(jqXHR, textStatus, errorTh) {
-                    console.log(jqXHR, textStatus, errorTh);
-                }
-            })
+                })
+            }
         }
-    })
+    }
+
+    clearCartProduct();
+    function deleteCartProduct() {
+        cartProductItem.forEach(element => {
+            const cartProductDeleteForm = element.querySelector('.cart-product__delete-form');
+            cartProductDeleteForm.onsubmit = (e) => {
+                console.log(cartProductDeleteForm);
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    // url: ,
+                    data: {
+                        'action': 'delete_cart_product',
+                        'product_id': element.getAttribute('data-product-id'),
+                        'csrfmiddlewaretoken': cartProductDeleteForm.children[0].value,
+                    },
+                    success: function(response) {
+                        console.log(response['number_cart_products']);
+                        if(response['state'] == 'delete_cart_product') {
+                            cartNumber.textContent = `${response['number_cart_products']} ${response['number_cart_products'] == 1 ? 'item' : 'items'}`;
+                            if(response['number_cart_products'] != 0) {
+                                cartProductList.removeChild(element);
+                            }
+                            else {
+                                cartProductList.innerHTML = `
+                                    <div class="cart__hint flex_aic_jcc">
+                                        <div class="cart-hint__inner flex_fdc_aic">
+                                            <p class="cart-hint__announce">Add items to get started</p>
+                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                        </div>
+                                    </div>`;
+                                cartAmount.innerHTML = ``;
+                                cartFooter.innerHTML = ``;
+                            }
+                        }
+                        
+                        
+                    },
+                    error: function(jqXHR, textStatus, errorTh) {
+                        console.log(jqXHR, textStatus, errorTh);
+                    }
+                })
+            }
+        })
+    }
+    deleteCartProduct();
 </script>
