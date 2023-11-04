@@ -1,231 +1,274 @@
-.container-auth {
-    width: 100%;
-    height: 100%;
+.container-edit-profile {
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.container-edit-profile .box {
+  position: relative;
+  width: 80%;
+  height: 470px;
+  background: #1c1c1c;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.nft-login.box {
+  height: 445px;
+}
+
+.edit-profile.box {
+  height: 770px;
+}
+
+.container-edit-profile .box::before {
+  content: "";
+  position: absolute;
+  width: 4000px;
+  height: 470px;
+  top: -50%;
+  left: -50%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #45f3ff,
+    #45f3ff,
+    #45f3ff
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+}
+
+.container-edit-profile .box::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 470px;
+  top: -50%;
+  left: -50%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #ffff00,
+    #ffff00,
+    #ffff00
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+  animation-delay: -3s;
+}
+
+.container-edit-profile .borderLine {
+  position: absolute;
+  top: 0;
+  inset: 0;
+}
+
+.container-edit-profile .borderLine::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 470px;
+  top: -50%;
+  left: -50%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #fc0f8d,
+    #fc0f8d,
+    #fc0f8d
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .container-auth .box {
-    position: relative;
-    width: 80%;
-    height: 470px;
-    background: #1c1c1c;
-    border-radius: 18px;
-    overflow: hidden;
+  100% {
+    transform: rotate(360deg);
   }
-  
+}
+
+.container-edit-profile .box form {
+  position: absolute;
+  inset: 4px;
+  background: #222;
+  padding: 40px 40px;
+  border-radius: 18px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.container-edit-profile .box form h2 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+}
+
+.container-edit-profile .box form .inputBox {
+  position: relative;
+  width: 100%;
+}
+
+.container-edit-profile .box form .inputBox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  color: #23242a;
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.container-edit-profile .box form .inputBox span {
+  /* margin-bottom: -10px; */
+  position: absolute;
+  left: 0;
+  top: -40px;
+  padding: 20px 0px 10px;
+  pointer-events: none;
+  color: #8f8f8f;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+
+.container-edit-profile .box form .inputBox input:valid ~ span,
+.container-edit-profile .box form .inputBox input:focus ~ span {
+  color: #fff;
+  font-size: 0.75em;
+  transform: translateY(-34px);
+}
+
+.container-edit-profile .box form .inputBox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.container-edit-profile .box form .inputBox input:valid ~ i,
+.container-edit-profile .box form .inputBox input:focus ~ i {
+  height: 44px;
+}
+
+.container-edit-profile .box form .links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-edit-profile .box form .links a {
+  margin: 15px 12px 20px 0;
+  font-size: 1.4rem;
+  color: #8f8f8f;
+  text-decoration: none;
+}
+
+.container-edit-profile .box form .links a:hover {
+  color: #17e3a6;
+}
+
+.container-edit-profile .box form .links a:nth-child(2) {
+  color: #fff;
+}
+
+.container-edit-profile .box form .links a:nth-child(2):hover {
+  color: #17e3a6;
+}
+
+.container-edit-profile .box form input[type="submit"] {
+  /* display: inline-block; */
+  /* text-align: center; */
+  border: none;
+  outline: none;
+  padding: 9px 0;
+  background: #fff;
+  cursor: pointer;
+  font-size: 1.6rem;
+  border-radius: 7px;
+  font-weight: 600;
+  width: 100px;
+  /* transition: 0.6s; */
+}
+
+.container-edit-profile .box form input[type="submit"]:hover {
+  background-color: #17e3a6;
+}
+
+.container-edit-profile .box form input[type="submit"]:active {
+  opacity: 0.8;
+}
+
+.container-edit-profile .wrap-avatar {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.container-edit-profile .wrap-avatar a {
+  display: inline-block;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.container-edit-profile .inputBox a {
+  display: inline-block;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.container-edit-profile .inputBox:first-child {
+  color: #fff;
+}
+
+textarea {
+  width: 100%;
+}
+.edit-profile__submit {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-profile__back {
+  display: inline-block;
+  color: #fff;
+  padding: 9px 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .container-edit-profile .box {
+    width: 600px;
+  }
+
   .nft-login.box {
-    height: 445px;
+    width: 435px;
   }
-  
-  .nft-register.box {
-    height: 708px;
-  }
-  
-  .container-auth .box::before {
-    content: "";
-    position: absolute;
-    width: 4000px;
-    height: 470px;
-    top: -50%;
-    left: -50%;
-    background: linear-gradient(
-      0deg,
-      transparent,
-      transparent,
-      #45f3ff,
-      #45f3ff,
-      #45f3ff
-    );
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-  }
-  
-  .container-auth .box::after {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 470px;
-    top: -50%;
-    left: -50%;
-    background: linear-gradient(
-      0deg,
-      transparent,
-      transparent,
-      #ffff00,
-      #ffff00,
-      #ffff00
-    );
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -3s;
-  }
-  
-  .container-auth .borderLine {
-    position: absolute;
-    top: 0;
-    inset: 0;
-  }
-  
-  .container-auth .borderLine::before {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 470px;
-    top: -50%;
-    left: -50%;
-    background: linear-gradient(
-      0deg,
-      transparent,
-      transparent,
-      #fc0f8d,
-      #fc0f8d,
-      #fc0f8d
-    );
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-  }
-  
-  @keyframes animate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .container-auth .box form {
-    position: absolute;
-    inset: 4px;
-    background: #222;
-    padding: 40px 40px;
-    border-radius: 18px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-  
-  .container-auth .box form h2 {
-    color: #fff;
-    font-weight: 500;
-    font-size: 2rem;
-    text-align: center;
-    letter-spacing: 0.05rem;
-  }
-  
-  .container-auth .box form .inputBox {
-    position: relative;
-    width: 100%;
-  }
-  
-  .container-auth .box form .inputBox input {
-    position: relative;
-    width: 100%;
-    padding: 20px 10px 10px;
-    background: transparent;
-    outline: none;
-    border: none;
-    box-shadow: none;
-    color: #23242a;
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    z-index: 10;
-  }
-  
-  .container-auth .box form .inputBox span {
-    position: absolute;
-    left: 0;
-    padding: 20px 0px 10px;
-    pointer-events: none;
-    color: #8f8f8f;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-  }
-  
-  .container-auth .box form .inputBox input:valid ~ span,
-  .container-auth .box form .inputBox input:focus ~ span {
-    color: #fff;
-    font-size: 0.75em;
-    transform: translateY(-34px);
-  }
-  
-  .container-auth .box form .inputBox i {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: #fff;
-    border-radius: 7px;
-    overflow: hidden;
-    transition: 0.5s;
-    pointer-events: none;
-  }
-  
-  .container-auth .box form .inputBox input:valid ~ i,
-  .container-auth .box form .inputBox input:focus ~ i {
-    height: 44px;
-  }
-  
-  .container-auth .box form .links {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .container-auth .box form .links a {
-    margin: 15px 12px 20px 0;
-    font-size: 1.4rem;
-    color: #8f8f8f;
-    text-decoration: none;
-  }
-  
-  .container-auth .box form .links a:hover {
-    color: #17E3A6;
-  }
-  
-  .container-auth .box form .links a:nth-child(2) {
-    color: #fff;
-  }
-  
-  .container-auth .box form .links a:nth-child(2):hover {
-    color: #17E3A6;
-  }
-  
-  
-  .container-auth .box form input[type="submit"] {
-    /* display: inline-block; */
-    /* text-align: center; */
-    border: none;
-    outline: none;
-    padding: 9px 0;
-    background: #fff;
-    cursor: pointer;
-    font-size: 1.6rem;
-    border-radius: 7px;
+
+  .container-edit-profile .box form h2 {
     font-weight: 600;
-    width: 100px;
-    /* transition: 0.6s; */
+    font-size: 2.4rem;
   }
-  
-  .container-auth .box form input[type="submit"]:hover {
-    background-color: #17E3A6;
-  }
-  
-  .container-auth .box form input[type="submit"]:active {
-    opacity: 0.8;
-  }
-  
-  @media only screen and (min-width: 768px) {
-    .container-auth .box {
-      width: 500px;
-    }
-  
-    .nft-login.box {
-      width: 435px;
-    }
-  }
+}

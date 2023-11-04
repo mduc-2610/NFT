@@ -1,21 +1,37 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="container-auth flex_aic_jcc">
-<div class="nft-register box">
+<div class="container-edit-profile flex_aic_jcc">
+<div class="edit-profile box">
     <span class="borderLine"></span>
     <form method="POST">
       {% csrf_token %}
-      <h2>Sign Up</h2>
+      <h2>Edit your profile</h2>
       {% for field in form %}
-      <div class="inputBox">
-        <span>{{field.name}}</span>
-        {{field}}
-        {{field.errors}}
-        <i></i>
-      </div>
+
+        {% if forloop.counter != 1 %}
+        <div class="inputBox">
+            <span>{{field.name}}</span>
+            {{field}}
+            {{field.errors}}
+            <i></i>
+        </div>
+        {% else %}
+            <div class="inputBox" style="color: #fff;">
+                <div class="wrap-avatar">
+                    <span>{{field.name}}</span>
+                </div>
+                {{field}}
+                {{field.errors}}
+                <i></i>
+            </div>
+        {% endif %}
+
       {% endfor %}
-      <input type="submit" value="Register">
+      <div class="edit-profile__submit">
+          <input type="submit" value="Update">
+          <a href="javascript:history.back()" class="edit-profile__back">Cancel</a>
+      </div>
     </form>
   </div>
 </div>

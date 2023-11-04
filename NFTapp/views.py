@@ -77,13 +77,12 @@ def register_page(request):
     
 @login_required(login_url='login')
 def edit_profile(request):
-    user = request.user
-    form = UserForm(instance=user)
+    form = UserForm(instance=request.user)
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance=user)
+        form = UserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect ('user-profile', pk=user.id)
+            return redirect ('profile', pk=request.user.id)
     return render(request, 'NFTapp/edit_profile.html', {'form': form})
 
 @add_search_data

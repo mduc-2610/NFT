@@ -27,7 +27,7 @@ class MyUserCreationForm(UserCreationForm):
         fields = ['name', 'username', 'email', 'password1', 'password2', 'bio']
 
 class UserForm(forms.ModelForm):
-    bio = forms.CharField(widget=forms.Textarea(attrs={'name':'body', 'rows':3}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'name':'body', 'rows':5}))
 
     class Meta:
         model = User
