@@ -319,61 +319,62 @@
             }
         })
 
-        const cartAddFeatureForm = document.querySelectorAll('.cart-add-feature-form');
-        const requestUserData = cartAddFeatureForm[0].getAttribute('data-user');
-        const requestUserDataId = cartAddFeatureForm[0].getAttribute('data-user-id');
-        const requestUserDataName = cartAddFeatureForm[0].getAttribute('data-user-name'); 
-        const requestUserCart = document.querySelector(`.${requestUserDataName}.cart-product__list`);
-        const cartNumber_ = document.querySelector('.cart__number');
-        const cartAmount_ = document.querySelector('.cart__amount');
-        const cartFooter_ = document.querySelector('.cart__footer');
-
-        cartAddFeatureForm.forEach(element => {
-            element.onsubmit = (e) => {
-                const cartAddFeature = element.querySelector('.cart-add-feature');
+        const profileProductList = $('.cart-add-feature-form');
+        const requestUserData = profileProductList.eq(0).attr('data-user');
+        const requestUserDataId = profileProductList.eq(0).attr('data-user-id');
+        const requestUserDataName = profileProductList.eq(0).attr('data-user-name');
+        
+        console.log(requestUserDataName);
+        
+        $('.cart-add-feature-form').each((index, element) => {
+            $(element).on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    // url: '',
+                    // url: ,
                     data: {
                         'action': 'cart_add',
-                        'csrfmiddlewaretoken': element.children[0].value,
+                        'csrfmiddlewaretoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
                     },
                     success: function(response) {
-                        const product = JSON.parse(response['product']);
-
-                        const productData = product[0];
-                        const productAuthorData = product[1];
-                        const productTopicData = product[2];
-
-                        const productDataId = productData.pk;
-                        const productDataField = productData.fields;
-
-                        const productAuthorDataId = productAuthorData.pk;
-                        const productAuthorDataField = productAuthorData.fields;
+                        console.log("ok");
+                        var product = JSON.parse(response.product);
                         
-                        const productTopicDataField = productTopicData.fields;
-                        const itemAmount = response['number_cart_products'] == 1 ? 'item' : 'items';
-                        console.log(response['number_cart_products']);
-                        if(response['state'] == 'cart_add') {
-                            const totalPrice = response['total_price'];
-                            let new_cart_product = `
+                        var productData = product[0];
+                        var productAuthorData = product[1];
+                        var productTopicData = product[2];
+    
+                        var productDataId = productData.pk;
+                        var productDataField = productData.fields;
+    
+                        var productAuthorDataId = productAuthorData.pk;
+                        var productAuthorDataField = productAuthorData.fields;
+    
+                        var productTopicDataField = productTopicData.fields;
+    
+                        var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
+                        var totalPrice = response.total_price;
+                        var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
+                        var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
+                        var newCartProductList = [];
+                        if (response.state == 'cart_add') {
+                            let newCartProduct =  `
                                 <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
                                     <div class="cart__product--wrap flex_aic_jcsb">
-                                        <a href="{% url 'collection1' product.id %}" class="cart-product__img--wrap">
+                                        <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
                                             <img src="${productDataField.image}" alt="" class="cart-product__img">
                                         </a>
                                         <div class="cart-product__info">
-                                            <p class=" cart-product__name"><a href="{% url 'collection1' product.id %}" class="cart-text">${productDataField.name}</a></p>
+                                            <p class=" cart-product__name"><a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
                                             <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
-                                            <p class="cart-text-2 cart-product__price">${productDataField.price} ETH</p>
+                                            <p class="cart-text-2 cart-product__price">${parseFloat(productDataField.price).toFixed(3)} ETH</p>
                                             <button class="cart-product__detail">Show Details</button>
                                             <div class="container-cart-detail">
                                                 <div class="cart-detail">
                                                     <div class="cart-detail__head flex_aic_jcsb">
                                                         <p class="cart-text cart-detail__heading">This is an unreviewed collection</p>
                                                         <button class="cart-detail__close close-button">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                                                            <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
                                                         </button>
                                                     </div>
                                                     <div class="cart-detail__info">
@@ -381,7 +382,7 @@
                                                             <table class="cart-detail__table">
                                                                 <tr>
                                                                     <td class="cart-text-2">Collection name</td>
-                                                                    <td class=""><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text-2">${productDataField.name}</a></td>
+                                                                    <td class=""><a href=${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text-2">${productDataField.name}</a></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="cart-text-2">Creator</td>
@@ -420,70 +421,34 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="delete_cart_product">
                                         <button class="cart-product__delete">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M164.2 39.5L148.9 64H299.1L283.8 39.5c-2.9-4.7-8.1-7.5-13.6-7.5H177.7c-5.5 0-10.6 2.8-13.6 7.5zM311 22.6L336.9 64H384h32 16c8.8 0 16 7.2 16 16s-7.2 16-16 16H416V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V96H16C7.2 96 0 88.8 0 80s7.2-16 16-16H32 64h47.1L137 22.6C145.8 8.5 161.2 0 177.7 0h92.5c16.6 0 31.9 8.5 40.7 22.6zM64 96V432c0 26.5 21.5 48 48 48H336c26.5 0 48-21.5 48-48V96H64zm80 80V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
+                                            <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M164.2 39.5L148.9 64H299.1L283.8 39.5c-2.9-4.7-8.1-7.5-13.6-7.5H177.7c-5.5 0-10.6 2.8-13.6 7.5zM311 22.6L336.9 64H384h32 16c8.8 0 16 7.2 16 16s-7.2 16-16 16H416V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V96H16C7.2 96 0 88.8 0 80s7.2-16 16-16H32 64h47.1L137 22.6C145.8 8.5 161.2 0 177.7 0h92.5c16.6 0 31.9 8.5 40.7 22.6zM64 96V432c0 26.5 21.5 48 48 48H336c26.5 0 48-21.5 48-48V96H64zm80 80V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
                                         </button>
                                     </form>
                                 </li>
                             `
-
-                            cartAddFeature.innerHTML = `
+                            $(element).find('.cart-add-feature').html(`
                                 <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>    
-                            `
-                            
-                            if(response['number_cart_products'] == 1) {
-                                cartAmount_.innerHTML = `
-                                    <p class="cart-text cart__number">${response['number_cart_products']} ${itemAmount}</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
+                            `);
+                            if(response.number_cart_products == 1) {
+                                $(`.${requestUserDataName}.cart-product__list`).html(newCartProduct);
+                                $('.cart__amount').html(`
+                                    <p class="cart-text cart__number">${itemAmount}</p>
                                     <form method="POST" action="" class="cart__clear-form">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="clear_cart_product">
                                         <button type="submit" class="cart-text cart__clear">Clear all</button>
                                     </form>
-                                    `
-
-                                const cartClearForm = document.querySelector('.cart__clear-form');
-                                cartClearForm.onsubmit = (e) => {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: window.location.href,
-                                        data: {
-                                            'action': 'clear_cart_product',
-                                            'csrfmiddlewaretoken': cartClearForm.children[0].value,
-                                        },
-                                        success: function(response) {
-                                            console.log(response['state']);
-                                            if(response['state'] == 'clear_cart_product') {
-                                                cartProductList.innerHTML = `
-                                                    <div class="cart__hint flex_aic_jcc">
-                                                        <div class="cart-hint__inner flex_fdc_aic">
-                                                            <p class="cart-hint__announce">Add items to get started</p>
-                                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                                                        </div>
-                                                    </div>
-                                                `
-                                                cartAmount.innerHTML = ``;
-                                                cartFooter.innerHTML = ``;
-                                            }
-                                        },
-                                        error: function(jqXHR, textStatus, errorTh) {
-                                            console.log(jqXHR, textStatus, errorTh);
-                                        }
-                                    })
-                                }
-                                
-                                // cartNumber_.innerHTML = `${response['number_cart_products']} ${itemAmount}`
-                                if(requestUserCart) {
-                                    requestUserCart.innerHTML = new_cart_product
-                                }
-                                
-                                cartFooter_.innerHTML = `
+                                `);
+    
+                                $('.cart__hint').html('');
+                                $('.cart__footer').html(`
                                     <div class="cart__price flex_aic_jcsb">
                                         <p class="cart-text cart__price-key">Total price</p>
                                         <div class="cart__price-value">
-                                            <p class="cart-text cart__price-value-eth">${totalPrice} ETH</p>
-                                            <p class="cart-text-2 cart__price-value-dollar">${totalPrice * 1789}</p>
+                                            <p class="cart-text cart__price-value-eth">${totalPriceETH}</p>
+                                            <p class="cart-text-2 cart__price-value-dollar">${totalPriceDollar}</p>
                                         </div>
                                     </div>
                                     <form action="" class="cart__buy" method="POST">
@@ -491,175 +456,126 @@
                                         <input type="hidden" name="action" value="purchase_nft">
                                         <button type="submit" class="cart__buy-button">Complete purchase</button>
                                     </form>
-                                `
+                                `); 
+    
+                                
+                            } else {
+                                $(`.${requestUserDataName}.cart-product__list`).append(newCartProduct);
+                                $('.cart__number').text(`${itemAmount}`);
+                                $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                             }
-                            
-                            else if(response['number_cart_products'] > 1) {
-                                cartNumber_.innerHTML = `${response['number_cart_products']} ${itemAmount}`
-                                requestUserCart.insertAdjacentHTML('beforeend', new_cart_product);
-                            } 
+                            newCartProductList.push($(`.${requestUserDataName}.cart-product__list .cart-product__item:last-child`));
                         } else {
-                            if(response['number_cart_products'] == 0) {
-                                console.log("okokkoaksodkaosdkaod");
-                                // cartAddFeature.innerHTML = `
-                                cartAddFeature.innerHTML = `
-                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                            </svg>`
-                                // cartProductList.innerHTML = `
-                                document.querySelector(`.cart-product__list`).innerHTML = `
+                            $(element).find('.cart-add-feature').html(`
+                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                </svg>
+                            `);
+                            if(response.number_cart_products == 0) {
+                                $(`.${requestUserDataName}.cart-product__list`).html(`
                                     <div class="cart__hint flex_aic_jcc">
                                         <div class="cart-hint__inner flex_fdc_aic">
                                             <p class="cart-hint__announce">Add items to get started</p>
                                             <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
                                         </div>
                                     </div>
-                                `
-                                document.querySelector('.cart__amount').innerHTML = ``;
-                                document.querySelector('.cart__footer').innerHTML = ``;
-                                // cartAmount.innerHTML = ``;
-                                // cartFooter.innerHTML = ``;
+                                `);
+                                $('.cart__amount').html('');
+                                $('.cart__footer').html('');
                             }
                             else {
-                                cartAddFeature.innerHTML = `
-                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                    </svg>
-                                `
-                                requestUserCart.removeChild(requestUserCart.querySelector(`.${productDataField.name}.cart-product__item`));
+                                $('.cart__number').text(`${itemAmount}`);
+                                $(`.${requestUserDataName}.cart-product__list`).find(`.${productDataField.name}.cart-product__item`).remove();
+                                $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                             }
                         }
-                        const cartClose = document.querySelector('.cart__close');
-                        const containerCart = document.querySelector('.container-cart');
-                        const cart = document.querySelector('.cart');
-                        cartClose.onclick = (e) => {
-                            containerCart.style.display = 'none';
-                        }
-
-                        containerCart.onclick = (e) => {
-                            if(e.target !== cart) {
-                                containerCart.style.display = 'none';
-                            }
-                        }
-                        
-                        cart.onclick = (e) => {
-                            e.stopPropagation();
-                        }
-
-                        console.log(typeof productDataField.created_at);
-                        const containerCartDetail = document.querySelectorAll('.container-cart-detail');
-                        containerCartDetail.forEach(element => {
-                            const cartDetailClose = element.querySelector('.cart-detail__close');
-                            const cartDetail = element.querySelector('.cart-detail');
-                            cartDetailClose.onclick = (e) => {
-                                element.style.display = 'none';
-                            }
-                        
-                            element.onclick = (e) => {
-                                if(e.target !== cartDetail) {
-                                    element.style.display = 'none';
-                                }
-                            }
-                            
-                            cartDetail.onclick = (e) => {
-                                e.stopPropagation();
-                            }
-                        })
-
-                        const cartProductDetail = document.querySelectorAll('.cart-product__detail');
-                        cartProductDetail.forEach(element => {
-                            element.onclick = (e) => {
-                                element.nextElementSibling.style.display = 'block';
-                            }
-                        });
-
-                        const cartNumber = document.querySelector('.cart__number'); 
-                        const cartProductList = document.querySelector(`.cart-product__list`);
-                        const cartAmount =  document.querySelector('.cart__amount');
-                        const cartFooter = document.querySelector('.cart__footer');
-                        const cartClearForm = document.querySelector('.cart__clear-form');
-
-                        const newCartProductItem = cartProductList.lastElementChild;
-                        const cartProductDeleteForm = newCartProductItem.querySelector('.cart-product__delete-form');
-                        
-                        cartProductDeleteForm.onsubmit = (e) => {
-                            e.preventDefault();
-                            $.ajax({
-                                type: 'POST',
-                                url: window.location.href,
-                                data: {
-                                    'action': 'delete_cart_product',
-                                    'product_id': newCartProductItem.getAttribute('data-product-id'),
-                                    'csrfmiddlewaretoken': cartProductDeleteForm.children[0].value,
-                                },
-                                success: function(response) {
-                                    console.log(response['number_cart_products']);
-                                    if(response['state'] == 'delete_cart_product') {
-                                        cartNumber.textContent = `${response['number_cart_products']} ${response['number_cart_products'] == 1 ? 'item' : 'items'}`;
-                                        cartAddFeature.innerHTML = `
-                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                            </svg>`
-                                        if(response['number_cart_products'] != 0) {
-                                            cartProductList.removeChild(newCartProductItem);
-                                        }
-                                        else {
-                                            cartProductList.innerHTML = `
-                                                <div class="cart__hint flex_aic_jcc">
-                                                    <div class="cart-hint__inner flex_fdc_aic">
-                                                        <p class="cart-hint__announce">Add items to get started</p>
-                                                        <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                                                    </div>
-                                                </div>`;
-                                            cartAmount.innerHTML = ``;
-                                            cartFooter.innerHTML = ``;
-                                        }
-                                    }
-                                    
-                                    
-                                },
-                                error: function(jqXHR, textStatus, errorTh) {
-                                    console.log(jqXHR, textStatus, errorTh);
-                                }
-                            })
-                        }
-                        cartClearForm.onsubmit = (e) => {
+                        $('.cart__clear-form').on('submit', function(e) {
                             e.preventDefault();
                             $.ajax({
                                 type: 'POST',
                                 url: window.location.href,
                                 data: {
                                     'action': 'clear_cart_product',
-                                    'csrfmiddlewaretoken': cartClearForm.children[0].value,
+                                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                                 },
                                 success: function(response) {
                                     console.log(response['state']);
-                                    if(response['state'] == 'clear_cart_product') {
-                                        cartAddFeature.innerHTML = `
-                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                            </svg>`
-                                        cartProductList.innerHTML = `
+                                    if(response.state == 'clear_cart_product') {
+                                        $('.cart-product__list').html(`
                                             <div class="cart__hint flex_aic_jcc">
                                                 <div class="cart-hint__inner flex_fdc_aic">
                                                     <p class="cart-hint__announce">Add items to get started</p>
                                                     <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
                                                 </div>
                                             </div>
-                                        `
-                                        cartAmount.innerHTML = ``;
-                                        cartFooter.innerHTML = ``;
+                                        `)
+                                        $('.cart__amount').html('');
+                                        $('.cart__footer').html('');
+                                        $(`.cart-add-feature`).html(`
+                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                            </svg>
+                                        `);
                                     }
                                 },
                                 error: function(jqXHR, textStatus, errorTh) {
                                     console.log(jqXHR, textStatus, errorTh);
                                 }
                             })
-                        }
-                        
-
-                    },
-                    error: function(xhr, status, status) {
-                        console.log(xhr, status, status);
+                        })
+                        newCartProductList.forEach(element => {
+                            $(element).find('.cart-product__delete-form').on("submit", function(e) {
+                                e.preventDefault();
+                                $.ajax({
+                                    type: 'POST',
+                                    // url: ,
+                                    data: {
+                                        'action': 'delete_cart_product',
+                                        'product_id': element.attr('data-product-id'),
+                                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                                    },
+                                    success: function(response) {
+                                        const productDelete = JSON.parse(response.product_delete)[0];
+                                        const productDeleteDataField = productDelete.fields;
+                                        var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
+                                        var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
+                                        var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
+    
+                                        // console.log("Price", response.total_price, `${totalPriceETH}`);
+                                        // console.log("State", response.state);
+                                        $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                        $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                        if(response.state == 'delete_cart_product') {
+                                            $('.cart__number').text(`${itemAmount}`);
+                                            if(response.number_cart_products != 0) {
+                                                $(`.${requestUserDataName}.cart-product__list`).find(element).remove();
+                                            }
+                                            else {
+                                                $(`.${requestUserDataName}.cart-product__list`).html(`
+                                                    <div class="cart__hint flex_aic_jcc">
+                                                        <div class="cart-hint__inner flex_fdc_aic">
+                                                            <p class="cart-hint__announce">Add items to get started</p>
+                                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                        </div>
+                                                    </div>`);
+                                                $('.cart__amount').html('');
+                                                $('.cart__footer').html('');
+                                            }
+                                        }
+                                        $(`.cart-add-feature`).html(`
+                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                            </svg>
+                                        `);
+                                    },
+                                    error: function(jqXHR, textStatus, errorTh) {
+                                        console.log(jqXHR, textStatus, errorTh);
+                                    }
+                                })
+                            })
+                        })
                     }
-                });
-            }
+                })
+            })
         })
         
     })

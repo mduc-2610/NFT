@@ -322,13 +322,15 @@ def collection_detail_1(request, pk):
             cart, _ = Cart.objects.get_or_create(user=request.user)
             if product not in [item.product for item in request.user.user_cart.cart_products.all()]:
                 CartItem.objects.create(cart=cart, product=product)
+                request.total_price += product.price;
                 state = 'cart_add'
             else :
                 CartItem.objects.get(cart=cart, product=product).delete()
+                request.total_price -= product.price;
                 state = 'cart_remove'
             return JsonResponse({
                 'state': state,
-                'total_price': sum([product.price for product in Cart.objects.get(user=request.user).products.all()]),
+                'total_price': request.total_price,
                 'number_cart_products': len(request.user.user_cart.cart_products.all()),
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
@@ -679,6 +681,8 @@ def profile(request, pk):
     user = User.objects.get(pk=pk)
     profile_user_follower = user.follower_set.all()
     profile_user_followee = user.following_set.all()
+
+    # total_price = sum([product.price for product in Cart.objects.get(user=request.user).products.all()])
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'follow':
@@ -728,13 +732,16 @@ def profile(request, pk):
             product = NFTProduct.objects.get(id=product_id)
             if product not in [item.product for item in request.user.user_cart.cart_products.all()]:
                 CartItem.objects.create(cart=cart, product=product)
+                request.total_price += product.price
                 state = 'cart_add'
             else :
                 CartItem.objects.get(cart=cart, product=product).delete()
+                request.total_price -= product.price
                 state = 'cart_remove'
+                
             return JsonResponse({
                 'state': state,
-                'total_price': sum([product.price for product in Cart.objects.get(user=request.user).products.all()]),
+                'total_price': request.total_price,
                 'number_cart_products': len(request.user.user_cart.cart_products.all()),
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })

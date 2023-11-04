@@ -109,7 +109,6 @@ def add_cart_data(view_func):
             cart_products = Cart.objects.get(user=request.user).products.all()
             cart_products_length = len(cart_products)
             total_price = sum([product.price for product in cart_products])
-            request.total_price = total_price
             request.number_cart_products = cart_products
             if request.method == 'POST':
                 action = request.POST.get('action')
@@ -127,14 +126,16 @@ def add_cart_data(view_func):
                     user_cart = Cart.objects.get(user=request.user)
                     CartItem.objects.get(cart=user_cart, product=product_delete).delete()
                     cart_products_length -= 1
+                    total_price -= product_delete.price
 
                     return JsonResponse({
                         'state': state,
                         'total_price': total_price,
                         'number_cart_products': cart_products_length,
+                        'product_delete': serializers.serialize('json', [product_delete, ]),
                     })
-                
+            request.total_price = total_price    
             request.cart_products = cart_products
-        
+
         return view_func(request, *args, **kwargs)
     return wrapper

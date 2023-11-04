@@ -26,7 +26,7 @@ def append(query_set, eleemnt):
 
 @register.filter(name='eth_to_usd')
 def eth_to_usd(value):
-    return value * 1789;
+    return round(value * 1789, 2);
 
 @register.filter(name='facebook_time')
 def facebook_time(value):
