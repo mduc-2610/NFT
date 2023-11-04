@@ -143,7 +143,7 @@ def add_cart_data(view_func):
                         for product in cart_products:
                             request.user.owners.add(product)
                         request.user.property -= total_price
-                    
+                        request.user.save()
                     return JsonResponse({
                         'state': state,
                     })

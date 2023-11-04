@@ -28,6 +28,12 @@
                     <p class="profile__follow-key">Follow</p>
                 </div>
                 {% endif %}
+                {% if user == request.user %}
+                <div class="profile__follow--wrap profile__followee-value flex_fdc_aif">
+                    <button class="profile__follow-value">{{user.property|floatformat:3}}</button>
+                    <p class="profile__follow-key profile__property">Property</p>
+                </div>  
+                {% endif %}
             </div>
             <div class="profile__name--wrap flex_aic_jcc">
                 <h1 class="profile__name">@{{user.name}}</h1>

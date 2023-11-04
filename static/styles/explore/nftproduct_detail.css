@@ -249,6 +249,14 @@
     text-decoration: underline;
 }
 
+.product-detail-mobile .product__have-owned {
+    color: #fff;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-style: normal;
+}
+
 .product-owner-button:hover,
 .product-favorite-button:hover,
 .product-owner-number:hover,
@@ -500,6 +508,14 @@
         fill: #000;
     }
     
+    .product-detail-web .product__have-owned {
+        color: #fff;
+        text-align: center;
+        font-size: 2.4rem;
+        font-weight: 600;
+        font-style: normal;
+    }
+
     .product-owner-button:hover,
     .product-favorite-button:hover,
     .product-owner-number:hover,

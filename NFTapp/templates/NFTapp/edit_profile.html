@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container-auth flex_aic_jcc">
+<div class="nft-register box">
+    <span class="borderLine"></span>
+    <form method="POST">
+      {% csrf_token %}
+      <h2>Sign Up</h2>
+      {% for field in form %}
+      <div class="inputBox">
+        <span>{{field.name}}</span>
+        {{field}}
+        {{field.errors}}
+        <i></i>
+      </div>
+      {% endfor %}
+      <input type="submit" value="Register">
+    </form>
+  </div>
+</div>
+{% endblock content %}

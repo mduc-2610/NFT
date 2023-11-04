@@ -17,11 +17,11 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 DisvoteProductComment, DisvoteBlogComment, \
                                 Follow, Cart, CartItem
 
-from .forms import MyUserCreationForm
+from .forms import MyUserCreationForm, UserForm
 from django.db.models import Count
 
 
-def loginPage(request):
+def login_page(request):
     page = 'login'
     
     if request.user.is_authenticated:
@@ -50,12 +50,12 @@ def loginPage(request):
     return render(request, 'NFTapp/login_register.html', context)
 
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     return redirect('home1')
 
 
-def registerPage(request):
+def register_page(request):
     page = 'register'
     form = MyUserCreationForm()
 
@@ -74,6 +74,17 @@ def registerPage(request):
         'form': form
     }
     return render(request, 'NFTapp/login_register.html', context)
+    
+@login_required(login_url='login')
+def edit_profile(request):
+    user = request.user
+    form = UserForm(instance=user)
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect ('user-profile', pk=user.id)
+    return render(request, 'NFTapp/edit_profile.html', {'form': form})
 
 @add_search_data
 @add_cart_data
