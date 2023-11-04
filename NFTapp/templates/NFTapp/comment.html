@@ -38,18 +38,24 @@
                             </button>
                         </form>
 
-                         <span class="comment__behavior-text comment__upvote-number {{comment.id}}">
-                             {{comment.votes.all|length}}
-                         </span>
+                        <span class="comment__behavior-text comment__upvote-number {{comment.id}}">
+                            {{comment.votes.all|length}}
+                        </span>
+                        
+                        {% if type_comment == 'product' %}
+                        <div class="comment__vote-list" style="display: none;">
+                            {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Upvoted by" behavior_of_user_for_ajax="voted" %}
+                        </div>
+                        {% else %}
+                        <div class="comment__vote-list" style="display: none;">
+                            {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_voted_by.all filter="user" behavior_of_user="Upvoted by" behavior_of_user_for_ajax="voted" %}
+                        </div>
+                        {% endif %}
 
-                         <div class="comment__vote-list" style="display: none;">
-                             {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Upvoted by" behavior_of_user_for_ajax="voted" %}
-                         </div>
-                         
-                         <form method="POST" action="" class="{{request.user}} {{request.user.id}} {{comment.id}} comment__downvote-form">
-                             {% csrf_token %}
-                             <input type="hidden" name="action" value="downvote">
-                             <button type="submit" class="comment__downvote">
+                        <form method="POST" action="" class="{{request.user}} {{request.user.id}} {{comment.id}} comment__downvote-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="downvote">
+                            <button type="submit" class="comment__downvote">
                                 {% if request.user not in comment.disvotes.all %}
                                 <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
                                     <g transform="rotate(180 12 12)">
@@ -69,11 +75,15 @@
                         <span class="comment__behavior-text comment__downvote-number {{comment.id}}">
                             {{comment.disvotes.all|length}}
                         </span>
-
+                        {% if type_comment == 'product' %}
                         <div class="comment__disvote-list" style="display: none;">
                             {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_disvoted_by.all filter="user" behavior_of_user="Downvoted by" behavior_of_user_for_ajax="disvoted"%}
                         </div>
-
+                        {% else %}
+                        <div class="comment__disvote-list" style="display: none;">
+                            {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_disvoted_by.all filter="user" behavior_of_user="Downvoted by" behavior_of_user_for_ajax="disvoted"%}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

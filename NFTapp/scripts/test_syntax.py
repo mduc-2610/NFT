@@ -177,7 +177,7 @@ def run():
     # print(VoteProductComment.objects.get(user=User.objects.get(id="1380fd40-aac0-4a10-94ff-54dac9e0b623"), comment=ProductComment.objects.get(id='3242')))
     
 
-    user = User.objects.all()[5]
+    # user = User.objects.all()[5]
     # print(user.user_cart)
     # [print(product) for product in NFTProduct.objects.all()]
     # [print(product) for product in user.user_cart.cart_products.all()]
@@ -190,4 +190,10 @@ def run():
     # product = NFTProduct.objects.all()[1]
     # print(product)
     # [print(product) for product in user.owners.all()]
-    [print(product.product) for product in user.user_cart.cart_products.all()]
+    # [print(product.product) for product in user.user_cart.cart_products.all()]
+    blog = NFTBlog.objects.all()[1]
+    # [print(comment) for comment  in blog.blog_comments.all()]
+    for comment in blog.blog_comments.all():
+        print(comment)
+        for vote in comment.blog_comment_disvoted_by.all():
+            print(f"\t{vote.user}, {vote.comment}")

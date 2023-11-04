@@ -261,9 +261,6 @@ class BlogComment(Comment):
     def __str__(self):
         return f"{self.blog.title} {self.user.name}"
         
-    def __str__(self):
-        return f"{self.user.name} {self.comment.content}"
-
 class VoteBlogComment(models.Model):
     user = models.ForeignKey('User', related_name="votes_on_blog_comments", on_delete=models.CASCADE)
     comment = models.ForeignKey('BlogComment', related_name="blog_comment_voted_by", on_delete=models.CASCADE)

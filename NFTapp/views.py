@@ -240,10 +240,6 @@ def collection_detail_1(request, pk):
     product_favorite_list = product.favorites_by.all()
     product_owner_list = product.owned_by.all()
     user = User.objects.all();
-    
-    like = False
-    if NFTProductFavorite.objects.filter(user=request.user, product=product).exists():
-        like = True
 
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -337,6 +333,7 @@ def collection_detail_1(request, pk):
 
             # return redirect('collection1', pk=product.id)
     context = {
+        'type_comment': 'product',
         'cart_products': request.cart_products,
         'search_data': request.search_data,
         'product': product,
@@ -346,7 +343,6 @@ def collection_detail_1(request, pk):
         # 'product_comment_list': product_comment_list, 
         'product_favorite_list': product_favorite_list,
         'product_owner_list': product_owner_list,
-        'like': like,
     }
     return render(request, 'NFTapp/explore/nftproduct_detail.html', context)
 
@@ -658,14 +654,66 @@ def blog_detail(request, pk):
     comments = blog_detail.blog_comments.all().order_by('-added_at')
     user = User.objects.all()
     if request.method == 'POST':
-        data = {
-            'vote': 0,
-            'content': request.POST.get('content'),
-            'user': request.user, 
-            'blog': blog_detail,
-        }
-        blog_comment = BlogComment.objects.create(**data)
+        action = request.POST.get('action', None)
+        if action == 'comment':
+            data = {
+                # 'vote': 0,
+                'content': request.POST.get('content'),
+                'user': request.user, 
+                'blog': blog_detail,
+            }
+            blog_comment = BlogComment.objects.create(**data)
+
+        if action == 'upvote': 
+            state = ""
+            state2 = ""
+            comment_id = request.POST.get('comment_id') 
+            comment = BlogComment.objects.get(id=comment_id)
+            user_vote_list = list(comment.votes.all())
+            if request.user not in user_vote_list:
+                if DisvoteBlogComment.objects.filter(user=request.user, comment=comment).exists():
+                    DisvoteBlogComment.objects.get(user=request.user, comment=comment).delete()
+                    state2 = "deactivate_downvote"
+                VoteBlogComment.objects.create(user=request.user, comment=comment)
+                state = "activate_upvote"
+            else:
+                VoteBlogComment.objects.get(user=request.user, comment=comment).delete()
+                state = "deactivate_upvote"
+
+            return JsonResponse({
+                'state': state,
+                'state2': state2,
+                'number_upvotes': len(comment.votes.all()),
+                'number_downvotes': len(comment.disvotes.all()),
+                'user_upvote': serializers.serialize('json', [request.user, ])
+            })
+        
+        elif action == 'downvote': 
+            state = ""
+            state2 = ""
+            comment_id = request.POST.get('comment_id') 
+            comment = BlogComment.objects.get(id=comment_id)
+            user_disvote_list = list(comment.disvotes.all())
+            if request.user not in user_disvote_list:
+                if VoteBlogComment.objects.filter(user=request.user, comment=comment).exists():
+                    VoteBlogComment.objects.get(user=request.user, comment=comment).delete()
+                    state2 = "deactivate_upvote"
+                DisvoteBlogComment.objects.create(user=request.user, comment=comment)
+                state = "activate_downvote"
+            else:
+                DisvoteBlogComment.objects.get(user=request.user, comment=comment).delete()
+                state = "deactivate_downvote"
+
+            return JsonResponse({
+                'state': state,
+                'state2': state,
+                'number_upvotes': len(comment.votes.all()),
+                'number_downvotes': len(comment.disvotes.all()),
+                'user_downvote': serializers.serialize('json', [request.user, ])
+            })
+        
     context = {
+        'type_comment': 'blog',
         'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blog_detail': [blog_detail, times_to_read],
@@ -768,4 +816,3 @@ def profile(request, pk):
         context['products'] = product_favorited 
         # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
     return render(request, 'NFTapp/profile.html', context)
-

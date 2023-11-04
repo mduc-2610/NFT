@@ -80,7 +80,7 @@
                 </div>
                 <form action="" class="cart__buy" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="action" value="purchase_nft">
+                    <input type="hidden" name="action" value="purchase_cart_product">
                     <button type="submit" class="cart__buy-button">Complete purchase</button>
                 </form>
             {% endif %}
@@ -243,5 +243,26 @@
             })
         }
         deleteCartProduct();
+
+        function purchaseCartProduct() {
+            $('.cart__by').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: {
+                        'action': 'purchase_cart_product',
+                        // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success: function(response) {
+                        // console.log(response.state);
+                    }, 
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                })
+            })
+        }
+        purchaseCartProduct();
     })
 </script>

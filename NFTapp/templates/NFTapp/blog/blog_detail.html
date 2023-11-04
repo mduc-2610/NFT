@@ -296,5 +296,20 @@
         }
         
     })
+
+    const commentUpvoteNumber = document.querySelectorAll('.comment__upvote-number');
+    commentUpvoteNumber.forEach(element => {
+        element.onclick = (e) => {
+            element.nextElementSibling.style.display = 'block';
+        }
+        }
+    );
+
+    const commentDisvoteNumber = document.querySelectorAll('.comment__downvote-number');
+    commentDisvoteNumber.forEach(element => {
+        element.onclick = (e) => {
+            element.nextElementSibling.style.display = 'block';
+        }
+    });
 </script>
 {% endblock scripts %}
