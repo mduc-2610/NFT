@@ -173,6 +173,15 @@
 <div class="gap-between-section"></div>
 
 {% include 'NFTapp/comment.html' %}
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <p class="related-product">Related products</p>
+    {% include 'NFTapp/explore/nftproduct/nftproduct2.html' with number_products=6 %}
+    <a href="{% url 'collection1' %}" class="view-all-products">View All Products</a>
+</div>
+
 {% endblock content %}
 
 {% block scripts %}
@@ -332,8 +341,6 @@
         const requestUserDataId = profileProductList.eq(0).attr('data-user-id');
         const requestUserDataName = profileProductList.eq(0).attr('data-user-name');
         
-        console.log(requestUserDataName);
-        
         $('.cart-add-feature-form').each((index, element) => {
             $(element).on("submit", function(e) {
                 e.preventDefault();
@@ -345,7 +352,6 @@
                         'csrfmiddlewaretoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
                     },
                     success: function(response) {
-                        console.log("ok");
                         var product = JSON.parse(response.product);
                         
                         var productData = product[0];
@@ -605,7 +611,6 @@
                     
                             const $cartProductDetail = $(element).find('.cart-product__detail');                            
                             $cartProductDetail.click(function (e) {
-                                console.log($cartProductDetail);
                                 $containerCartDetail.css('display', 'block');
                             })
 
@@ -664,6 +669,65 @@
             })
         })
         
+
+        let type_behavior = ['owner', 'favorite']
+        for(var behavior of type_behavior) {
+            let $conatinerUserBehavior = $(`.${behavior}.container-user-behavior`);
+            let $userBehaviorItem = $conatinerUserBehavior.find('.user-behavior__item');
+            $userBehaviorItem.each((index, element) => {
+                let $followButtonForm = $(element).find(`.follow-button-form`);
+                $followButtonForm.on('submit', (e) => {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        // url: ,
+                        data: {
+                            'action': 'list_follow_other',
+                            'user_follow_id': $followButtonForm.attr('data-id'),
+                            'csrfmiddlewaretoken': $(`input[name="csrfmiddlewaretoken`).val(),     
+                        },
+                        success: function(response) {
+                            const userFollow = JSON.parse(response.user_follower)[0];
+                            const userFollowId = userFollow.pk;
+                            const userFollowField = userFollow.fields;
+                            
+                            let stateOfFollowButton = null;
+                            if(response.state == 'follow') {
+                                stateOfFollowButton = `
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="list_follow">
+                                    <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                        Unfollow
+                                    </button>
+                                `;
+                            } 
+                            else {
+                                stateOfFollowButton = `
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="list_follow">
+                                    <button type="submit" class="follow-button flex_aic_jcc">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                            <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                        </svg>
+                                        Follow
+                                    </button>
+                                `;
+                            }
+                            $followButtonForm.html(stateOfFollowButton);
+                            let classQuerry = null;
+                            if($conatinerUserBehavior[0].classList[3] == 'owner') {
+                                classQuerry = `.favorite.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`;                                    
+                            } else if(behavior == 'favorite') {
+                                classQuerry = `.owner.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`;                                    
+                            }
+                            $(classQuerry).html(stateOfFollowButton);   
+                        }
+                    })
+                })
+            })
+        }
+
     })
 </script>
 {% endblock scripts %}

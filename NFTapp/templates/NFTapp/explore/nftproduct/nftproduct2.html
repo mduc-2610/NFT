@@ -25,7 +25,11 @@
                         <p class="nft-product__price-text-2">Reverse price</p>
                         <p class="nft-product__price-2">{{product.price|floatformat:3}} ETH</p>
                     </div>
+                    {% if product not in request.user.owners.all %}
                     <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2">Place bid</a>
+                    {% else %}
+                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2">Owned</a>
+                    {% endif %}
                 </div>
             </div>
         </li>    

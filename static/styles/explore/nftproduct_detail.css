@@ -272,6 +272,28 @@
     font-style: normal;
 }
 
+.related-product {
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-style: normal;
+    margin-bottom: 30px;
+}
+
+.view-all-products {
+    display: inline;
+    width: auto;
+    margin-top: 40px;
+    display: block;
+    color: #FFF;
+    text-align: center;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1; /* 100% */
+    text-decoration-line: underline;
+}
+
 @media only screen and (min-width: 768px) {
     .product-detail {
     
@@ -534,8 +556,17 @@
 
     .product-detail__have-owned {
         font-size: 2.4rem;
+        padding: 50px;
     }
-
+    
+    .related-product {
+        font-size: 3rem;
+        margin-bottom: 60px;
+    }
+    .view-all-products {
+        margin-top: 50px;
+        font-size: 2rem;
+    }
 }
 
 .like-fill-red {

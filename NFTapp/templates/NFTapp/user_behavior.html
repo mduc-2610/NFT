@@ -1,5 +1,5 @@
 {% load my_custom_tags %}
-<div class="container-user-behavior flex_aic_jcc {{behavior_container}}">
+<div class="container-user-behavior flex_aic_jcc {{behavior_container}} {{behavior_of_user_for_ajax}}">
     <div class="user-behavior">
         <div class="user-behavior__head flex_aic_jcc">
             <p class="user-behavior__by">{{behavior_of_user}}</p>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     {% if behavior != request.user %}
-                    <form method="POST" action="" class="{{behavior.id}} {{behavior_of_user|lower}} follow-button-form">
+                    <form method="POST" action="" data-id="{{behavior.id}}" class="{{behavior.id}} {{behavior_of_user|lower}} {{behavior_of_user_for_ajax}} follow-button-form {{behavior.name}}">
                         {% csrf_token %}
                         <input type="hidden" name="action" value="list_follow">
                         {% if behavior not in request.user.following_set.all|filter_queryset:"followee" %}
@@ -33,7 +33,7 @@
                                 Follow
                             </button>
                             {% else %}
-                            <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
+                            <button type="submit" class="unfollow-button flex_aic_jcc">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
                                 Unfollow
                             </button>
@@ -71,6 +71,8 @@
     // userBehaviorBlock.onclick = (e) => {
     //     e.stopPropagation();
     // }
+
+    
    
     
 </script>

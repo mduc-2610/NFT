@@ -245,6 +245,8 @@ def collection_detail_1(request, pk):
     product = NFTProduct.objects.get(pk=pk)
     users = User.objects.filter(is_superuser=0)    
     rarity_rank = product_rarity_rank()
+    products = NFTProduct.objects.filter(type_product__name=product.type_product)
+    product_list = list(products)
     comments = product.product_comments.all().order_by('-added_at')
     # product_comment_list = comments.product_comment_voted_by.all()
     product_favorite_list = product.favorites_by.all()
@@ -274,6 +276,26 @@ def collection_detail_1(request, pk):
                 'number_favorites': len(product.favorites.all()),
                 'user_favorites': serializers.serialize('json', [request.user,])
             })
+        
+        elif action == 'list_follow_other':
+            state = ""
+            user_follow_id = request.POST.get('user_follow_id')
+            user_target = User.objects.get(id=user_follow_id)
+            request_user_following = request.user.following_set.all()
+            if user_target not in [follow.followee for follow in request_user_following]: 
+                Follow.objects.create(follower=request.user, followee=user_target)
+                state = "follow"
+            
+            else:
+                Follow.objects.get(follower=request.user, followee=user_target).delete()
+                state = "unfollow"
+
+            return JsonResponse({
+                    'state': state,
+                    'user_follow_id': user_follow_id, 
+                    'number_follow': len(request.user.following_set.all()),
+                    'user_follower': serializers.serialize("json", [user_target,]),
+                })
         
         elif action == 'upvote': 
             state = ""
@@ -338,10 +360,13 @@ def collection_detail_1(request, pk):
                 'state': state,
                 'total_price': request.total_price,
                 'number_cart_products': len(request.user.user_cart.cart_products.all()),
+                'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
 
+
             # return redirect('collection1', pk=product.id)
+    
     context = {
         'type_comment': 'product',
         'cart_products': request.cart_products,
@@ -350,6 +375,7 @@ def collection_detail_1(request, pk):
         'comments': comments,
         'rarity_rank': rarity_rank[product],
         'product_quantity': len(rarity_rank),
+        'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
         # 'product_comment_list': product_comment_list, 
         'product_favorite_list': product_favorite_list,
         'product_owner_list': product_owner_list,
