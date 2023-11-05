@@ -264,6 +264,14 @@
     color:#17E3A6
 }
 
+.product-detail__have-owned {
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: normal;
+}
+
 @media only screen and (min-width: 768px) {
     .product-detail {
     
@@ -523,6 +531,11 @@
         color:#17E3A6
     }
     
+
+    .product-detail__have-owned {
+        font-size: 2.4rem;
+    }
+
 }
 
 .like-fill-red {

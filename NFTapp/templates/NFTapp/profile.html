@@ -284,7 +284,7 @@
                                             <img src="${productDataField.image}" alt="" class="cart-product__img">
                                         </a>
                                         <div class="cart-product__info">
-                                            <p class=" cart-product__name"><a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
+                                            <p class=" cart-product__name"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
                                             <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
                                             <p class="cart-text-2 cart-product__price">${parseFloat(productDataField.price).toFixed(3)} ETH</p>
                                             <button class="cart-product__detail">Show Details</button>
@@ -301,12 +301,12 @@
                                                             <table class="cart-detail__table">
                                                                 <tr>
                                                                     <td class="cart-text-2">Collection name</td>
-                                                                    <td class=""><a href=${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text-2">${productDataField.name}</a></td>
+                                                                    <td class=""><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productDataId}" class="cart-text-2">${productDataField.name}</a></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="cart-text-2">Creator</td>
                                                                     <td class="cart-text-2">
-                                                                        <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
+                                                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
                                                                         <p class="">Joined in ${convertDateTimeString(productAuthorDataField.date_joined)}</p>
                                                                     </td>
                                                                 </tr>
@@ -376,13 +376,17 @@
                                         <button type="submit" class="cart__buy-button">Complete purchase</button>
                                     </form>
                                 `); 
-
+                                
+                                $('.cart-add-block').append(`
+                                    <span class="cart-add__number-pro flex_aic_jcc">${response.number_cart_products}</span>
+                                `)
                                 
                             } else {
                                 $(`.${requestUserDataName}.cart-product__list`).append(newCartProduct);
                                 $('.cart__number').text(`${itemAmount}`);
                                 $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                 $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                             }
                             newCartProductList.push($(`.${requestUserDataName}.cart-product__list .cart-product__item:last-child`));
                         } else {
@@ -401,12 +405,14 @@
                                 `);
                                 $('.cart__amount').html('');
                                 $('.cart__footer').html('');
+                                $('.cart-add-block .cart-add__number-pro').remove();
                             }
                             else {
                                 $('.cart__number').text(`${itemAmount}`);
                                 $(`.${requestUserDataName}.cart-product__list`).find(`.${productDataField.name}.cart-product__item`).remove();
                                 $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                 $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                             }
                         }
                         $('.cart__clear-form').on('submit', function(e) {
@@ -431,6 +437,7 @@
                                         `)
                                         $('.cart__amount').html('');
                                         $('.cart__footer').html('');
+                                        $('.cart-add-block .cart-add__number-pro').remove();
                                         $('.profile-product__item').each((index, element) => {
                                             if(element.querySelector('.cart-add-feature')) {
                                                 element.querySelector('.cart-add-feature').innerHTML = `
@@ -447,6 +454,47 @@
                             })
                         })
                         newCartProductList.forEach(element => {
+                            const $cartClose = $(element).find('.cart__close');
+                            const $containerCart = $(element).find('.container-cart');
+                            const $cart = $(element).find('.cart');
+                            $cartClose.click(function(e) {
+                                $(element).find('.container-cart').css('display', 'none');
+                            })
+
+                            $containerCart.click(function(e) {
+                                if(e.target !== $cart) {
+                                    $(this).css('display', 'none')
+                                }
+                            })
+
+                            $cart.click(function(e) {
+                                e.stopPropagation();
+                            }) 
+        
+                            const $containerCartDetail = $(element).find('.container-cart-detail');
+                            const $cartDetailClose = $containerCartDetail.find('.cart-detail__close');
+                            const $cartDetail = $containerCartDetail.find('.cart-detail');
+                            
+                            $cartDetailClose.click(function (e) {
+                                $containerCartDetail.css('display', 'none');
+                            });
+                        
+                            $containerCartDetail.click(function (e) {
+                                if(e.target !== $cartDetail) {
+                                    $containerCartDetail.css('display', 'none');
+                                }
+                            })
+                            
+                            $cartDetail.click(function(e) {
+                                e.stopPropagation();
+                            })
+                    
+                            const $cartProductDetail = $(element).find('.cart-product__detail');                            
+                            $cartProductDetail.click(function (e) {
+                                console.log($cartProductDetail);
+                                $containerCartDetail.css('display', 'block');
+                            })
+
                             $(element).find('.cart-product__delete-form').on("submit", function(e) {
                                 e.preventDefault();
                                 $.ajax({
@@ -472,6 +520,7 @@
                                             $('.cart__number').text(`${itemAmount}`);
                                             if(response.number_cart_products != 0) {
                                                 $(`.${requestUserDataName}.cart-product__list`).find(element).remove();
+                                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                                             }
                                             else {
                                                 $(`.${requestUserDataName}.cart-product__list`).html(`
@@ -483,6 +532,7 @@
                                                     </div>`);
                                                 $('.cart__amount').html('');
                                                 $('.cart__footer').html('');
+                                                $('.cart-add-block .cart-add__number-pro').remove();
                                             }
                                         }
                                         $(`.${productDeleteDataField.name}.profile-product__item .cart-add-feature`).html(`

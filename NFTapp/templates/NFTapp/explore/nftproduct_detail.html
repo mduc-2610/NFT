@@ -52,6 +52,7 @@
                 </div>
             </div>
             <div class="product-detail__offer">
+                {% if product not in request.user.owners.all %}
                 <p class="product-detail__current-price">
                     Current price
                 </p>
@@ -72,6 +73,9 @@
                         {% endif %}
                     </button> 
                 </form>
+                {% else %}
+                <p class="product-detail__have-owned">You have owned this product</p>
+                {% endif %}
             </div>
         </div>
         
@@ -128,6 +132,7 @@
                 </div>
             </div>
             <div class="product-detail__offer">
+                {% if product not in request.user.owners.all %}
                 <p class="product-detail__current-price">
                     Current price
                 </p>
@@ -148,6 +153,9 @@
                         {% endif %}
                     </button> 
                 </form>
+                {% else %}
+                <p class="product-detail__have-owned">You have owned this product</p>
+                {% endif %}
             </div>
         </div>
         
@@ -365,7 +373,7 @@
                                             <img src="${productDataField.image}" alt="" class="cart-product__img">
                                         </a>
                                         <div class="cart-product__info">
-                                            <p class=" cart-product__name"><a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
+                                            <p class=" cart-product__name"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
                                             <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
                                             <p class="cart-text-2 cart-product__price">${parseFloat(productDataField.price).toFixed(3)} ETH</p>
                                             <button class="cart-product__detail">Show Details</button>
@@ -382,12 +390,12 @@
                                                             <table class="cart-detail__table">
                                                                 <tr>
                                                                     <td class="cart-text-2">Collection name</td>
-                                                                    <td class=""><a href=${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text-2">${productDataField.name}</a></td>
+                                                                    <td class=""><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productDataId}" class="cart-text-2">${productDataField.name}</a></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="cart-text-2">Creator</td>
                                                                     <td class="cart-text-2">
-                                                                        <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
+                                                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
                                                                         <p class="">Joined in ${convertDateTimeString(productAuthorDataField.date_joined)}</p>
                                                                     </td>
                                                                 </tr>
@@ -426,6 +434,7 @@
                                     </form>
                                 </li>
                             `
+                            
                             $(element).find('.cart-add-feature').html(`
                                 <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                 </svg>
@@ -457,6 +466,10 @@
                                         <button type="submit" class="cart__buy-button">Complete purchase</button>
                                     </form>
                                 `); 
+
+                                $('.cart-add-block').append(`
+                                    <span class="cart-add__number-pro flex_aic_jcc">${response.number_cart_products}</span>
+                                `)
     
                                 
                             } else {
@@ -464,6 +477,7 @@
                                 $('.cart__number').text(`${itemAmount}`);
                                 $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                 $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                             }
                             newCartProductList.push($(`.${requestUserDataName}.cart-product__list .cart-product__item:last-child`));
                         } else {
@@ -482,14 +496,17 @@
                                 `);
                                 $('.cart__amount').html('');
                                 $('.cart__footer').html('');
+                                $('.cart-add-block .cart-add__number-pro').remove();
                             }
                             else {
                                 $('.cart__number').text(`${itemAmount}`);
                                 $(`.${requestUserDataName}.cart-product__list`).find(`.${productDataField.name}.cart-product__item`).remove();
                                 $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                 $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                             }
                         }
+
                         $('.cart__clear-form').on('submit', function(e) {
                             e.preventDefault();
                             $.ajax({
@@ -516,6 +533,8 @@
                                             <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                             </svg>
                                         `);
+                                        $('.cart-add-block .cart-add__number-pro').remove();
+                                        
                                     }
                                 },
                                 error: function(jqXHR, textStatus, errorTh) {
@@ -523,7 +542,49 @@
                                 }
                             })
                         })
+
                         newCartProductList.forEach(element => {
+                            const $cartClose = $(element).find('.cart__close');
+                            const $containerCart = $(element).find('.container-cart');
+                            const $cart = $(element).find('.cart');
+                            $cartClose.click(function(e) {
+                                $(element).find('.container-cart').css('display', 'none');
+                            })
+
+                            $containerCart.click(function(e) {
+                                if(e.target !== $cart) {
+                                    $(this).css('display', 'none')
+                                }
+                            })
+
+                            $cart.click(function(e) {
+                                e.stopPropagation();
+                            }) 
+        
+                            const $containerCartDetail = $(element).find('.container-cart-detail');
+                            const $cartDetailClose = $containerCartDetail.find('.cart-detail__close');
+                            const $cartDetail = $containerCartDetail.find('.cart-detail');
+                            
+                            $cartDetailClose.click(function (e) {
+                                $containerCartDetail.css('display', 'none');
+                            });
+                        
+                            $containerCartDetail.click(function (e) {
+                                if(e.target !== $cartDetail) {
+                                    $containerCartDetail.css('display', 'none');
+                                }
+                            })
+                            
+                            $cartDetail.click(function(e) {
+                                e.stopPropagation();
+                            })
+                    
+                            const $cartProductDetail = $(element).find('.cart-product__detail');                            
+                            $cartProductDetail.click(function (e) {
+                                console.log($cartProductDetail);
+                                $containerCartDetail.css('display', 'block');
+                            })
+
                             $(element).find('.cart-product__delete-form').on("submit", function(e) {
                                 e.preventDefault();
                                 $.ajax({
@@ -541,14 +602,13 @@
                                         var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
                                         var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
     
-                                        // console.log("Price", response.total_price, `${totalPriceETH}`);
-                                        // console.log("State", response.state);
                                         $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                         $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                                         if(response.state == 'delete_cart_product') {
                                             $('.cart__number').text(`${itemAmount}`);
                                             if(response.number_cart_products != 0) {
                                                 $(`.${requestUserDataName}.cart-product__list`).find(element).remove();
+                                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                                             }
                                             else {
                                                 $(`.${requestUserDataName}.cart-product__list`).html(`
@@ -560,6 +620,8 @@
                                                     </div>`);
                                                 $('.cart__amount').html('');
                                                 $('.cart__footer').html('');
+                                                
+                                                $('.cart-add-block .cart-add__number-pro').remove();
                                             }
                                         }
                                         $(`.cart-add-feature`).html(`
