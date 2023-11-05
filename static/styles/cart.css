@@ -3,12 +3,15 @@
     bottom: 15px;
     right: 15px;
     z-index: 996;
+    gap: 10px;
 }
 
 .cart-add {
+    position: relative;
     background: rgba(217, 217, 217, 0.25);
     padding: 15px;
     border-radius: 50%;
+    align-self: flex-end;
 }
 
 .cart-add__svg {
@@ -62,6 +65,38 @@
 
 .cart-add__svg {
 
+}
+
+.flash-message-wrap {
+    cursor: pointer;
+}
+
+.flash-message {
+    /* display: none; */
+    /* position: absolute; */
+    gap: 5px;
+    top: -100%;
+    right: 0;
+    padding: 10px;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 15px;
+    width: 160px;
+}
+
+.flash-message-remove {
+    width: 210px;
+}
+
+.flash-message__icon {
+    padding: 5px;
+    border-radius: 100%;
+    background-color: #17E3A6;
+    
+}
+
+.flash-message__text {
+    color: #fff;
+    font-size: 1.4rem;
 }
 
 .cart {
@@ -259,8 +294,9 @@
     }
 
     .cart-add {
-        bottom: 30px;  
-        right: 30px;
+        margin-right: 12px;
+        /* bottom: 30px;  
+        right: 30px; */
     }
 
     .cart-add__svg {
@@ -272,6 +308,26 @@
         right: 2%;
         width: 400px;
         max-height: 100%;
+    }
+
+    .flash-message-wrap {
+
+    }
+
+    .flash-message {
+        gap: 10px;
+        top: -117%;
+        right: 0;
+        padding: 16px;
+        width: 188px;
+    }
+    
+    .flash-message-remove {
+        width: 250px;
+    }
+    
+    .flash-message__text {
+        font-size: 1.6rem;
     }
 }
 
