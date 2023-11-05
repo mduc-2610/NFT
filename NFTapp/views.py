@@ -256,12 +256,26 @@ def collection_detail_1(request, pk):
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'comment':
-            data = {
-                'content': request.POST.get('content'),
-                'user': request.user,
-                'product': product,
+            content = request.POST.get('content', None)
+            valid_comment = True
+            product_comment = None
+            if content:
+                data = {
+                    'content': content,
+                    'user': request.user,
+                    'product': product,
+                }
+                product_comment = ProductComment.objects.create(**data)
+            else:
+                valid_comment = False
+            
+            context = {
+                'valid_comment': valid_comment,
             }
-            product_comment = ProductComment.objects.create(**data)
+            if valid_comment:
+                context.update({'comment': serializers.serialize('json', [product_comment, request.user])})
+
+            return JsonResponse(context)
         
         elif action == 'like':
             state = ""
