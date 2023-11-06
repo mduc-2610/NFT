@@ -106,7 +106,12 @@ def add_cart_data(view_func):
     def wrapper(request, *args, **kwargs):
         request.cart_products = None
         if request.user.is_authenticated:
-            cart_products = Cart.objects.get(user=request.user).products.all()
+            cart_products = []
+            user_owned_products = request.user.owners.all()
+            for product in Cart.objects.get(user=request.user).products.all():
+                if product not in user_owned_products:
+                    cart_products.append(product)
+
             cart_products_length = len(cart_products)
             total_price = sum([product.price for product in cart_products])
             request.number_cart_products = cart_products

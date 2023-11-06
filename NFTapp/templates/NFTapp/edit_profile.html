@@ -9,7 +9,7 @@
       <h2>Edit your profile</h2>
       {% for field in form %}
 
-        {% if forloop.counter != 1 %}
+        {% if forloop.counter > 2 %}
         <div class="inputBox">
             <span>{{field.name}}</span>
             {{field}}
@@ -36,3 +36,8 @@
   </div>
 </div>
 {% endblock content %}
+{% block scripts %}
+<script>
+  document.querySelector('textarea').classList.add('scroll');
+</script>
+{% endblock scripts %}

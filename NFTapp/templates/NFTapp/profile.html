@@ -145,11 +145,11 @@
 </div>
 
 <div class="profile-user-follower" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower filter="follower" behavior_of_user="Follower" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_follower filter="follower" behavior_of_user="Follower" behavior_of_user_for_ajax="follower"%}
 </div>
 
 <div class="profile-user-followee" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee filter="followee" behavior_of_user="Follow" %}
+    {% include 'NFTapp/user_behavior.html' with user_behavior_list=profile_user_followee filter="followee" behavior_of_user="Follow" behavior_of_user_for_ajax="followee"%}
 </div>
 
 {% endblock content %}
@@ -1050,133 +1050,197 @@
                 }
             });
         });
-        let newUserFolowList = []
-        $('.get_behavior_of_user').each((index, element__) => {
-            let selectedForm = '.' + element__.textContent + '.follow-button-form';
-            $(selectedForm).each((index, element) => {
-                element.onsubmit = (e) => {
+        // let newUserFolowList = []
+        // $('.get_behavior_of_user').each((index, element__) => {
+        //     let selectedForm = '.' + element__.textContent + '.follow-button-form';
+        //     $(selectedForm).each((index, element) => {
+        //         element.onsubmit = (e) => {
+        //             e.preventDefault();
+        //             $.ajax({
+        //                 type: "POST",
+        //                 // url: `/profile/${user_id}`,
+        //                 data: {
+        //                     'action': 'list_follow',
+        //                     'user_follow_id': element.classList[0],
+        //                     'csrfmiddlewaretoken': element.childNodes[1].value, 
+        //                 },
+        //                 success: function(response) {
+        //                     let profileUserFollower = JSON.parse(response['profile_user_follower']);
+        //                     let userPosition = JSON.parse(response['user_position']);
+        //                     let requestUserId = '{{request.user.id|escapejs}}';
+        //                     let userFollowField = profileUserFollower[0].fields;
+        //                     let userFollowId = profileUserFollower[0].pk;
+        //                     console.log(response['state']);
+        //                     console.log(response['number_follow']);
+        //                     console.log(document.querySelector('.profile__followee-value.user_authenticated .profile__follow-value'));
+        //                     $('.profile__followee-value.user_authenticated .profile__follow-value').text(`${response['number_follow']}`);
+        //                     if(response['state'] == 'unfollow') {
+        //                         element.innerHTML = `
+        //                             <input type="hidden" name="action" value="list_follow">
+        //                             {% csrf_token %}
+        //                             <button type="submit" class="follow-button flex_aic_jcc">
+        //                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+        //                                 <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+        //                             </svg>
+        //                             Follow
+        //                         </button>`;
+        //                     console.log(`.user-behavior__item.${userFollowId}`);    
+        //                     // if(requestUserId == userPosition[0].pk) {
+        //                     //     console.log($('.follow.user-behavior__list').find(`.${userFollowId}`));
+        //                     //     $('.follow.user-behavior__list').find(`.${userFollowId}`).remove();
+        //                     // }
+        //                     }
+        //                     else {
+        //                     element.innerHTML = `
+        //                         <input type="hidden" name="action" value="list_follow">
+        //                         {% csrf_token %}
+        //                         <button type="submit" class="unfollow-button flex_aic_jcc">
+        //                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+        //                         Unfollow
+        //                     </button>`;
+        //                     if (requestUserId == userPosition[0].pk) {
+        //                         let newUserFollow = `
+        //                         <li class="user-behavior__item ${userFollowId} flex_aic_jcc">
+        //                             <div class="user-behavior__info">
+        //                                 <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="avatar-wrap user-behavior-person__avt-link">
+        //                                     <img src="${userFollowField.avatar}" alt="" class="user-behavior-person__avt avatar">
+        //                                 </a>
+        //                                 <div class="user-behavior-person flex_aic_jcc">
+        //                                     <div class="user-behavior-person__text-block flex_fdc_aif">
+        //                                         <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="user-behavior-person__name">${userFollowField.name}</a>
+        //                                         <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="user-behavior-person__id">${userFollowId.slice(0,6) + '...' +userFollowId.slice(-4)}</a>
+        //                                     </div>
+        //                                 </div>     
+        //                             </div>
+        //                             <form method="POST" action="" class="${userFollowId} ${element__.textContent} follow-button-form">
+        //                             {% csrf_token %}
+        //                             <input type="hidden" name="action" value="list_follow">
+        //                             <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
+        //                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+        //                                     Unfollow
+        //                                 </button>
+        //                             </form>
+        //                         </li>
+        //                         `
+        //                         $('.follow.user-behavior__list').append(newUserFollow);
+                                
+        //                         newUserFolowList.push($('.follow.user-behavior__list').children().last().children()[1]);
+        //                     }
+        //                     }
+        //                     newUserFolowList.forEach((element) => {
+        //                         console.log(element);
+        //                         element.onsubmit = (e) => {
+        //                             e.preventDefault();
+        //                             $.ajax({
+        //                                 type: "POST",
+        //                                 // url: `/profile/${user_id}`,
+        //                                 data: {
+        //                                 'action': 'list_follow',
+        //                                 'user_follow_id': element.classList[0],
+        //                                 'csrfmiddlewaretoken': element.childNodes[1].value, 
+        //                                 },
+                                        
+        //                                 success: function(response) {
+        //                                     $('.profile__followee-value.user_authenticated .profile__follow-value').text(`${response['number_follow']}`);
+        //                                     let stateOfFollowButton = '';
+        //                                     if(response['state'] == 'unfollow') {
+        //                                         stateOfFollowButton = `
+        //                                         <input type="hidden" name="action" value="list_follow">
+        //                                         {% csrf_token %}
+        //                                         <button type="submit" class="follow-button flex_aic_jcc">
+        //                                         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+        //                                             <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+        //                                         </svg>
+        //                                         Follow
+        //                                     </button>`;
+        //                                     }
+        //                                     else {
+        //                                         stateOfFollowButton = `
+        //                                             <input type="hidden" name="action" value="list_follow">
+        //                                             {% csrf_token %}
+        //                                             <button type="submit" class="unfollow-button flex_aic_jcc">
+        //                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+        //                                             Unfollow
+        //                                         </button>`;
+        //                                         }
+        //                                         if(!$(`.followee.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`)) {
+        //                                             console.log("ok");
+        //                                             element.innerHTML = stateOfFollowButton
+        //                                         } 
+        //                                         $(`.follower.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`).html(stateOfFollowButton);
+        //                                 },
+        //                                 error: function(jqXHR, textStatus, errorThrown) {
+        //                                     console.log('error', jqXHR, textStatus, errorThrown);
+        //                                 }
+        //                             })
+        //                         }
+        //                     })
+        //                 },
+        //                 error: function(jqXHR, textStatus, errorThrown) {
+        //                     console.log('error', jqXHR, textStatus, errorThrown);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
+        let type_behavior = ['follower', 'followee']
+        for(var behavior of type_behavior) {
+            let $conatinerUserBehavior = $(`.${behavior}.container-user-behavior`);
+            let $userBehaviorItem = $conatinerUserBehavior.find('.user-behavior__item');
+            $userBehaviorItem.each((index, element) => {
+                let $followButtonForm = $(element).find(`.follow-button-form`);
+                $followButtonForm.on('submit', (e) => {
                     e.preventDefault();
                     $.ajax({
-                        type: "POST",
-                        // url: `/profile/${user_id}`,
+                        type: 'POST',
+                        // url: ,
                         data: {
                             'action': 'list_follow',
-                            'user_follow_id': element.classList[0],
-                            'csrfmiddlewaretoken': element.childNodes[1].value, 
+                            'user_follow_id': $followButtonForm.attr('data-id'),
+                            'csrfmiddlewaretoken': $(`input[name="csrfmiddlewaretoken`).val(),     
                         },
                         success: function(response) {
-                            let profileUserFollower = JSON.parse(response['profile_user_follower']);
-                            let userPosition = JSON.parse(response['user_position']);
-                            let requestUserId = '{{request.user.id|escapejs}}';
-                            let userFollowField = profileUserFollower[0].fields;
-                            let userFollowId = profileUserFollower[0].pk;
-                            console.log(response['state']);
-                            console.log(response['number_follow']);
-                            console.log(document.querySelector('.profile__followee-value.user_authenticated .profile__follow-value'));
-                            $('.profile__followee-value.user_authenticated .profile__follow-value').text(`${response['number_follow']}`);
-                            if(response['state'] == 'unfollow') {
-                                element.innerHTML = `
-                                    <input type="hidden" name="action" value="list_follow">
-                                    {% csrf_token %}
-                                    <button type="submit" class="follow-button flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                        <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
-                                    </svg>
-                                    Follow
-                                </button>`;
-                            console.log(`.user-behavior__item.${userFollowId}`);    
-                            // if(requestUserId == userPosition[0].pk) {
-                            //     console.log($('.follow.user-behavior__list').find(`.${userFollowId}`));
-                            //     $('.follow.user-behavior__list').find(`.${userFollowId}`).remove();
-                            // }
-                            }
-                            else {
-                            element.innerHTML = `
-                                <input type="hidden" name="action" value="list_follow">
-                                {% csrf_token %}
-                                <button type="submit" class="unfollow-button flex_aic_jcc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
-                                Unfollow
-                            </button>`;
-                            if (requestUserId == userPosition[0].pk) {
-                                let newUserFollow = `
-                                <li class="user-behavior__item ${userFollowId} flex_aic_jcc">
-                                    <div class="user-behavior__info">
-                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="avatar-wrap user-behavior-person__avt-link">
-                                            <img src="${userFollowField.avatar}" alt="" class="user-behavior-person__avt avatar">
-                                        </a>
-                                        <div class="user-behavior-person flex_aic_jcc">
-                                            <div class="user-behavior-person__text-block flex_fdc_aif">
-                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="user-behavior-person__name">${userFollowField.name}</a>
-                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userFollowId}/" class="user-behavior-person__id">${userFollowId.slice(0,6) + '...' +userFollowId.slice(-4)}</a>
-                                            </div>
-                                        </div>     
-                                    </div>
-                                    <form method="POST" action="" class="${userFollowId} ${element__.textContent} follow-button-form">
+                            const userFollow = JSON.parse(response.user_follower)[0];
+                            const userFollowId = userFollow.pk;
+                            const userFollowField = userFollow.fields;
+                            
+                            let stateOfFollowButton = null;
+                            if(response.state == 'follow') {
+                                stateOfFollowButton = `
                                     {% csrf_token %}
                                     <input type="hidden" name="action" value="list_follow">
                                     <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
-                                            Unfollow
-                                        </button>
-                                    </form>
-                                </li>
-                                `
-                                $('.follow.user-behavior__list').append(newUserFollow);
-                                newUserFolowList.push($('.follow.user-behavior__list').children().last().children()[1]);
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                        Unfollow
+                                    </button>
+                                `;
+                            } 
+                            else {
+                                stateOfFollowButton = `
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="list_follow">
+                                    <button type="submit" class="follow-button flex_aic_jcc">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                            <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                        </svg>
+                                        Follow
+                                    </button>
+                                `;
                             }
+                            $followButtonForm.html(stateOfFollowButton);
+                            let classQuerry = [
+                                `.follower.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`,
+                                `.followee.container-user-behavior .user-behavior__item .${userFollowField.name}.follow-button-form`,
+                            ];  
+    
+                            for(let query of classQuerry) {
+                                $(query).html(stateOfFollowButton);   
                             }
-                            newUserFolowList.forEach((element) => {
-                                console.log(element);
-                                element.onsubmit = (e) => {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        type: "POST",
-                                        // url: `/profile/${user_id}`,
-                                        data: {
-                                        'action': 'list_follow',
-                                        'user_follow_id': element.classList[0],
-                                        'csrfmiddlewaretoken': element.childNodes[1].value, 
-                                        },
-                                        
-                                        success: function(response) {
-                                            $('.profile__followee-value.user_authenticated .profile__follow-value').text(`${response['number_follow']}`);
-                                            if(response['state'] == 'unfollow') {
-                                                element.innerHTML = `
-                                                <input type="hidden" name="action" value="list_follow">
-                                                {% csrf_token %}
-                                                <button type="submit" class="follow-button flex_aic_jcc">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                    <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
-                                                </svg>
-                                                Follow
-                                            </button>`;
-                                            }
-                                            else {
-                                            element.innerHTML = `
-                                                <input type="hidden" name="action" value="list_follow">
-                                                {% csrf_token %}
-                                                <button type="submit" class="unfollow-button flex_aic_jcc">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
-                                                Unfollow
-                                            </button>`;
-                                            
-                                            }
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown) {
-                                            console.log('error', jqXHR, textStatus, errorThrown);
-                                        }
-                                    })
-                                }
-                            })
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log('error', jqXHR, textStatus, errorThrown);
                         }
-                    });
-                }
-            });
-        });
+                    })
+                })
+            })
+        }
     });
       
   </script>

@@ -42,13 +42,13 @@ def facebook_time(value):
         return 'now'
     elif time_difference < 3600:
         minutes_ago = int(time_difference / 60)
-        return f'{minutes_ago} minute{"s" if minutes_ago != 1 else ""} ago'
+        return f'{minutes_ago} min{"s" if minutes_ago != 1 else ""}'
     elif time_difference < 86400:
         hours_ago = int(time_difference / 3600)
-        return f'{hours_ago} hour{"s" if hours_ago != 1 else ""} ago'
+        return f'{hours_ago} hour{"s" if hours_ago != 1 else ""}'
     else:
         days_ago = int(time_difference / 86400)
-        return f'{days_ago} day{"s" if days_ago != 1 else ""} ago'
+        return f'{days_ago} day{"s" if days_ago != 1 else ""}'
     
 @register.filter(name='limit_length_id')
 def limit_length_id(value, arg):

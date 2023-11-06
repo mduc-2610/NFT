@@ -18,7 +18,7 @@
 }
 
 .edit-profile.box {
-  height: 770px;
+  height: 995px;
 }
 
 .container-edit-profile .box::before {
@@ -101,7 +101,7 @@
   position: absolute;
   inset: 4px;
   background: #222;
-  padding: 40px 40px;
+  padding: 20px;
   border-radius: 18px;
   z-index: 2;
   display: flex;
@@ -235,13 +235,18 @@
 
 .container-edit-profile .inputBox a {
   display: inline-block;
+  margin-top: 5px;
+  width: 100%;
+  word-wrap: break-word;
   margin-bottom: 30px;
   color: #fff;
 }
 
-.container-edit-profile .inputBox:first-child {
+.container-edit-profile .inputBox:first-child,
+.container-edit-profile .inputBox:nth-child(2) {
   color: #fff;
 }
+
 
 textarea {
   width: 100%;
@@ -263,8 +268,16 @@ textarea {
     width: 600px;
   }
 
+  .container-edit-profile .box form {
+    padding: 40px ;    
+  }
+
   .nft-login.box {
     width: 435px;
+  }
+
+  .edit-profile.box {
+    height: 990px; 
   }
 
   .container-edit-profile .box form h2 {

@@ -266,50 +266,109 @@
 <script>
 
   const commentVoteText = document.querySelectorAll('.comment__vote-text');
-    commentVoteText.forEach(element => {
-        element.onclick = (e) => {
-            const commentId = element.classList[1];
-            const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
-            if (productUserComment) {
-                productUserComment.style.display = 'block';
-            }
-        }
-    });
+  commentVoteText.forEach(element => {
+      element.onclick = (e) => {
+          const commentId = element.classList[1];
+          const productUserComment = document.querySelector('.product-user-comment' + element.classList[1]);
+          if (productUserComment) {
+              productUserComment.style.display = 'block';
+          }
+      }
+  });
 
-    
-    const productUserBehavior = document.querySelectorAll('.container-user-behavior');
-    productUserBehavior.forEach(element => {
-        const userBehaviorBlock = element.querySelector(".user-behavior");
-        const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
-        userBehaviorCloseButton.onclick = (e) => {
-            element.parentNode.style.display = "none";
-        }
-        
-        element.onclick =  (e) => {
-            if (e.target !== userBehaviorBlock) {
-                element.parentNode.style.display = "none";
-            }
-        };
-    
-        userBehaviorBlock.onclick = (e) => {
-            e.stopPropagation();
-        }
-        
-    })
+  
+  const productUserBehavior = document.querySelectorAll('.container-user-behavior');
+  productUserBehavior.forEach(element => {
+      const userBehaviorBlock = element.querySelector(".user-behavior");
+      const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
+      userBehaviorCloseButton.onclick = (e) => {
+          element.parentNode.style.display = "none";
+      }
+      
+      element.onclick =  (e) => {
+          if (e.target !== userBehaviorBlock) {
+              element.parentNode.style.display = "none";
+          }
+      };
+  
+      userBehaviorBlock.onclick = (e) => {
+          e.stopPropagation();
+      }
+      
+  })
 
-    const commentUpvoteNumber = document.querySelectorAll('.comment__upvote-number');
-    commentUpvoteNumber.forEach(element => {
-        element.onclick = (e) => {
-            element.nextElementSibling.style.display = 'block';
-        }
-        }
-    );
+  const commentUpvoteNumber = document.querySelectorAll('.comment__upvote-number');
+  commentUpvoteNumber.forEach(element => {
+      element.onclick = (e) => {
+          element.nextElementSibling.style.display = 'block';
+      }
+      }
+  );
 
-    const commentDisvoteNumber = document.querySelectorAll('.comment__downvote-number');
-    commentDisvoteNumber.forEach(element => {
-        element.onclick = (e) => {
-            element.nextElementSibling.style.display = 'block';
-        }
-    });
+  const commentDisvoteNumber = document.querySelectorAll('.comment__downvote-number');
+  commentDisvoteNumber.forEach(element => {
+      element.onclick = (e) => {
+          element.nextElementSibling.style.display = 'block';
+      }
+  });
+
+  let type_behavior = ['voted', 'disvoted']
+    for(var behavior of type_behavior) {
+      let $conatinerUserBehavior = $(`.${behavior}.container-user-behavior`);
+      let $userBehaviorItem = $conatinerUserBehavior.find('.user-behavior__item');
+      $userBehaviorItem.each((index, element) => {
+          let $followButtonForm = $(element).find(`.follow-button-form`);
+          $followButtonForm.on('submit', (e) => {
+              e.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  // url: ,
+                  data: {
+                      'action': 'list_follow',
+                      'user_follow_id': $followButtonForm.attr('data-id'),
+                      'csrfmiddlewaretoken': $(`input[name="csrfmiddlewaretoken`).val(),     
+                  },
+                  success: function(response) {
+                      const userFollow = JSON.parse(response.user_follower)[0];
+                      const userFollowId = userFollow.pk;
+                      const userFollowField = userFollow.fields;
+                      
+                      let stateOfFollowButton = null;
+                      if(response.state == 'follow') {
+                          stateOfFollowButton = `
+                              {% csrf_token %}
+                              <input type="hidden" name="action" value="list_follow">
+                              <button type="submit" class="follow-button unfollow-button flex_aic_jcc">
+                                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#000"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                  Unfollow
+                              </button>
+                          `;
+                      } 
+                      else {
+                          stateOfFollowButton = `
+                              {% csrf_token %}
+                              <input type="hidden" name="action" value="list_follow">
+                              <button type="submit" class="follow-button flex_aic_jcc">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                      <path d="M3.2549 0V3.33333H0V4.64762H3.2549V8H4.72549V4.64762H8V3.33333H4.72549V0H3.2549Z" fill="#000"/>
+                                  </svg>
+                                  Follow
+                              </button>
+                          `;
+                      }
+                      $followButtonForm.html(stateOfFollowButton);
+
+                      $('.voted.container-user-behavior').each((index, element) => {
+                          $(element).find(`.${userFollowField.name}.follow-button-form`).html(stateOfFollowButton);
+                      })
+
+                      $('.disvoted.container-user-behavior').each((index, element) => {
+                          $(element).find(`.${userFollowField.name}.follow-button-form`).html(stateOfFollowButton);
+                      })
+                  }
+              })
+          })
+      })
+    }
 </script>
 {% endblock scripts %}

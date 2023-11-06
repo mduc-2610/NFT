@@ -54,6 +54,20 @@ li {
     list-style: none;
 }
 
+textarea {
+    border-radius: 10px 10px 0 0;
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+}
+
+
 /* .svg_hover:hover { 
     cursor: pointer;
     stroke: #17E3A6;
@@ -257,19 +271,20 @@ main {
     padding: 10px;
     /* background: rgba(217, 217, 217, 0.8); */
     background: #ccc;
-    border-radius: 15px;
-    width: 160px;
+    border-radius: 12px;
+    /* width: 160px; */
 }
 
 .flash-message-remove {
-    width: 210px;
+    /* width: 210px; */
 }
 
 .flash-message__icon {
     padding: 5px;
     border-radius: 100%;
     background-color: #17E3A6;
-    
+    width: 17px;
+    height: 17px;
 }
 
 .flash-message__text {
@@ -279,7 +294,7 @@ main {
 
 
 .flash-message-comment {
-    width: 300px;
+    /* width: 250px; */
 }
 
 .flash-message-comment .flash-message__icon {
@@ -311,9 +326,9 @@ main {
         padding: 12px 24px;
     }
 
-    
-    .flash-message-wrap {
-
+    .flash-message__icon {
+        width: 20px;
+        height: 20px;
     }
 
     .flash-message {
@@ -321,19 +336,11 @@ main {
         top: -117%;
         right: 0;
         padding: 16px;
-        width: 188px;
+        border-radius: 15px;
     }
-    
-    .flash-message-remove {
-        width: 250px;
-    }
-    
-    .flash-message__text {
-        font-size: 1.6rem;
-    }
-    
 
-    .flash-message-comment {
-        width: 300px;
+    .flash-message__text {
+        font-size: 1.8rem;
     }
+    
 }

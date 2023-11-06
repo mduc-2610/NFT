@@ -98,7 +98,183 @@
 </div>
 
 <script>
+    function facebookTime(timestamp) {
+        const now = new Date();
+        const timestamp_ = new Date(timestamp);
+        const timeDiff = now - timestamp_;
+        const secondsAgo = Math.floor(timeDiff / 1000);
+
+        if (secondsAgo < 60) {
+            return "now";
+        } else if (secondsAgo < 3600) {
+            const minutesAgo = Math.floor(secondsAgo / 60);
+            return `${minutesAgo} min${minutesAgo > 1 ? 's' : ''}`;
+        } else if (secondsAgo < 86400) {
+            const hoursAgo = Math.floor(secondsAgo / 3600);
+            return `${hoursAgo} hour${hoursAgo > 1 ? 's' : ''}`;
+        } else if (secondsAgo < 604800) {
+            const daysAgo = Math.floor(secondsAgo / 86400);
+            return `${daysAgo} day${daysAgo > 1 ? 's' : ''}`;
+        } 
+    }
+
     $( document ).ready(function() {
+        function commentVoteFeature() {
+            const commentSection = document.querySelectorAll('.comment__section');
+            
+            commentSection.forEach(element => {
+                const userId = '{{request.user.id|escapejs}}';
+                const userName = '{{request.user.name|escapejs}}';
+    
+                const commentUpvoteForm = element.querySelector('.comment__upvote-form');
+                const commentDownvoteForm = element.querySelector('.comment__downvote-form');
+    
+                const commentUpvote = commentUpvoteForm.querySelector('.comment__upvote');
+                const commentUpvoteNumber_x = commentUpvoteForm.parentNode.querySelector('.comment__upvote-number'); 
+                const commentUpvoteList = commentUpvoteForm.parentNode.querySelector('.voted.user-behavior__list');
+                
+                const commentDownvote = commentDownvoteForm.querySelector('.comment__downvote');
+                const commentDownvoteNumber_x = commentDownvoteForm.parentNode.querySelector('.comment__downvote-number'); 
+                const commentDownvoteList = commentDownvoteForm.parentNode.querySelector('.disvoted.user-behavior__list');
+                
+                // console.log(commentUpvoteForm, commentDownvote, commentDownvoteNumber_x, commentDownvoteNumber_x, commentUpvoteList, commentDownvoteList)
+                commentUpvoteForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        // url: '',
+                        data: {
+                            'action': 'upvote',
+                            'comment_id': commentUpvoteForm.classList[3],
+                            'csrfmiddlewaretoken': commentUpvoteForm.children[0].value, 
+                        },
+                        success: function(response) {
+                            const userVote = JSON.parse(response['user_upvote'])[0];
+                            const userVoteId = userVote.pk;
+                            const userVoteField = userVote.fields
+                            commentUpvoteNumber_x.textContent = `${response['number_upvotes']}`;
+                            if(response['state'] == 'activate_upvote') {
+                                commentUpvote.innerHTML = `
+                                    <svg fill="#17E3A6" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
+                                    </svg>`;
+                                let new_user_vote = `
+                                    <li class="user-behavior__item ${userName} flex_aic_jcc">
+                                    <div class="user-behavior__info">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="avatar-wrap user-behavior-person__avt-link">
+                                            <img src="${userVoteField.avatar}" alt="" class="user-behavior-person__avt avatar">
+                                        </a>
+                                        <div class="user-behavior-person flex_aic_jcc">
+                                            <div class="user-behavior-person__text-block flex_fdc_aif">
+                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="user-behavior-person__name">${userVoteField.name}</a>
+                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="user-behavior-person__id">${userVoteId.slice(0,6) + '...' +userVoteId.slice(-4)}</a>
+                                            </div>
+                                        </div>     
+                                    </div>
+                                </li>
+                                `
+                                $('.voted.user-behavior__list').append(new_user_vote);
+                                // commentUpvoteList.insertAdjacentElement('beforeend', new_user_vote);
+                                if(response['state2']) {
+                                    commentDownvote.innerHTML = `
+                                    <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                            <g transform="rotate(180 12 12)">
+                                            <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                            </g>
+                                        </svg>`;
+                                    commentDownvoteNumber_x.textContent = `${response['number_downvotes']}`;
+                                    if(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`)) {
+                                        commentDownvoteList.removeChild(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`));
+                                    }
+                                }
+                            }
+                            else {
+                                commentUpvote.innerHTML = `
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                    </svg>`;
+                                if(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`)) {
+                                    commentUpvoteList.removeChild(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`));
+                                }
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR, textStatus, errorThrown);
+                        }
+                    })
+                }
+    
+                commentDownvoteForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        // url: '',
+                        data: {
+                            'action': 'downvote',
+                            'comment_id': commentDownvoteForm.classList[3],
+                            'csrfmiddlewaretoken': commentDownvoteForm.children[0].value, 
+                        },
+                        success: function(response) {
+                            const userDownvote = JSON.parse(response['user_downvote'])[0];
+                            const userDownvoteId = userDownvote.pk;
+                            const userDownvoteField = userDownvote.fields;
+                            commentDownvoteNumber_x.textContent = `${response['number_downvotes']}`;
+                            if(response['state'] == 'activate_downvote') {
+                                commentDownvote.innerHTML = `
+                                        <svg class="comment__downvote-fill" fill="#17E3A6" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <g transform="rotate(180 12 12)">
+                                            <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
+                                            </g>
+                                        </svg>`;
+                                let new_user_vote = `
+                                    <li class="user-behavior__item ${userName} flex_aic_jcc">
+                                    <div class="user-behavior__info">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="avatar-wrap user-behavior-person__avt-link">
+                                            <img src="${userDownvoteField.avatar}" alt="" class="user-behavior-person__avt avatar">
+                                        </a>
+                                        <div class="user-behavior-person flex_aic_jcc">
+                                            <div class="user-behavior-person__text-block flex_fdc_aif">
+                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="user-behavior-person__name">${userDownvoteField.name}</a>
+                                                <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="user-behavior-person__id">${userDownvoteId.slice(0,6) + '...' + userDownvoteId.slice(-4)}</a>
+                                            </div>
+                                        </div>     
+                                    </div>
+                                </li>
+                                `
+                                $('.disvoted.user-behavior__list').append(new_user_vote);
+                                // commentDownvoteList.insertAdjacentElement('beforeend', new_user_vote);
+                                if(response['state2']) {
+                                    commentUpvote.innerHTML = `
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                            <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                        </svg>`;
+                                    commentUpvoteNumber_x.textContent = `${response['number_upvotes']}`;
+                                    if(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`)) {
+                                        commentUpvoteList.removeChild(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`));
+                                    }
+                                }
+                            }
+                            else {
+                                commentDownvote.innerHTML = `
+                                        <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                            <g transform="rotate(180 12 12)">
+                                            <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                            </g>
+                                        </svg>`;
+                                if(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`)) {
+                                    commentDownvoteList.removeChild(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`));
+                                }
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR, textStatus, errorThrown);
+                        }
+                    })
+                }
+            });
+        }
+        commentVoteFeature();
+
         const commentPost = document.querySelector('.comment__post');
         const commentText = commentPost.querySelector('.comment__text');
         const commentList = document.querySelector('.comment__list');
@@ -122,12 +298,126 @@
                         const userDataId = user.pk;
                         const userDataField = user.fields;
                         
+                        commentText.value = '';
+                        
+                        let newComment = `
+                            <li class="comment__section flex_fdc_aif">
+                                <div class="comment__from">
+                                    <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDataId}" class="comment__user">
+                                        <img src="${userDataField.avatar}" alt="" class="comment__user-avt">@${userDataField.name}
+                                    </a>
+                                    <p class="comment__time">${facebookTime(commentDataField.added_at)}</p>
+                                    <div class="comment__edit">
+                                        <button class="comment__modify">Edit</button>
+                                        <button class="comment__delete">Delete</button>
+                                    </div>
+                                </div>
+                                <p class="comment__content">${commentDataField.content}</p>
+                                <div class="comment__vote">
+                                    <div href="" class="comment__vote--wrap">
+                                        <form method="POST" action="" class="${userDataField} ${userDataField.id} ${commentDataId} comment__upvote-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="upvote">
+                                            <button type="submit" class="comment__upvote">
+                                                <svg class="comment__upvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                                    <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                
+                                        <span class="comment__behavior-text comment__upvote-number ${commentDataId}">
+                                            {{comment.votes.all|length}}
+                                        </span>
+                                        
+                                        <div class="comment__vote-list" style="display: none;">
+                                            <div class="container-user-behavior voted flex_aic_jcc vote">
+                                                <div class="user-behavior">
+                                                    <div class="user-behavior__head flex_aic_jcc">
+                                                        <p class="user-behavior__by">Upvoted by</p>
+                                                        <button class="user-behavior__close close-button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                    <ul class="Upvoted by upvote user-behavior__list scroll">
+                                                    </ul>    
+                                                </div>
+                                                <div class="get_behavior_of_user" style="display: none;">vote</div>
+                                            </div>
+                                        </div>
+
+                                        <form method="POST" action="" class="${userDataField} ${userDataField.id} ${commentDataId} comment__downvote-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="downvote">
+                                            <button type="submit" class="comment__downvote">
+                                                <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                                                    <g transform="rotate(180 12 12)">
+                                                    <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </form>
+                
+                                        <span class="comment__behavior-text comment__downvote-number {{comment.id}}">
+                                            {{comment.disvotes.all|length}}
+                                        </span>
+
+                                        <div class="comment__disvote-list" style="display: none;">
+                                            <div class="container-user-behavior disvoted flex_aic_jcc vote">
+                                                <div class="user-behavior">
+                                                    <div class="user-behavior__head flex_aic_jcc">
+                                                        <p class="user-behavior__by">Downvoted by</p>
+                                                        <button class="user-behavior__close close-button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                    <ul class="Downvoted by downvote user-behavior__list scroll">
+                                                    </ul>    
+                                                </div>
+                                                <div class="get_behavior_of_user" style="display: none;">disvote</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        `;
+                        $('.comment__list').prepend(newComment);
+                        // commentList.insertAdjacentElement('afterbegin', newComment);
+
+                        const commentUpvoteNumber = document.querySelector('.comment__upvote-number');
+                        commentUpvoteNumber.onclick = (e) => {
+                            commentUpvoteNumber.nextElementSibling.style.display = 'block';
+                        }
+
+                        const commentDisvoteNumber = document.querySelector('.comment__downvote-number');
+                        commentDisvoteNumber.onclick = (e) => {
+                            commentDisvoteNumber.nextElementSibling.style.display = 'block';
+                        }
+
+                        const productUserBehavior = document.querySelectorAll('.container-user-behavior');
+                        productUserBehavior.forEach(element => {
+                            const userBehaviorBlock = element.querySelector(".user-behavior");
+                            const userBehaviorCloseButton = element.querySelector(".user-behavior__close");
+                            userBehaviorCloseButton.onclick = (e) => {
+                                element.parentNode.style.display = "none";
+                            }
+                            
+                            element.onclick =  (e) => {
+                                if (e.target !== userBehaviorBlock) {
+                                    element.parentNode.style.display = "none";
+                                }
+                            };
+                        
+                            userBehaviorBlock.onclick = (e) => {
+                                e.stopPropagation();
+                            }
+                            commentVoteFeature();
+                        })
                     } else {
                         let flashMessage = `
                             <div class="flash-message flash-message-add flash-message-comment flex_aic_jcc">
                                 <div class="flash-message__icon flex_aic_jcc">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>                                    </div>
-                                <p class="flash-message__text">Please enter a comment before submitting.</p>
+                                <p class="flash-message__text">Please enter a comment.</p>
                             </div>
                         `;
                         document.querySelector('.flash-message-wrap').insertAdjacentHTML('afterbegin', flashMessage);
@@ -139,219 +429,5 @@
                 }
             })
         }
-
-        const commentSection = document.querySelectorAll('.comment__section');
-        commentSection.forEach(element => {
-            const userId = '{{request.user.id|escapejs}}';
-            const userName = '{{request.user.name|escapejs}}';
-
-            const commentUpvoteForm = element.querySelector('.comment__upvote-form');
-            const commentDownvoteForm = element.querySelector('.comment__downvote-form');
-
-            const commentUpvote = commentUpvoteForm.querySelector('.comment__upvote');
-            const commentUpvoteNumber_x = commentUpvoteForm.parentNode.querySelector('.comment__upvote-number'); 
-            const commentUpvoteList = commentUpvoteForm.parentNode.querySelector('.voted.user-behavior__list');
-            
-            const commentDownvote = commentDownvoteForm.querySelector('.comment__downvote');
-            const commentDownvoteNumber_x = commentDownvoteForm.parentNode.querySelector('.comment__downvote-number'); 
-            const commentDownvoteList = commentDownvoteForm.parentNode.querySelector('.disvoted.user-behavior__list');
-            
-            commentUpvoteForm.onsubmit = (e) => {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    // url: '',
-                    data: {
-                        'action': 'upvote',
-                        'comment_id': commentUpvoteForm.classList[3],
-                        'csrfmiddlewaretoken': commentUpvoteForm.children[0].value, 
-                    },
-                    success: function(response) {
-                        const userVote = JSON.parse(response['user_upvote'])[0];
-                        const userVoteId = userVote.pk;
-                        const userVoteField = userVote.fields
-                        commentUpvoteNumber_x.textContent = `${response['number_upvotes']}`;
-                        if(response['state'] == 'activate_upvote') {
-                            commentUpvote.innerHTML = `
-                                <svg fill="#17E3A6" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
-                                </svg>`;
-                            let new_user_vote = `
-                                <li class="user-behavior__item ${userName} flex_aic_jcc">
-                                <div class="user-behavior__info">
-                                    <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="avatar-wrap user-behavior-person__avt-link">
-                                        <img src="${userVoteField.avatar}" alt="" class="user-behavior-person__avt avatar">
-                                    </a>
-                                    <div class="user-behavior-person flex_aic_jcc">
-                                        <div class="user-behavior-person__text-block flex_fdc_aif">
-                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="user-behavior-person__name">${userVoteField.name}</a>
-                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userVoteId}/" class="user-behavior-person__id">${userVoteId.slice(0,6) + '...' +userVoteId.slice(-4)}</a>
-                                        </div>
-                                    </div>     
-                                </div>
-                            </li>
-                            `
-                            commentUpvoteList.innerHTML += new_user_vote;
-                            if(response['state2']) {
-                                commentDownvote.innerHTML = `
-                                <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                        <g transform="rotate(180 12 12)">
-                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                        </g>
-                                    </svg>`;
-                                commentDownvoteNumber_x.textContent = `${response['number_downvotes']}`;
-                                if(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`)) {
-                                    commentDownvoteList.removeChild(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`));
-                                }
-                            }
-                        }
-                        else {
-                            commentUpvote.innerHTML = `
-                                <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                    <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                </svg>`;
-                            commentUpvoteList.removeChild(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`));
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR, textStatus, errorThrown);
-                    }
-                })
-            }
-
-            commentDownvoteForm.onsubmit = (e) => {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    // url: '',
-                    data: {
-                        'action': 'downvote',
-                        'comment_id': commentDownvoteForm.classList[3],
-                        'csrfmiddlewaretoken': commentDownvoteForm.children[0].value, 
-                    },
-                    success: function(response) {
-                        const userDownvote = JSON.parse(response['user_downvote'])[0];
-                        const userDownvoteId = userDownvote.pk;
-                        const userDownvoteField = userDownvote.fields;
-                        commentDownvoteNumber_x.textContent = `${response['number_downvotes']}`;
-                        if(response['state'] == 'activate_downvote') {
-                            commentDownvote.innerHTML = `
-                                    <svg class="comment__downvote-fill" fill="#17E3A6" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <g transform="rotate(180 12 12)">
-                                        <path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" fill="#17E3A6"/>
-                                        </g>
-                                    </svg>`;
-                            let new_user_vote = `
-                                <li class="user-behavior__item ${userName} flex_aic_jcc">
-                                <div class="user-behavior__info">
-                                    <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="avatar-wrap user-behavior-person__avt-link">
-                                        <img src="${userDownvoteField.avatar}" alt="" class="user-behavior-person__avt avatar">
-                                    </a>
-                                    <div class="user-behavior-person flex_aic_jcc">
-                                        <div class="user-behavior-person__text-block flex_fdc_aif">
-                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="user-behavior-person__name">${userDownvoteField.name}</a>
-                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDownvoteId}/" class="user-behavior-person__id">${userDownvoteId.slice(0,6) + '...' + userDownvoteId.slice(-4)}</a>
-                                        </div>
-                                    </div>     
-                                </div>
-                            </li>
-                            `
-                            commentDownvoteList.innerHTML += new_user_vote;
-                            if(response['state2']) {
-                                commentUpvote.innerHTML = `
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                    </svg>`;
-                                commentUpvoteNumber_x.textContent = `${response['number_upvotes']}`;
-                                if(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`)) {
-                                    commentUpvoteList.removeChild(commentUpvoteList.querySelector(`.user-behavior__item.${userName}`));
-                                }
-                            }
-                        }
-                        else {
-                            commentDownvote.innerHTML = `
-                                    <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                        <g transform="rotate(180 12 12)">
-                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                        </g>
-                                    </svg>`;
-                            commentDownvoteList.removeChild(commentDownvoteList.querySelector(`.user-behavior__item.${userName}`));
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR, textStatus, errorThrown);
-                    }
-                })
-            }
-        });
     });
 </script>
-
-<!-- let newComment = `
-                                <li class="comment__section flex_fdc_aif">
-                                    <div class="comment__from">
-                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userDataId}" class="comment__user">
-                                            <img src="" alt="" class="comment__user-avt">@${userDataField.name}
-                                        </a>
-                                        <p class="comment__time">${commentDataField.added_at}</p>
-                                        <div class="comment__edit">
-                                            <button class="comment__modify">Edit</button>
-                                            <button class="comment__delete">Delete</button>
-                                        </div>
-                                    </div>
-                                    <p class="comment__content">${commentDataField.content}</p>
-                                    <div class="comment__vote">
-                                        <div href="" class="comment__vote--wrap">
-                                            <form method="POST" action="" class="${userDataField}} ${userDataField.id}} ${commentDataId} comment__upvote-form">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="action" value="upvote">
-                                                <button type="submit" class="comment__upvote">
-                                                    <svg class="comment__upvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                                    </svg>
-                                                </button>
-                                            </form>
-                    
-                                            <span class="comment__behavior-text comment__upvote-number ${commentDataId}">
-                                                {{comment.votes.all|length}}
-                                            </span>
-                                            
-                                            {% if type_comment == 'product' %}
-                                            <div class="comment__vote-list" style="display: none;">
-                                                {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_voted_by.all filter="user" behavior_of_user="Upvoted by" behavior_of_user_for_ajax="voted" %}
-                                            </div>
-                                            {% else %}
-                                            <div class="comment__vote-list" style="display: none;">
-                                                {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_voted_by.all filter="user" behavior_of_user="Upvoted by" behavior_of_user_for_ajax="voted" %}
-                                            </div>
-                                            {% endif %}
-                    
-                                            <form method="POST" action="" class="${userDataField} ${userDataField.id} ${commentDataId} comment__downvote-form">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="action" value="downvote">
-                                                <button type="submit" class="comment__downvote">
-                                                    <svg class="comment__downvote" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-                                                        <g transform="rotate(180 12 12)">
-                                                        <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            </form>
-                    
-                                            <span class="comment__behavior-text comment__downvote-number {{comment.id}}">
-                                                {{comment.disvotes.all|length}}
-                                            </span>
-                                            {% if type_comment == 'product' %}
-                                            <div class="comment__disvote-list" style="display: none;">
-                                                {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.product_comment_disvoted_by.all filter="user" behavior_of_user="Downvoted by" behavior_of_user_for_ajax="disvoted"%}
-                                            </div>
-                                            {% else %}
-                                            <div class="comment__disvote-list" style="display: none;">
-                                                {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_disvoted_by.all filter="user" behavior_of_user="Downvoted by" behavior_of_user_for_ajax="disvoted"%}
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </li>
-                            `;
-                            commentList.insertAdjacentElement('afterbegin', newComment); -->

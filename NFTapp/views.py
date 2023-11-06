@@ -291,7 +291,7 @@ def collection_detail_1(request, pk):
                 'user_favorites': serializers.serialize('json', [request.user,])
             })
         
-        elif action == 'list_follow_other':
+        elif action == 'list_follow':
             state = ""
             user_follow_id = request.POST.get('user_follow_id')
             user_target = User.objects.get(id=user_follow_id)
@@ -305,11 +305,11 @@ def collection_detail_1(request, pk):
                 state = "unfollow"
 
             return JsonResponse({
-                    'state': state,
-                    'user_follow_id': user_follow_id, 
-                    'number_follow': len(request.user.following_set.all()),
-                    'user_follower': serializers.serialize("json", [user_target,]),
-                })
+                'state': state,
+                'user_follow_id': user_follow_id, 
+                'number_follow': len(request.user.following_set.all()),
+                'user_follower': serializers.serialize("json", [user_target,]),
+            })
         
         elif action == 'upvote': 
             state = ""
@@ -374,7 +374,6 @@ def collection_detail_1(request, pk):
                 'state': state,
                 'total_price': request.total_price,
                 'number_cart_products': len(request.user.user_cart.cart_products.all()),
-                'products': [product_list.pop(random.randint(0, len(product_list) - 1)) for i in range(len(product_list))],
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
 
@@ -705,15 +704,29 @@ def blog_detail(request, pk):
     user = User.objects.all()
     if request.method == 'POST':
         action = request.POST.get('action', None)
+        
         if action == 'comment':
-            data = {
-                # 'vote': 0,
-                'content': request.POST.get('content'),
-                'user': request.user, 
-                'blog': blog_detail,
+            content = request.POST.get('content', None)
+            valid_comment = True
+            blog_comment = None
+            if content:
+                data = {
+                    'content': content,
+                    'user': request.user,
+                    'blog': blog_detail,
+                }
+                blog_comment = BlogComment.objects.create(**data)
+            else:
+                valid_comment = False
+            
+            context = {
+                'valid_comment': valid_comment,
             }
-            blog_comment = BlogComment.objects.create(**data)
+            if valid_comment:
+                context.update({'comment': serializers.serialize('json', [blog_comment, request.user])})
 
+            return JsonResponse(context)
+        
         if action == 'upvote': 
             state = ""
             state2 = ""
@@ -762,6 +775,26 @@ def blog_detail(request, pk):
                 'user_downvote': serializers.serialize('json', [request.user, ])
             })
         
+        elif action == 'list_follow':
+            state = ""
+            user_follow_id = request.POST.get('user_follow_id')
+            user_target = User.objects.get(id=user_follow_id)
+            request_user_following = request.user.following_set.all()
+            if user_target not in [follow.followee for follow in request_user_following]: 
+                Follow.objects.create(follower=request.user, followee=user_target)
+                state = "follow"
+            
+            else:
+                Follow.objects.get(follower=request.user, followee=user_target).delete()
+                state = "unfollow"
+
+            return JsonResponse({
+                'state': state,
+                'user_follow_id': user_follow_id, 
+                'number_follow': len(request.user.following_set.all()),
+                'user_follower': serializers.serialize("json", [user_target,]),
+            })
+        
     context = {
         'type_comment': 'blog',
         'cart_products': request.cart_products,
@@ -803,6 +836,26 @@ def profile(request, pk):
                     'number_follower': len(user.follower_set.all()),
                     'profile_user_follower': serializers.serialize("json", [request_user_follow.follower,]),
                 })
+        # elif action == 'list_follow':
+        #     state = ""
+        #     user_follow_id = request.POST.get('user_follow_id')
+        #     user_target = User.objects.get(id=user_follow_id)
+        #     request_user_following = request.user.following_set.all()
+        #     if user_target not in [follow.followee for follow in request_user_following]: 
+        #         Follow.objects.create(follower=request.user, followee=user_target)
+        #         state = "follow"
+        #     else:
+        #         # request_user_follow = Follow.objects.get(follower=request.user, followee=user_target)
+        #         Follow.objects.get(follower=request.user, followee=user_target).delete()
+        #         state = "unfollow"
+        #     return JsonResponse({
+        #             'state': state,
+        #             'user_follow_id': user_follow_id, 
+        #             'number_follow': len(request.user.following_set.all()),
+        #             'user_position': serializers.serialize("json", [user,]),
+        #             'profile_user_follower': serializers.serialize("json", [user_target,]),
+        #         })
+        
         elif action == 'list_follow':
             state = ""
             user_follow_id = request.POST.get('user_follow_id')
@@ -811,17 +864,17 @@ def profile(request, pk):
             if user_target not in [follow.followee for follow in request_user_following]: 
                 Follow.objects.create(follower=request.user, followee=user_target)
                 state = "follow"
+            
             else:
-                # request_user_follow = Follow.objects.get(follower=request.user, followee=user_target)
                 Follow.objects.get(follower=request.user, followee=user_target).delete()
                 state = "unfollow"
+
             return JsonResponse({
-                    'state': state,
-                    'user_follow_id': user_follow_id, 
-                    'number_follow': len(request.user.following_set.all()),
-                    'user_position': serializers.serialize("json", [user,]),
-                    'profile_user_follower': serializers.serialize("json", [user_target,]),
-                })
+                'state': state,
+                'user_follow_id': user_follow_id, 
+                'number_follow': len(request.user.following_set.all()),
+                'user_follower': serializers.serialize("json", [user_target,]),
+            })
         
         elif action == 'cart_add':
             state = ""
