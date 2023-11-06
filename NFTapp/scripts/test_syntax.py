@@ -23,7 +23,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 Follow, Cart, CartItem
 from NFT.settings import MEDIA_ROOT
 
-from django.db.models import Count
+from django.db.models import Count, Q
 fake = Faker()
 
 def run():
@@ -191,9 +191,20 @@ def run():
     # print(product)
     # [print(product) for product in user.owners.all()]
     # [print(product.product) for product in user.user_cart.cart_products.all()]
-    blog = NFTBlog.objects.all()[1]
-    # [print(comment) for comment  in blog.blog_comments.all()]
-    for comment in blog.blog_comments.all():
-        print(comment)
-        for vote in comment.blog_comment_disvoted_by.all():
-            print(f"\t{vote.user}, {vote.comment}")
+    # blog = NFTBlog.objects.all()[1]
+    # # [print(comment) for comment  in blog.blog_comments.all()]
+    # for comment in blog.blog_comments.all():
+    #     print(comment)
+    #     for vote in comment.blog_comment_disvoted_by.all():
+    #         print(f"\t{vote.user}, {vote.comment}")
+
+    # a = {
+    #     'name' :' Duc',
+    # }
+
+    # a = {
+    #     'age': 19
+    # }
+    # print(a)
+    user = User.objects.all()[6]
+    [print(product) for product in user.user_cart.products.all()]

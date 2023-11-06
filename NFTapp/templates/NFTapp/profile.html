@@ -91,9 +91,11 @@
             </li>
         </ul>
         <div class="profile__filter">
-            <form action="" method="GET" class="profile__search-bar">
+            <form action="" method="POST" class="profile__search-bar">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="search_product">
                 <i class="fa fa-search"></i>
-                <input type="text" class="type" name="profile-search" placeholder="Search by name">
+                <input type="text" class="profile__search-text" name="profile-search" placeholder="Search by name" name="search_query">
             </form>
             {% include 'NFTapp/explore/classify/classify1.html' %}
         </div>
@@ -117,9 +119,9 @@
                                 {% if product not in request.user.owners.all and product.author != request.user %}
                                 <form method="POST" action="" data-user="{{request.user}}" data-user-id="{{request.user.id}}" data-user-name="{{request.user.name}}" class="cart-add-feature-form">
                                     {% csrf_token %}
-                                    <button type="submit" class="buy-button">Buy now</button>
+                                    <div class="buy-button">Buy now</div>
                                     <button type="submit" class="cart-add-feature flex_aic_jcc">
-                                        {% if product in request.user.user_cart.cart_products.all|filter_queryset:"product" or product in users.owners.all %}
+                                        {% if product in request.user.user_cart.products.all %}
                                         <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                         </svg>
                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
@@ -179,6 +181,7 @@
       });
     });
 
+
     const profileFollowerNumber = document.querySelectorAll(".profile__follow-value")[0];
     const profileFolloweeNumber = document.querySelectorAll(".profile__follow-value")[1];
 
@@ -232,350 +235,473 @@
 
         return `${month} ${day.toString().padStart(2, '0')}, ${year}`;
     }
-
+    var collection = $('.profile__collection').html();
     $(document).ready(function() {
-        const profileProductList = $('.profile-product__list');
-        const requestUserData = profileProductList.attr('data-user');
-        const requestUserDataId = profileProductList.attr('data-user-id');
-        const requestUserDataName = profileProductList.attr('data-user-name'); 
+        function addCartFeature() {
+            const profileProductList = $('.profile-product__list');
+            const requestUserData = profileProductList.attr('data-user');
+            const requestUserDataId = profileProductList.attr('data-user-id');
+            const requestUserDataName = profileProductList.attr('data-user-name'); 
+        
+            $('.profile-product__item').each(function() {
+                var element = this;
+                var productId = $(element).attr('data-product-id');
     
-        $('.profile-product__item').each(function() {
-            var element = this;
-            var productId = $(element).attr('data-product-id');
-
-            var cartAddFeatureForm = $(element).find('.cart-add-feature-form');
-
-            $(cartAddFeatureForm).on("submit", function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: "POST",
-                    // url: ,
-                    data: {
-                        'action': 'cart_add',
-                        'product_id': productId,
-                        'csrfmiddlewaretoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
-                    },
-                    success: function(response) {
-                        var product = JSON.parse(response.product);
-                        
-                        var productData = product[0];
-                        var productAuthorData = product[1];
-                        var productTopicData = product[2];
-
-                        var productDataId = productData.pk;
-                        var productDataField = productData.fields;
-
-                        var productAuthorDataId = productAuthorData.pk;
-                        var productAuthorDataField = productAuthorData.fields;
-
-                        var productTopicDataField = productTopicData.fields;
-
-                        var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
-                        var totalPrice = response.total_price;
-                        var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
-                        var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
-                        var newCartProductList = [];
-                        if (response.state == 'cart_add') {
-                            let newCartProduct =  `
-                                <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
-                                    <div class="cart__product--wrap flex_aic_jcsb">
-                                        <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
-                                            <img src="${productDataField.image}" alt="" class="cart-product__img">
-                                        </a>
-                                        <div class="cart-product__info">
-                                            <p class=" cart-product__name"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
-                                            <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
-                                            <p class="cart-text-2 cart-product__price">${parseFloat(productDataField.price).toFixed(3)} ETH</p>
-                                            <button class="cart-product__detail">Show Details</button>
-                                            <div class="container-cart-detail">
-                                                <div class="cart-detail">
-                                                    <div class="cart-detail__head flex_aic_jcsb">
-                                                        <p class="cart-text cart-detail__heading">This is an unreviewed collection</p>
-                                                        <button class="cart-detail__close close-button">
-                                                            <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
-                                                        </button>
-                                                    </div>
-                                                    <div class="cart-detail__info">
-                                                        <div class="cart-detail__table--wrap">
-                                                            <table class="cart-detail__table">
-                                                                <tr>
-                                                                    <td class="cart-text-2">Collection name</td>
-                                                                    <td class=""><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productDataId}" class="cart-text-2">${productDataField.name}</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cart-text-2">Creator</td>
-                                                                    <td class="cart-text-2">
-                                                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
-                                                                        <p class="">Joined in ${convertDateTimeString(productAuthorDataField.date_joined)}</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cart-text-2">Total sales</td>
-                                                                    <td class="cart-text-2">0 ETH</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cart-text-2">Total volume</td>
-                                                                    <td class="cart-text-2">
-                                                                        <p class="">0 ETH</p>
-                                                                        <p class="">$0</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cart-text-2">Total items</td>
-                                                                    <td class="cart-text-2">${productDataField.quantity}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cart-text-2">Created Date</td>
-                                                                    <td class="cart-text-2">${convertDateTimeString(productDataField.created_at)}</td>
-                                                                </tr>
-                                                            </table>
+                var cartAddFeatureForm = $(element).find('.cart-add-feature-form');
+    
+                $(cartAddFeatureForm).on("submit", function(e) {
+                    e.preventDefault();
+    
+                    $.ajax({
+                        type: "POST",
+                        // url: ,
+                        data: {
+                            'action': 'cart_add',
+                            'product_id': productId,
+                            'csrfmiddlewaretoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
+                        },
+                        success: function(response) {
+                            var product = JSON.parse(response.product);
+                            
+                            var productData = product[0];
+                            var productAuthorData = product[1];
+                            var productTopicData = product[2];
+    
+                            var productDataId = productData.pk;
+                            var productDataField = productData.fields;
+    
+                            var productAuthorDataId = productAuthorData.pk;
+                            var productAuthorDataField = productAuthorData.fields;
+    
+                            var productTopicDataField = productTopicData.fields;
+    
+                            var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
+                            var totalPrice = response.total_price;
+                            var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
+                            var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
+                            var newCartProductList = [];
+                            if (response.state == 'cart_add') {
+                                let newCartProduct =  `
+                                    <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
+                                        <div class="cart__product--wrap flex_aic_jcsb">
+                                            <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
+                                                <img src="${productDataField.image}" alt="" class="cart-product__img">
+                                            </a>
+                                            <div class="cart-product__info">
+                                                <p class=" cart-product__name"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-text">${productDataField.name}</a></p>
+                                                <p class="cart-text-2 cart-product__topic">${productTopicDataField.name}</p>
+                                                <p class="cart-text-2 cart-product__price">${parseFloat(productDataField.price).toFixed(3)} ETH</p>
+                                                <button class="cart-product__detail">Show Details</button>
+                                                <div class="container-cart-detail">
+                                                    <div class="cart-detail">
+                                                        <div class="cart-detail__head flex_aic_jcsb">
+                                                            <p class="cart-text cart-detail__heading">This is an unreviewed collection</p>
+                                                            <button class="cart-detail__close close-button">
+                                                                <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="cart-detail__info">
+                                                            <div class="cart-detail__table--wrap">
+                                                                <table class="cart-detail__table">
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Collection name</td>
+                                                                        <td class=""><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productDataId}" class="cart-text-2">${productDataField.name}</a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Creator</td>
+                                                                        <td class="cart-text-2">
+                                                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + requestUserDataId}" class="cart-detail__author">${productAuthorDataField.name}</a>
+                                                                            <p class="">Joined in ${convertDateTimeString(productAuthorDataField.date_joined)}</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Total sales</td>
+                                                                        <td class="cart-text-2">0 ETH</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Total volume</td>
+                                                                        <td class="cart-text-2">
+                                                                            <p class="">0 ETH</p>
+                                                                            <p class="">$0</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Total items</td>
+                                                                        <td class="cart-text-2">${productDataField.quantity}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="cart-text-2">Created Date</td>
+                                                                        <td class="cart-text-2">${convertDateTimeString(productDataField.created_at)}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <form action="" class="{{product.name}} cart-product__delete-form">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="delete_cart_product">
-                                        <button class="cart-product__delete">
-                                            <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M164.2 39.5L148.9 64H299.1L283.8 39.5c-2.9-4.7-8.1-7.5-13.6-7.5H177.7c-5.5 0-10.6 2.8-13.6 7.5zM311 22.6L336.9 64H384h32 16c8.8 0 16 7.2 16 16s-7.2 16-16 16H416V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V96H16C7.2 96 0 88.8 0 80s7.2-16 16-16H32 64h47.1L137 22.6C145.8 8.5 161.2 0 177.7 0h92.5c16.6 0 31.9 8.5 40.7 22.6zM64 96V432c0 26.5 21.5 48 48 48H336c26.5 0 48-21.5 48-48V96H64zm80 80V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
-                                        </button>
-                                    </form>
-                                </li>
-                            `
-                            $('.cart-add-block .flash-message-wrap').prepend(`
-                                <div class="flash-message flash-message-add flex_aic_jcc">
-                                    <div class="flash-message__icon flex_aic_jcc">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
-                                    </div>
-                                    <p class="flash-message__text">Added to cart</p>
-                                </div>
-                            `);
-                            
-                            $('.flash-message-add').click(function(e) {
-                                $('.container-cart').css('display', 'block');   
-                            })
-                            
-                            $('.flash-message-add:first-child').delay(2000).slideUp(300);
-
-                            $(element).find('.cart-add-feature').html(`
-                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
-                            `);
-                            if(response.number_cart_products == 1) {
-                                $(`.${requestUserDataName}.cart-product__list`).html(newCartProduct);
-                                $('.cart__amount').html(`
-                                    <p class="cart-text cart__number">${itemAmount}</p>
-                                    <form method="POST" action="" class="cart__clear-form">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="clear_cart_product">
-                                        <button type="submit" class="cart-text cart__clear">Clear all</button>
-                                    </form>
-                                `);
-
-                                $('.cart__hint').html('');
-                                $('.cart__footer').html(`
-                                    <div class="cart__price flex_aic_jcsb">
-                                        <p class="cart-text cart__price-key">Total price</p>
-                                        <div class="cart__price-value">
-                                            <p class="cart-text cart__price-value-eth">${totalPriceETH}</p>
-                                            <p class="cart-text-2 cart__price-value-dollar">${totalPriceDollar}</p>
+                                        <form action="" class="{{product.name}} cart-product__delete-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="delete_cart_product">
+                                            <button class="cart-product__delete">
+                                                <svg xmlns="http:www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https:fontawesome.com License - https:fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M164.2 39.5L148.9 64H299.1L283.8 39.5c-2.9-4.7-8.1-7.5-13.6-7.5H177.7c-5.5 0-10.6 2.8-13.6 7.5zM311 22.6L336.9 64H384h32 16c8.8 0 16 7.2 16 16s-7.2 16-16 16H416V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V96H16C7.2 96 0 88.8 0 80s7.2-16 16-16H32 64h47.1L137 22.6C145.8 8.5 161.2 0 177.7 0h92.5c16.6 0 31.9 8.5 40.7 22.6zM64 96V432c0 26.5 21.5 48 48 48H336c26.5 0 48-21.5 48-48V96H64zm80 80V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V176c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
+                                            </button>
+                                        </form>
+                                    </li>
+                                `
+                                $('.cart-add-block .flash-message-wrap').prepend(`
+                                    <div class="flash-message flash-message-add flex_aic_jcc">
+                                        <div class="flash-message__icon flex_aic_jcc">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                         </div>
-                                    </div>
-                                    <form action="" class="cart__buy" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="purchase_nft">
-                                        <button type="submit" class="cart__buy-button">Complete purchase</button>
-                                    </form>
-                                `); 
-                                
-                                $('.cart-add').append(`
-                                    <span class="cart-add__number-pro flex_aic_jcc">${response.number_cart_products}</span>
-                                `)
-                                
-                            } else {
-                                $(`.${requestUserDataName}.cart-product__list`).append(newCartProduct);
-                                $('.cart__number').text(`${itemAmount}`);
-                                $('.cart__price-value-eth').text(`${totalPriceETH}`);
-                                $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
-                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
-                            }
-                            newCartProductList.push($(`.${requestUserDataName}.cart-product__list .cart-product__item:last-child`));
-                        } else {
-                            $('.cart-add-block .flash-message-wrap').prepend(`
-                                <div class="flash-message flash-message-remove flex_aic_jcc">
-                                    <div class="flash-message__icon flex_aic_jcc">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
-                                    </div>
-                                    <p class="flash-message__text">Removed from cart</p>
-                                </div>
-                            `);
-
-                            $('.flash-message-remove:first-child').delay(2000).slideUp(300);
-
-                            $(element).find('.cart-add-feature').html(`
-                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                </svg>
-                            `);
-                            if(response.number_cart_products == 0) {
-                                $(`.${requestUserDataName}.cart-product__list`).html(`
-                                    <div class="cart__hint flex_aic_jcc">
-                                        <div class="cart-hint__inner flex_fdc_aic">
-                                            <p class="cart-hint__announce">Add items to get started</p>
-                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                                        </div>
+                                        <p class="flash-message__text">Added to cart</p>
                                     </div>
                                 `);
-                                $('.cart__amount').html('');
-                                $('.cart__footer').html('');
-                                $('.cart-add-block .cart-add__number-pro').remove();
-                            }
-                            else {
-                                $('.cart__number').text(`${itemAmount}`);
-                                $(`.${requestUserDataName}.cart-product__list`).find(`.${productDataField.name}.cart-product__item`).remove();
-                                $('.cart__price-value-eth').text(`${totalPriceETH}`);
-                                $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
-                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
-                            }
-                        }
-                        $('.cart__clear-form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                type: 'POST',
-                                url: window.location.href,
-                                data: {
-                                    'action': 'clear_cart_product',
-                                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                                },
-                                success: function(response) {
-                                    console.log(response['state']);
-                                    if(response.state == 'clear_cart_product') {
-                                        $('.cart-product__list').html(`
-                                            <div class="cart__hint flex_aic_jcc">
-                                                <div class="cart-hint__inner flex_fdc_aic">
-                                                    <p class="cart-hint__announce">Add items to get started</p>
-                                                    <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                                                </div>
+                                
+                                $('.flash-message-add').click(function(e) {
+                                    $('.container-cart').css('display', 'block');   
+                                })
+                                
+                                $('.flash-message-add:first-child').delay(2000).slideUp(300);
+    
+                                $(element).find('.cart-add-feature').html(`
+                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
+                                `);
+                                if(response.number_cart_products == 1) {
+                                    $(`.cart-product__list`).html(newCartProduct);
+                                    $('.cart__amount').html(`
+                                        <p class="cart-text cart__number">${itemAmount}</p>
+                                        <form method="POST" action="" class="cart__clear-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="clear_cart_product">
+                                            <button type="submit" class="cart-text cart__clear">Clear all</button>
+                                        </form>
+                                    `);
+    
+                                    $('.cart__hint').html('');
+                                    $('.cart__footer').html(`
+                                        <div class="cart__price flex_aic_jcsb">
+                                            <p class="cart-text cart__price-key">Total price</p>
+                                            <div class="cart__price-value">
+                                                <p class="cart-text cart__price-value-eth">${totalPriceETH}</p>
+                                                <p class="cart-text-2 cart__price-value-dollar">${totalPriceDollar}</p>
                                             </div>
-                                        `)
-                                        $('.cart__amount').html('');
-                                        $('.cart__footer').html('');
-                                        $('.cart-add-block .cart-add__number-pro').remove();
-                                        $('.profile-product__item').each((index, element) => {
-                                            if(element.querySelector('.cart-add-feature')) {
-                                                element.querySelector('.cart-add-feature').innerHTML = `
-                                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                                    </svg>
-                                                `
-                                            }
-                                        })
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, errorTh) {
-                                    console.log(jqXHR, textStatus, errorTh);
+                                        </div>
+                                        <form action="" class="cart__buy" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="purchase_nft">
+                                            <button type="submit" class="cart__buy-button">Complete purchase</button>
+                                        </form>
+                                    `); 
+                                    
+                                    $('.cart-add').append(`
+                                        <span class="cart-add__number-pro flex_aic_jcc">${response.number_cart_products}</span>
+                                    `)
+                                    
+                                } else {
+                                    $(`.cart-product__list`).append(newCartProduct);
+                                    $('.cart__number').text(`${itemAmount}`);
+                                    $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                    $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                    $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                                 }
-                            })
-                        })
-                        newCartProductList.forEach(element => {
-                            const $cartClose = $(element).find('.cart__close');
-                            const $containerCart = $(element).find('.container-cart');
-                            const $cart = $(element).find('.cart');
-                            $cartClose.click(function(e) {
-                                $(element).find('.container-cart').css('display', 'none');
-                            })
-
-                            $containerCart.click(function(e) {
-                                if(e.target !== $cart) {
-                                    $(this).css('display', 'none')
+                                newCartProductList.push($(`.cart-product__list .cart-product__item:last-child`));
+                            } else {
+                                $('.cart-add-block .flash-message-wrap').prepend(`
+                                    <div class="flash-message flash-message-remove flex_aic_jcc">
+                                        <div class="flash-message__icon flex_aic_jcc">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                        </div>
+                                        <p class="flash-message__text">Removed from cart</p>
+                                    </div>
+                                `);
+    
+                                $('.flash-message-remove:first-child').delay(2000).slideUp(300);
+    
+                                $(element).find('.cart-add-feature').html(`
+                                    <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                    </svg>
+                                `);
+                                if(response.number_cart_products == 0) {
+                                    $(`.cart-product__list`).html(`
+                                        <div class="cart__hint flex_aic_jcc">
+                                            <div class="cart-hint__inner flex_fdc_aic">
+                                                <p class="cart-hint__announce">Add items to get started</p>
+                                                <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                            </div>
+                                        </div>
+                                    `);
+                                    $('.cart__amount').html('');
+                                    $('.cart__footer').html('');
+                                    $('.cart-add-block .cart-add__number-pro').remove();
                                 }
-                            })
-
-                            $cart.click(function(e) {
-                                e.stopPropagation();
-                            }) 
-        
-                            const $containerCartDetail = $(element).find('.container-cart-detail');
-                            const $cartDetailClose = $containerCartDetail.find('.cart-detail__close');
-                            const $cartDetail = $containerCartDetail.find('.cart-detail');
-                            
-                            $cartDetailClose.click(function (e) {
-                                $containerCartDetail.css('display', 'none');
-                            });
-                        
-                            $containerCartDetail.click(function (e) {
-                                if(e.target !== $cartDetail) {
-                                    $containerCartDetail.css('display', 'none');
+                                else {
+                                    $('.cart__number').text(`${itemAmount}`);
+                                    $(`.cart-product__list`).find(`.${productDataField.name}.cart-product__item`).remove();
+                                    $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                    $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                    $('.cart-add__number-pro').text(`${response.number_cart_products}`);
                                 }
-                            })
-                            
-                            $cartDetail.click(function(e) {
-                                e.stopPropagation();
-                            })
-                    
-                            const $cartProductDetail = $(element).find('.cart-product__detail');                            
-                            $cartProductDetail.click(function (e) {
-                                console.log($cartProductDetail);
-                                $containerCartDetail.css('display', 'block');
-                            })
-
-                            $(element).find('.cart-product__delete-form').on("submit", function(e) {
+                            }
+                            $('.cart__clear-form').on('submit', function(e) {
                                 e.preventDefault();
                                 $.ajax({
                                     type: 'POST',
-                                    // url: ,
+                                    url: window.location.href,
                                     data: {
-                                        'action': 'delete_cart_product',
-                                        'product_id': element.attr('data-product-id'),
+                                        'action': 'clear_cart_product',
                                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                                     },
                                     success: function(response) {
-                                        const productDelete = JSON.parse(response.product_delete)[0];
-                                        const productDeleteDataField = productDelete.fields;
-                                        var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
-                                        var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
-                                        var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
-
-                                        // console.log("Price", response.total_price, `${totalPriceETH}`);
-                                        // console.log("State", response.state);
-                                        $('.cart__price-value-eth').text(`${totalPriceETH}`);
-                                        $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
-                                        if(response.state == 'delete_cart_product') {
-                                            $('.cart__number').text(`${itemAmount}`);
-                                            if(response.number_cart_products != 0) {
-                                                $(`.${requestUserDataName}.cart-product__list`).find(element).remove();
-                                                $('.cart-add__number-pro').text(`${response.number_cart_products}`);
-                                            }
-                                            else {
-                                                $(`.${requestUserDataName}.cart-product__list`).html(`
-                                                    <div class="cart__hint flex_aic_jcc">
-                                                        <div class="cart-hint__inner flex_fdc_aic">
-                                                            <p class="cart-hint__announce">Add items to get started</p>
-                                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
-                                                        </div>
-                                                    </div>`);
-                                                $('.cart__amount').html('');
-                                                $('.cart__footer').html('');
-                                                $('.cart-add-block .cart-add__number-pro').remove();
-                                            }
+                                        console.log(response['state']);
+                                        if(response.state == 'clear_cart_product') {
+                                            $('.cart-product__list').html(`
+                                                <div class="cart__hint flex_aic_jcc">
+                                                    <div class="cart-hint__inner flex_fdc_aic">
+                                                        <p class="cart-hint__announce">Add items to get started</p>
+                                                        <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                    </div>
+                                                </div>
+                                            `)
+                                            $('.cart__amount').html('');
+                                            $('.cart__footer').html('');
+                                            $('.cart-add-block .cart-add__number-pro').remove();
+                                            $('.profile-product__item').each((index, element) => {
+                                                if(element.querySelector('.cart-add-feature')) {
+                                                    element.querySelector('.cart-add-feature').innerHTML = `
+                                                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                                        </svg>
+                                                    `
+                                                }
+                                            })
                                         }
-                                        $(`.${productDeleteDataField.name}.profile-product__item .cart-add-feature`).html(`
-                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                                            </svg>
-                                        `);
                                     },
                                     error: function(jqXHR, textStatus, errorTh) {
                                         console.log(jqXHR, textStatus, errorTh);
                                     }
                                 })
                             })
-                        })
-                    }
+                            newCartProductList.forEach(element => {
+                                const $cartClose = $(element).find('.cart__close');
+                                const $containerCart = $(element).find('.container-cart');
+                                const $cart = $(element).find('.cart');
+                                $cartClose.click(function(e) {
+                                    $(element).find('.container-cart').css('display', 'none');
+                                })
+    
+                                $containerCart.click(function(e) {
+                                    if(e.target !== $cart) {
+                                        $(this).css('display', 'none')
+                                    }
+                                })
+    
+                                $cart.click(function(e) {
+                                    e.stopPropagation();
+                                }) 
+            
+                                const $containerCartDetail = $(element).find('.container-cart-detail');
+                                const $cartDetailClose = $containerCartDetail.find('.cart-detail__close');
+                                const $cartDetail = $containerCartDetail.find('.cart-detail');
+                                
+                                $cartDetailClose.click(function (e) {
+                                    $containerCartDetail.css('display', 'none');
+                                });
+                            
+                                $containerCartDetail.click(function (e) {
+                                    if(e.target !== $cartDetail) {
+                                        $containerCartDetail.css('display', 'none');
+                                    }
+                                })
+                                
+                                $cartDetail.click(function(e) {
+                                    e.stopPropagation();
+                                })
+                        
+                                const $cartProductDetail = $(element).find('.cart-product__detail');                            
+                                $cartProductDetail.click(function (e) {
+                                    console.log($cartProductDetail);
+                                    $containerCartDetail.css('display', 'block');
+                                })
+    
+                                $(element).find('.cart-product__delete-form').on("submit", function(e) {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: 'POST',
+                                        // url: ,
+                                        data: {
+                                            'action': 'delete_cart_product',
+                                            'product_id': element.attr('data-product-id'),
+                                            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                                        },
+                                        success: function(response) {
+                                            const productDelete = JSON.parse(response.product_delete)[0];
+                                            const productDeleteDataField = productDelete.fields;
+                                            var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
+                                            var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
+                                            var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
+    
+                                            // console.log("Price", response.total_price, `${totalPriceETH}`);
+                                            // console.log("State", response.state);
+                                            $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                                            $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                                            if(response.state == 'delete_cart_product') {
+                                                $('.cart__number').text(`${itemAmount}`);
+                                                if(response.number_cart_products != 0) {
+                                                    $(`.cart-product__list`).find(element).remove();
+                                                    $('.cart-add__number-pro').text(`${response.number_cart_products}`);
+                                                }
+                                                else {
+                                                    $(`.cart-product__list`).html(`
+                                                        <div class="cart__hint flex_aic_jcc">
+                                                            <div class="cart-hint__inner flex_fdc_aic">
+                                                                <p class="cart-hint__announce">Add items to get started</p>
+                                                                <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                            </div>
+                                                        </div>`);
+                                                    $('.cart__amount').html('');
+                                                    $('.cart__footer').html('');
+                                                    $('.cart-add-block .cart-add__number-pro').remove();
+                                                }
+                                            }
+                                            $(`.${productDeleteDataField.name}.profile-product__item .cart-add-feature`).html(`
+                                                <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                                </svg>
+                                            `);
+                                        },
+                                        error: function(jqXHR, textStatus, errorTh) {
+                                            console.log(jqXHR, textStatus, errorTh);
+                                        }
+                                    })
+                                })
+                            })
+                            // collection = $('.profile__collection').html();
+                        }
+                    });
                 });
             });
-        });
+        }
+
+        addCartFeature();
+
+
+        $('.profile__search-bar').on('submit', function(e) {
+            e.preventDefault();
+            // $('.profile__search-text').val('');
+        })
+    
+        
+        const sendSearchQuery = (searchQuery) => {
+            $.ajax({
+                type: 'POST',
+                // url: ,
+                data: {
+                    'action': 'search_product',
+                    'csrfmiddlewaretoken': $('profile__search-bar').find('input[name=csrfmiddlewaretoken]').val(),
+                    'search_data': searchQuery,
+                },
+                success: function(response) {
+                    // console.log(response.search_query);
+                    if (!response.search_query) {
+                        $('.profile__collection').html(collection);
+                    } else {
+                        console.log(response.state, response.search_query);
+                        if(response.state == 'not_found') {
+                            $('.profile__collection').html(`
+                                <div class="profile__annouce flex_aic_jcc">
+                                    <p class="profile__annouce-text">No items to display</p>
+                                </div>
+                            `);
+                        } else {
+                            const productsFound = JSON.parse(response.products_found);
+                            const additionalFields = JSON.parse(response.additional_fields);
+
+                            const user = JSON.parse(response.user)[0];
+                            const userId = user.id;
+                            const userField = user.fields;
+
+                            $('.profile__collection').html(`
+                                <ul class="profile-product__list" data-user="${user}" data-user-id="${userId}" data-user-name="${userField.name}}"></ul>
+                            `);
+                            let found_element = ''
+                            let index = 0;
+                            let ownedElement = `
+                                <div class="profile__announce flex_aic_jcc">
+                                    <p class="profile__announce-text">Owned</p>
+                                </div>
+                            `
+                            let inCartElement = `
+                                <form method="POST" action="" data-user="${userField.user}" data-user-id="${userId}" data-user-name="${userField.name}" class="cart-add-feature-form">
+                                    {% csrf_token %}
+                                    <div class="buy-button">Buy now</div>
+                                    <button type="submit" class="cart-add-feature flex_aic_jcc">
+                                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
+                                    </button> 
+                                </form>
+                            `;
+                            
+                            let notInCartElement = `
+                                <form method="POST" action="" data-user="${userField.user}" data-user-id="${userId}" data-user-name="${userField.name}" class="cart-add-feature-form">
+                                    {% csrf_token %}
+                                    <div class="buy-button">Buy now</div>
+                                    <button type="submit" class="cart-add-feature flex_aic_jcc"> 
+                                        <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                        </svg>
+                                    </button> 
+                                </form>
+                            `;
+
+                            for(let product of productsFound) {
+                                const productId = product.pk;
+                                const productField = product.fields;
+
+                                const topic = additionalFields[index].topic_name;
+                                // console.log(topic);
+                                
+                                const checkUserOwn = additionalFields[index].owned;
+                                console.log('check user own', checkUserOwn);
+                                
+                                const checkInCart = additionalFields[index].in_cart;
+                                // console.log(checkInCart, typeof checkInCart);
+                                
+                                console.log(product);
+                                found_element += `
+                                    <li data-product-id="${productId}" class="${productField.name} profile-product__item">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productId}" class="profile-product__link">
+                                            <div>
+                                                <img src="${productField.image}" alt="" class="profile-product__img">
+                                            </div>
+                                            <div class="profile-product__info">
+                                                <h2 class="profile-product__name limit-line">${productField.name}</h2>
+                                                <p class="profile-product__topic limit-line">${topic}</p>
+                                            </div>
+                                            ${(checkUserOwn) ? ownedElement : (checkInCart) ? inCartElement : notInCartElement}
+                                        </a>
+                                    </li>
+                                `;
+                                index++;
+                            }
+                            $('.profile-product__list').append(found_element);
+
+                            console.log('okokok');
+                        }
+                    }
+                    addCartFeature();
+                },
+                error: function(jqXHR, textStatus, errorTh) {
+                    console.log(jqXHR, textStatus, errorTh);
+                }
+                
+            })
+        }
+        $('.profile__search-text').on('keyup', function(e) {
+            sendSearchQuery(e.target.value);
+            
+        })
+
 
 
         // const profileProductList = document.querySelector('.profile-product__list');
@@ -595,7 +721,7 @@
         //         const requestUserData = cartAddFeatureForm.getAttribute('data-user');
         //         const requestUserDataId = cartAddFeatureForm.getAttribute('data-user-id');
         //         const requestUserDataName = cartAddFeatureForm.getAttribute('data-user-name'); 
-        //         const requestUserCart = document.querySelector(`.${requestUserDataName}.cart-product__list`);
+        //         const requestUserCart = document.querySelector(`.cart-product__list`);
                 
         //         const cartPriceValueEth = document.querySelector('.cart__price-value-eth');
         //         const cartPriceValueDollar = document.querySelector('.cart__price-value-dollar');
@@ -774,9 +900,9 @@
         //                                 }
         //                             }
         //                             if(response['number_cart_products'] > 1) {
-        //                                 document.querySelector(`.${requestUserDataName}.cart-product__list`).insertAdjacentHTML('beforeend', new_cart_product);
+        //                                 document.querySelector(`.cart-product__list`).insertAdjacentHTML('beforeend', new_cart_product);
         //                                 document.querySelector('.cart__number').innerHTML = `${response['number_cart_products']} ${itemAmount}`;
-        //                                 document.querySelector(`.${requestUserDataName}.cart-product__list`).onsubmit = (e) => {
+        //                                 document.querySelector(`.cart-product__list`).onsubmit = (e) => {
         //                                     $.ajax({
         //                                         type: "POST",
         //                                         // url: '',

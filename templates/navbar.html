@@ -13,7 +13,7 @@
       </a>
 
       <div class="navbar scroll">
-        <form method="GET" class="header__search-bar flex_aic_jcc">
+        <form method="POST" class="header__search-bar flex_aic_jcc">
           {% csrf_token %}
           <button type="submit" class="header__search-button">
             <svg
@@ -43,6 +43,7 @@
             type="text"
             class="header__search-input"
             placeholder="Search for collections, artists, blogs, etc..."
+            name="search_query"
           />
           <ul class="search-list scroll">
             {% for data in search_data %} {% if data.image is not None %}
@@ -1525,7 +1526,7 @@
       <div class="header__search-bar-wrap flex_aic_jcc">
         <span class="header__menu-back-mobile">Back</span>
         <form
-          method="GET"
+          method="POST"
           class="header__search-bar-mobile header__search-bar flex_aic_jcc"
         >
           {% csrf_token %}
@@ -1533,6 +1534,7 @@
             type="text"
             class="header__search-input-mobile header__search-input"
             placeholder="Search for collections, artists, blogs, etc..."
+            name="search_query"
           />
           <button
             type="submit"

@@ -42,6 +42,10 @@
                         <p class="product-statistic__key">Rarity Rank</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.quantity}}</p>
+                        <p class="product-statistic__key">Total items</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
                         <button class="product-statistic__value product-owner-number">{{product.owners.all|length}}</button>
                         <button class="product-statistic__key product-owner-button">Owners</button>
                     </li>
@@ -73,8 +77,10 @@
                         {% endif %}
                     </button> 
                 </form>
+                {% elif product.quantity == 0 %}
+                <p class="product-detail__announce">Sold out</p>
                 {% else %}
-                <p class="product-detail__have-owned">You have owned this product</p>
+                <p class="product-detail__announce">You have owned this product</p>
                 {% endif %}
             </div>
         </div>
@@ -122,6 +128,10 @@
                         <p class="product-statistic__key">Rarity Rank</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
+                        <p class="product-statistic__value">{{product.quantity}}</p>
+                        <p class="product-statistic__key">Total items</p>
+                    </li>
+                    <li class="product-statistic__item flex_fdc_aif">
                         <button class="product-statistic__value product-owner-number">{{product.owners.all|length}}</button>
                         <button class="product-statistic__key product-owner-button">Owners</button>
                     </li>
@@ -153,8 +163,10 @@
                         {% endif %}
                     </button> 
                 </form>
+                {% elif product.quantity == 0 %}
+                <p class="product-detail__announce">Sold out</p>
                 {% else %}
-                <p class="product-detail__have-owned">You have owned this product</p>
+                <p class="product-detail__announce">You have owned this product</p>
                 {% endif %}
             </div>
         </div>

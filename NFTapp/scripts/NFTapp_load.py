@@ -126,14 +126,14 @@ def run():
     cnt, z = 1, 0
     nft_product_obj_list = []
     for k, v in nft_image_files.items():
-        data={}
         type_product = type_obj_list[z]
         for i, image in enumerate(v):  
+            random_user = random.choice(user_obj_list)
             data = {
                 "name": nft_names.pop(random.randint(0, len(nft_names) - 1)),
                 "price": round(random.uniform(0, 3), 8),
                 "rarity": round(random.uniform(0, 0.1), 8),
-                "author": random.choice(user_obj_list),
+                "author": random_user,
                 "image": image,
                 "topic": random.choice(topic_obj_list),
                 "quantity": random.choice(nft_quantity),
@@ -143,6 +143,7 @@ def run():
             }
             # nft_product_obj, _ = NFTProduct.objects.get_or_create(**data)
             nft_product_obj = NFTProduct.objects.create(**data)
+            NFTProductOwner.objects.create(user=random_user, product=nft_product_obj)
             nft_product_obj_list.append(nft_product_obj)
             print(f"\tSuccesfully created product with info {nft_product_obj.name} {nft_product_obj.price} {nft_product_obj.image} {nft_product_obj.quantity} {nft_product_obj.description} {nft_product_obj.rarity} {nft_product_obj.artwork}")
             cnt += 1

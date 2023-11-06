@@ -1,9 +1,10 @@
 from collections import Counter
 from math import ceil
 import random
+from . import views
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
-from django.db.models import Count
+from django.db.models import Count, Q
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -67,40 +68,7 @@ def classify_1(data, query_set):
         return query_set.order_by('-price')
     return query_set.order_by('price')
 
-def add_search_data(view_func):
-    def wrapper(request, *args, **kwargs):
-        user_search = []
-        for user in User.objects.filter(is_superuser=0).values():
-            user_search.append({
-                'id': str(user['id']),
-                'name': user['name'],
-                'image': user['avatar'],
-                'redirect_url': 'profile'
-            })
 
-        product_search = []
-        for product in NFTProduct.objects.values():
-            product_search.append({
-                'id': str(product['id']),
-                'name': product['name'],
-                'image': product['image'],
-                'redirect_url': 'collection1'
-            })
-
-        blog_search = []
-        for blog in NFTBlog.objects.values():
-            blog_search.append({
-                'id': str(blog['id']),
-                'name': blog['title'],
-                'image': blog['image'],
-                'redirect_url': 'blog'
-            })
-
-        search_data = user_search + product_search + blog_search
-        request.search_data = sorted(search_data, key=lambda x : x['name'])
-        return view_func(request, *args, **kwargs)
-
-    return wrapper
 
 def add_cart_data(view_func):
     def wrapper(request, *args, **kwargs):
@@ -157,4 +125,72 @@ def add_cart_data(view_func):
             request.cart_products = cart_products
 
         return view_func(request, *args, **kwargs)
+    return wrapper
+
+def add_search_data(view_func):
+    def wrapper(request, *args, **kwargs):
+        user_search = []
+        for user in User.objects.filter(is_superuser=0).values():
+            user_search.append({
+                'id': str(user['id']),
+                'name': user['name'],
+                'image': user['avatar'],
+                'redirect_url': 'profile'
+            })
+
+        product_search = []
+        for product in NFTProduct.objects.values():
+            product_search.append({
+                'id': str(product['id']),
+                'name': product['name'],
+                'image': product['image'],
+                'redirect_url': 'collection1'
+            })
+
+        blog_search = []
+        for blog in NFTBlog.objects.values():
+            blog_search.append({
+                'id': str(blog['id']),
+                'name': blog['title'],
+                'image': blog['image'],
+                'redirect_url': 'blog'
+            })
+
+        search_data = user_search + product_search + blog_search
+        request.search_data = sorted(search_data, key=lambda x : x['name'])
+
+        if request.method == 'POST':
+            search_query = request.POST.get('search_query', None)
+            if search_query:
+                product_query = NFTProduct.objects.filter(
+                    Q(name__istartswith=search_query) |
+                    Q(topic__name__istartswith=search_query) 
+                    # Q(name__istartswith=search_query) 
+                    # Q(description__istartswith=search_query) 
+                    # Q(quantity=search_query) |
+                    # Q(rarity=search_query)
+                )
+                blog_query = NFTBlog.objects.filter(
+                    Q(title__istartswith=search_query) |
+                    Q(author__name__istartswith=search_query)
+                )
+                
+                user_query = User.objects.filter(
+                    Q(name__istartswith=search_query) |
+                    Q(bio__istartswith=search_query) |
+                    Q(property__istartswith=search_query)     
+                )
+
+                if product_query.exists():
+                    product = product_query.order_by('name')[0]
+                    return redirect('collection1', pk=product.id)
+                elif user_query.exists():
+                    user = user_query.order_by('name')[0]
+                    return redirect('profile', pk=user.id)
+                elif blog_query.exists():
+                    blog = blog_query.order_by('title')[0]
+                    return redirect('blog', pk=blog.id)
+                    
+        return view_func(request, *args, **kwargs)
+
     return wrapper

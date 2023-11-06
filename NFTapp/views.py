@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
+from django.db.models import Count, Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -18,7 +19,6 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 Follow, Cart, CartItem
 
 from .forms import MyUserCreationForm, UserForm
-from django.db.models import Count
 
 
 def login_page(request):
@@ -816,6 +816,41 @@ def profile(request, pk):
     # total_price = sum([product.price for product in Cart.objects.get(user=request.user).products.all()])
     if request.method == 'POST':
         action = request.POST.get('action')
+        if action == 'search_product':
+            state = ''
+            products_found, additional_fields = [], []
+            search_query = request.POST.get('search_data', None)
+            if search_query:
+                product_query = user.owners.filter(
+                    Q(name__istartswith=search_query) |
+                    Q(topic__name__istartswith=search_query)
+                )    
+            
+                if product_query.exists():
+                    for product in product_query:
+                        products_found.append(product)
+                        additional = {
+                            'topic_name': product.topic.name,
+                            'owned': True if product in request.user.owners.all() or product.author == request.user else False,
+                            'in_cart': True if product in request.user.user_cart.products.all()  else False,
+                        }
+                        additional_fields.append(additional)
+                    state = 'found'
+                else:
+                    state = 'not_found'
+            
+            context = {
+                'search_query': search_query,
+                'state': state,
+                'user': serializers.serialize('json', [request.user, ])
+            }  
+            if state == 'found':
+                context.update({
+                    'products_found': serializers.serialize('json', products_found),
+                    'additional_fields': json.dumps(additional_fields),
+                })
+            return JsonResponse(context, safe=False)
+            
         if action == 'follow':
             state = ""
             user_follow_id = request.POST.get('user_follow_id')
