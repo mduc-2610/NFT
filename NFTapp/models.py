@@ -1,4 +1,5 @@
 import uuid
+from math import ceil
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -157,6 +158,12 @@ class NFTBlog(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to=f"blog/title/%Y/%m/%d/", null=True)
 
+    def times_to_read(self): 
+        average_wpm = 238
+        words_of_blog = sum([len(str(section.content).split()) for section in self.blog_section.all()])
+        total_times = ceil(words_of_blog / average_wpm)
+        return total_times
+    
     def __str__(self):
         return f"{self.title}"
 

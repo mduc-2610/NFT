@@ -38,14 +38,6 @@ def error_403_csrf_failure(request, reason=""):
     response.status_code = 403
     return response
 
-def cal_times_to_read(blogs):
-    average_wpm = 238
-    blogs_context = {}
-    for blog in blogs:
-        words_of_blog = sum([len(str(section.content).split()) for section in blog.blog_section.all()])
-        blogs_context[blog] = ceil(words_of_blog / average_wpm)
-    return blogs_context
-
 def product_rarity_rank():
     rarity_rank = {}
     products = NFTProduct.objects.all().order_by('rarity')

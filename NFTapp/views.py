@@ -9,7 +9,7 @@ from django.db.models import Count, Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .function import cal_times_to_read, product_rarity_rank, classify_1, add_search_data, add_cart_data
+from .function import product_rarity_rank, classify_1, add_search_data, add_cart_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -669,7 +669,6 @@ def FAQs5(request):
 @add_cart_data
 def blog(request):
     blogs = NFTBlog.objects.all().order_by('image')
-    blogs_context = cal_times_to_read(blogs)
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
     comments = []
@@ -680,7 +679,7 @@ def blog(request):
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'blogs': blogs_context,
+        'blogs': blogs,
         'products': products,
         'users': users,
         'comments': comments,
@@ -698,7 +697,7 @@ def blog_detail(request, pk):
     times_to_read = round(sum([len(str(section.content).split()) for section in blog_detail.blog_section.all()]) / average_wpm)
     random_blogs = list(blogs).copy()
     random_blogs.remove(blog_detail)
-    blog_more_context = cal_times_to_read([random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)])
+    blogs_more = [random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)]
     
     comments = blog_detail.blog_comments.all().order_by('-added_at')
     user = User.objects.all()
@@ -800,7 +799,7 @@ def blog_detail(request, pk):
         'cart_products': request.cart_products,
         'search_data': request.search_data,
         'blog_detail': [blog_detail, times_to_read],
-        'blog_more': blog_more_context,
+        'blogs': blogs_more,
         'comments': comments,
     }
     return render(request, 'NFTapp/blog/blog_detail.html', context)
@@ -964,9 +963,8 @@ def search_result(request):
         search_query = request.POST.get('search_query', None)
         if search_query:
             product_query = NFTProduct.objects.filter(
-                Q(name__istartswith=search_query) |
-                Q(topic__name__istartswith=search_query) 
-                # Q(name__istartswith=search_query) 
+                Q(name__istartswith=search_query) 
+                # Q(topic__name__istartswith=search_query) 
                 # Q(description__istartswith=search_query) 
                 # Q(quantity=search_query) |
                 # Q(rarity=search_query)
@@ -990,31 +988,25 @@ def search_result(request):
             if query.exists():
                 valid_query.append(query)              
                 mapping[query] = redirect_page[index] 
-        if len(valid_query) == 1:
-            if len(valid_query[0]) == 1:
-                # pass
-                # "c76e9163-28f7-46d9-9de4-85c07e94be35"
-                return redirect(mapping[valid_query[0]], pk=valid_query[0][0].id)   
-        else:
-            if blog_query:
-                blogs_context = cal_times_to_read(blog_query)
-            context = {
+                
+        if  len(valid_query) == 1 and len(valid_query[0]) == 1:
+                return redirect(mapping[valid_query[0]], pk=valid_query[0][0].id) 
+        
+        context = {
+            'search_data': request.search_data,                
+            'cart_products': request.cart_products,
+        }
+        
+        if len(valid_query) != 0:
+            context.update({
                 'search_query': search_query,
                 'valid_query': valid_query,
                 'products': product_query,
                 'users': user_query,
-                'blogs': blogs_context,
-                'search_data': request.search_data,
-            }
-            return render(request, 'NFTapp/search_result.html', context)
-        
-        
-    # if product_query.exists():
-    #     product = product_query.order_by('name')[0]
-    #     return redirect('collection1', pk=product.id)
-    # elif user_query.exists():
-    #     user = user_query.order_by('name')[0]
-    #     return redirect('profile', pk=user.id)
-    # elif blog_query.exists():
-    #     blog = blog_query.order_by('title')[0]
-    #     return redirect('blog', pk=blog.id)
+                'blogs': blog_query,  
+            })
+        else:
+            context.update({
+                'bad_query': 'No results found'
+            })
+        return render(request, 'NFTapp/search_result.html', context)

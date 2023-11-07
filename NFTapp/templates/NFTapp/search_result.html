@@ -5,28 +5,34 @@
     <p class="search-result search-head">Search results for {{search_query}}...</p>
 </div>
 
-{% if products|length != 0 %}
-<div class="container">
-    <p class="search-result">Collection</p>
-    {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=products|length %}
-</div>
-<div class="gap-between-section"></div>
-{% endif %}
+{% if not bad_query %}
+    {% if products|length != 0 %}
+    <div class="container">
+        <p class="search-result">Collection</p>
+        {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=products|length %}
+    </div>
+    <div class="gap-between-section"></div>
+    {% endif %}
 
 
-{% if users|length != 0 %}
-<div class="container">
-    <p class="search-result">Artist</p>
-    {% include 'NFTapp/profile_list/profile_list1.html' with number_profile=users|length %}
-</div>
-{% endif %}
-<div class="gap-between-section"></div>
+    {% if users|length != 0 %}
+    <div class="container">
+        <p class="search-result">Artist</p>
+        {% include 'NFTapp/profile_list/profile_list1.html' with number_profile=users|length %}
+    </div>
+    {% endif %}
+    <div class="gap-between-section"></div>
 
 
-{% if blogs|length != 0 %}
-<div class="container">
-    <p class="search-result">Blog</p>
-    {% include 'NFTapp/blog/blog_list.html' %}
-</div>
+    {% if blogs|length != 0 %}
+    <div class="container">
+        <p class="search-result">Blogs</p>
+        {% include 'NFTapp/blog/blog_list.html' with number_blogs=blogs|length %}
+    </div>
+    {% endif %}
+{% else %}
+    <div class="container">
+        <p class="search-result">{{bad_query}}</p>
+    </div>
 {% endif %}
 {% endblock content %}

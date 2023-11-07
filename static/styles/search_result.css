@@ -7,16 +7,17 @@
 }
 
 .search-head {
-    font-size: 3rem;
+    font-size: 2rem;
+    margin-bottom: 30px;
 }
 
 @media only screen and (min-width: 768px) {
     .search-result {
         margin-bottom: 60px;
-        font-size: 3.6rem;
+        font-size: 4rem;
     }
 
     .search-head {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 }
