@@ -1344,7 +1344,8 @@
                             const userFollow = JSON.parse(response.user_follower)[0];
                             const userFollowId = userFollow.pk;
                             const userFollowField = userFollow.fields;
-                            
+                            console.log(response.number_follow);
+                            $('.profile__followee-value.user_authenticated .profile__follow-value').text(response.number_follow);
                             let stateOfFollowButton = null;
                             if(response.state == 'follow') {
                                 stateOfFollowButton = `
