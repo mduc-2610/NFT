@@ -99,13 +99,13 @@
             </form>
             {% include 'NFTapp/explore/classify/classify1.html' %}
         </div>
-        <div class="profile__collection">
+        <div class="profile__collection" data-num-product="{{products|length}}">
             {% if products|length == 0 %}
                 <div class="profile__annouce flex_aic_jcc">
                     <p class="profile__annouce-text">No items to display</p>
                 </div>
             {% else %}
-                <ul class="profile-product__list" data-user="{{request.user}}" data-user-id="{{request.user.id}}" data-user-name="{{request.user.name}}">
+                <ul class="profile-product__list" data-num-product="{{products|length}}" data-user="{{request.user}}" data-user-id="{{request.user.id}}" data-user-name="{{request.user.name}}">
                     {% for product in products %}
                         <li data-product-id="{{product.id}}" class="{{product.name}} profile-product__item">
                             <a href="{% url 'collection1' product.id %}" class="profile-product__link">
@@ -235,9 +235,11 @@
 
         return `${month} ${day.toString().padStart(2, '0')}, ${year}`;
     }
+
+    let collectionList = []
     var collection = $('.profile__collection').html();
     $(document).ready(function() {
-        function addCartFeature() {
+        function addCartFeature(num_products) {
             const profileProductList = $('.profile-product__list');
             const requestUserData = profileProductList.attr('data-user');
             const requestUserDataId = profileProductList.attr('data-user-id');
@@ -251,7 +253,6 @@
     
                 $(cartAddFeatureForm).on("submit", function(e) {
                     e.preventDefault();
-    
                     $.ajax({
                         type: "POST",
                         // url: ,
@@ -261,6 +262,7 @@
                             'csrfmiddlewaretoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
                         },
                         success: function(response) {
+
                             var product = JSON.parse(response.product);
                             
                             var productData = product[0];
@@ -363,12 +365,20 @@
                                 })
                                 
                                 $('.flash-message-add:first-child').delay(2000).slideUp(300);
-    
+                                
                                 $(element).find('.cart-add-feature').html(`
                                     <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                     </svg>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>
                                 `);
+
+                                collectionList.push([
+                                    `.${productDataField.name}.profile-product__item .cart-add-feature`,
+                                    `<svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M5.1 9.2C13.3-1.2 28.4-3.1 38.8 5.1l592 464c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2z"/></svg>`
+                                    ]);
+                                
                                 if(response.number_cart_products == 1) {
                                     $(`.cart-product__list`).html(newCartProduct);
                                     $('.cart__amount').html(`
@@ -409,6 +419,11 @@
                                 }
                                 newCartProductList.push($(`.cart-product__list .cart-product__item:last-child`));
                             } else {
+                                collectionList.push([
+                                    `.${productDataField.name}.profile-product__item .cart-add-feature`,
+                                    `<svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>`
+                                ]);
+
                                 $('.cart-add-block .flash-message-wrap').prepend(`
                                     <div class="flash-message flash-message-remove flex_aic_jcc">
                                         <div class="flash-message__icon flex_aic_jcc">
@@ -542,8 +557,6 @@
                                             var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
                                             var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
     
-                                            // console.log("Price", response.total_price, `${totalPriceETH}`);
-                                            // console.log("State", response.state);
                                             $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                             $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                                             if(response.state == 'delete_cart_product') {
@@ -602,9 +615,13 @@
                     'search_data': searchQuery,
                 },
                 success: function(response) {
-                    // console.log(response.search_query);
+                    console.log($(collectionList[0]));
                     if (!response.search_query) {
                         $('.profile__collection').html(collection);
+                        for(let collection of collectionList) {
+                            // console.log($(collection[0]))
+                            $(collection[0]).html(collection[1]);
+                        }
                     } else {
                         console.log(response.state, response.search_query);
                         if(response.state == 'not_found') {
@@ -622,7 +639,7 @@
                             const userField = user.fields;
 
                             $('.profile__collection').html(`
-                                <ul class="profile-product__list" data-user="${user}" data-user-id="${userId}" data-user-name="${userField.name}}"></ul>
+                                <ul class="profile-product__list" data-num-product=${response.num_products} data-user="${user}" data-user-id="${userId}" data-user-name="${userField.name}}"></ul>
                             `);
                             let found_element = ''
                             let index = 0;
@@ -662,12 +679,12 @@
                                 // console.log(topic);
                                 
                                 const checkUserOwn = additionalFields[index].owned;
-                                console.log('check user own', checkUserOwn);
+                                // console.log('check user own', checkUserOwn);
                                 
                                 const checkInCart = additionalFields[index].in_cart;
                                 // console.log(checkInCart, typeof checkInCart);
                                 
-                                console.log(product);
+                                // console.log(product);
                                 found_element += `
                                     <li data-product-id="${productId}" class="${productField.name} profile-product__item">
                                         <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + productId}" class="profile-product__link">
@@ -685,8 +702,6 @@
                                 index++;
                             }
                             $('.profile-product__list').append(found_element);
-
-                            console.log('okokok');
                         }
                     }
                     addCartFeature();
@@ -1371,5 +1386,3 @@
       
   </script>
 {% endblock scripts %}
-
-

@@ -812,6 +812,21 @@ def profile(request, pk):
     user = User.objects.get(pk=pk)
     profile_user_follower = user.follower_set.all()
     profile_user_followee = user.following_set.all()
+    product_filter = request.GET.get('filter', 'collected')
+    context = {}
+    if product_filter == 'collected':
+        # product_collection = [product.product for product in user.owned_products.all()]
+        product_collection = user.owners.all()
+        context['products'] = product_collection
+        # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
+    elif product_filter == 'created':
+        product_created = user.author.all()
+        context['products'] = product_created 
+        # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
+    else:
+        product_favorited = user.favorites.all()
+        context['products'] = product_favorited 
+        # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
 
     # total_price = sum([product.price for product in Cart.objects.get(user=request.user).products.all()])
     if request.method == 'POST':
@@ -821,7 +836,7 @@ def profile(request, pk):
             products_found, additional_fields = [], []
             search_query = request.POST.get('search_data', None)
             if search_query:
-                product_query = user.owners.filter(
+                product_query = context['products'].filter(
                     Q(name__istartswith=search_query) |
                     Q(topic__name__istartswith=search_query)
                 )    
@@ -848,6 +863,7 @@ def profile(request, pk):
                 context.update({
                     'products_found': serializers.serialize('json', products_found),
                     'additional_fields': json.dumps(additional_fields),
+                    'num_products': len(products_found)
                 })
             return JsonResponse(context, safe=False)
             
@@ -932,25 +948,11 @@ def profile(request, pk):
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
 
-    context = {
+    context.update({
         'cart_products': request.cart_products,
         'search_data': request.search_data,
         'user': user,
         'profile_user_follower': profile_user_follower,
         'profile_user_followee': profile_user_followee,
-    }
-    product_filter = request.GET.get('filter', 'collected')
-    if product_filter == 'collected':
-        # product_collection = [product.product for product in user.owned_products.all()]
-        product_collection = user.owners.all()
-        context['products'] = product_collection
-        # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
-    elif product_filter == 'created':
-        product_created = user.author.all()
-        context['products'] = product_created 
-        # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
-    else:
-        product_favorited = user.favorites.all()
-        context['products'] = product_favorited 
-        # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
+    })
     return render(request, 'NFTapp/profile.html', context)
