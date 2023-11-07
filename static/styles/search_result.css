@@ -1,0 +1,22 @@
+.search-result {
+    margin-bottom: 50px;
+    color: #fff;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.search-head {
+    font-size: 3rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .search-result {
+        margin-bottom: 60px;
+        font-size: 3.6rem;
+    }
+
+    .search-head {
+        font-size: 4rem;
+    }
+}

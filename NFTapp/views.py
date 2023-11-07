@@ -665,10 +665,10 @@ def FAQs5(request):
     return render(request, 'NFTapp/community/FAQs/FAQs5.html', {})
 
 
-blogs = NFTBlog.objects.all().order_by('image')
 @add_search_data
 @add_cart_data
 def blog(request):
+    blogs = NFTBlog.objects.all().order_by('image')
     blogs_context = cal_times_to_read(blogs)
     products = NFTProduct.objects.all()
     users = User.objects.filter(is_superuser=0)
@@ -693,7 +693,7 @@ average_wpm = 238
 @add_search_data
 @add_cart_data
 def blog_detail(request, pk):
-
+    blogs = NFTBlog.objects.all()
     blog_detail = NFTBlog.objects.get(pk=pk)
     times_to_read = round(sum([len(str(section.content).split()) for section in blog_detail.blog_section.all()]) / average_wpm)
     random_blogs = list(blogs).copy()
@@ -956,3 +956,65 @@ def profile(request, pk):
         'profile_user_followee': profile_user_followee,
     })
     return render(request, 'NFTapp/profile.html', context)
+
+@add_search_data
+@add_cart_data
+def search_result(request):
+    if request.method == 'POST':
+        search_query = request.POST.get('search_query', None)
+        if search_query:
+            product_query = NFTProduct.objects.filter(
+                Q(name__istartswith=search_query) |
+                Q(topic__name__istartswith=search_query) 
+                # Q(name__istartswith=search_query) 
+                # Q(description__istartswith=search_query) 
+                # Q(quantity=search_query) |
+                # Q(rarity=search_query)
+            )
+            blog_query = NFTBlog.objects.filter(
+                Q(title__istartswith=search_query) 
+                # Q(author__name__istartswith=search_query)
+            )
+            
+            user_query = User.objects.filter(
+                Q(name__istartswith=search_query) 
+                # Q(bio__istartswith=search_query) |
+                # Q(property__istartswith=search_query)     
+            )
+
+        query_type = [product_query, blog_query, user_query]
+        redirect_page = ['collection1', 'blog', 'profile']
+        valid_query = []
+        mapping = {}
+        for index, query in enumerate(query_type):
+            if query.exists():
+                valid_query.append(query)              
+                mapping[query] = redirect_page[index] 
+        if len(valid_query) == 1:
+            if len(valid_query[0]) == 1:
+                # pass
+                # "c76e9163-28f7-46d9-9de4-85c07e94be35"
+                return redirect(mapping[valid_query[0]], pk=valid_query[0][0].id)   
+        else:
+            if blog_query:
+                blogs_context = cal_times_to_read(blog_query)
+            context = {
+                'search_query': search_query,
+                'valid_query': valid_query,
+                'products': product_query,
+                'users': user_query,
+                'blogs': blogs_context,
+                'search_data': request.search_data,
+            }
+            return render(request, 'NFTapp/search_result.html', context)
+        
+        
+    # if product_query.exists():
+    #     product = product_query.order_by('name')[0]
+    #     return redirect('collection1', pk=product.id)
+    # elif user_query.exists():
+    #     user = user_query.order_by('name')[0]
+    #     return redirect('profile', pk=user.id)
+    # elif blog_query.exists():
+    #     blog = blog_query.order_by('title')[0]
+    #     return redirect('blog', pk=blog.id)
