@@ -10,7 +10,7 @@
 
 <div class="gap-between-section"></div>
 
-<div class="container">
+<!-- <div class="container">
     <div class="about__statistic">
         <h1 class="about-statistic__heading">About Meecats</h1>
         <div class="about-figure">
@@ -26,7 +26,7 @@
             <p class="about-figure__value">Locked Assets</p>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="gap-between-section"></div>
 
@@ -50,6 +50,11 @@
 {% include 'NFTapp/partner.html' %}
 
 <div class="gap-between-section"></div>
+
+<div class="container">
+    <h2 class="section-heading-fw500">Our artists</h2>
+    {% include 'NFTapp/profile_list/profile_list2.html' %}
+</div>
 
 {% include 'NFTapp/subscribe/subscribe3.html' %}
 {% endblock content %}

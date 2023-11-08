@@ -8,7 +8,7 @@
 {% if not bad_query %}
     {% if products|length != 0 %}
     <div class="container">
-        <p class="search-result">Collection</p>
+        <p class="search-result">Collections</p>
         {% include 'NFTapp/explore/nftproduct/nftproduct3.html' with number_products=products|length %}
     </div>
     <div class="gap-between-section"></div>
@@ -17,7 +17,7 @@
 
     {% if users|length != 0 %}
     <div class="container">
-        <p class="search-result">Artist</p>
+        <p class="search-result">Artists</p>
         {% include 'NFTapp/profile_list/profile_list1.html' with number_profile=users|length %}
     </div>
     {% endif %}

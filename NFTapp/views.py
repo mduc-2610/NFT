@@ -607,7 +607,15 @@ def about_us4(request):
 @add_search_data
 @add_cart_data
 def about_us5(request):
-    return render(request, 'NFTapp/community/about_us/about_us5.html', {})
+    titles = FAQTitle.objects.all()
+    users = User.objects.filter(is_superuser=0)
+    context = {
+        'cart_products': request.cart_products,
+        'search_data': request.search_data,
+        'titles': titles,
+        'users': users,
+    }
+    return render(request, 'NFTapp/community/about_us/about_us5.html', context)
 
 @add_search_data
 @add_cart_data

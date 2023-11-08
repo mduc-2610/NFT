@@ -301,6 +301,26 @@ main {
     background-color: red;
 }
 
+.section-heading-fw500 {
+    margin-bottom: 50px;
+    color: #D9D9D9;
+    /* text-align: center; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5; /* 150% */
+}
+
+
+.section-heading-fw600 {
+    margin-bottom: 50px;
+    color: #D9D9D9;
+    /* text-align: center; */
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5; /* 150% */
+}
 
 @media only screen and (min-width: 768px) {
     main {
@@ -343,4 +363,23 @@ main {
         font-size: 1.8rem;
     }
     
+    .section-heading-fw500 {
+        margin-bottom: 60px;
+        color: #D9D9D9;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        line-height: 1.2; /* 120% */
+    }
+    
+    
+    .section-heading-fw600 {
+        margin-bottom: 60px;
+
+        color: #D9D9D9;
+        /* font-family: Clash Display; */
+        font-size: 5rem;
+        font-style: normal;
+        line-height: 1.2; /* 120% */
+    }
 }
