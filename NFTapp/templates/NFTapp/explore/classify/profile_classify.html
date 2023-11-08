@@ -1,0 +1,64 @@
+{% load static %}
+<div class="classify-1 flex_aic_jcc">
+    <div class="classify__item-1 flex_aic_jcc">
+        <div class="classify__item-feature-wrap-1">
+            <p class="classify__item-feature-1">Sort by</p>
+            <p class="classify__item-feature-1">
+                Trending
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </p>
+        </div>
+        <ul class="classify__child-list-1">
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="trending">Trending</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="date-created-new">Date created - Newest</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="date-created-old">Date created - Oldest</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="price-highest">Price - highest</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="price-lowest">Price - lowest</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="rarity">Rarity</a>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    const featureWrap = document.querySelector('.classify__item-feature-wrap-1');
+    const childList = document.querySelector('.classify__child-list-1');
+
+    featureWrap.addEventListener('click', () => {
+        if (childList.style.display === 'block' || childList.style.display === '') {
+            childList.style.display = 'none';
+        } else {
+            childList.style.display = 'block';
+        }
+    });
+</script>

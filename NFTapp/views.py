@@ -9,7 +9,7 @@ from django.db.models import Count, Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .function import product_rarity_rank, classify_1, add_search_data, add_cart_data
+from .function import product_rarity_rank, classify_1, classify_3, add_search_data, add_cart_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -435,8 +435,9 @@ def collection5(request):
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'products': classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_3(request.GET.get('filter', 'all'), products.annotate(num_owners=Count('owners')).order_by('-num_owners'))
     }
+    
     return render(request, 'NFTapp/explore/collection/collection5.html', context)
 
 
@@ -822,18 +823,14 @@ def profile(request, pk):
     product_filter = request.GET.get('filter', 'collected')
     context = {}
     if product_filter == 'collected':
-        # product_collection = [product.product for product in user.owned_products.all()]
         product_collection = user.owners.all()
         context['products'] = product_collection
-        # classify_1(request.GET.get('sort-by', 'trending'), product_collection)
     elif product_filter == 'created':
         product_created = user.author.all()
-        context['products'] = product_created 
-        # classify_1(request.GET.get('sort-by', 'trending'), product_created)  
+        context['products'] = product_created   
     else:
         product_favorited = user.favorites.all()
         context['products'] = product_favorited 
-        # classify_1(request.GET.get('sort-by', 'trending'), product_favorited)
 
     # total_price = sum([product.price for product in Cart.objects.get(user=request.user).products.all()])
     if request.method == 'POST':
@@ -861,19 +858,73 @@ def profile(request, pk):
                 else:
                     state = 'not_found'
             
-            context = {
+            context_json = {
                 'search_query': search_query,
                 'state': state,
                 'user': serializers.serialize('json', [request.user, ])
             }  
             if state == 'found':
-                context.update({
+                context_json.update({
                     'products_found': serializers.serialize('json', products_found),
                     'additional_fields': json.dumps(additional_fields),
                     'num_products': len(products_found)
                 })
-            return JsonResponse(context, safe=False)
-            
+            return JsonResponse(context_json, safe=False)
+        
+        elif action == 'filter_product':
+            filter_data = request.POST.get('filter_data', None)
+            products_filter, additional_fields = [], []
+            type_filter = ''
+            if filter_data is not None:
+                if filter_data == 'trending':
+                    products = context['products'].annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    type_filter = 'Trending'
+                elif filter_data == 'rarity':
+                    products = context['products'].order_by('rarity')
+                    type_filter = 'Rarity'
+
+                elif filter_data == 'date-created-new':
+                    products = context['products'].order_by('-created_at')
+                    type_filter = 'Date created - Newest'
+
+                elif filter_data == 'date-created-old':
+                    products = context['products'].order_by('created_at')
+                    type_filter = 'Date created - Oldest'
+
+                elif filter_data == 'price-highest':
+                    products = context['products'].order_by('-price')
+                    type_filter = 'Price - highest'
+
+                else:
+                    products = context['products'].order_by('price')
+                    type_filter = 'Price - lowest'
+
+                context_json = {
+                    'type_filter': type_filter
+                }
+                if products_filter is not None:
+                    for product in products:
+                        products_filter.append(product)
+                        additional = {
+                            'topic_name': product.topic.name,
+                            'owned': True if product in request.user.owners.all() or product.author == request.user else False,
+                            'in_cart': True if product in request.user.user_cart.products.all()  else False,
+                        }
+                        additional_fields.append(additional)
+                        
+                    context_json.update({
+                        'state': 'found',
+                        'num_products': len(products_filter),
+                        'user': serializers.serialize('json', [request.user, ]),
+                        'additional_fields': json.dumps(additional_fields),
+                        'products_filter': serializers.serialize('json', products_filter),
+                    })
+                else:
+                    context_json.update({
+                        'state': 'not_found'
+                    })
+                return JsonResponse(context_json, safe=False)
+        
         if action == 'follow':
             state = ""
             user_follow_id = request.POST.get('user_follow_id')

@@ -14,6 +14,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
+from django.db.models.functions import Extract
+from datetime import date, datetime, timedelta
 
 def error_403_csrf_failure(request, reason=""):
     """
@@ -53,15 +55,43 @@ def classify_1(data, query_set):
     elif data == 'rarity':
         return query_set.order_by('rarity')
     elif data == 'date-created-new':
-        return query_set.order_by('created_at')
-    elif data == 'date-created-old':
         return query_set.order_by('-created_at')
+    elif data == 'date-created-old':
+        return query_set.order_by('created_at')
     elif data == 'price-highest':
         return query_set.order_by('-price')
     return query_set.order_by('price')
 
+def classify_3(data, query_set):
+    if data == 'all':
+        return query_set
+    elif data == 'today':
+        return query_set.filter(created_at__date=date.today())
+    elif data == 'last-week':
+        today = datetime.now().date()
+        start_of_week = today - timedelta(days=today.weekday())
+        start_of_last_week = start_of_week - timedelta(days=7)
+        end_of_last_week = start_of_last_week + timedelta(days=6)
 
+        filtered_records = query_set.filter(
+            created_at__date__gte=start_of_last_week,
+            created_at__date__lte=end_of_last_week
+        )
+        return filtered_records
+    else:
+        current_date = datetime.now().date()
 
+        start_of_last_month = current_date.replace(day=1) - timedelta(days=1)
+
+        end_of_last_month = current_date.replace(day=1) - timedelta(days=1)
+
+        filtered_records = query_set.filter(
+            created_at__date__gte=start_of_last_month,
+            created_at__date__lte=end_of_last_month
+        )
+
+        return filtered_records
+    
 def add_cart_data(view_func):
     def wrapper(request, *args, **kwargs):
         request.cart_products = None

@@ -1,13 +1,15 @@
 <!-- {% load static %} -->
-<ul class="classify-1 flex_aic_jcc">
-    <li class="classify__item-1 flex_aic_jcc">
-        <p class="classify__item-feature-1">Sort by</p>
-        <a href="" class="classify__item-feature-1">
-            Trending
-            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-        </a>
+<div class="classify-1 flex_aic_jcc">
+    <div class="classify__item-1 flex_aic_jcc">
+        <div class="classify__item-feature-wrap-1">
+            <p class="classify__item-feature-1">Sort by</p>
+            <p class="classify__item-feature-1">
+                Trending
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </p>
+        </div>
         <ul class="classify__child-list-1">
             <li class="classify__child-item-1">
                 <a href="?sort-by=trending" class="classify__child-link-1">Trending</a>
@@ -28,5 +30,17 @@
                 <a href="?sort-by=rarity" class="classify__child-link-1">Rarity</a>
             </li>
         </ul>
-    </li>
-</ul>
+    </div>
+</div>
+<script>
+    const featureWrap = document.querySelector('.classify__item-feature-wrap-1');
+    const childList = document.querySelector('.classify__child-list-1');
+
+    featureWrap.addEventListener('click', () => {
+        if (childList.style.display === 'block' || childList.style.display === '') {
+            childList.style.display = 'none';
+        } else {
+            childList.style.display = 'block';
+        }
+    });
+</script>

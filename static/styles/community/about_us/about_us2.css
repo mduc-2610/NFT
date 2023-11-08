@@ -27,12 +27,12 @@
     
     .about__mission-2:after {
         content: '';
-        background: url('/static/images/vector/vector1.svg'), none 50% / cover no-repeat;  
+        background: url('/static/images/vector/vector1.svg'), none 50% / cover no-repeat;
         position: absolute;
         width: 82px;
         height: 84px;
         top: -5%;
-        right: -137%;
+        right: -100%;
         z-index: 2;
     }
 
