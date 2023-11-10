@@ -206,5 +206,13 @@ def run():
     #     'age': 19
     # }
     # print(a)
-    user = User.objects.all()[6]
-    [print(product) for product in user.user_cart.products.all()]
+    # user = User.objects.all()[6]
+    # [print(product) for product in user.user_cart.products.all()]
+
+    product = NFTProduct.objects.all()[5]
+    print(product.sold())
+    # print(product.annotate(num_created=Count('author')).order_by('-num_created'))
+    
+
+    user = User.objects.all()[5]
+    print(user.sold())

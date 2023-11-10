@@ -3,6 +3,7 @@
 <div class="artist">
     <div class="container container-artist">
         <h1 class="artist__heading">Trending creators</h1>
+        {% include 'NFTapp/explore/classify/artists_classify.html' %}
         <table class="artist__rank">
             <thead >
                 <tr>
@@ -31,7 +32,7 @@
                     <td>{{user.follower_set.all|length}}</td>
                     <td>{{user.owners.all|length}}</td>
                     <td>{{user.author.all|length}}</td>
-                    <td>0</td>
+                    <td>{{user.sold}}</td>
                     <td>{{user.property}}</td>
                 </tr>
                 {% endfor %}

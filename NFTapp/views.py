@@ -9,7 +9,7 @@ from django.db.models import Count, Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .function import product_rarity_rank, classify_1, classify_3, add_search_data, add_cart_data
+from .function import product_rarity_rank, classify_1, classify_3, artists_classify, add_search_data, add_cart_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -229,11 +229,14 @@ def home5(request):
 @add_cart_data
 def collection1(request):
     products = NFTProduct.objects.all()
-    data = request.GET.get('filter', 'trending')
+    sort_data = request.GET.get('sort-by', 'follower')
+    sort_type = ' '.join([x.title() for x in sort_data.split('-')])
+
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'products': classify_1(request.GET.get('sort-by', 'trending'), products)
+        'products': classify_1(request.GET.get('sort-by', 'trending'), products),
+        'sort_type': sort_type
     }
     return render(request, 'NFTapp/explore/collection/collection1.html', context)
 
@@ -421,10 +424,13 @@ def collection_detail_1(request, pk):
 @add_cart_data
 def collection2(request):
     products = NFTProduct.objects.all()
+    sort_data = request.GET.get('sort-by', 'follower')
+    sort_type = ' '.join([x.title() for x in sort_data.split('-')])
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'products': classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products),
+        'sort_type': sort_type
     }
     return render(request, 'NFTapp/explore/collection/collection2.html', context)
 
@@ -432,10 +438,13 @@ def collection2(request):
 @add_cart_data
 def collection3(request):
     products = NFTProduct.objects.all()
+    sort_data = request.GET.get('sort-by', 'follower')
+    sort_type = ' '.join([x.title() for x in sort_data.split('-')])
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'products': classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products),
+        'sort_type': sort_type
     }
     return render(request, 'NFTapp/explore/collection/collection3.html', context)
 
@@ -443,10 +452,13 @@ def collection3(request):
 @add_cart_data
 def collection4(request):
     products = NFTProduct.objects.all()
+    sort_data = request.GET.get('sort-by', 'follower')
+    sort_type = ' '.join([x.title() for x in sort_data.split('-')])
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'products': classify_1(request.GET.get('filter', 'trending'), products)
+        'products': classify_1(request.GET.get('filter', 'trending'), products),
+        'sort_type': sort_type
     }
     return render(request, 'NFTapp/explore/collection/collection4.html', context)
 
@@ -643,11 +655,14 @@ def about_us5(request):
 @add_search_data
 @add_cart_data
 def artists(request):
-    users = User.objects.filter(is_superuser=0).annotate(num_products=Count('owners')).order_by('-num_products')
+    users = User.objects.filter(is_superuser=0).annotate(num_followers=Count('followers')).order_by('-num_followers')
+    sort_data = request.GET.get('sort-by', 'follower')
+    sort_type = ' '.join([x.title() for x in sort_data.split('-')])
     context = {
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'users': users
+        'users':  artists_classify(sort_data, users),
+        'sort_type': sort_type
     } 
     return render(request, 'NFTapp/community/artists.html', context) 
 

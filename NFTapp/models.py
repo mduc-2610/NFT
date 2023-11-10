@@ -30,6 +30,9 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    def sold(self):
+        return sum([product.sold() for product in self.author.all()])
+
     def __getitem__(self, key):
         if hasattr(self, key):
             return getattr(self, key)
@@ -85,6 +88,9 @@ class NFTProduct(models.Model):
     type_product = models.ForeignKey('Type', related_name="products_type", on_delete=models.SET_NULL, null=True)
     owners = models.ManyToManyField(User, related_name="owners", through="NFTProductOwner")
     favorites = models.ManyToManyField(User, related_name="favorites", through='NFTProductFavorite', default=0)
+
+    def sold(self):
+        return len(self.owners.all())
 
     def __getitem__(self, key):
         if hasattr(self, key):

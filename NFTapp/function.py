@@ -4,7 +4,7 @@ import random
 from . import views
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
@@ -92,6 +92,19 @@ def classify_3(data, query_set):
 
         return filtered_records
     
+def artists_classify(data, query_set):
+    if data == 'follower':
+        return query_set.annotate(num_followers=Count('follower_set')).order_by('-num_followers')
+    elif data == 'unique-collectors':
+        return query_set.annotate(num_owners=Count('owners')).order_by('-num_owners')
+    elif data == 'created':
+        return query_set.annotate(num_created=Count('author')).order_by('-num_created')
+    elif data == 'nft-sold':
+        query_set = list(query_set)
+        return sorted(query_set, key=lambda x : -x.sold())
+    return query_set.order_by('-property')
+
+
 def add_cart_data(view_func):
     def wrapper(request, *args, **kwargs):
         request.cart_products = None
@@ -136,6 +149,9 @@ def add_cart_data(view_func):
                         for product in cart_products:
                             request.user.owners.add(product)
                             request.user.user_cart.products.remove(product)
+                            
+                            product.quantity -= 1
+                            product.save()
                         request.user.property -= total_price
                         request.user.save()
                         state = 'can_buy'
