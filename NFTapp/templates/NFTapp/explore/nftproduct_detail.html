@@ -174,6 +174,24 @@
     </div>
 </div>
 
+<div class="container-purchase flex_aic_jcc">
+    <div class="purchase">
+        <div class="purchase__head flex_aic_jcsb">
+            <p class="purchase__text purchase__heading">Are you sure to purchase this product ?</p>
+            <button class="purchase__close close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+            </button>
+        </div>
+        <div class="purchase__decision">
+            <form method="POST" action="" class="purchase__decision-form flex_aic_jcsb">
+                {% csrf_token %}
+                <button type="submit" class="purchase__text purchase__agree">Yes</button>
+                <button class="purchase__text purchase__disagree">No</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="product-user-favorite" style="display: none;">
     {% include 'NFTapp/user_behavior.html' with user_behavior_list=product_favorite_list filter="user" behavior_container="container_favorite" behavior_of_user="Favorited by" behavior_of_user_for_ajax="favorite" %}
 </div>
@@ -245,6 +263,39 @@
         }
     });
 
+    
+    const purchase = document.querySelector('.purchase');
+    const containerPurchase = document.querySelector('.container-purchase');
+    const purchaseClose = document.querySelector('.purchase__close');
+    
+    purchaseClose.onclick = (e) => {
+        containerPurchase.style.display = 'none'
+    }
+
+    containerPurchase.onclick = (e) => {
+        if(e.target !== purchase) {
+            containerPurchase.style.display = 'none'
+        }
+    }
+
+    purchase.onclick = (e) => {
+        e.stopPropagation();
+    }
+
+    const purchaseDisagree = document.querySelector('.purchase__disagree');
+    purchaseDisagree.onclick = (e) => {
+        e.preventDefault();
+        containerPurchase.style.display = 'none';
+    }
+
+    const buyButton = document.querySelectorAll('.buy-button');
+    buyButton.forEach(element => {
+        element.onclick = (e) => {
+            e.preventDefault();
+            containerPurchase.style.display = 'flex';
+        }
+    })
+    
     const productUserBehavior = document.querySelectorAll('.container-user-behavior');
     productUserBehavior.forEach(element => {
         const userBehaviorBlock = element.querySelector(".user-behavior");
@@ -388,7 +439,7 @@
                             let newCartProduct =  `
                                 <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
                                     <div class="cart__product--wrap flex_aic_jcsb">
-                                        <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
                                             <img src="${productDataField.image}" alt="" class="cart-product__img">
                                         </a>
                                         <div class="cart-product__info">
@@ -643,7 +694,7 @@
                                         var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
                                         var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
                                         var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
-    
+                                        
                                         $('.cart__price-value-eth').text(`${totalPriceETH}`);
                                         $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                                         if(response.state == 'delete_cart_product') {
@@ -681,7 +732,82 @@
                 })
             })
         })
+
         
+        $('.purchase__decision-form').on('submit', (e) => {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                // contentType: 'application/json',
+                // url: '',
+                data: {
+                    'action': 'purchase_product',
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(response) {
+                    const product = JSON.parse(response.product)[0];
+                    const productField = product.fields;
+                    var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
+                    var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
+                    let itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
+                    console.log(totalPriceETH, totalPriceDollar)
+                    $('.container-purchase').css('display', 'none');
+                    $('.cart__price-value-eth').text(`${totalPriceETH}`);
+                    $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
+                    if(response.state == 'can_buy') {
+                        if(response.number_cart_products != 0) {
+                            $(`.${productField.name}.cart-product__item`).remove();
+                            $('.cart-add__number-pro').text(`${response.number_cart_products}`);
+                        }
+                        else {
+                            $(`.cart-product__list`).html(`
+                                <div class="cart__hint flex_aic_jcc">
+                                    <div class="cart-hint__inner flex_fdc_aic">
+                                        <p class="cart-hint__announce">Add items to get started</p>
+                                        <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                    </div>
+                                </div>`);
+                            $('.cart__amount').html('');
+                            $('.cart__footer').html('');
+                            $('.cart-add-block .cart-add__number-pro').remove();
+                        }
+
+                        $('.flash-message-wrap').prepend(`
+                            <div class="flash-message flash-message-add flex_aic_jcc">
+                                <div class="flash-message__icon flex_aic_jcc">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                </div>
+                                <p class="flash-message__text">Buy successfully</p>
+                            </div>
+                        `);     
+
+                        $('.flash-message-add:first-child').delay(2000).slideUp(300);
+
+                        $('.product-detail__offer').each((index, element) => {
+                            $(element).html(`
+                                <p class="product-detail__announce">You have owned this product</p>
+                            `);
+                        });
+
+                        $('.cart__number').text(`${itemAmount}`);
+                    }
+                    else {
+                        $('.flash-message-wrap').prepend(`
+                            <div class="flash-message flash-message-add flash-message-comment flex_aic_jcc">
+                                <div class="flash-message__icon flex_aic_jcc">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>                                    </div>
+                                <p class="flash-message__text">You don't have enough money for this</p>
+                            </div>
+                        `);                                 
+                        $('.flash-message-comment').delay(2000).slideUp(300);
+                    }
+                    
+                },
+                error: function(jqXHR, textStatus, errorTh) {
+                    console.log(jqXHR, textStatus, errorTh);
+                }
+            })
+        })
 
         let type_behavior = ['owner', 'favorite', 'voted', 'disvoted']
         for(var behavior of type_behavior) {
@@ -697,7 +823,7 @@
                         data: {
                             'action': 'list_follow',
                             'user_follow_id': $followButtonForm.attr('data-id'),
-                            'csrfmiddlewaretoken': $(`input[name="csrfmiddlewaretoken`).val(),     
+                            'csrfmiddlewaretoken': $(`input[name=csrfmiddlewaretoken]`).val(),     
                         },
                         success: function(response) {
                             const userFollow = JSON.parse(response.user_follower)[0];

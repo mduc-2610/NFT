@@ -30,7 +30,7 @@
                 {% endif %}
                 {% if user == request.user %}
                 <div class="profile__follow--wrap profile__followee-value flex_fdc_aif">
-                    <button class="profile__follow-value">{{user.property|floatformat:3}}</button>
+                    <button class="profile__follow-value">{{user.property|floatformat:3}} ETH</button>
                     <p class="profile__follow-key profile__property">Property</p>
                 </div>  
                 {% endif %}
@@ -81,13 +81,13 @@
         </ul> -->
         <ul class="profile__activity">
             <li class="profile__activity-item">
-                <a href="?filter=collected&">Collected</a>
+                <a href="?filter=collected&">Collected ({{products_collected_len}})</a>
             </li>
             <li class="profile__activity-item">
-                <a href="?filter=created&">Created</a>
+                <a href="?filter=created&">Created ({{products_created_len}})</a>
             </li>
             <li class="profile__activity-item">
-                <a href="?filter=favorited&">Favorited</a>
+                <a href="?filter=favorited&">Favorited ({{products_favorited_len}})</a>
             </li>
         </ul>
         <div class="profile__filter">
@@ -286,7 +286,7 @@
                                 let newCartProduct =  `
                                     <li data-product-id="${productDataId}" class="${productDataField.name} cart-product__item flex_aic_jcsb">
                                         <div class="cart__product--wrap flex_aic_jcsb">
-                                            <a href="${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
+                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" +productDataId}" class="cart-product__img--wrap">
                                                 <img src="${productDataField.image}" alt="" class="cart-product__img">
                                             </a>
                                             <div class="cart-product__info">

@@ -377,6 +377,28 @@ def collection_detail_1(request, pk):
                 'product': serializers.serialize('json', [product, product.author, product.topic]),
             })
 
+        elif action == 'purchase_product':
+            state = ''
+            if request.user.property >= product.price:
+                request.total_price -= product.price
+                if request.user.user_cart.products.filter(name=product.name).exists():
+                    request.user.user_cart.products.remove(product)
+
+                request.user.owners.add(product)
+                request.user.property -= product.price
+                request.user.save()
+
+                product.quantity -= 1
+                product.save()
+                state = 'can_buy'
+            else:
+                state = 'cant_buy'
+            return JsonResponse({
+                'state': state,
+                'total_price': request.total_price,
+                'number_cart_products': len(request.user.user_cart.cart_products.all()),
+                'product': serializers.serialize('json', [product, ])
+            })
 
             # return redirect('collection1', pk=product.id)
     
@@ -703,7 +725,6 @@ average_wpm = 238
 def blog_detail(request, pk):
     blogs = NFTBlog.objects.all()
     blog_detail = NFTBlog.objects.get(pk=pk)
-    times_to_read = round(sum([len(str(section.content).split()) for section in blog_detail.blog_section.all()]) / average_wpm)
     random_blogs = list(blogs).copy()
     random_blogs.remove(blog_detail)
     blogs_more = [random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)]
@@ -822,15 +843,20 @@ def profile(request, pk):
     profile_user_followee = user.following_set.all()
     product_filter = request.GET.get('filter', 'collected')
     context = {}
+    product_collected = user.owners.all()
+    product_created = user.author.all()
+    product_favorited = user.favorites.all()
+
+    context['products_collected_len'] = len(product_collected)
+    context['products_created_len'] = len(product_created)   
+    context['products_favorited_len'] = len(product_favorited) 
+
     if product_filter == 'collected':
-        product_collection = user.owners.all()
-        context['products'] = product_collection
+        context['products'] = product_collected
     elif product_filter == 'created':
-        product_created = user.author.all()
-        context['products'] = product_created   
+        context['products'] = product_created
     else:
-        product_favorited = user.favorites.all()
-        context['products'] = product_favorited 
+        context['products'] = product_favorited
 
     # total_price = sum([product.price for product in Cart.objects.get(user=request.user).products.all()])
     if request.method == 'POST':

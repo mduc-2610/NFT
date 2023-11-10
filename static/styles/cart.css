@@ -217,12 +217,8 @@
     margin-top: 5px;
 }
 
-.cart__buy {
-    margin-top: 20px;
-    width: 100%;
-}
-
 .cart__buy-button {
+    margin-top: 20px;
     width: 100%;
     color: #000;
     font-size: 1.8rem;

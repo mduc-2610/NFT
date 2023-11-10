@@ -129,16 +129,18 @@ def add_cart_data(view_func):
                         'number_cart_products': cart_products_length,
                         'product_delete': serializers.serialize('json', [product_delete, ]),
                     })
+                
                 elif action == 'purchase_cart_product':
                     state = ""
-                    if total_price > request.user.property:
-                        state = 'cant_buy'
-                    else: 
-                        state = 'can_buy'
+                    if total_price <= request.user.property:
                         for product in cart_products:
                             request.user.owners.add(product)
+                            request.user.user_cart.products.remove(product)
                         request.user.property -= total_price
                         request.user.save()
+                        state = 'can_buy'
+                    else: 
+                        state = 'cant_buy'
                     return JsonResponse({
                         'state': state,
                     })
