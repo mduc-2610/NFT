@@ -12,11 +12,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .function import product_rarity_rank, classify_1, classify_3, artists_classify, add_search_data, add_cart_data
 from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
-                                BlogSection, BlogComment, ProductComment,\
-                                FAQ, FAQTitle, NFTProductFavorite, \
+                                BlogSection, FAQ, FAQTitle,\
+                                BlogComment, ProductComment, NFTProductFavorite, \
                                 VoteProductComment, VoteBlogComment, \
                                 DisvoteProductComment, DisvoteBlogComment, \
-                                Follow, Cart, CartItem
+                                Follow, Cart, CartItem, TradeHistory
 
 from .forms import MyUserCreationForm, UserForm
 
@@ -250,7 +250,7 @@ def collection_detail_1(request, pk):
     rarity_rank = product_rarity_rank()
     products = NFTProduct.objects.filter(type_product__name=product.type_product)
     product_list = list(products)
-    comments = product.product_comments.all().order_by('-added_at')
+    comments = product.product_comments.all()
     # product_comment_list = comments.product_comment_voted_by.all()
     product_favorite_list = product.favorites_by.all()
     product_owner_list = product.owned_by.all()
@@ -744,7 +744,7 @@ def blog_detail(request, pk):
     random_blogs.remove(blog_detail)
     blogs_more = [random_blogs.pop(random.randint(0, len(random_blogs) - 1)) for i in range(3)]
     
-    comments = blog_detail.blog_comments.all().order_by('-added_at')
+    comments = blog_detail.blog_comments.all()
     user = User.objects.all()
     if request.method == 'POST':
         action = request.POST.get('action', None)
@@ -843,7 +843,7 @@ def blog_detail(request, pk):
         'type_comment': 'blog',
         'cart_products': request.cart_products,
         'search_data': request.search_data,
-        'blog_detail': [blog_detail, times_to_read],
+        'blog_detail': blog_detail,
         'blogs': blogs_more,
         'comments': comments,
     }

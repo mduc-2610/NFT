@@ -13,7 +13,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 BlogComment, ProductComment, NFTProductFavorite, \
                                 VoteProductComment, VoteBlogComment, \
                                 DisvoteProductComment, DisvoteBlogComment, \
-                                Follow, Cart, CartItem
+                                Follow, Cart, CartItem, TradeHistory
 fake = Faker()
 
 models_to_delete = [
@@ -23,7 +23,7 @@ models_to_delete = [
     BlogComment, ProductComment, NFTProductFavorite,
     VoteProductComment, VoteBlogComment,
     DisvoteProductComment, DisvoteBlogComment,
-    Follow, Cart, CartItem
+    Follow, Cart, CartItem, TradeHistory
 ]
 
 
@@ -112,7 +112,7 @@ def run():
         "CyberCanvas", "BlockArt", "MetaMaster", "DigitalAlchemy", "CryptoGraffiti Gems",
         "BitBrush", "PixelMystique", "DecentralArt", "EtherElegance", "NFTInfinite"
     ]
-    nft_quantity = [random.randint(0, 50) for _ in range(50)]
+    nft_quantity = [random.randint(33, 50) for _ in range(50)]
     nft_image_files = {}
     explore_dir = os.path.join(MEDIA_ROOT, "explore")
     for dir in os.listdir(explore_dir):
@@ -156,10 +156,20 @@ def run():
         tmp_list = nft_product_obj_list.copy()
         for i in range(random.randint(0, 25)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            random_data.quantity -= 1
+            random_data.save()
             data = {
                 "user": user,
                 "product": random_data
             }
+            trade_history = TradeHistory.objects.create(
+                buyer=user,
+                seller=random_data.author,
+                product=random_data,
+                price_at_purchase=random_data.price,
+                quantity_at_purchase=random_data.quantity,
+            )
+            print(f"Trade {trade_history.id} - {trade_history.buyer.name} bought {trade_history.quantity_at_purchase} {trade_history.product.name} from {trade_history.seller.name} for {trade_history.price_at_purchase}")
             # nft_product_owner, _ = NFTProductOwner.objects.get_or_create(**data)
             nft_product_owner = NFTProductOwner.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} owns the nft product with uuid {data['product'].id}")

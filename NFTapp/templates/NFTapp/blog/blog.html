@@ -5,7 +5,7 @@
         <h1 class="blog-heading">Discover populer articles here.</h1>
         <p class="blog-desc">All the articles and contents of the site have been updated today and you can find yoour articles and contants quickly</p>
     </div>
-    {% include 'NFTapp/blog/blog_list.html' %}
+    {% include 'NFTapp/blog/blog_list.html' with number_blogs=blogs|length %}
 </div>
 
 <div class="gap-between-section"></div>

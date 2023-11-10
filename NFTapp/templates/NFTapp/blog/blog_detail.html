@@ -2,22 +2,22 @@
 {% block content %}
 <div class="container">
   <div class="blog-header">
-    <img src="{{blog_detail.0.image}}" alt="" class="blog-header__img" />
+    <img src="{{blog_detail.image}}" alt="" class="blog-header__img" />
     <div class="blog-header__content">
-      {% if blog_detail.1 != 1 %}
+      {% if blog_detail != 1 %}
       <p class="blog-header__times-to-read blog-item__times_to_read">
-        User Stories-{{blog_detail.1}} minutes read
+        User Stories - {{blog_detail.times_to_read}} minutes read
       </p>
       {% else %}
       <p class="blog-header__times-to-read blog-item__times_to_read">
-        User Stories-{{blog_detail.1}} minute read
+        User Stories - {{blog_detail.times_to_read}} minute read
       </p>
       {% endif %}
-      <h1 class="blog-header__title">{{blog_detail.0.title}}</h1>
+      <h1 class="blog-header__title">{{blog_detail.title}}</h1>
       <a
-        href="{% url 'profile%' blog_detail.0.author.id}"
+        href="{% url 'profile%' blog_detail.author.id}"
         class="blog-header__author"
-        >By @{{blog_detail.0.author.name}}</a
+        >By @{{blog_detail.author.name}}</a
       >
       <div class="blog-header__social">
         <p class="blog-header__social-follow">Follow us</p>
@@ -110,13 +110,13 @@
 <div class="gap-between-section"></div>
 
 <div class="container">
-  {% for section in blog_detail.0.blog_section.all %}
+  {% for section in blog_detail.blog_section.all %}
   <div class="blog-section">
     <h2 class="blog-section__heading blog-header__title">
       {{section.heading}}
     </h2>
     <p class="blog-section__content">{{section.content}}</p>
-    <img src="{{blog_detail.0.image}}" alt="" class="blog-section__img" />
+    <img src="{{blog_detail.image}}" alt="" class="blog-section__img" />
   </div>
   {% endfor %}
 

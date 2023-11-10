@@ -102,6 +102,21 @@ class NFTProduct(models.Model):
         return f"{self.name} {self.price}"
 
 
+class TradeHistory(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    buyer = models.ForeignKey('User', related_name='buyer_trades', on_delete=models.CASCADE)
+    seller = models.ForeignKey('User', related_name='seller_trades', on_delete=models.CASCADE)
+    product = models.ForeignKey('NFTProduct', on_delete=models.CASCADE)
+    price_at_purchase = models.DecimalField(max_digits=6, decimal_places=4)
+    quantity_at_purchase = models.PositiveIntegerField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.id} - {self.buyer.name} {self.quantity_at_purchase} {self.product.name} {self.seller.name} {self.price_at_purchase}"
+
+    class Meta:
+        ordering = ['-timestamp']
+
 class NFTProductOwner(models.Model):
     user = models.ForeignKey('User', related_name="owned_products", on_delete=models.CASCADE)
     product = models.ForeignKey('NFTProduct', related_name="owned_by", on_delete=models.CASCADE)
@@ -218,7 +233,7 @@ class Comment(models.Model):
     
     class Meta:
         abstract = True
-
+        ordering = ['-added_at']
 
 
 class ProductComment(Comment):
