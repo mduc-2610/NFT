@@ -1,3 +1,7 @@
+.trade-search {
+    margin-bottom: 30px;
+}
+
 .trade-list {
     display: flex;
     flex-direction: column;
@@ -59,11 +63,19 @@
 
 }
 
+.trade__announce {
+    color: #fff;
+    font-size: 3.2rem;
+    font-weight: 600;
+    font-style: normal;
+    margin: 50px auto;
+}
+
 @media only screen and (min-width: 768px) {
     .trade-list {
         gap: 30px;
     }
-    
+
     .trade-text {
         color: #fff;
         font-size: 2rem;

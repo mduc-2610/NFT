@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'NFTapp.apps.NftappConfig',
     'django_extensions',
     'fontawesomefree',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'NFTapp.User'

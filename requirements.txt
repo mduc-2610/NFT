@@ -4,3 +4,5 @@ fontawesomefree==6.4.2
 Faker
 Pillow
 mysqlclient
+pytz
+djangorestframework

@@ -19,6 +19,10 @@ from NFTapp.models import User, NFTProduct, Topic,\
                                 Follow, Cart, CartItem, TradeHistory
 
 from .forms import MyUserCreationForm, UserForm
+from decimal import Decimal
+from django.forms.models import model_to_dict
+
+
 
 
 def login_page(request):
@@ -1123,6 +1127,57 @@ def search_result(request):
 @login_required(login_url='/login/')
 def trade_history(request):
     trades = request.user.buyer_trades.all()
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'search_product':
+            state = ''
+            trades_found = []
+            search_query = request.POST.get('search_data', None)
+            search_query = search_query.lower()
+            
+            months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            if search_query:
+                for trade in trades:
+                    if trade.product.name.lower().startswith(search_query.lower()) or \
+                        str(trade.timestamp.year).lower().startswith(search_query) or \
+                        str(trade.timestamp.month).lower().startswith(search_query) or \
+                        str(trade.timestamp.day).lower().startswith(search_query):
+
+                        product = NFTProduct.objects.get(pk=trade.product.id)
+                        seller = User.objects.get(pk=product.author.id)
+                        trades_found.append({
+                            'trade_id': str(trade.id),
+                            'buyer_name': request.user.name,
+                            'buyer_id': str(request.user.id),
+
+                            'seller_name': seller.name,
+                            'seller_id': str(seller.id),
+                            
+                            'product_id': str(product.id),
+                            'product_name': product.name,
+                            'product_price': str(product.price),
+                            
+                            'price_at_purchase': str(trade.price_at_purchase),
+                            'quantity_at_purchase': str(trade.quantity_at_purchase),
+                            'timestamp': str(trade.timestamp),
+                        })
+                if len(trades_found):
+                    state = 'found'
+                else:
+                    state = 'not_found'
+            
+            context_json = {
+                'search_query': search_query,
+                'state': state,
+            }  
+
+            if state == 'found':
+                context_json.update({
+                    'trades_found': json.dumps(trades_found),
+                })
+            return JsonResponse(context_json, safe=False)
+    
     context = {
         'page': 'trade_history',
         'trades': trades,
