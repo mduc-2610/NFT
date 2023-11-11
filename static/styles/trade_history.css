@@ -24,6 +24,7 @@
     background-color: #212127;
     padding: 20px;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .trade-repr svg {

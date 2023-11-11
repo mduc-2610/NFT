@@ -6,6 +6,7 @@ from django.core import serializers
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.db.models import Count, Q
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -283,6 +284,20 @@ def collection_detail_1(request, pk):
                 context.update({'comment': serializers.serialize('json', [product_comment, request.user])})
 
             return JsonResponse(context)
+        
+        elif action == 'delete_comment':
+            comment_id = request.POST.get('comment_id', None)
+            comment_type = request.POST.get('comment_type', None)
+            comment_delete = None
+
+            if comment_type == 'product':
+                comment_delete = get_object_or_404(ProductComment, id=comment_id)
+                comment_delete.delete()
+
+            return JsonResponse({
+                'comment_type': comment_type,
+                'comment_delete': serializers.serialize('json', [comment_delete, ])
+            })
         
         elif action == 'like':
             state = ""
@@ -782,6 +797,20 @@ def blog_detail(request, pk):
                 context.update({'comment': serializers.serialize('json', [blog_comment, request.user])})
 
             return JsonResponse(context)
+        
+        elif action == 'delete_comment':
+            comment_id = request.POST.get('comment_id', None)
+            comment_type = request.POST.get('comment_type', None)
+            comment_delete = None
+
+            if comment_type == 'blog':
+                comment_delete = get_object_or_404(BlogComment, id=comment_id)
+                comment_delete.delete()
+
+            return JsonResponse({
+                'comment_type': comment_type,
+                'comment_delete': serializers.serialize('json', [comment_delete, ])
+            })
         
         if action == 'upvote': 
             state = ""

@@ -35,10 +35,11 @@
 }
 
 .comment__from {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
+    width: 100%;
+}
+
+.comment__info {
+    gap: 10px;
 }
 
 .comment__user {
@@ -86,19 +87,22 @@
     letter-spacing: 0.05rem;
 }
 
-.comment__delete {
-    display: none;
-    color: #17E3A6;
-    /* font-family: Aeonik; */
-    font-size: 1.4rem;
-    font-style: normal;
-    font-weight: 450;
-    line-height: 1;
-    letter-spacing: 0.05rem;
+.comment__edit {
+    justify-self: flex-end;
+}
+
+.comment__edit svg {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.comment__edit:hover path {
+    fill: #17E3A6;
 }
 
 .comment__content {
-    margin-top: 7px;
+    margin-top: 10px;
     color: #fff;
     /* font-family: Aeonik; */
     font-size: 1.4rem;
@@ -106,7 +110,9 @@
     font-weight: 300;
     line-height: 1;
     letter-spacing: 0.05rem;
+    word-break: break-word;
 }
+
 
 .comment__post {
     /* position: absolute; */
@@ -220,10 +226,6 @@
     }
     
     .comment__modify {
-        font-size: 1.6rem;
-    }
-    
-    .comment__delete {
         font-size: 1.6rem;
     }
     

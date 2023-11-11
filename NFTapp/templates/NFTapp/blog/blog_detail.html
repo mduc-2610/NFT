@@ -216,7 +216,7 @@
 
 <div class="gap-between-section"></div>
 
-{% include 'NFTapp/comment.html' %} 
+{% include 'NFTapp/comment.html' with comment_type='blog' %} 
 
 {% for comment in comments %}
 <div class="product-user-comment{{comment.id}}" style="display: none;">
