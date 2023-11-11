@@ -390,9 +390,17 @@ def collection_detail_1(request, pk):
                 request.user.owners.add(product)
                 request.user.property -= product.price
                 request.user.save()
-
                 product.quantity -= 1
                 product.save()
+
+                TradeHistory.objects.create(
+                    buyer=request.user,
+                    seller=product.author,
+                    product=product,
+                    price_at_purchase=product.price,
+                    quantity_at_purchase=product.quantity
+                )
+                
                 state = 'can_buy'
             else:
                 state = 'cant_buy'
@@ -1110,3 +1118,15 @@ def search_result(request):
                 'bad_query': 'No results found'
             })
         return render(request, 'NFTapp/search_result.html', context)
+    
+@add_search_data
+@login_required(login_url='/login/')
+def trade_history(request):
+    trades = request.user.buyer_trades.all()
+    context = {
+        'page': 'trade_history',
+        'trades': trades,
+        'search_data': request.search_data,
+    }
+
+    return render(request, 'NFTapp/trade_history.html', context)    

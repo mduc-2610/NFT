@@ -108,6 +108,11 @@ main {
     justify-content: center;
 }
 
+.flex_aic {
+    display: flex;
+    align-items: center;
+}
+
 .flex_aic_jcsb {
     display: flex;
     align-items: center;

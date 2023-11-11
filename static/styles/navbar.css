@@ -201,7 +201,7 @@
 .header-user__feature {
     display: none;
     position: absolute;
-    width: 245%;
+    width: 270%;
     top: 34px;
     right: -10px;
     background: #191919;
@@ -650,11 +650,12 @@
     }
     
     .header-user__feature {
-        width: 100%;
+        width: 120%;
         top: 45px;
     }
 
     .header-user__feature-link {
+        /* display: inline-block; */
         display: flex;
         gap: 10px;
         font-size: 1.6rem;

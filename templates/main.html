@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'styles/profile.css' %}">
     <link rel="stylesheet" href="{% static 'styles/cart.css' %}">
     <link rel="stylesheet" href="{% static 'styles/search_result.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/trade_history.css' %}">
     <link rel="stylesheet" href="{% static 'styles/edit_profile.css' %}">
     <link rel="stylesheet" href="{% static 'styles/user_behavior.css' %}">
     <link rel="stylesheet" href="{% static 'styles/cart_product_detail.css' %}">
@@ -102,7 +103,7 @@
   <main>
     {%block content%}
     {% endblock content %}
-    {% if page != 'login' and page != 'register' %}
+    {% if page != 'login' and page != 'register' and page != 'trade_history' %}
       {% include 'NFTapp/cart.html' %}
     {% endif %}
   </main>

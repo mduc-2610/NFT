@@ -209,10 +209,17 @@ def run():
     # user = User.objects.all()[6]
     # [print(product) for product in user.user_cart.products.all()]
 
-    product = NFTProduct.objects.all()[5]
-    print(product.sold())
-    # print(product.annotate(num_created=Count('author')).order_by('-num_created'))
+    # product = NFTProduct.objects.all()[5]
+    # print(product.sold())
+    # # print(product.annotate(num_created=Count('author')).order_by('-num_created'))
     
 
-    user = User.objects.all()[5]
-    print(user.sold())
+    # user = User.objects.all()[5]
+    # print(user.sold())
+    import pytz
+    vietnam_timezone = pytz.timezone('Asia/Ho_Chi_Minh')    
+    now = datetime.now(vietnam_timezone)
+    value = NFTProduct.objects.all()[5].created_at
+    print(now.time(), value.time())
+    time_difference = now.microsecond / 1000 - value.microsecond / 1000
+    print(now.microsecond, value.microsecond)

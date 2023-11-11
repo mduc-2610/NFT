@@ -183,7 +183,7 @@
             </button>
         </div>
         <div class="purchase__decision">
-            <form method="POST" action="" class="purchase__decision-form flex_aic_jcsb">
+            <form method="POST" action="" class="product-purchase purchase__decision-form flex_aic_jcsb">
                 {% csrf_token %}
                 <button type="submit" class="purchase__text purchase__agree">Yes</button>
                 <button class="purchase__text purchase__disagree">No</button>
@@ -734,7 +734,7 @@
         })
 
         
-        $('.purchase__decision-form').on('submit', (e) => {
+        $('.product-purchase.purchase__decision-form').on('submit', (e) => {
             e.preventDefault();
             $.ajax({
                 type: 'POST',

@@ -169,9 +169,9 @@ def run():
                 price_at_purchase=random_data.price,
                 quantity_at_purchase=random_data.quantity,
             )
-            print(f"Trade {trade_history.id} - {trade_history.buyer.name} bought {trade_history.quantity_at_purchase} {trade_history.product.name} from {trade_history.seller.name} for {trade_history.price_at_purchase}")
-            # nft_product_owner, _ = NFTProductOwner.objects.get_or_create(**data)
-            nft_product_owner = NFTProductOwner.objects.create(**data)
+            print(f"\tTrade {trade_history.id} - {trade_history.buyer.name} bought {trade_history.quantity_at_purchase} {trade_history.product.name} from {trade_history.seller.name} for {trade_history.price_at_purchase}")
+            nft_product_owner, _ = NFTProductOwner.objects.get_or_create(**data)
+            # nft_product_owner = NFTProductOwner.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} owns the nft product with uuid {data['product'].id}")
 
     # Load who like the product 

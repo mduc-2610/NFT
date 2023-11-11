@@ -113,7 +113,7 @@
             </button>
         </div>
         <div class="purchase__decision">
-            <form method="POST" action="" class="purchase__decision-form flex_aic_jcsb">
+            <form method="POST" action="" class="cart-purchase purchase__decision-form flex_aic_jcsb">
                 {% csrf_token %}
                 <button type="submit" class="purchase__text purchase__agree">Yes</button>
                 <button class="purchase__text purchase__disagree">No</button>
@@ -315,7 +315,7 @@
             deleteCartProduct();
 
             function purchaseCartProduct() {
-                $('.purchase__decision-form').on('submit', function(e) {
+                $('.cart-purchase.purchase__decision-form').on('submit', function(e) {
                     e.preventDefault();
                     $.ajax({
                         type: 'POST',

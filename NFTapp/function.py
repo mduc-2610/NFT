@@ -9,7 +9,7 @@ from NFTapp.models import User, NFTProduct, Topic,\
                              NFTProductOwner, Type, NFTBlog, \
                                 BlogSection, BlogComment, ProductComment,\
                                 FAQ, FAQTitle, NFTProductFavorite, \
-                                Cart, CartItem
+                                Cart, CartItem, TradeHistory
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -149,9 +149,17 @@ def add_cart_data(view_func):
                         for product in cart_products:
                             request.user.owners.add(product)
                             request.user.user_cart.products.remove(product)
-                            
                             product.quantity -= 1
                             product.save()
+
+                            TradeHistory.objects.create(
+                                buyer=request.user,
+                                seller=product.author,
+                                product=product,
+                                price_at_purchase=product.price,
+                                quantity_at_purchase=product.quantity
+                            )
+                            
                         request.user.property -= total_price
                         request.user.save()
                         state = 'can_buy'

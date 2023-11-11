@@ -1,6 +1,7 @@
 import json
 from django import template
 from django.utils.timesince import timesince
+import pytz
 from datetime import datetime, date
 from django import template
 
@@ -30,13 +31,13 @@ def eth_to_usd(value):
 
 @register.filter(name='facebook_time')
 def facebook_time(value):
+    vietnam_timezone = pytz.timezone('Asia/Ho_Chi_Minh')    
+    now = datetime.now(vietnam_timezone)
+
     if not value:
         return ""
 
-    now = datetime.now()
     time_difference = now.microsecond / 1000 - value.microsecond / 1000
-
-    # seconds_ago = time_difference.total_seconds()
 
     if time_difference < 60:
         return 'now'
