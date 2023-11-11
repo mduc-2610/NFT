@@ -36,10 +36,26 @@ def run():
     email_superuser = 'duc@gmail.com'
     password_superuser = 'duc123'
 
+    max_number_users = 300
+    max_followers = 200
+    max_favorites = 150
+
+    max_product_comments = 100
+    max_blog_comments = 80
+
+    max_votes_product_comment = 120
+    max_disvotes_product_comment = 80
+
+    max_votes_blog_comment = 150
+    max_disvotes_blog_comment = 95
+
+    max_products_in_cart = 22
+    max_owners_of_a_product = 21
+     
     User.objects.create_superuser(username_superuser, email_superuser, password_superuser)
     print("USER:")
     user_obj_list = []
-    for _ in range(30):
+    for _ in range(max_number_users):
         data = {
             "name": fake.email().split('@')[0],
             "email": fake.email().split('@')[0] + '@email.com',
@@ -59,7 +75,7 @@ def run():
     for user in user_obj_list:
         tmp_list = user_obj_list.copy()
         tmp_list.remove(user)
-        for i in range(random.randint(0, 23)):
+        for i in range(random.randint(0, max_followers)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "follower": random_data,
@@ -154,7 +170,7 @@ def run():
     print("OWNERS:")
     for user in user_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(0, 25)):
+        for i in range(random.randint(0, max_owners_of_a_product)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             random_data.quantity -= 1
             random_data.save()
@@ -179,7 +195,7 @@ def run():
     print("FAVORITES:")
     for user in user_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(0, 15)):
+        for i in range(random.randint(0, max_favorites)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -314,7 +330,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     product_comment_list = []
     for product in nft_product_obj_list:
         tmp_user = user_obj_list.copy()
-        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
+        for _ in range(random.randint(1, max_product_comments)):  # You can adjust the range as needed
             data = {
                 "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
                 "product": product,
@@ -331,7 +347,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     blog_comment_list = []
     for blog in blog_obj_list:
         tmp_user = user_obj_list.copy()
-        for _ in range(random.randint(1, 10)):  # You can adjust the range as needed
+        for _ in range(random.randint(1, max_blog_comments)):  # You can adjust the range as needed
             data = {
                 "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
                 "blog": blog,
@@ -347,7 +363,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("RANDOM USER VOTE PRODUCT COMMENT:")
     for user in user_obj_list:
         tmp_list = product_comment_list.copy()
-        for i in range(random.randint(20, 55)):
+        for i in range(random.randint(20, max_votes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -362,7 +378,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("RANDOM USER DISVOTE PRODUCT COMMENT:")
     for user in user_obj_list:
         tmp_list = product_comment_list.copy()
-        for i in range(random.randint(20, 50)):
+        for i in range(random.randint(20, max_disvotes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -379,7 +395,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("RANDOM USER VOTE BLOG COMMENT:")
     for user in user_obj_list:
         tmp_list = blog_comment_list.copy()
-        for i in range(random.randint(20, 60)):
+        for i in range(random.randint(20, max_votes_blog_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -394,7 +410,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("RANDOM USER DISVOTE BLOG COMMENT:")
     for user in user_obj_list:
         tmp_list = blog_comment_list.copy()
-        for i in range(random.randint(20, 50)):
+        for i in range(random.randint(20, max_disvotes_blog_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -423,7 +439,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     print("CART PRODUCT IN A CART:")
     for cart in cart_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(0, 25)):
+        for i in range(random.randint(0, max_products_in_cart)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             if random_data in cart.user.owners.all():
                 continue
