@@ -18,7 +18,7 @@ fake = Faker()
 
 models_to_delete = [
     User, NFTProduct, Topic,
-    NFTProductOwner, Type, NFTBlog, 
+    NFTProductOwner, Type, NFTBlog,
     BlogSection, FAQ, FAQTitle,
     BlogComment, ProductComment, NFTProductFavorite,
     VoteProductComment, VoteBlogComment,
@@ -31,42 +31,42 @@ def run():
     for model in models_to_delete:
         print("Delete sucessfully")
         model.objects.all().delete()
-    
+
     username_superuser = 'duc'
     email_superuser = 'duc@gmail.com'
     password_superuser = 'duc123'
 
-    max_number_users = 300
-    max_followers = 200
+    # max_number_users = 300
+    # max_followers = 200
 
-    max_product_comments = 100
-    max_blog_comments = 80
+    # max_product_comments = 100
+    # max_blog_comments = 80
 
-    max_votes_product_comment = 120
-    max_disvotes_product_comment = 80
+    # max_votes_product_comment = 120
+    # max_disvotes_product_comment = 80
 
-    max_votes_blog_comment = 150
-    max_disvotes_blog_comment = 95
-
-    max_products_in_cart = 22
-    max_favorited_product = 22
-    max_owners_of_a_product = 21
-     
-    # max_number_users = 30
-    # max_followers = 20
-
-    # max_product_comments = 20
-    # max_blog_comments = 20
-
-    # max_votes_product_comment = 20
-    # max_disvotes_product_comment = 20
-
-    # max_votes_blog_comment = 20
-    # max_disvotes_blog_comment = 20
+    # max_votes_blog_comment = 150
+    # max_disvotes_blog_comment = 95
 
     # max_products_in_cart = 22
     # max_favorited_product = 22
     # max_owners_of_a_product = 21
+
+    max_number_users = 30
+    max_followers = 20
+
+    max_product_comments = 20
+    max_blog_comments = 20
+
+    max_votes_product_comment = 20
+    max_disvotes_product_comment = 20
+
+    max_votes_blog_comment = 20
+    max_disvotes_blog_comment = 20
+
+    max_products_in_cart = 22
+    max_favorited_product = 22
+    max_owners_of_a_product = 21
 
     User.objects.create_superuser(username_superuser, email_superuser, password_superuser)
     print("USER:")
@@ -133,11 +133,11 @@ def run():
     print("----------------------------------------------------------------")
     print("NFTProduct:")
     nft_names = [
-        "EtherGems", "CryptoCanvas", "DigitalDreamscapes", "PixelPioneers", "CryptoCollectibles", 
-        "ArtBlockChain", "NFTNova", "DecentralizedVisions", "VirtualVogue", "TechnoTreasuries", 
-        "MetaMasterpieces", "BitArtGallery", "EtherIcons", "NeonNomads", "CryptoCraftworks", "NFTUniverse", 
-        "DigitalDynasty", "BlockchainBrushstrokes", "PixelPrestige", "EtherEnigmas", "CodeCanvas", 
-        "CryptoChronicles", "VirtualVagabonds", "BitBliss", "NFTNirvana", "ArtisticAlgorithms", "CryptoCuriosities", 
+        "EtherGems", "CryptoCanvas", "DigitalDreamscapes", "PixelPioneers", "CryptoCollectibles",
+        "ArtBlockChain", "NFTNova", "DecentralizedVisions", "VirtualVogue", "TechnoTreasuries",
+        "MetaMasterpieces", "BitArtGallery", "EtherIcons", "NeonNomads", "CryptoCraftworks", "NFTUniverse",
+        "DigitalDynasty", "BlockchainBrushstrokes", "PixelPrestige", "EtherEnigmas", "CodeCanvas",
+        "CryptoChronicles", "VirtualVagabonds", "BitBliss", "NFTNirvana", "ArtisticAlgorithms", "CryptoCuriosities",
         "EtherEssence", "Bitstream", "NFTNocturnes", "CryptoPulse", "DigitalDreams",
         "PixelSculpture", "EtherVisions", "NFTNova", "VirtualCanvas",
         "CryptoKaleidoscope", "BitGallery", "NFTSpectrum", "Decentralized",
@@ -159,7 +159,7 @@ def run():
     nft_product_obj_list = []
     for k, v in nft_image_files.items():
         type_product = type_obj_list[z]
-        for i, image in enumerate(v):  
+        for i, image in enumerate(v):
             random_user = random.choice(user_obj_list)
             data = {
                 "name": nft_names.pop(random.randint(0, len(nft_names) - 1)),
@@ -207,7 +207,7 @@ def run():
             # nft_product_owner = NFTProductOwner.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} owns the nft product with uuid {data['product'].id}")
 
-    # Load who like the product 
+    # Load who like the product
     print("----------------------------------------------------------------")
     print("FAVORITES:")
     for user in user_obj_list:
@@ -221,9 +221,9 @@ def run():
             # nft_product_Favorite, _ = NFTProductFavorite.objects.get_or_create(**data)
             nft_product_Favorite = NFTProductFavorite.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} likes the nft product with uuid {data['product'].id}")
-    
 
-    #Load blog 
+
+    #Load blog
     print("----------------------------------------------------------------")
     print("BLOG:")
     titles = [
@@ -250,7 +250,7 @@ def run():
     for i in range(len(titles)):
         data = {
             'title': titles[i],
-            'author': random.choice(user_obj_list),                
+            'author': random.choice(user_obj_list),
             'image': blog_images[i],
         }
         # blog, _ = NFTBlog.objects.get_or_create(**data)
@@ -322,7 +322,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             {'Do I need to know how to code to create NFTs?':'''While some knowledge of coding may be helpful for advanced customization, Enjin's platform is designed to be user-friendly, allowing individuals with varying levels of technical expertise to create NFTs without extensive coding skills. You can use Enjin's tools and templates to mint NFTs with relative ease.'''}
         ]
     }
-    
+
     for title, questions in faqs.items():
         data = {
             'title': title
@@ -340,7 +340,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 # faq, _ = FAQ.objects.get_or_create(**data)
                 faq = FAQ.objects.create(**data)
                 print(f"\tSuccessfully created FAQ question {faq.question} with answer {faq.answer}")
-                
+
     # Load random data product comment
     print("----------------------------------------------------------------")
     print("PRODUCT COMMENT:")
@@ -356,8 +356,8 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             # product_comment, _ = ProductComment.objects.get_or_create(product_comment)
             product_comment = ProductComment.objects.create(**data)
             product_comment_list.append(product_comment)
-            print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ") 
-    
+            print(f"\t Successfully create Product Comment {product_comment.product.name} {product_comment.user.name} ")
+
     # Load random data blog comment
     print("----------------------------------------------------------------")
     print("BLOG COMMENT:")
@@ -369,7 +369,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
                 "user": random.choice(user_obj_list),
                 "blog": blog,
                 "content": fake.text(max_nb_chars=random.randint(300, 750)),
-            } 
+            }
             # blog_comment, _ = BlogComment.objects.get_or_create(blog_comment)
             blog_comment = BlogComment.objects.create(**data)
             blog_comment_list.append(blog_comment)
@@ -389,7 +389,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
             product_comment_vote = VoteProductComment.objects.create(**data)
             print(f"\tProduct comment with id {data['comment'].id} voted by user with uuid {data['user'].id} ")
-    
+
     # for user in user_obj_list:
     #     tmp_list = product_comment_list.copy()
     #     for i in range(random.randint(20, max_votes_product_comment)):
@@ -401,8 +401,8 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     #         # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
     #         product_comment_vote = VoteProductComment.objects.create(**data)
     #         print(f"\tUser with uuid {data['user'].id} votes the product comment with id {data['comment'].id}")
-    
-    
+
+
 
     # Load ramdom user disvote product comment
     print("----------------------------------------------------------------")
@@ -421,7 +421,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
             product_comment_vote = DisvoteProductComment.objects.create(**data)
             print(f"\tProduct comment with id {data['comment'].id} disvoted by user with uuid {data['user'].id} ")
-    
+
     # for user in user_obj_list:
     #     tmp_list = product_comment_list.copy()
     #     for i in range(random.randint(20, max_disvotes_product_comment)):
@@ -433,14 +433,14 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     #         if not VoteProductComment.objects.filter(user=user, comment=random_data).exists():
     #             # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
     #             product_comment_vote = DisvoteProductComment.objects.create(**data)
-    #         print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")    
+    #         print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")
 
     # Load ramdom user vote blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER VOTE BLOG COMMENT:")
     for comment in blog_comment_list:
         tmp_list = user_obj_list.copy()
-        for _ in range(random.randint(0, max_votes_product_comment)):
+        for _ in range(random.randint(0, max_votes_blog_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": random_data,
@@ -462,13 +462,13 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
     #         # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
     #         blog_comment_vote = VoteBlogComment.objects.create(**data)
     #         print(f"\tUser with uuid {data['user'].id} votes the blog comment with id {data['comment'].id}")
-    
+
     # Load ramdom user disvote blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER DISVOTE BLOG COMMENT:")
     for comment in blog_comment_list:
         tmp_list = user_obj_list.copy()
-        for _ in range(random.randint(0, max_disvotes_product_comment)):
+        for _ in range(random.randint(0, max_disvotes_blog_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": random_data,
@@ -524,4 +524,3 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             # cart_item, _ = CartItem.objects.get_or_create(**data)
             cart_item = CartItem.objects.create(**data)
             print(f"\tCart from {cart_item.cart.user.name} has {cart_item.product.name}")
-    
