@@ -3,7 +3,7 @@
 
         <ul class="profile-list-1">
             {% for user in users %}
-            {% if forloop.counter <= 3 %}
+            {% if forloop.counter <= number_profiles %}
             <li class="profile-list__item-1">
                 <div class="profile-list__picture-1">
                     <a href="{% url 'profile' user.id %}" class="profile-list__cover-photo-1">

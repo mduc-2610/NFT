@@ -2,7 +2,7 @@
 {% load static %}
 <ul class="profile-list-2">
     {% for user in users %}
-        {% if forloop.counter <= 6 %}
+        {% if forloop.counter <= number_profiles %}
         <li class="profile-list__item-2">
             <div class="profile-list__picture-2">
                 <a href="{% url 'profile' user.id %}" class="profile-list__cover-photo-2">

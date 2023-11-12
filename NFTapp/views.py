@@ -1104,21 +1104,21 @@ def search_result(request):
         search_query = request.POST.get('search_query', None)
         if search_query:
             product_query = NFTProduct.objects.filter(
-                Q(name__istartswith=search_query) 
-                # Q(topic__name__istartswith=search_query) 
+                Q(name__istartswith=search_query) |
+                Q(topic__name__istartswith=search_query) 
                 # Q(description__istartswith=search_query) 
                 # Q(quantity=search_query) |
                 # Q(rarity=search_query)
             )
             blog_query = NFTBlog.objects.filter(
-                Q(title__istartswith=search_query) 
-                # Q(author__name__istartswith=search_query)
+                Q(title__istartswith=search_query) |
+                Q(author__name__istartswith=search_query)
             )
             
             user_query = User.objects.filter(
                 Q(name__istartswith=search_query) 
-                # Q(bio__istartswith=search_query) |
                 # Q(property__istartswith=search_query)     
+                # Q(bio__istartswith=search_query) |
             )
 
         query_type = [product_query, blog_query, user_query]

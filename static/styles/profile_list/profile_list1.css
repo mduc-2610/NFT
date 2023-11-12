@@ -141,7 +141,7 @@
 
     .profile-list-1 {
         grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
+        gap: 70px 30px;
     }
     
     .profile-list__item-1 {

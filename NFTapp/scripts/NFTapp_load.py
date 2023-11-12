@@ -38,7 +38,6 @@ def run():
 
     max_number_users = 300
     max_followers = 200
-    max_favorites = 150
 
     max_product_comments = 100
     max_blog_comments = 80
@@ -50,22 +49,39 @@ def run():
     max_disvotes_blog_comment = 95
 
     max_products_in_cart = 22
+    max_favorited_product = 22
     max_owners_of_a_product = 21
      
+    # max_number_users = 30
+    # max_followers = 20
+
+    # max_product_comments = 20
+    # max_blog_comments = 20
+
+    # max_votes_product_comment = 20
+    # max_disvotes_product_comment = 20
+
+    # max_votes_blog_comment = 20
+    # max_disvotes_blog_comment = 20
+
+    # max_products_in_cart = 22
+    # max_favorited_product = 22
+    # max_owners_of_a_product = 21
+
     User.objects.create_superuser(username_superuser, email_superuser, password_superuser)
     print("USER:")
     user_obj_list = []
     for _ in range(max_number_users):
         data = {
-            "name": fake.email().split('@')[0],
-            "email": fake.email().split('@')[0] + '@email.com',
-            "username": fake.email().split('@')[0],
+            "name": ''.join([fake.email().split('@')[0] for x in range(1)]),
+            "email": ''.join([fake.email().split('@')[0] for x in range(3)]) + '@email.com',
+            "username": ''.join([fake.email().split('@')[0] for x in range(3)]),
             "password": make_password("Duckkucd.123"),
             "bio": fake.text(max_nb_chars=300),
             "property": round(random.uniform(0, 20), 4)
         }
-        # user, _ = User.objects.get_or_create(**data)
-        user = User.objects.create(**data)
+        user, _ = User.objects.get_or_create(**data)
+        # user = User.objects.create(**data)
         print(f"\tSuccessfully created user with info {user.name}, {user.email}, {user.bio} ")
         user_obj_list.append(user)
 
@@ -115,7 +131,7 @@ def run():
 
     # Load nft product
     print("----------------------------------------------------------------")
-    print("Product:")
+    print("NFTProduct:")
     nft_names = [
         "EtherGems", "CryptoCanvas", "DigitalDreamscapes", "PixelPioneers", "CryptoCollectibles", 
         "ArtBlockChain", "NFTNova", "DecentralizedVisions", "VirtualVogue", "TechnoTreasuries", 
@@ -152,7 +168,7 @@ def run():
                 "author": random_user,
                 "image": image,
                 "topic": random.choice(topic_obj_list),
-                "quantity": random.choice(nft_quantity),
+                "quantity": random.randint(0, 250),
                 "description": fake.text(max_nb_chars=300),
                 "artwork": cnt,
                 "type_product": type_product
@@ -172,6 +188,7 @@ def run():
         tmp_list = nft_product_obj_list.copy()
         for i in range(random.randint(0, max_owners_of_a_product)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+            if random_data.quantity == 0: continue
             random_data.quantity -= 1
             random_data.save()
             data = {
@@ -195,7 +212,7 @@ def run():
     print("FAVORITES:")
     for user in user_obj_list:
         tmp_list = nft_product_obj_list.copy()
-        for i in range(random.randint(0, max_favorites)):
+        for i in range(random.randint(0, max_favorited_product)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
                 "user": user,
@@ -332,7 +349,7 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
         tmp_user = user_obj_list.copy()
         for _ in range(random.randint(1, max_product_comments)):  # You can adjust the range as needed
             data = {
-                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
+                "user": random.choice(user_obj_list),
                 "product": product,
                 "content": fake.text(max_nb_chars=random.randint(100, 750))
             }
@@ -349,77 +366,134 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
         tmp_user = user_obj_list.copy()
         for _ in range(random.randint(1, max_blog_comments)):  # You can adjust the range as needed
             data = {
-                "user": tmp_user.pop(random.randint(0, len(tmp_user) - 1)),
+                "user": random.choice(user_obj_list),
                 "blog": blog,
                 "content": fake.text(max_nb_chars=random.randint(300, 750)),
             } 
             # blog_comment, _ = BlogComment.objects.get_or_create(blog_comment)
             blog_comment = BlogComment.objects.create(**data)
             blog_comment_list.append(blog_comment)
-            print(f"\t Successfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
+            print(f"\tSuccessfully create Blog Comment {blog_comment.blog.title} {blog_comment.user.name} ")
 
     # Load ramdom user vote product comment
     print("----------------------------------------------------------------")
     print("RANDOM USER VOTE PRODUCT COMMENT:")
-    for user in user_obj_list:
-        tmp_list = product_comment_list.copy()
-        for i in range(random.randint(20, max_votes_product_comment)):
+    for comment in product_comment_list:
+        tmp_list = user_obj_list.copy()
+        for _ in range(random.randint(0, max_votes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
-                "user": user,
-                "comment": random_data
+                "user": random_data,
+                "comment": comment
             }
             # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
             product_comment_vote = VoteProductComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} votes the product comment with id {data['comment'].id}")
+            print(f"\tProduct comment with id {data['comment'].id} voted by user with uuid {data['user'].id} ")
     
+    # for user in user_obj_list:
+    #     tmp_list = product_comment_list.copy()
+    #     for i in range(random.randint(20, max_votes_product_comment)):
+    #         random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+    #         data = {
+    #             "user": user,
+    #             "comment": random_data
+    #         }
+    #         # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
+    #         product_comment_vote = VoteProductComment.objects.create(**data)
+    #         print(f"\tUser with uuid {data['user'].id} votes the product comment with id {data['comment'].id}")
+    
+    
+
     # Load ramdom user disvote product comment
     print("----------------------------------------------------------------")
     print("RANDOM USER DISVOTE PRODUCT COMMENT:")
-    for user in user_obj_list:
-        tmp_list = product_comment_list.copy()
-        for i in range(random.randint(20, max_disvotes_product_comment)):
+    for comment in product_comment_list:
+        tmp_list = user_obj_list.copy()
+        for _ in range(random.randint(0, max_disvotes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
-                "user": user,
-                "comment": random_data
+                "user": random_data,
+                "comment": comment
             }
-            if not VoteProductComment.objects.filter(user=user, comment=random_data).exists():
+            if not VoteProductComment.objects.filter(user=random_data, comment=comment).exists():
                 # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
                 product_comment_vote = DisvoteProductComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")
+            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
+            product_comment_vote = DisvoteProductComment.objects.create(**data)
+            print(f"\tProduct comment with id {data['comment'].id} disvoted by user with uuid {data['user'].id} ")
     
+    # for user in user_obj_list:
+    #     tmp_list = product_comment_list.copy()
+    #     for i in range(random.randint(20, max_disvotes_product_comment)):
+    #         random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+    #         data = {
+    #             "user": user,
+    #             "comment": random_data
+    #         }
+    #         if not VoteProductComment.objects.filter(user=user, comment=random_data).exists():
+    #             # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
+    #             product_comment_vote = DisvoteProductComment.objects.create(**data)
+    #         print(f"\tUser with uuid {data['user'].id} disvotes the product comment with id {data['comment'].id}")    
 
     # Load ramdom user vote blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER VOTE BLOG COMMENT:")
-    for user in user_obj_list:
-        tmp_list = blog_comment_list.copy()
-        for i in range(random.randint(20, max_votes_blog_comment)):
+    for comment in blog_comment_list:
+        tmp_list = user_obj_list.copy()
+        for _ in range(random.randint(0, max_votes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
-                "user": user,
-                "comment": random_data
+                "user": random_data,
+                "comment": comment
             }
-            # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
-            blog_comment_vote = VoteBlogComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} votes the blog comment with id {data['comment'].id}")
+            # product_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
+            product_comment_vote = VoteBlogComment.objects.create(**data)
+            print(f"\tBlog comment with id {data['comment'].id} voted by user with uuid {data['user'].id} ")
+
+
+    # for user in user_obj_list:
+    #     tmp_list = blog_comment_list.copy()
+    #     for i in range(random.randint(20, max_votes_blog_comment)):
+    #         random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+    #         data = {
+    #             "user": user,
+    #             "comment": random_data
+    #         }
+    #         # blog_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
+    #         blog_comment_vote = VoteBlogComment.objects.create(**data)
+    #         print(f"\tUser with uuid {data['user'].id} votes the blog comment with id {data['comment'].id}")
     
     # Load ramdom user disvote blog comment
     print("----------------------------------------------------------------")
     print("RANDOM USER DISVOTE BLOG COMMENT:")
-    for user in user_obj_list:
-        tmp_list = blog_comment_list.copy()
-        for i in range(random.randint(20, max_disvotes_blog_comment)):
+    for comment in blog_comment_list:
+        tmp_list = user_obj_list.copy()
+        for _ in range(random.randint(0, max_disvotes_product_comment)):
             random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
             data = {
-                "user": user,
-                "comment": random_data
+                "user": random_data,
+                "comment": comment
             }
-            if not VoteBlogComment.objects.filter(user=user, comment=random_data).exists():
-                # blog_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
-                blog_comment_vote = DisvoteBlogComment.objects.create(**data)
-            print(f"\tUser with uuid {data['user'].id} disvotes the blog comment with id {data['comment'].id}")
+            if not VoteBlogComment.objects.filter(user=random_data, comment=comment).exists():
+                # product_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
+                product_comment_vote = DisvoteBlogComment.objects.create(**data)
+            # product_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
+            product_comment_vote = DisvoteBlogComment.objects.create(**data)
+            print(f"\tBlog comment with id {data['comment'].id} disvoted by user with uuid {data['user'].id} ")
+
+
+    # for user in user_obj_list:
+    #     tmp_list = blog_comment_list.copy()
+    #     for i in range(random.randint(20, max_disvotes_blog_comment)):
+    #         random_data = tmp_list.pop(random.randint(0, len(tmp_list) - 1))
+    #         data = {
+    #             "user": user,
+    #             "comment": random_data
+    #         }
+    #         if not VoteBlogComment.objects.filter(user=user, comment=random_data).exists():
+    #             # blog_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
+    #             blog_comment_vote = DisvoteBlogComment.objects.create(**data)
+    #         print(f"\tUser with uuid {data['user'].id} disvotes the blog comment with id {data['comment'].id}")
 
     # Load owner of a cart
     print("----------------------------------------------------------------")
