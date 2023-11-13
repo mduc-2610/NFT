@@ -63,7 +63,9 @@ def register_page(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.property = random.uniform(0, 20)
             user.save()
+            Cart.objects.create(user=user)
             login(request, user)
             return redirect('home1')
         else:

@@ -42,7 +42,7 @@
                         <p class="product-statistic__key">Rarity Rank</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
-                        <p class="product-statistic__value">{{product.quantity}}</p>
+                        <p class="product-statistic__value total-items">{{product.quantity}}</p>
                         <p class="product-statistic__key">Total items</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
@@ -128,7 +128,7 @@
                         <p class="product-statistic__key">Rarity Rank</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
-                        <p class="product-statistic__value">{{product.quantity}}</p>
+                        <p class="product-statistic__value total-items">{{product.quantity}}</p>
                         <p class="product-statistic__key">Total items</p>
                     </li>
                     <li class="product-statistic__item flex_fdc_aif">
@@ -142,7 +142,9 @@
                 </div>
             </div>
             <div class="product-detail__offer">
-                {% if product not in request.user.owners.all %}
+                {% if product.quantity == 0 %}
+                <p class="product-detail__announce">Sold out</p>
+                {% elif product not in request.user.owners.all %}
                 <p class="product-detail__current-price">
                     Current price
                 </p>
@@ -163,8 +165,6 @@
                         {% endif %}
                     </button> 
                 </form>
-                {% elif product.quantity == 0 %}
-                <p class="product-detail__announce">Sold out</p>
                 {% else %}
                 <p class="product-detail__announce">You have owned this product</p>
                 {% endif %}
@@ -174,7 +174,7 @@
     </div>
 </div>
 
-<div class="container-purchase flex_aic_jcc">
+<div class="product container-purchase flex_aic_jcc">
     <div class="purchase">
         <div class="purchase__head flex_aic_jcsb">
             <p class="purchase__text purchase__heading">Are you sure to purchase this product ?</p>
@@ -265,27 +265,29 @@
 
     
     const purchase = document.querySelector('.purchase');
-    const containerPurchase = document.querySelector('.container-purchase');
+    const containerPurchase = document.querySelector('.product.container-purchase');
     const purchaseClose = document.querySelector('.purchase__close');
     
-    purchaseClose.onclick = (e) => {
-        containerPurchase.style.display = 'none'
-    }
-
-    containerPurchase.onclick = (e) => {
-        if(e.target !== purchase) {
+    if(containerPurchase) {
+        purchaseClose.onclick = (e) => {
             containerPurchase.style.display = 'none'
         }
-    }
-
-    purchase.onclick = (e) => {
-        e.stopPropagation();
-    }
-
-    const purchaseDisagree = document.querySelector('.purchase__disagree');
-    purchaseDisagree.onclick = (e) => {
-        e.preventDefault();
-        containerPurchase.style.display = 'none';
+    
+        containerPurchase.onclick = (e) => {
+            if(e.target !== purchase) {
+                containerPurchase.style.display = 'none'
+            }
+        }
+    
+        purchase.onclick = (e) => {
+            e.stopPropagation();
+        }
+    
+        const purchaseDisagree = document.querySelector('.purchase__disagree');
+        purchaseDisagree.onclick = (e) => {
+            e.preventDefault();
+            containerPurchase.style.display = 'none';
+        }
     }
 
     const buyButton = document.querySelectorAll('.buy-button');
@@ -429,7 +431,7 @@
                         var productAuthorDataField = productAuthorData.fields;
     
                         var productTopicDataField = productTopicData.fields;
-    
+                        
                         var itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
                         var totalPrice = response.total_price;
                         var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
@@ -544,12 +546,128 @@
                                             <p class="cart-text-2 cart__price-value-dollar">${totalPriceDollar}</p>
                                         </div>
                                     </div>
-                                    <form action="" class="cart__buy" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="purchase_nft">
-                                        <button type="submit" class="cart__buy-button">Complete purchase</button>
-                                    </form>
+                                    <button type="submit" class="cart__buy-button">Complete purchase</button>
+
+                                    <div class="cart-purchase container-purchase flex_aic_jcc">
+                                        <div class="purchase">
+                                            <div class="purchase__head flex_aic_jcsb">
+                                                <p class="purchase__text purchase__heading">Are you sure to purchase this product ?</p>
+                                                <button class="purchase__close close-button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                                                </button>
+                                            </div>
+                                            <div class="purchase__decision">
+                                                <form method="POST" action="" class="cart-purchase purchase__decision-form flex_aic_jcsb">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="purchase__text purchase__agree">Yes</button>
+                                                    <button class="purchase__text purchase__disagree">No</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 `); 
+                                const $cartContainerPurchase = $('.cart-purchase.container-purchase');
+                                
+                                const $cartBuyButton = $('.cart__buy-button');
+                                console.log($($cartBuyButton));
+                                if($cartBuyButton && $cartContainerPurchase) {
+                                    $cartBuyButton.click((e) => {
+                                        e.preventDefault();
+                                        $cartContainerPurchase.css('display', 'flex');
+                                    })
+                                }
+                                
+                                if($cartContainerPurchase) {
+                                    $('.purchase__close').click((e) => {
+                                        $cartContainerPurchase.css('display', 'none');
+                                    });
+                            
+                                    $cartContainerPurchase.click((e) => {
+                                        if(e.target !== $('.cart-purchase .purchase')) {
+                                            $cartContainerPurchase.css('display', 'none');
+                                        }
+                                    });
+                                    
+                                    $('.cart-purchase .purchase').click((e) => {
+                                        e.stopPropagation();
+                                    });
+
+                                    $('.purchase__disagree').click((e) => {
+                                        e.preventDefault();
+                                        $cartContainerPurchase.css('display', 'none');
+                                    });
+                                }
+
+                                $('.cart-purchase.purchase__decision-form').on('submit', function(e) {
+                                    console.log($('.container-cart'));
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: window.location.href,
+                                        data: {
+                                            'action': 'purchase_cart_product',
+                                            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                                        },
+                                        success: function(response) {
+                                            let numberProducts = $('.cart-add__number-pro').attr('data-number-products');
+                                            $('.cart-purchase.container-purchase').css('display', 'none');
+                                            $('.container-cart').css('display', 'none');
+                                            $('.cart-add-block .cart-add__number-pro').remove();
+                                            if(response.state == 'can_buy') {
+                                                $('.cart-product__list').html(`
+                                                    <div class="cart__hint flex_aic_jcc">
+                                                        <div class="cart-hint__inner flex_fdc_aic">
+                                                            <p class="cart-hint__announce">Add items to get started</p>
+                                                            <a href="{% url 'artworks1' %}" class="button cart-hint__redirect">Explore now</a>
+                                                        </div>
+                                                    </div>
+                                                `)
+                                                $('.cart__amount').html('');
+                                                $('.cart__footer').html('');
+                                                $('.profile-product__item').each((index, element) => {
+                                                    if(element.querySelector('.cart-add-feature')) {
+                                                        element.querySelector('.cart-add-feature').innerHTML = `
+                                                            <svg class="product-detail__svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" style="fill:#ffffff"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                                            </svg>
+                                                        `
+                                                    }
+                                                })
+                                                $('.flash-message-wrap').prepend(`
+                                                    <div class="flash-message flash-message-add flex_aic_jcc">
+                                                        <div class="flash-message__icon flex_aic_jcc">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#fff"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                                        </div>
+                                                        <p class="flash-message__text">Buy successfully</p>
+                                                    </div>
+                                                `);     
+                                                $('.flash-message-add:first-child').delay(2000).slideUp(300);
+                                                
+                                                $('.product-detail__offer').each((index, element) => {
+                                                    $(element).html(`
+                                                        <p class="product-detail__announce">You have owned this product</p>
+                                                    `);
+                                                });
+
+                                            }
+                                            else {
+                                                $('.flash-message-wrap').prepend(`
+                                                    <div class="flash-message flash-message-add flash-message-comment flex_aic_jcc">
+                                                        <div class="flash-message__icon flex_aic_jcc">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" fill="#fff"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>                                    </div>
+                                                        <p class="flash-message__text">You don't have enough money for this</p>
+                                                    </div>
+                                                `);                                 
+                                                $('.flash-message-comment').delay(2000).slideUp(300);
+                                                $('.cart-add').append(`
+                                                    <span class="cart-add__number-pro flex_aic_jcc" data-number-products="${numberProducts}">${numberProducts}</span>
+                                                `)
+                                            }
+                                        }, 
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            console.log(errorThrown);
+                                        }
+                                    })
+                                })
 
                                 $('.cart-add').append(`
                                     <span class="cart-add__number-pro flex_aic_jcc">${response.number_cart_products}</span>
@@ -659,24 +777,26 @@
                             const $cartDetailClose = $containerCartDetail.find('.cart-detail__close');
                             const $cartDetail = $containerCartDetail.find('.cart-detail');
                             
-                            $cartDetailClose.click(function (e) {
-                                $containerCartDetail.css('display', 'none');
-                            });
-                        
-                            $containerCartDetail.click(function (e) {
-                                if(e.target !== $cartDetail) {
+                            if($containerCartDetail) {
+                                $cartDetailClose.click(function (e) {
                                     $containerCartDetail.css('display', 'none');
-                                }
-                            })
-                            
-                            $cartDetail.click(function(e) {
-                                e.stopPropagation();
-                            })
-                    
-                            const $cartProductDetail = $(element).find('.cart-product__detail');                            
-                            $cartProductDetail.click(function (e) {
-                                $containerCartDetail.css('display', 'block');
-                            })
+                                });
+
+                                $containerCartDetail.click(function (e) {
+                                    if(e.target !== $cartDetail) {
+                                        $containerCartDetail.css('display', 'none');
+                                    }
+                                })
+
+                                $cartDetail.click(function(e) {
+                                    e.stopPropagation();
+                                })
+
+                                const $cartProductDetail = $(element).find('.cart-product__detail');                            
+                                $cartProductDetail.click(function (e) {
+                                    $containerCartDetail.css('display', 'block');
+                                })
+                            }
 
                             $(element).find('.cart-product__delete-form').on("submit", function(e) {
                                 e.preventDefault();
@@ -747,14 +867,24 @@
                 success: function(response) {
                     const product = JSON.parse(response.product)[0];
                     const productField = product.fields;
+                    const totalItems = parseInt(`${$('.total-items').first().text()}`) - 1;
+
                     var totalPriceETH = `${parseFloat(response.total_price).toFixed(3)} ETH`;
                     var totalPriceDollar = `$${parseFloat(response.total_price * 1789).toFixed(2)}`;
                     let itemAmount = `${response.number_cart_products} ${response.number_cart_products == 1 ? 'item' : 'items'}`;
                     console.log(totalPriceETH, totalPriceDollar)
-                    $('.container-purchase').css('display', 'none');
+                    $('.product.container-purchase').css('display', 'none');
                     $('.cart__price-value-eth').text(`${totalPriceETH}`);
                     $('.cart__price-value-dollar').text(`${totalPriceDollar}`);
                     if(response.state == 'can_buy') {
+                        $('.total-items').text(`${totalItems}`);
+                        if(totalItems == 0) {
+                            $('.product-detail__offer').each((index, element) => {
+                                $(element).html(`
+                                    <p class="product-detail__announce">Sold out</p>
+                                `);
+                            });
+                        }
                         if(response.number_cart_products != 0) {
                             $(`.${productField.name}.cart-product__item`).remove();
                             $('.cart-add__number-pro').text(`${response.number_cart_products}`);

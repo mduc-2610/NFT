@@ -706,6 +706,7 @@ class CollectionDetailView(LoginRequiredMixin, View):
                 state = 'can_buy'
             else:
                 state = 'cant_buy'
+            
             return JsonResponse({
                 'state': state,
                 'total_price': request.total_price,

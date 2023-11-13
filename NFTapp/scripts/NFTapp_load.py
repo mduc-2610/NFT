@@ -52,6 +52,8 @@ def run():
     # max_favorited_product = 22
     # max_owners_of_a_product = 21
 
+    #  max_quantity = random.randint(0, 250)
+
     max_number_users = 30
     max_followers = 20
 
@@ -68,6 +70,7 @@ def run():
     max_favorited_product = 22
     max_owners_of_a_product = 21
 
+    max_quantity = random.randint(0, 20)
     User.objects.create_superuser(username_superuser, email_superuser, password_superuser)
     print("USER:")
     user_obj_list = []
@@ -168,7 +171,7 @@ def run():
                 "author": random_user,
                 "image": image,
                 "topic": random.choice(topic_obj_list),
-                "quantity": random.randint(0, 250),
+                "quantity": max_quantity,
                 "description": fake.text(max_nb_chars=300),
                 "artwork": cnt,
                 "type_product": type_product
