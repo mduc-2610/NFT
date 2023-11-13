@@ -1,26 +1,46 @@
-<!-- base.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Base Template</title>
-</head>
-<body>
-    {% block content %}
-    {% endblock %}
-</body>
-</html>
-
-<!-- child.html -->
-
-{% extends "base.html" %}
-
+{% extends 'main.html' %}
+{% load static %}
 {% block content %}
-<div>
-    {% include "example.html" with img_src="path/to/your/image.jpg" %}
-</div>
-{% endblock %}
 
-{% block img %}
-<img src="{{ img_src }}" alt="Your Image">
-{% endblock %}
+<div class="container">
+    <div class="faq__header-1 flex_fdc_aif">
+        <h1 class="faq__heading-1">FAQs</h1>
+        <p class="faq__desc-1">You’ll find answers to most questions about Meecat, our community, and our products in the FAQ section.</p>
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+
+<div class="container">
+    <div class="faq__main-1">
+        {% for title in titles %}
+        <div class="faq__section-1">
+            <h2 class="faq__title-1">{{title.title}}</h2>
+            <ul class="faq__list-1">
+                {% for faq in title.questions.all %}
+                <li class="faq__item-1">
+                    <button class="faq__feature-1 flex_aic_jcc">
+                        <svg class="faq__plus-1" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.58173 14V8.51442H14V5.48558H8.58173V0H5.41827V5.48558H0V8.51442H5.41827V14H8.58173Z" fill="#17E3A6"/>
+                            </svg>                                
+                        <svg class="faq__minus-1" width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.58173 3.51444H14V0.485596H8.58173H5.41827H0V3.51444H5.41827H8.58173Z" fill="#17E3A6"/>
+                        </svg>
+                    </button>
+                    <div class="faq__text-1">
+                        <p class="faq__question-1">{{faq.question}}
+                        </p>
+                        <p class="faq__answer-1">{{faq.answer}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor%}
+    </div>
+</div>
+
+<div class="gap-between-section"></div>
+{% include 'NFTapp/subscribe/subscribe1.html' with img_src="" %}
+
+{% endblock content %}

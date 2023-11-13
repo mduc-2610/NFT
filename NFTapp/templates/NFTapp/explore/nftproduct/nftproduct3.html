@@ -31,7 +31,11 @@
                 <div class="nft-product__more-info-3 flex_aic_jcc">
                     <p class="nft-product__time-created-3">{{product.created_at|date:"d M, Y"}}</p>
                     <!-- <p class="nft-product__time-created-3">{{product.created_at|timesince}}</p> -->
-                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2 nft-product__buy-3">Place bid</a>
+                    {% if product not in request.user.owners.all %}
+                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2">Place bid</a>
+                    {% else %}
+                    <a href="{% url 'collection1' product.id %}" class="nft-product__buy-2">Owned</a>
+                    {% endif %}
                 </div>
             </div>
         </li>    

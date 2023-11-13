@@ -418,8 +418,6 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             if not VoteProductComment.objects.filter(user=random_data, comment=comment).exists():
                 # product_comment_vote, _ = DisvoteProductComment.objects.get_or_create(**data)
                 product_comment_vote = DisvoteProductComment.objects.create(**data)
-            # product_comment_vote, _ = VoteProductComment.objects.get_or_create(**data)
-            product_comment_vote = DisvoteProductComment.objects.create(**data)
             print(f"\tProduct comment with id {data['comment'].id} disvoted by user with uuid {data['user'].id} ")
 
     # for user in user_obj_list:
@@ -477,8 +475,6 @@ Offer-based listings allow buyers to make offers, with potential negotiation bet
             if not VoteBlogComment.objects.filter(user=random_data, comment=comment).exists():
                 # product_comment_vote, _ = DisvoteBlogComment.objects.get_or_create(**data)
                 product_comment_vote = DisvoteBlogComment.objects.create(**data)
-            # product_comment_vote, _ = VoteBlogComment.objects.get_or_create(**data)
-            product_comment_vote = DisvoteBlogComment.objects.create(**data)
             print(f"\tBlog comment with id {data['comment'].id} disvoted by user with uuid {data['user'].id} ")
 
 

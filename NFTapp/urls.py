@@ -51,8 +51,6 @@ urlpatterns = [
     # path('blog/', views.blog, name='blog'),
     # path('blog/<uuid:pk>/', views.blog_detail, name ='blog'),
 
-
-
     path('login/', class_views.LoginView.as_view(), name="login"),
     path('logout/', class_views.LogoutView.as_view(), name="logout"),
     path('register/', class_views.RegisterView.as_view(), name="register"),
@@ -89,11 +87,11 @@ urlpatterns = [
     path('artists/', class_views.ArtistsView.as_view(), name='artists'),
     path('editorial/', class_views.EditorialView.as_view(), name='editorial'),
 
-    path('FAQs1/', class_views.FAQsView.as_view(), name='FAQs1'),
-    path('FAQs2/', class_views.FAQsView.as_view(), name='FAQs2'),
-    path('FAQs3/', class_views.FAQsView.as_view(), name='FAQs3'),
-    path('FAQs4/', class_views.FAQsView.as_view(), name='FAQs4'),
-    path('FAQs5/', class_views.FAQsView.as_view(), name='FAQs5'),
+    path('FAQs1/', class_views.FAQsView.as_view(), {'num': '1'}, name='FAQs1'),
+    path('FAQs2/', class_views.FAQsView.as_view(), {'num': '2'}, name='FAQs2'),
+    path('FAQs3/', class_views.FAQsView.as_view(), {'num': '3'}, name='FAQs3'),
+    path('FAQs4/', class_views.FAQsView.as_view(), {'num': '4'}, name='FAQs4'),
+    path('FAQs5/', class_views.FAQsView.as_view(), {'num': '5'}, name='FAQs5'),
 
     path('blog/', class_views.BlogView.as_view(), name='blog'),
     path('blog/<uuid:pk>/', class_views.BlogDetailView.as_view(), name ='blog'),
