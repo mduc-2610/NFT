@@ -218,12 +218,6 @@
 
 {% include 'NFTapp/comment.html' with comment_type='blog' %} 
 
-{% for comment in comments %}
-<div class="product-user-comment{{comment.id}}" style="display: none;">
-    {% include 'NFTapp/user_behavior.html' with user_behavior_list=comment.blog_comment_voted_by.all filter="user" behavior="Voted by" %}
-</div>
-{% endfor %}
-
 {% endblock content %}
 {% block scripts %}
 

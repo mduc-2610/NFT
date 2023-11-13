@@ -60,12 +60,10 @@ class LoginView(View):
         context = {'page': 'login'}
         return render(request, self.template_name, context)
 
-
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('home1')
-
 
 class RegisterView(View):
     template_name = 'NFTapp/login_register.html'
@@ -86,7 +84,9 @@ class RegisterView(View):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.property = random.uniform(0, 20)
             user.save()
+            Cart.objects.create(user=user)
             login(request, user)
             return redirect('home1')
         else:

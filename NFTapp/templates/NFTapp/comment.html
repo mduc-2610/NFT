@@ -221,7 +221,7 @@
                                     </div>
                                 </li>
                                 `
-                                $('.voted.user-behavior__list').append(new_user_vote);
+                                $(`.${commentUpvoteForm.classList[3]}.comment__section`).find('.voted.user-behavior__list').append(new_user_vote);
                                 // commentUpvoteList.insertAdjacentElement('beforeend', new_user_vote);
                                 if(response['state2']) {
                                     commentDownvote.innerHTML = `
@@ -289,7 +289,7 @@
                                     </div>
                                 </li>
                                 `
-                                $('.disvoted.user-behavior__list').append(new_user_vote);
+                                $(`.${commentDownvoteForm.classList[3]}.comment__section`).find('.disvoted.user-behavior__list').append(new_user_vote);
                                 // commentDownvoteList.insertAdjacentElement('beforeend', new_user_vote);
                                 if(response['state2']) {
                                     commentUpvote.innerHTML = `
