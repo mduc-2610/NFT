@@ -223,8 +223,12 @@ def run():
     # time_difference = now.microsecond / 1000 - value.microsecond / 1000
     # print(now.microsecond, value.microsecond)
 
-
-
-    user = User.objects.all()[5]
-    trades = user.buyer_trades.all()
-    [print(trade.product) for trade in trades]
+    # user = User.objects.all()[5]
+    # trades = user.buyer_trades.all()
+    # [print(trade.product) for trade in trades]
+    def hello(name):
+        return 'Hello' + name
+    a =  {
+        'hello': hello
+    }
+    print(a['hello']('DUC'))

@@ -163,7 +163,7 @@ def add_cart_data(view_func):
                         request.user.property -= total_price
                         request.user.save()
                         state = 'can_buy'
-                    else: 
+                    else:
                         state = 'cant_buy'
                     return JsonResponse({
                         'state': state,

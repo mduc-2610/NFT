@@ -98,6 +98,10 @@ main {
     overflow: hidden;
 }
 
+.mini-gap {
+    margin-bottom: 20px;
+}
+
 .gap-between-section {
     margin-bottom: 60px;
 }
@@ -331,10 +335,15 @@ main {
     main {
         margin: 60px 0 150px;
     }
+
+    .mini-gap {
+        margin-bottom: 30px;
+    }
+    
     .gap-between-section {
         margin-bottom: 150px;
     }
-
+    
     .avatar-wrap {
     }
     
