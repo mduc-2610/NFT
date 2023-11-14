@@ -60,125 +60,126 @@
 
 {% block scripts %}
 <script>
-    function showDetailTrade() {
-        const tradeRepr = document.querySelectorAll('.trade-repr');
-        tradeRepr.forEach((element) => {
-            const tradeDesc = element.nextElementSibling;
-            element.onclick = (e) => {
-                tradeDesc.classList.toggle('show');
-                element.querySelector('svg').classList.toggle('rotate-180');
-            }
-            element.querySelector('.trade-repr__item .trade-text').onclick = (e) => {
-                e.stopPropagation();
-            }
-        })
-    }
-
-    showDetailTrade();
+    (() => {
+        function showDetailTrade() {
+            const tradeRepr = document.querySelectorAll('.trade-repr');
+            tradeRepr.forEach((element) => {
+                const tradeDesc = element.nextElementSibling;
+                element.onclick = (e) => {
+                    tradeDesc.classList.toggle('show');
+                    element.querySelector('svg').classList.toggle('rotate-180');
+                }
+                element.querySelector('.trade-repr__item .trade-text').onclick = (e) => {
+                    e.stopPropagation();
+                }
+            })
+        }
     
-    function convertDateTimeString(inputDateString) {
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        const date = new Date(inputDateString);
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const year = date.getFullYear();
-
-        return `${day.toString().padStart(2, '0')} ${month}, ${year % 100}`;
-    }
-
-    function convertToDateTime(inputDateString) {
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        const date = new Date(inputDateString);
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const year = date.getFullYear();
-
-        return `${month}. ${day.toString().padStart(2, '0')}, ${year}, ${date.getHours() % 12}:${date.getMinutes()} ${date.getHours() <= 12 ? 'a.m.' : 'p.m.'} `;
-    }
-
-    const tradeListData = $('.trade-list').html();
-    const sendSearchQuery = (searchQuery) => {
-        $.ajax({
-            type: 'POST',
-            // url: ,
-            data: {
-                'action': 'search_product',
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                'search_data': searchQuery,
-            },
-            success: function(response) {
-                if (!response.search_query) {
-                    $('.trade-list').html(tradeListData);
-                } else {
-                    if(response.state == 'not_found') {
-                       $('.trade-list').html(`
-                            <p class='trade__announce'> No trades found </p>
-                        `)
-                    }
-                    else {
-                        const tradesFound = JSON.parse(response.trades_found);
-                        // console.log(tradesFound);
-                        let index = 1;
-                        $('.trade-list').html('');
-                        for(let trade of tradesFound) {
-                            $('.trade-list').append(`
-                                <li class="trade-item">
-                                    <ul class="trade-repr flex_aic_jcsb">
-                                        <li class="trade-text trade-repr__item">#${index} NFT</li>
-                                        <li class="trade-text trade-repr__item"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + trade.product_id}" class="trade-text trade-repr__item">${trade.product_name}</a></li>
-                                        <li class="trade-text trade-repr__item flex_aic">${convertDateTimeString(trade.timestamp)}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 9 7" fill="none"><path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                        </li>
-                                        
-                                    </ul>
-                                    <ul class="trade-desc">
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Transaction ID</p>
-                                            <p class="trade-text trade-desc__value">${trade.trade_id}</p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Collection</p>
-                                            <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + trade.product_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.product_name}</a></p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Time</p>
-                                            <p class="trade-text trade-desc__value">${convertToDateTime(trade.timestamp)}</p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Buyer</p>
-                                            <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + trade.buyer_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.buyer_name}</a></p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Seller</p>
-                                            <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + trade.seller_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.seller_name}</a></p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Price</p>
-                                            <p class="trade-text trade-desc__value">${trade.price_at_purchase} ETH</p>
-                                        </li>
-                                        <li class="trade-desc__item">
-                                            <p class="trade-text trade-desc__key">Total items left</p>
-                                            <p class="trade-text trade-desc__value">${trade.quantity_at_purchase}</p>
-                                        </li>
-                                    </ul>
-                                </li>
-                            `);
-                            index++;
+        showDetailTrade();
+        
+        function convertDateTimeString(inputDateString) {
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+            const date = new Date(inputDateString);
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+    
+            return `${day.toString().padStart(2, '0')} ${month}, ${year % 100}`;
+        }
+    
+        function convertToDateTime(inputDateString) {
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+            const date = new Date(inputDateString);
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+    
+            return `${month}. ${day.toString().padStart(2, '0')}, ${year}, ${date.getHours() % 12}:${date.getMinutes()} ${date.getHours() <= 12 ? 'a.m.' : 'p.m.'} `;
+        }
+    
+        const tradeListData = $('.trade-list').html();
+        const sendSearchQuery = (searchQuery) => {
+            $.ajax({
+                type: 'POST',
+                // url: ,
+                data: {
+                    'action': 'search_product',
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'search_data': searchQuery,
+                },
+                success: function(response) {
+                    if (!response.search_query) {
+                        $('.trade-list').html(tradeListData);
+                    } else {
+                        if(response.state == 'not_found') {
+                           $('.trade-list').html(`
+                                <p class='trade__announce'> No trades found </p>
+                            `)
+                        }
+                        else {
+                            const tradesFound = JSON.parse(response.trades_found);
+                            // console.log(tradesFound);
+                            let index = 1;
+                            $('.trade-list').html('');
+                            for(let trade of tradesFound) {
+                                $('.trade-list').append(`
+                                    <li class="trade-item">
+                                        <ul class="trade-repr flex_aic_jcsb">
+                                            <li class="trade-text trade-repr__item">#${index} NFT</li>
+                                            <li class="trade-text trade-repr__item"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + trade.product_id}" class="trade-text trade-repr__item">${trade.product_name}</a></li>
+                                            <li class="trade-text trade-repr__item flex_aic">${convertDateTimeString(trade.timestamp)}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 9 7" fill="none"><path d="M8.29688 1.23438L4.5 5.45312L0.703125 1.23438" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                            </li>
+                                            
+                                        </ul>
+                                        <ul class="trade-desc">
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Transaction ID</p>
+                                                <p class="trade-text trade-desc__value">${trade.trade_id}</p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Collection</p>
+                                                <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/collection1/" + trade.product_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.product_name}</a></p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Time</p>
+                                                <p class="trade-text trade-desc__value">${convertToDateTime(trade.timestamp)}</p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Buyer</p>
+                                                <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + trade.buyer_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.buyer_name}</a></p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Seller</p>
+                                                <p class="trade-text trade-desc__value"><a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + trade.seller_id}" class="trade-text" style="color: #17E3A6; text-decoration: underline;">${trade.seller_name}</a></p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Price</p>
+                                                <p class="trade-text trade-desc__value">${trade.price_at_purchase} ETH</p>
+                                            </li>
+                                            <li class="trade-desc__item">
+                                                <p class="trade-text trade-desc__key">Total items left</p>
+                                                <p class="trade-text trade-desc__value">${trade.quantity_at_purchase}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                `);
+                                index++;
+                            }
                         }
                     }
+                    showDetailTrade();
+                },
+                error: function(jqXHR, textStatus, errorTh) {
+                    console.log(jqXHR, textStatus, errorTh);
                 }
-                showDetailTrade();
-            },
-            error: function(jqXHR, textStatus, errorTh) {
-                console.log(jqXHR, textStatus, errorTh);
-            }
+            })
+        }
+        $('.trade-search > .profile__search-text').on('keyup', function(e) {
+            sendSearchQuery(e.target.value);
         })
-    }
-    $('.trade-search > .profile__search-text').on('keyup', function(e) {
-        sendSearchQuery(e.target.value);
-    
-    })
+    })();
 </script>
 {% endblock scripts %}

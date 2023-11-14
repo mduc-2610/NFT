@@ -65,11 +65,12 @@
 }
 
 .trade__announce {
+    text-align: center;
     color: #fff;
     font-size: 3.2rem;
     font-weight: 600;
     font-style: normal;
-    margin: 50px auto;
+    margin: 50px 0;
 }
 
 @media only screen and (min-width: 768px) {

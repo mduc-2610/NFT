@@ -1025,6 +1025,48 @@ def artists(request):
         'users':  artists_classify(sort_data, users),
         'sort_type': sort_type
     } 
+    
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'search_artist':
+            state = ''
+            artists_found = []
+            search_query = request.POST.get('search_data', None)
+            search_query = search_query.lower()
+
+            if search_query:
+                for artist in context['users']:
+                    if (
+                        artist.name.lower().startswith(search_query.lower())
+                    ):
+                        artists_found.append(
+                            {
+                                'id': str(artist.id),
+                                'name': str(artist.name),
+                                'avatar': str(artist.avatar),
+                                'follower': str(len(artist.follower_set.all())),
+                                'own': str(len(artist.owners.all())),
+                                'author': str(len(artist.author.all())),
+                                'sold': str(artist.sold()),
+                                'property': str(artist.property),
+                            }
+                        )
+                        
+                if len(artists_found):
+                    state = 'found'
+                else:
+                    state = 'not_found'
+
+            context_json = {
+                'search_query': search_query, 
+                'state': state
+            }
+
+            if state == 'found':
+                context_json.update({'artists_found': json.dumps(artists_found)})
+
+            return JsonResponse(context_json, safe=False)
+    
     return render(request, 'NFTapp/community/artists.html', context) 
 
 @add_search_data

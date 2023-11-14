@@ -3,8 +3,15 @@
 <div class="artist">
     <div class="container container-artist">
         <h1 class="artist__heading">Trending creators</h1>
-        {% include 'NFTapp/explore/classify/artists_classify.html' %}
-        <div class="mini-gap"></div>
+        <div class="artist-classify flex_aic_jcsb">
+            <form action="" method="POST" class="artist__search profile__search-bar">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="search_product">
+                <i class="fa fa-search"></i>
+                <input type="text" class="profile__search-text" name="profile-search" placeholder="Search by artist" name="search_query">
+            </form>
+            {% include 'NFTapp/explore/classify/artists_classify.html' %}
+        </div>
         <table class="artist__rank">
             <thead >
                 <tr>
@@ -38,8 +45,8 @@
                 </tr>
                 {% endfor %}
             </tbody>
-          </table>
-          <button href="" id="view-all-creators" class="more__artists">More Creators</button>
+        </table>
+        <button id="view-all-creators" class="more__artists">More Creators</button>
     </div>
 </div>
 {% include 'NFTapp/subscribe/subscribe2.html' %}
@@ -47,37 +54,106 @@
 
 {% block scripts %}
 <script>
-  const viewAllCreators = document.getElementById('view-all-creators');
-    const commentListItems = document.querySelectorAll('.artist__info');
-
-    let isViewingAll = false;
-
-    function showFirstSixComments() {
-        for (let i = 0; i < commentListItems.length; i++) {
-            if (i < 15) {
-                commentListItems[i].style.display = 'table-row';
-            } else {
-                commentListItems[i].style.display = 'none';
+    (() => {
+        function showArtists() {
+            const viewAllCreators = document.getElementById('view-all-creators');
+            const commentListItems = document.querySelectorAll('.artist__info');
+        
+            let isViewingAll = false;
+            function showFifteenArtists() {
+                for (let i = 0; i < commentListItems.length; i++) {
+                    if (i < 15) {
+                        commentListItems[i].style.display = 'table-row';
+                    } else {
+                        commentListItems[i].style.display = 'none';
+                    }
+                }
             }
-        }
-    }
-
-    viewAllCreators.addEventListener('click', function () {
-        if (isViewingAll) {
-            isViewingAll = false;
-            viewAllCreators.textContent = 'More Creators';
-            viewAllCreators.parentElement.style.bottom = '0';
-            showFirstSixComments();
-        } else {
-            isViewingAll = true;
-            viewAllCreators.textContent = 'Back';
-            viewAllCreators.parentElement.style.bottom = window.innerWidth >= 768 ? '-90px' : '-70px';
-            commentListItems.forEach(item => {
-                item.style.display = 'table-row';
+        
+            viewAllCreators.addEventListener('click', function () {
+                if (isViewingAll) {
+                    isViewingAll = false;
+                    viewAllCreators.textContent = 'More Creators';
+                    viewAllCreators.parentElement.style.bottom = '0';
+                    showFifteenArtists();
+                } else {
+                    isViewingAll = true;
+                    viewAllCreators.textContent = 'Back';
+                    viewAllCreators.parentElement.style.bottom = window.innerWidth >= 768 ? '-90px' : '-70px';
+                    commentListItems.forEach(item => {
+                        item.style.display = 'table-row';
+                    });
+                }
             });
+        
+            showFifteenArtists();
         }
-    });
-
-    showFirstSixComments();
+        
+        showArtists();
+        
+        const artistListData = $('.artist__rank').html();
+        const sendSearchQuery = (searchQuery) => {
+            console.log(searchQuery);
+            $.ajax({
+                type: 'POST',
+                // url: ,
+                data: {
+                    'action': 'search_artist',
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'search_data': searchQuery,
+                },
+                success: function(response) {
+                    $('.artist__rank').next().remove();
+                    console.log(response.search_query);
+                    if (!response.search_query) {
+                        $('.artist__rank').html(artistListData);
+                        $('.container-artist').append(`
+                            <button id="view-all-creators" class="more__artists">More Creators</button>
+                        `);
+                        showArtists();
+                    } else {
+                        if(response.state == 'not_found') {
+                            $('.artist__rank').html(`
+                                <p class='artist__announce'> No artists found </p>
+                            `)
+                        }
+                        else {
+                            const artistsFound = JSON.parse(response.artists_found);
+                            // console.log(artistsFound);
+                            let index = 1;
+                            $('.artist__rank tbody').html('');
+                            for(let artist of artistsFound) {
+                                $('.artist__rank tbody').append(`
+                                    <tr class="artist__info">
+                                        <td>#${index}</td>
+                                        <td>
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + artist.id}" class="avatar-wrap">
+                                            <img src="${artist.avatar}" alt="" class="avatar"> 
+                                        </a>
+                                        </td>
+                                        <td class="artist__name">
+                                        <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + artist.id}">${artist.name}</a>
+                                        </td>
+                                        <td>${artist.follower}</td>
+                                        <td>${artist.own}</td>
+                                        <td>${artist.author}</td>
+                                        <td>${artist.sold}</td>
+                                        <td>${artist.property}</td>
+                                    </tr>
+                                `);
+                                index++;
+                            }
+                        }
+                    }
+                },
+                error: function(jqXHR, textStatus, errorTh) {
+                    console.log(jqXHR, textStatus, errorTh);
+                }
+            })
+        }
+        $('.artist__search > .profile__search-text').on('keyup', function(e) {
+            sendSearchQuery(e.target.value);
+        })
+    })();
 </script>
 {% endblock scripts %}

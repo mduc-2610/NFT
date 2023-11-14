@@ -3,6 +3,23 @@
     margin-bottom: 140px;
 }
 
+.artist__search {
+    margin-bottom: 0;
+}
+
+.artist__announce {
+    color: #fff;
+    font-size: 3.2rem;
+    font-weight: 600;
+    font-style: normal;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.artist-classify {
+    margin: 30px 0;
+}
+
 .artist__heading {
     color: #FFF;
     /* font-family: Clash Display; */
