@@ -1066,6 +1066,61 @@ def artists(request):
                 context_json.update({'artists_found': json.dumps(artists_found)})
 
             return JsonResponse(context_json, safe=False)
+        
+        elif action == 'filter_artist':
+            filter_data = request.POST.get('filter_data', None)
+            search_query = request.POST.get('search_query', None)
+            artists_filter = []
+            type_filter = ''
+            filtered_users = context['users'].filter()
+            if filter_data is not None:
+                if filter_data == 'follower':
+                    artists = context['users'].annotate(num_followers=Count('follower_set')).order_by('-num_followers')
+                    type_filter = 'Follower'
+                elif filter_data == 'unique-collectors':
+                    artists = context['users'].annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    type_filter = 'Unique Collectors'
+                elif filter_data == 'created':
+                    artists = context['users'].annotate(num_created=Count('author')).order_by('-num_created')
+                    type_filter = 'Created'
+                elif filter_data == 'nfts-sold':
+                    artists__ = list(context['users'])
+                    artists = sorted(artists__, key=lambda x : -x.sold())
+                    type_filter = 'NFTs sold'
+                else:
+                    artists = context['users'].order_by('-property')
+                    type_filter = 'Property'
+
+                context_json = {
+                    'type_filter': type_filter
+                }
+
+                if artists_filter is not None:
+                    for artist in artists:
+                        artists_filter.append(
+                            {
+                                'id': str(artist.id),
+                                'name': str(artist.name),
+                                'avatar': str(artist.avatar),
+                                'follower': str(len(artist.follower_set.all())),
+                                'own': str(len(artist.owners.all())),
+                                'author': str(len(artist.author.all())),
+                                'sold': str(artist.sold()),
+                                'property': str(artist.property),
+                            }
+                        )
+                        
+                    context_json.update({
+                        'state': 'found',
+                        'num_artists': len(artists_filter),
+                        'user': serializers.serialize('json', [request.user, ]),
+                        'artists_filter': json.dumps(artists_filter),
+                    })
+                else:
+                    context_json.update({
+                        'state': 'not_found'
+                    })
+                return JsonResponse(context_json, safe=False)
     
     return render(request, 'NFTapp/community/artists.html', context) 
 

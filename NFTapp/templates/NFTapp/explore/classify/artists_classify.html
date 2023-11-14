@@ -10,8 +10,8 @@
                     </svg>
             </p>
         </div>
-        <ul class="classify__child-list-1" style="width: 160px;">
-            <li class="classify__child-item-1">
+        <ul class="classify__artist classify__child-list-1" style="width: 160px;">
+            <!-- <li class="classify__child-item-1">
                 <a href="?sort-by=follower" class="classify__child-link-1">Follower</a>
             </li>
             <li class="classify__child-item-1">
@@ -25,7 +25,38 @@
             </li>
             <li class="classify__child-item-1">
                 <a href="?sort-by=property" class="classify__child-link-1">Property</a>
+            </li> -->
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="follower">Follower</button>
+                </form>
             </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="unique-collectors">Unique Collectors</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="created">Created</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="nfts-sold">NFTs sold</button>
+                </form>
+            </li>
+            <li class="classify__child-item-1">
+                <form method="POST" class="classify__child-form-1">
+                    {% csrf_token %}
+                    <button type="submit" class="classify__child-button-1" filter-data="property">Property</button>
+                </form>
+            </li>
+            
         </ul>
     </div>
 </div>

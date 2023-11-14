@@ -90,7 +90,63 @@
         }
         
         showArtists();
-        
+
+        function sortArtistFeature() {
+            $('.classify__artist .classify__child-form-1').each((index, element) => {
+                const $filterButton = $(element).find('.classify__child-button-1');
+                $(element).on('submit', (e) => {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        // url: ,
+                        data: {
+                            'action': 'filter_artist',
+                            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                            'filter_data': $filterButton.attr('filter-data'),
+                        },
+                        success: function(response) {
+                            let index = 1;
+                            $('.classify__item-feature-1:nth-child(2)').html(`
+                                ${response.type_filter}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                                    <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            `);
+                            const artistsFilter = JSON.parse(response.artists_filter);
+                            $('.artist__rank tbody').html(``);
+                            for(let artist of artistsFilter) {
+                                console.log(artist);
+                                $('.artist__rank tbody').append(`
+                                        <tr class="artist__info">
+                                            <td>#${index}</td>
+                                            <td>
+                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + artist.id}" class="avatar-wrap">
+                                                <img src="${artist.avatar}" alt="" class="avatar"> 
+                                            </a>
+                                            </td>
+                                            <td class="artist__name">
+                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + artist.id}">${artist.name}</a>
+                                            </td>
+                                            <td>${artist.follower}</td>
+                                            <td>${artist.own}</td>
+                                            <td>${artist.author}</td>
+                                            <td>${artist.sold}</td>
+                                            <td>${artist.property}</td>
+                                        </tr>
+                                    `);
+                                    index++;
+                            }
+    
+                        },
+                        error: function(jqXHR, textStatus, errorTh) {
+                            console.log(jqXHR, textStatus, errorTh);
+                        }
+                    })
+                })
+            })
+        }
+        sortArtistFeature();
+
         const artistListData = $('.artist__rank').html();
         const sendSearchQuery = (searchQuery) => {
             console.log(searchQuery);
@@ -109,6 +165,12 @@
                         $('.artist__rank').html(artistListData);
                         $('.container-artist').append(`
                             <button id="view-all-creators" class="more__artists">More Creators</button>
+                        `);
+                        $('.classify__item-feature-1:nth-child(2)').html(`
+                            Follower
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                                <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         `);
                         showArtists();
                     } else {
@@ -145,6 +207,7 @@
                             }
                         }
                     }
+                    sortArtistFeature();
                 },
                 error: function(jqXHR, textStatus, errorTh) {
                     console.log(jqXHR, textStatus, errorTh);

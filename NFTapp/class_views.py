@@ -802,14 +802,14 @@ class ArtistsView(View):
     template_name = 'NFTapp/community/artists.html'
 
     def get_context_data(self):
-        users = User.objects.filter(is_superuser=0).annotate(num_followers=Count('followers')).order_by('-num_followers')
+        users = User.objects.filter(is_superuser=0).annotate(num_followers=Count('follower_set')).order_by('-num_followers')
         sort_data = self.request.GET.get('sort-by', 'follower')
         sort_type = ' '.join([x.title() for x in sort_data.split('-')])
 
         context = {
             'cart_products': self.request.cart_products,
             'search_data': self.request.search_data,
-            'users': artists_classify(sort_data, users),
+            'users': users,
             'sort_type': sort_type
         }
         return context
@@ -821,18 +821,42 @@ class ArtistsView(View):
     def post(self, request):
         action = request.POST.get('action')
         context = self.get_context_data()
+
         if action == 'search_artist':
             state = ''
-            artists_found = []
+            artists_found_list = []
+            artists_sort = None
             search_query = request.POST.get('search_data', None)
+            filter_data = request.POST.get('filter_data', 'follower')
             search_query = search_query.lower()
 
+            artists_found = context['users'].filter(name__istartswith=search_query)
+            type_filter = 'Follower'
+            
+            if filter_data == 'follower':
+                artists_sort = artists_found.annotate(num_followers=Count('follower_set')).order_by('-num_followers')
+                type_filter = 'Follower'
+            elif filter_data == 'unique-collectors':
+                artists_sort = artists_found.annotate(num_owners=Count('owners')).order_by('-num_owners')
+                type_filter = 'Unique Collectors'
+            elif filter_data == 'created':
+                artists_sort = artists_found.annotate(num_created=Count('author')).order_by('-num_created')
+                type_filter = 'Created'
+            elif filter_data == 'nfts-sold':
+                artists__ = list(artists_found)
+                artists_sort = sorted(artists__, key=lambda x : -x.sold())
+                type_filter = 'NFTs sold'
+            else:
+                artists_sort = artists_found.order_by('-property')
+                type_filter = 'Property'
+
+            context_json = {
+                'type_filter': type_filter
+            }
+
             if search_query:
-                for artist in context['users']:
-                    if (
-                        artist.name.lower().startswith(search_query.lower())
-                    ):
-                        artists_found.append(
+                for artist in artists_sort:
+                        artists_found_list.append(
                             {
                                 'id': str(artist.id),
                                 'name': str(artist.name),
@@ -845,7 +869,7 @@ class ArtistsView(View):
                             }
                         )
                         
-                if len(artists_found):
+                if len(artists_found_list):
                     state = 'found'
                 else:
                     state = 'not_found'
@@ -856,10 +880,63 @@ class ArtistsView(View):
             }
 
             if state == 'found':
-                context_json.update({'artists_found': json.dumps(artists_found)})
+                context_json.update({'artists_found': json.dumps(artists_found_list)})
 
             return JsonResponse(context_json, safe=False)
+        
+        elif action == 'filter_artist':
+            filter_data = request.POST.get('filter_data', None)
+            artists_filter = []
+            type_filter = ''
+            if filter_data is not None:
+                if filter_data == 'follower':
+                    artists = context['users'].annotate(num_followers=Count('follower_set')).order_by('-num_followers')
+                    type_filter = 'Follower'
+                elif filter_data == 'unique-collectors':
+                    artists = context['users'].annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    type_filter = 'Unique Collectors'
+                elif filter_data == 'created':
+                    artists = context['users'].annotate(num_created=Count('author')).order_by('-num_created')
+                    type_filter = 'Created'
+                elif filter_data == 'nfts-sold':
+                    artists__ = list(context['users'])
+                    artists = sorted(artists__, key=lambda x : -x.sold())
+                    type_filter = 'NFTs sold'
+                else:
+                    artists = context['users'].order_by('-property')
+                    type_filter = 'Property'
 
+                context_json = {
+                    'type_filter': type_filter
+                }
+
+                if artists_filter is not None:
+                    for artist in artists:
+                        artists_filter.append(
+                            {
+                                'id': str(artist.id),
+                                'name': str(artist.name),
+                                'avatar': str(artist.avatar),
+                                'follower': str(len(artist.follower_set.all())),
+                                'own': str(len(artist.owners.all())),
+                                'author': str(len(artist.author.all())),
+                                'sold': str(artist.sold()),
+                                'property': str(artist.property),
+                            }
+                        )
+                        
+                    context_json.update({
+                        'state': 'found',
+                        'num_artists': len(artists_filter),
+                        'user': serializers.serialize('json', [request.user, ]),
+                        'artists_filter': json.dumps(artists_filter),
+                    })
+                else:
+                    context_json.update({
+                        'state': 'not_found'
+                    })
+                return JsonResponse(context_json, safe=False)
+            
 @method_decorator(add_search_data, name='dispatch')
 @method_decorator(add_cart_data, name='dispatch')
 class EditorialView(View):
