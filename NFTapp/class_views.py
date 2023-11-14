@@ -684,24 +684,24 @@ class CollectionDetailView(LoginRequiredMixin, View):
 
         elif action == 'purchase_product':
             state = ''
-            if request.user.property >= product.price:
-                request.total_price -= product.price
-                if request.user.user_cart.products.filter(name=product.name).exists():
-                    request.user.user_cart.products.remove(product)
+            if request.user.property >= product.price and product.quantity > 0:
+                # request.total_price -= product.price
+                # if request.user.user_cart.products.filter(name=product.name).exists():
+                #     request.user.user_cart.products.remove(product)
 
-                request.user.owners.add(product)
-                request.user.property -= product.price
-                request.user.save()
-                product.quantity -= 1
-                product.save()
+                # request.user.owners.add(product)
+                # request.user.property -= product.price
+                # request.user.save()
+                # product.quantity -= 1
+                # product.save()
 
-                TradeHistory.objects.create(
-                    buyer=request.user,
-                    seller=product.author,
-                    product=product,
-                    price_at_purchase=product.price,
-                    quantity_at_purchase=product.quantity
-                )
+                # TradeHistory.objects.create(
+                #     buyer=request.user,
+                #     seller=product.author,
+                #     product=product,
+                #     price_at_purchase=product.price,
+                #     quantity_at_purchase=product.quantity
+                # )
                 
                 state = 'can_buy'
             else:
@@ -710,6 +710,7 @@ class CollectionDetailView(LoginRequiredMixin, View):
             return JsonResponse({
                 'state': state,
                 'total_price': request.total_price,
+                'user': serializers.serialize('json', [request.user, ]),
                 'number_cart_products': len(request.user.user_cart.cart_products.all()),
                 'product': serializers.serialize('json', [product, ])
             })

@@ -319,7 +319,6 @@
 
             function purchaseCartProduct() {
                 $('.cart-purchase.purchase__decision-form').on('submit', function(e) {
-                    console.log($('.container-cart'));
                     e.preventDefault();
                     $.ajax({
                         type: 'POST',
@@ -329,11 +328,29 @@
                             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                         },
                         success: function(response) {
+                            
+
                             let numberProducts = $('.cart-add__number-pro').attr('data-number-products');
                             $('.cart-purchase.container-purchase').css('display', 'none');
                             $('.container-cart').css('display', 'none');
                             $('.cart-add-block .cart-add__number-pro').remove();
                             if(response.state == 'can_buy') {
+                                let cartProductsBuyed = JSON.parse(response.cart_products_buyed);
+                                let thisProductId = $('.product-detail-web').attr('data-product-id');
+                                let check = false;
+                                for(let product of cartProductsBuyed) {
+                                    const productField = product.fields;
+                                    if(thisProductId == product.pk) {
+                                        check = true;
+                                    }
+                                    $(`.${productField.name}.profile-product__item`).find('form').remove();
+                                    $(`.${productField.name}.profile-product__item`).find('a').append(`
+                                        <div class="profile__announce flex_aic_jcc">
+                                            <p class="profile__announce-text">Owned</p>
+                                        </div>
+                                    `);
+                                }
+
                                 $('.cart-product__list').html(`
                                     <div class="cart__hint flex_aic_jcc">
                                         <div class="cart-hint__inner flex_fdc_aic">
@@ -351,7 +368,8 @@
                                             </svg>
                                         `
                                     }
-                                })
+                                });
+
                                 $('.flash-message-wrap').prepend(`
                                     <div class="flash-message flash-message-add flex_aic_jcc">
                                         <div class="flash-message__icon flex_aic_jcc">
@@ -361,12 +379,48 @@
                                     </div>
                                 `);     
                                 $('.flash-message-add:first-child').delay(2000).slideUp(300);
-                                if($('.product-detail__offer')) {
+                                
+                                if($('.product-detail__offer') && check) {
                                     $('.product-detail__offer').each((index, element) => {
                                         $(element).html(`
                                             <p class="product-detail__announce">You have owned this product</p>
                                         `);
                                     });
+                                    
+                                    if('.owner.container-user-behavior .user-behavior__list') {
+                                        const user = JSON.parse(response.user)[0];
+                                        const userId = user.pk;
+                                        const userField = user.fields;
+
+                                        const totalItems = parseInt($('.total-items').eq(0).text()) - 1;
+                                        const numberOwners = parseInt($(`.product-owner-number`).eq(0).text()) + 1;
+                                        
+                                        $('.total-items').each((index, element) => {
+                                            $(element).text(``);
+                                            $(element).text(`${totalItems}`);
+                                        })
+
+                                        $(`.product-owner-number`).each((index, element) => {
+                                            $(element).text(``);
+                                            $(element).text(`${numberOwners}`);
+                                        });
+                                        
+                                        $(`.owner.container-user-behavior .user-behavior__list`).append(`
+                                            <li class="user-behavior__item ${userField.name} flex_aic_jcc">
+                                                <div class="user-behavior__info">
+                                                    <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userId}/" class="avatar-wrap user-behavior-person__avt-link">
+                                                        <img src="${userField.avatar}" alt="" class="user-behavior-person__avt avatar">
+                                                    </a>
+                                                    <div class="user-behavior-person flex_aic_jcc">
+                                                        <div class="user-behavior-person__text-block flex_fdc_aif">
+                                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userId}/" class="user-behavior-person__name">${userField.name}</a>
+                                                            <a href="//${window.location.hostname + (window.location.port ? ":" : "") + window.location.port + "/profile/" + userId}/" class="user-behavior-person__id">${userId.slice(0,6) + '...' +userId.slice(-4)}</a>
+                                                        </div>
+                                                    </div>     
+                                                </div>
+                                            </li>  
+                                        `);
+                                    }
                                 }
                             }
                             else {

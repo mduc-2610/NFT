@@ -145,34 +145,41 @@ def add_cart_data(view_func):
                 
                 elif action == 'purchase_cart_product':
                     state = ""
+                    cart_products = request.user.user_cart.products.all()
+                    context = {}
                     if total_price <= request.user.property:
-                        for product in cart_products:
-                            request.user.owners.add(product)
-                            request.user.user_cart.products.remove(product)
-                            product.quantity -= 1
-                            product.save()
+                        cart_products_buyed = cart_products
+                        # for product in cart_products:
+                        #     request.user.owners.add(product)
+                        #     request.user.user_cart.products.remove(product)
+                        #     product.quantity -= 1
+                        #     product.save()
 
-                            TradeHistory.objects.create(
-                                buyer=request.user,
-                                seller=product.author,
-                                product=product,
-                                price_at_purchase=product.price,
-                                quantity_at_purchase=product.quantity
-                            )
+                        #     TradeHistory.objects.create(
+                        #         buyer=request.user,
+                        #         seller=product.author,
+                        #         product=product,
+                        #         price_at_purchase=product.price,
+                        #         quantity_at_purchase=product.quantity
+                        #     )
                             
-                        request.user.property -= total_price
-                        request.user.save()
+                        # request.user.property -= total_price
+                        # request.user.save()
                         state = 'can_buy'
+                        context = {
+                            'state': 'can_buy',
+                            'cart_products_buyed': serializers.serialize('json', list(cart_products_buyed))
+                        }
                     else:
                         state = 'cant_buy'
-                    return JsonResponse({
-                        'state': state,
-                    })
+                        context = {'state': 'cant_buy'}
+                    context['user'] = serializers.serialize('json', [request.user, ])
+                    return JsonResponse(context)
 
             request.total_price = total_price    
             request.cart_products = cart_products
-
         return view_func(request, *args, **kwargs)
+    
     return wrapper
 
 def add_search_data(view_func):

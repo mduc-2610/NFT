@@ -1650,14 +1650,14 @@
   const headerMenuBack = document.querySelector(".header__menu-back");
   const searchList = document.querySelector(".search-list");
   let prevSize = "";
-  console.log(
-    "Previous size" +
-      prevSize +
-      "*********" +
-      window
-        .getComputedStyle(headerSearchInput.parentElement)
-        .getPropertyValue("width")
-  );
+  // console.log(
+  //   "Previous size" +
+  //     prevSize +
+  //     "*********" +
+  //     window
+  //       .getComputedStyle(headerSearchInput.parentElement)
+  //       .getPropertyValue("width")
+  // );
   window.addEventListener("resize", (e) => {
     var width =
       window.innerWidth ||
