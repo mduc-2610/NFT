@@ -90,10 +90,12 @@
         }
         
         showArtists();
-
-        function sortArtistFeature() {
+        
+        function sortArtistsFeature() {
             $('.classify__artist .classify__child-form-1').each((index, element) => {
                 const $filterButton = $(element).find('.classify__child-button-1');
+                const searchText = $('.artist__search > .profile__search-text').val();
+                console.log(searchText);
                 $(element).on('submit', (e) => {
                     e.preventDefault();
                     $.ajax({
@@ -103,6 +105,7 @@
                             'action': 'filter_artist',
                             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                             'filter_data': $filterButton.attr('filter-data'),
+                            'search_query': $('.artist__search > .profile__search-text').val(),
                         },
                         success: function(response) {
                             let index = 1;
@@ -115,7 +118,7 @@
                             const artistsFilter = JSON.parse(response.artists_filter);
                             $('.artist__rank tbody').html(``);
                             for(let artist of artistsFilter) {
-                                console.log(artist);
+                                // console.log(artist);
                                 $('.artist__rank tbody').append(`
                                         <tr class="artist__info">
                                             <td>#${index}</td>
@@ -145,7 +148,7 @@
                 })
             })
         }
-        sortArtistFeature();
+        sortArtistsFeature();
 
         const artistListData = $('.artist__rank').html();
         const sendSearchQuery = (searchQuery) => {
@@ -207,7 +210,6 @@
                             }
                         }
                     }
-                    sortArtistFeature();
                 },
                 error: function(jqXHR, textStatus, errorTh) {
                     console.log(jqXHR, textStatus, errorTh);

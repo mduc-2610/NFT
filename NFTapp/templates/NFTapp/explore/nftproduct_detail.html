@@ -31,6 +31,9 @@
                 Owned by
                 <a href="{% url 'profile' product.author.id %}">{{product.author.name}}</a>
             </p>
+            <p class="product-detail__author" style="margin-top: 5px;">
+                Created at {{product.created_at|date:'M d, Y'}}
+            </p>
             <div class="product-statistic">
                 <div class="product-statistic__list flex_aic_jcc">
                     <!-- <li class="product-statistic__item flex_fdc_aif">
@@ -94,6 +97,9 @@
             <p class="product-detail__author">
                 Owned by
                 <a href="{% url 'profile' product.author.id %}">{{product.author.name}}</a>
+            </p>
+            <p class="product-detail__author" style="margin-top: 5px;">
+                Created at {{product.created_at|date:'M d, Y'}}
             </p>
         </div>
         <div class="product-detail__img--wrap">

@@ -762,6 +762,12 @@
                             // console.log($(collection[0]))
                             $(collection[0]).html(collection[1]);
                         }
+                        $('.classify__item-feature-1:nth-child(2)').html(`
+                            Trending
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                                <path d="M17.2969 12.2344L13.5 16.4531L9.70312 12.2344" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        `);
                     } else {
                         console.log(response.state, response.search_query);
                         if(response.state == 'not_found') {
@@ -867,7 +873,8 @@
                     data: {
                         'action': 'filter_product',
                         'csrfmiddlewartoken': $(element).find('input[name=csrfmiddlewaretoken]').val(),
-                        'filter_data': $filterButton.attr('filter-data')
+                        'filter_data': $filterButton.attr('filter-data'),
+                        'search_query': $('.profile__search-text').val(),
                     },
                     success: function(response) {
                         $('.classify__item-feature-1:nth-child(2)').html(`

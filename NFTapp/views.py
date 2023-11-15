@@ -154,30 +154,32 @@ def profile(request, pk):
         
         elif action == 'filter_product':
             filter_data = request.POST.get('filter_data', None)
+            search_query = request.POST.get('search_query', None)
             products_filter, additional_fields = [], []
             type_filter = ''
+            
+            products_searched = context['products'].filter(
+                Q(name__istartswith=search_query) |
+                Q(topic__name__istartswith=search_query)
+            )
             if filter_data is not None:
                 if filter_data == 'trending':
-                    products = context['products'].annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    products = products_searched.annotate(num_owners=Count('owners')).order_by('-num_owners')
                     type_filter = 'Trending'
                 elif filter_data == 'rarity':
-                    products = context['products'].order_by('rarity')
+                    products = products_searched.order_by('rarity')
                     type_filter = 'Rarity'
-
                 elif filter_data == 'date-created-new':
-                    products = context['products'].order_by('-created_at')
+                    products = products_searched.order_by('-created_at')
                     type_filter = 'Date created - Newest'
-
                 elif filter_data == 'date-created-old':
-                    products = context['products'].order_by('created_at')
+                    products = products_searched.order_by('created_at')
                     type_filter = 'Date created - Oldest'
-
                 elif filter_data == 'price-highest':
-                    products = context['products'].order_by('-price')
+                    products = products_searched.order_by('-price')
                     type_filter = 'Price - highest'
-
                 else:
-                    products = context['products'].order_by('price')
+                    products = products_searched.order_by('price')
                     type_filter = 'Price - lowest'
 
                 context_json = {
@@ -1032,13 +1034,9 @@ def artists(request):
             state = ''
             artists_found = []
             search_query = request.POST.get('search_data', None)
-            search_query = search_query.lower()
 
             if search_query:
-                for artist in context['users']:
-                    if (
-                        artist.name.lower().startswith(search_query.lower())
-                    ):
+                for artist in context['users'].filter(name__istartswith=search_query):
                         artists_found.append(
                             {
                                 'id': str(artist.id),
@@ -1072,23 +1070,25 @@ def artists(request):
             search_query = request.POST.get('search_query', None)
             artists_filter = []
             type_filter = ''
-            filtered_users = context['users'].filter()
+            artists_query = None
+            artists_query = context['users'].filter(name__istartswith=search_query) if search_query else context['users']
+                
             if filter_data is not None:
                 if filter_data == 'follower':
-                    artists = context['users'].annotate(num_followers=Count('follower_set')).order_by('-num_followers')
+                    artists = artists_query.annotate(num_followers=Count('follower_set')).order_by('-num_followers')
                     type_filter = 'Follower'
                 elif filter_data == 'unique-collectors':
-                    artists = context['users'].annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    artists = artists_query.annotate(num_owners=Count('owners')).order_by('-num_owners')
                     type_filter = 'Unique Collectors'
                 elif filter_data == 'created':
-                    artists = context['users'].annotate(num_created=Count('author')).order_by('-num_created')
+                    artists = artists_query.annotate(num_created=Count('author')).order_by('-num_created')
                     type_filter = 'Created'
                 elif filter_data == 'nfts-sold':
-                    artists__ = list(context['users'])
+                    artists__ = list(artists_query)
                     artists = sorted(artists__, key=lambda x : -x.sold())
                     type_filter = 'NFTs sold'
                 else:
-                    artists = context['users'].order_by('-property')
+                    artists = artists_query.order_by('-property')
                     type_filter = 'Property'
 
                 context_json = {
