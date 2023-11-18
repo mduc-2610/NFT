@@ -18,7 +18,7 @@
 }
 
 .edit-profile.box {
-  height: 995px;
+  height: 1050px;
 }
 
 .container-edit-profile .box::before {
@@ -199,19 +199,21 @@
   color: #17e3a6;
 }
 
-.container-edit-profile .box form input[type="submit"] {
-  /* display: inline-block; */
-  /* text-align: center; */
+.container-edit-profile .box form input[type="submit"],
+.change-password {
   border: none;
   outline: none;
-  padding: 9px 0;
+  padding: 9px 24px;
   background: #fff;
   cursor: pointer;
   font-size: 1.6rem;
   border-radius: 7px;
   font-weight: 600;
-  width: 100px;
-  /* transition: 0.6s; */
+}
+
+.change-password:hover {
+  color: #000;
+  background-color: #17e3a6;
 }
 
 .container-edit-profile .box form input[type="submit"]:hover {
@@ -277,7 +279,7 @@ textarea {
   }
 
   .edit-profile.box {
-    height: 990px; 
+    
   }
 
   .container-edit-profile .box form h2 {

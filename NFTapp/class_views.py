@@ -30,6 +30,12 @@ from .models import User, NFTProduct, Topic,\
                     DisvoteProductComment, DisvoteBlogComment, \
                     Follow, Cart, CartItem, TradeHistory
 
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from .forms import UpdatePasswordForm
+from django.contrib.auth import update_session_auth_hash
+
+page = ['login', 'register', 'edit', 'update_password']
 class LoginView(View):
     template_name = 'NFTapp/login_register.html'
 
@@ -57,7 +63,7 @@ class LoginView(View):
         else:
             messages.error(request, 'Username or password is incorrect')
 
-        context = {'page': 'login'}
+        context = {'page': page}
         return render(request, self.template_name, context)
 
 class LogoutView(View):
@@ -103,7 +109,7 @@ class EditProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         form = UserForm(instance=request.user)
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'page': page})
 
     def post(self, request, *args, **kwargs):
         form = UserForm(request.POST, request.FILES, instance=request.user)
@@ -111,9 +117,28 @@ class EditProfileView(LoginRequiredMixin, View):
             form.save()
             return redirect('profile', pk=request.user.id)
 
+        return render(request, self.template_name, {'form': form, 'page': page})
+    
+class UpdatePasswordView(PasswordChangeView):
+    template_name = 'NFTapp/update_password.html'
+    success_url = reverse_lazy('login')  
+
+    def get(self, request):
+        form = UpdatePasswordForm(request.user)
         return render(request, self.template_name, {'form': form})
-    
-    
+
+    def post(self, request):
+        form = UpdatePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # update_session_auth_hash(request, user)  # To keep the user logged in
+            messages.success(request, 'Your password was successfully updated!')
+            logout(request)
+            return redirect(self.success_url)
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return render(request, self.template_name, {'form': form, 'page': page})
+
 @method_decorator(csrf_exempt, name='dispatch')    
 @method_decorator(add_search_data, name='dispatch')
 @method_decorator(add_cart_data, name='dispatch')
@@ -340,7 +365,7 @@ class TradeHistoryView(LoginRequiredMixin, View):
     def get_context_data(self, request):
         trades = request.user.buyer_trades.all()
         context = {
-            'page': 'trade_history',
+            'page': page,
             'trades': trades,
             'search_data': request.search_data,
         }

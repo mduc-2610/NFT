@@ -103,7 +103,7 @@
   <main>
     {%block content%}
     {% endblock content %}
-    {% if page != 'login' and page != 'register' and page != 'trade_history' %}
+    {% if not page %}
       {% include 'NFTapp/cart.html' %}
     {% endif %}
   </main>

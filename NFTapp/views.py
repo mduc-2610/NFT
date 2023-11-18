@@ -25,9 +25,13 @@ from .models import User, NFTProduct, Topic,\
                     DisvoteProductComment, DisvoteBlogComment, \
                     Follow, Cart, CartItem, TradeHistory
 
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from .forms import UpdatePasswordForm
+from django.contrib.auth import update_session_auth_hash
 
+page = ['login', 'register', 'edit', 'update_password']
 def login_page(request):
-    page = 'login'
     if request.user.is_authenticated:
         return redirect('home1')
     if request.method == 'POST':
@@ -56,7 +60,6 @@ def logout_user(request):
 
 
 def register_page(request):
-    page = 'register'
     form = MyUserCreationForm()
     if request.method == 'POST':
         form = MyUserCreationForm(request.POST)
@@ -85,9 +88,27 @@ def edit_profile(request):
             form.save()
             return redirect ('profile', pk=request.user.id)
     context = {
-        'form': form
+        'form': form,
+        'page': page
     }
     return render(request, 'NFTapp/edit_profile.html', context)
+
+@login_required(login_url='login')
+def update_password(request):
+    form = UpdatePasswordForm()
+    if request.method == 'POST':
+        form = UpdatePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # update_session_auth_hash(request, user)  # To keep the user logged in
+            logout(request)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('login') 
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = UpdatePasswordForm(request.user)
+    return render(request, 'NFTapp/update_password.html', {'form': form})
 
 @csrf_exempt
 @add_search_data
@@ -352,7 +373,7 @@ def trade_history(request):
             return JsonResponse(context_json, safe=False)
     
     context = {
-        'page': 'trade_history',
+        'page': page,
         'trades': trades,
         'search_data': request.search_data,
     }

@@ -1,8 +1,8 @@
-django
+Django==4.0.2
 django_extensions==3.2.3
 fontawesomefree==6.4.2
-Faker
-Pillow
-mysqlclient
-pytz
-djangorestframework
+Faker==8.14.0
+Pillow==9.0.0
+mysqlclient==2.1.0
+pytz==2022.5
+djangorestframework==3.13.1
