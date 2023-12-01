@@ -23,6 +23,8 @@ from NFTapp.models import User, NFTProduct, Topic,\
 #         fields = ['name', 'username', 'email', 'bio', 'password', 'confirm_password']
 
 class MyUserCreationForm(UserCreationForm):
+    bio = forms.CharField(widget=forms.Textarea(attrs={'name':'body', 'rows':5}))
+
     class Meta:
         model = User
         fields = ['name', 'username', 'email', 'password1', 'password2', 'bio']

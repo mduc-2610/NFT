@@ -226,9 +226,18 @@ def run():
     # user = User.objects.all()[5]
     # trades = user.buyer_trades.all()
     # [print(trade.product) for trade in trades]
-    def hello(name):
-        return 'Hello' + name
-    a =  {
-        'hello': hello
-    }
-    print(a['hello']('DUC'))
+    # def hello(name):
+    #     return 'Hello' + name
+    # a =  {
+    #     'hello': hello
+    # }
+    # print(a['hello']('DUC'))
+
+
+    user = User.objects.all()[5]
+    print(user, user.total_earned())
+    for product in user.author.all():
+        print(product.price, len(product.owners.all()))
+
+    for owner in product.owners.all():
+        print(owner)

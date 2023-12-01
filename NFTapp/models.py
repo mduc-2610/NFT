@@ -31,7 +31,10 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def sold(self):
-        return sum([product.sold() for product in self.author.all()])
+        return sum([product.sold() - 1 for product in self.author.all()])
+
+    def total_earned(self):
+        return sum([product.price * (product.sold() - 1) for product in self.author.all()])
 
     def __getitem__(self, key):
         if hasattr(self, key):

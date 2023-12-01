@@ -34,6 +34,10 @@
                     <p class="profile__follow-key profile__property">Property</p>
                 </div>  
                 {% endif %}
+                <div class="profile__follow--wrap profile__followee-value flex_fdc_aif">
+                    <button class="profile__follow-value">{{total_earned|floatformat:3}} ETH</button>
+                    <p class="profile__follow-key profile__property">Total Earned</p>
+                </div>  
             </div>
             <div class="profile__name--wrap flex_aic_jcc">
                 <h1 class="profile__name">@{{user.name}}</h1>

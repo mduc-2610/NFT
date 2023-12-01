@@ -173,6 +173,7 @@ class ProfileView(LoginRequiredMixin, View):
             'user': user,
             'profile_user_follower': profile_user_follower,
             'profile_user_followee': profile_user_followee,
+            'total_earned': user.total_earned(),
         })
         return context
 
@@ -907,12 +908,11 @@ class ArtistsView(View):
                     artists = artists_query.annotate(num_created=Count('author')).order_by('-num_created')
                     type_filter = 'Created'
                 elif filter_data == 'nfts-sold':
-                    artists__ = list(artists_query)
-                    artists = sorted(artists__, key=lambda x : -x.sold())
+                    artists = sorted(list(artists_query), key=lambda x : -x.sold())
                     type_filter = 'NFTs sold'
                 else:
-                    artists = artists_query.order_by('-property')
-                    type_filter = 'Property'
+                    artists = sorted(list(artists_query), key=lambda x : -x.total_earned())
+                    type_filter = 'Total Earned'
 
                 context_json = {
                     'type_filter': type_filter
@@ -929,7 +929,7 @@ class ArtistsView(View):
                                 'own': str(len(artist.owners.all())),
                                 'author': str(len(artist.author.all())),
                                 'sold': str(artist.sold()),
-                                'property': str(artist.property),
+                                'total_earned': str(artist.total_earned()),
                             }
                         )
                         

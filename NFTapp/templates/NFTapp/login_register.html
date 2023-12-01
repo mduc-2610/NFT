@@ -46,3 +46,11 @@
   {% endif %}
 
 {% endblock content %}
+{% block scripts %}
+<script>
+  (() => {
+    document.querySelector('textarea').classList.add('scroll');
+    document.querySelector('.nft-register textarea').style.marginTop = '43px';
+  })();
+</script>
+{% endblock scripts %}

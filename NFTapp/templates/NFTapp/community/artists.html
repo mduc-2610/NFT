@@ -22,7 +22,7 @@
                     <th>Unique Collectors</th>
                     <th>Created</th>
                     <th>NFTs Sold</th>
-                    <th>Property (ETH)</th>
+                    <th>Total Earned (ETH)</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@
                     <td>{{user.owners.all|length}}</td>
                     <td>{{user.author.all|length}}</td>
                     <td>{{user.sold}}</td>
-                    <td>{{user.property}}</td>
+                    <td>{{user.total_earned}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -134,7 +134,7 @@
                                             <td>${artist.own}</td>
                                             <td>${artist.author}</td>
                                             <td>${artist.sold}</td>
-                                            <td>${artist.property}</td>
+                                            <td>${artist.total_earned}</td>
                                         </tr>
                                     `);
                                     index++;
@@ -203,7 +203,7 @@
                                         <td>${artist.own}</td>
                                         <td>${artist.author}</td>
                                         <td>${artist.sold}</td>
-                                        <td>${artist.property}</td>
+                                        <td>${artist.total_earned}</td>
                                     </tr>
                                 `);
                                 index++;
