@@ -2,6 +2,7 @@ from collections import Counter
 from math import ceil
 import random, json
 from decimal import Decimal
+from datetime import datetime
 
 from django.http import JsonResponse
 from django.core import serializers
@@ -19,6 +20,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import model_to_dict
 from django.utils.decorators import method_decorator
+from django.core.files.storage import FileSystemStorage
+
 
 from .functions import product_rarity_rank, classify_1, classify_3, artists_classify, add_search_data, add_cart_data
 from .forms import MyUserCreationForm, UserForm
@@ -36,6 +39,7 @@ from .forms import UpdatePasswordForm
 from django.contrib.auth import update_session_auth_hash
 
 page = ['login', 'register', 'edit', 'update_password']
+@method_decorator(add_search_data, name='dispatch')
 class LoginView(View):
     template_name = 'NFTapp/login_register.html'
 
@@ -62,15 +66,17 @@ class LoginView(View):
             return redirect('home1')
         else:
             messages.error(request, 'Username or password is incorrect')
+            return redirect('login')
 
-        context = {'page': page}
-        return render(request, self.template_name, context)
+            context = {'page': page}
+            return render(request, self.template_name, context)
 
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('home1')
-
+    
+@method_decorator(add_search_data, name='dispatch')
 class RegisterView(View):
     template_name = 'NFTapp/login_register.html'
 
@@ -100,7 +106,6 @@ class RegisterView(View):
 
         context = {'page': page, 'form': form}
         return render(request, self.template_name, context)
-
 @method_decorator(add_search_data, name='dispatch')
 @method_decorator(add_cart_data, name='dispatch')
 class EditProfileView(LoginRequiredMixin, View):
@@ -114,9 +119,22 @@ class EditProfileView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = UserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            formatted_date = datetime.now().strftime("%Y/%m/%d")
+            if 'avatar' in request.FILES:
+                avatar_file = request.FILES['avatar']
+                fs = FileSystemStorage()
+                filename = fs.save(f'avatars/{formatted_date}/{avatar_file}', avatar_file)
+                user.avatar = '/static' + fs.url(filename)
+            
+            if 'cover_photo' in request.FILES:
+                cover_photo_file = request.FILES['cover_photo']
+                fs = FileSystemStorage()
+                filename = fs.save(f'cover_photos/{formatted_date}/{cover_photo_file}', cover_photo_file)
+                user.cover_photo = '/static' + fs.url(filename)
+            user.save()
             return redirect('profile', pk=request.user.id)
-
+        
         return render(request, self.template_name, {'form': form, 'page': page})
     
 class UpdatePasswordView(PasswordChangeView):
@@ -136,7 +154,6 @@ class UpdatePasswordView(PasswordChangeView):
             logout(request)
             return redirect(self.success_url)
         else:
-            messages.error(request, 'Please correct the error below.')
             return render(request, self.template_name, {'form': form, 'page': page})
 
 @method_decorator(csrf_exempt, name='dispatch')    
@@ -830,9 +847,9 @@ class AboutUsView(View):
 
 @method_decorator(add_search_data, name='dispatch')
 @method_decorator(add_cart_data, name='dispatch')
-class ArtistsView(View):
+class ArtistsView(LoginRequiredMixin, View):
     template_name = 'NFTapp/community/artists.html'
-
+    login_url = '/login/'
     def get_context_data(self):
         users = User.objects.filter(is_superuser=0).annotate(num_followers=Count('follower_set')).order_by('-num_followers')
         sort_data = self.request.GET.get('sort-by', 'follower')

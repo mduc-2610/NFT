@@ -17,7 +17,7 @@
 }
 
 .nft-register.box {
-  height: 760px;
+  height: 850px;
 }
 
 .container-auth .box::before {
@@ -218,6 +218,23 @@
 
 .container-auth .box form input[type="submit"]:active {
   opacity: 0.8;
+}
+
+.section-input {
+  display: grid;
+  gap: 10px;
+}
+
+.input-error {
+
+}
+
+.input-error li {
+  color: #fff;
+}
+
+.errorlist {
+  color: #fff;
 }
 
 @media only screen and (min-width: 768px) {

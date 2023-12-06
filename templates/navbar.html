@@ -1445,7 +1445,7 @@
         <ul class="header-user__feature">
           <li class="header-user__feature-item">
             <a href="{% url 'trade_history' %}" class="header-user__feature-link navbar__link">
-              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="#FDFDFD"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>      Trade History      </a>
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="#FDFDFD"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>      Transaction History      </a>
           </li>
           <li class="header-user__feature-item">
             <a href="{% url 'edit_profile' %}" class="header-user__feature-link navbar__link">
@@ -1516,7 +1516,7 @@
         <ul class="header-user__feature">
           <li class="header-user__feature-item">
             <a href="{% url 'trade_history' %}" class="header-user__feature-link navbar__link">
-              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="#FDFDFD"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>      Trade History      </a>
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="#FDFDFD"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>      Transaction History      </a>
           </li>
           <li class="header-user__feature-item">
             <a href="#" class="header-user__feature-link navbar__link">
@@ -1822,11 +1822,13 @@
     }
   });
   const headerUser = document.querySelectorAll('.header-user')[1];
-  const headerUserFeature = document.querySelectorAll('.header-user__feature')[1]; 
-  const headerUserSvg = headerUser.querySelector('svg');
-  headerUserSvg.onclick = (e) => {
-    headerUserSvg.classList.toggle('.header-rotate');
-    headerUserSvg.querySelector('path').classList.toggle('.header-change-stroke-color');
-    headerUserFeature.classList.toggle('header-show');
+  if(headerUser) {
+    const headerUserFeature = document.querySelectorAll('.header-user__feature')[1]; 
+    const headerUserSvg = headerUser.querySelector('svg');
+    headerUserSvg.onclick = (e) => {
+      headerUserSvg.classList.toggle('.header-rotate');
+      headerUserSvg.querySelector('path').classList.toggle('.header-change-stroke-color');
+      headerUserFeature.classList.toggle('header-show');
+    }
   }
 </script>

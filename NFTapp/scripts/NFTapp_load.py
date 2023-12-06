@@ -70,14 +70,33 @@ def run():
     max_favorited_product = 22
     max_owners_of_a_product = 21
 
-    max_quantity = random.randint(0, 20)
+    max_quantity = 20
     User.objects.create_superuser(username_superuser, email_superuser, password_superuser)
     print("USER:")
+
+    default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400.jpg',
+                        '/static/images/generic/Acer_Wallpaper_02_3840x2400.jpg',
+                        '/static/images/generic/Acer_Wallpaper_03_3840x2400.jpg',
+                        '/static/images/generic/Acer_Wallpaper_04_3840x2400.jpg',
+                        '/static/images/generic/Acer_Wallpaper_05_3840x2400.jpg']
+
+
+    default_avatars = ['/static/images/avatars/avatar1.svg',
+                        '/static/images/avatars/avatar2.svg',
+                        '/static/images/avatars/avatar3.svg',
+                        '/static/images/avatars/avatar4.svg',
+                        '/static/images/avatars/avatar5.svg',
+                        '/static/images/avatars/avatar6.svg',
+                        '/static/images/avatars/avatar7.svg',
+                        '/static/images/avatars/avatar8.svg',]
+    
     user_obj_list = []
     for _ in range(max_number_users):
         data = {
             "name": ''.join([fake.email().split('@')[0] for x in range(1)]),
             "email": ''.join([fake.email().split('@')[0] for x in range(3)]) + '@email.com',
+            'avatar': random.choice(default_avatars),
+            'cover_photo': random.choice(default_cover_photos),
             "username": ''.join([fake.email().split('@')[0] for x in range(3)]),
             "password": make_password("Duckkucd.123"),
             "bio": fake.text(max_nb_chars=300),
@@ -171,7 +190,7 @@ def run():
                 "author": random_user,
                 "image": image,
                 "topic": random.choice(topic_obj_list),
-                "quantity": max_quantity,
+                "quantity": random.randint(0, max_quantity),
                 "description": fake.text(max_nb_chars=300),
                 "artwork": cnt,
                 "type_product": type_product
@@ -198,14 +217,16 @@ def run():
                 "user": user,
                 "product": random_data
             }
-            trade_history = TradeHistory.objects.create(
-                buyer=user,
-                seller=random_data.author,
-                product=random_data,
-                price_at_purchase=random_data.price,
-                quantity_at_purchase=random_data.quantity,
-            )
-            print(f"\tTrade {trade_history.id} - {trade_history.buyer.name} bought {trade_history.quantity_at_purchase} {trade_history.product.name} from {trade_history.seller.name} for {trade_history.price_at_purchase}")
+            if random_data not in user.author.all():
+                trade_history = TradeHistory.objects.create(
+                    buyer=user,
+                    seller=random_data.author,
+                    product=random_data,
+                    price_at_purchase=random_data.price,
+                    quantity_at_purchase=random_data.quantity,
+                )
+                print(f"\tTrade {trade_history.id} - {trade_history.buyer.name} bought {trade_history.quantity_at_purchase} {trade_history.product.name} from {trade_history.seller.name} for {trade_history.price_at_purchase}")
+            
             nft_product_owner, _ = NFTProductOwner.objects.get_or_create(**data)
             # nft_product_owner = NFTProductOwner.objects.create(**data)
             print(f"\tUser with uuid {data['user'].id} owns the nft product with uuid {data['product'].id}")

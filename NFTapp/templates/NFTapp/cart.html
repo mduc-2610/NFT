@@ -202,8 +202,10 @@
             }
         });
         const cartAdd = document.querySelector('.cart-add-redirect');
-        cartAdd.onclick = (e) => {
-            containerCart.style.display = 'block';   
+        if(cartAdd) {
+            cartAdd.onclick = (e) => {
+                containerCart.style.display = 'block';   
+            }
         }
         
         $(document).ready(function() {

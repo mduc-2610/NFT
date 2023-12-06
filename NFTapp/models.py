@@ -17,12 +17,22 @@ default_cover_photos = ['/static/images/generic/Acer_Wallpaper_01_3840x2400.jpg'
                         '/static/images/generic/Acer_Wallpaper_05_3840x2400.jpg']
 
 
+default_avatars = ['/static/images/avatars/avatar1.svg',
+                    '/static/images/avatars/avatar2.svg',
+                    '/static/images/avatars/avatar3.svg',
+                    '/static/images/avatars/avatar4.svg',
+                    '/static/images/avatars/avatar5.svg',
+                    '/static/images/avatars/avatar6.svg',
+                    '/static/images/avatars/avatar7.svg',
+                    '/static/images/avatars/avatar8.svg',]
+
+
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', default="/static/images/generic/avatar.svg")
-    cover_photo = models.ImageField(upload_to='avatar/%Y/%m/%d/', default=random.choice(default_cover_photos))
+    avatar = models.ImageField(upload_to='avatars/%Y/%m/%d', default=random.choice(default_avatars))
+    cover_photo = models.ImageField(upload_to='cover_photos/%Y/%m/%d', default=random.choice(default_cover_photos))
     bio = models.CharField(max_length=300, default="")
     followers = models.ManyToManyField('self', related_name='following', through="Follow", symmetrical=False)
     property = models.DecimalField(max_digits=8, decimal_places=4, default=0)
@@ -44,7 +54,6 @@ class User(AbstractUser):
     
     def __str__(self):
         return f"{self.name} {self.email}"
-
 
 class Follow(models.Model):
     follower = models.ForeignKey('User', related_name='following_set', on_delete=models.CASCADE)

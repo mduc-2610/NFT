@@ -27,11 +27,11 @@
     position: absolute;
     top: -150px;
     left: -2%;
-    height: 125px;
-    width: 125px;
+    /* height: 125px; */
+    /* width: 125px; */
     border-radius: 50%;
     display: block;
-    background:  #c9ccd1; 
+    background:  #c9ccd1;
 }
 
 .profile__follow {
@@ -68,6 +68,8 @@
 .profile__user-avt {
     object-fit: cover;
     display: inline-block;
+    height: 125px;
+    width: 125px;
 }
 
 .profile .container {
@@ -375,6 +377,11 @@
     .profile__user-avt {
         /* top: -140%;
         left: -1%; */
+        height: 150px;
+        width: 150px;
+        display: inline-block;
+        border-radius: 50%;
+        object-fit: contain;
     }
     
     .profile-product__list {
@@ -386,8 +393,8 @@
     .profile__user-avt--wrap {
         top: -180px;
         left: -2%;
-        height: 150px;
-        width: 150px;
+        /* height: 150px; */
+        /* width: 150px; */
     }
 
     .profile__follow {

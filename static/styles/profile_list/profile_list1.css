@@ -40,11 +40,17 @@
     top: -151px;
     left: -14px;
     position: absolute;
-    width: 100px;
-    height: 100px;
     background-color: #c9ccd1;
     border-radius: 50%;
     overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+.profile-list__avt-1 img {
+    width: 100px;
+    height: 100px;
+    /* object-fit: cover; */
 }
 
 .profile-list__about-user-1 {
@@ -155,8 +161,7 @@
     }
     
     .profile-list__avt-1 {
-        width: 100px;
-        height: 100px;
+
     }
     
     .profile-list__about-user-1 {

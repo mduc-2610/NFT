@@ -8,15 +8,29 @@
     <form method="POST">
       {% csrf_token %}
       <h2>Sign In</h2>
-      <div class="inputBox">
-        <input type="email" required="required" name="email">
-        <span>Email</span>
-        <i></i>
+      <div class="section-input">
+        <div class="inputBox">
+          <input type="email" required="required" name="email">
+          <span>Email</span>
+          <i></i>
+        </div>
+        <div class="input-error">
+          {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
       </div>
-      <div class="inputBox">
-        <input type="password" required="required" name="password">
-        <span>Password</span>
-        <i></i>
+
+      <div class="section-input">
+        <div class="inputBox">
+          <input type="password" required="required" name="password">
+          <span>Password</span>
+          <i></i>
+        </div>
       </div>
       <div class="links">
         <a href="#">Forgot Password</a>
@@ -32,12 +46,16 @@
       {% csrf_token %}
       <h2>Sign Up</h2>
       {% for field in form %}
-      <div class="inputBox">
-        <span>{{field.name}}</span>
-        {{field}}
-        {{field.errors}}
-        <i></i>
-      </div>
+        <div class="section-input">
+          <div class="inputBox">
+            <span>{{field.name}}</span>
+            {{field}}
+            <i></i>
+          </div>
+          <div class="input-error">
+            {{field.errors}}
+          </div>
+        </div>
       {% endfor %}
       <input type="submit" value="Register">
     </form>
@@ -49,8 +67,19 @@
 {% block scripts %}
 <script>
   (() => {
-    document.querySelector('textarea').classList.add('scroll');
-    document.querySelector('.nft-register textarea').style.marginTop = '43px';
+     const textarea = document.querySelector('textarea');
+     if(textarea) {
+       document.querySelector('textarea').classList.add('scroll');
+       document.querySelector('.nft-register textarea').style.marginTop = '43px';
+     }
+    const $inputError = $('.input-error');
+    console.log($inputError.text());
+    if($inputError.text().trim() != '') {
+      $('.section-input').css('grid-template-columns', 'repeat(2, 1fr)');
+      $('.container-auth .box').css('width', '800px');
+    } else {
+      $('.section-input').css('grid-template-columns', 'repeat(1, 1fr)');
+    }
   })();
 </script>
 {% endblock scripts %}

@@ -59,7 +59,9 @@
                 </div>
             </div>
             <div class="product-detail__offer">
-                {% if product not in request.user.owners.all %}
+                {% if product.quantity == 0 %}
+                <p class="product-detail__announce">Sold out</p>
+                {% elif product not in request.user.owners.all %}
                 <p class="product-detail__current-price">
                     Current price
                 </p>
@@ -80,8 +82,6 @@
                         {% endif %}
                     </button> 
                 </form>
-                {% elif product.quantity == 0 %}
-                <p class="product-detail__announce">Sold out</p>
                 {% else %}
                 <p class="product-detail__announce">You have owned this product</p>
                 {% endif %}

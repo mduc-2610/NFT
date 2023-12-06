@@ -2,6 +2,7 @@ from collections import Counter
 from math import ceil
 import random, json
 from decimal import Decimal
+from datetime import datetime
 
 from django.http import JsonResponse
 from django.core import serializers
@@ -14,6 +15,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+from django.core.files.storage import FileSystemStorage
 
 from .functions import product_rarity_rank, classify_1, classify_3, artists_classify, add_search_data, add_cart_data
 from .forms import MyUserCreationForm, UserForm
@@ -81,17 +83,25 @@ def register_page(request):
     
 @login_required(login_url='login')
 def edit_profile(request):
-    form = UserForm(instance=request.user)
-    if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect ('profile', pk=request.user.id)
-    context = {
-        'form': form,
-        'page': page
-    }
-    return render(request, 'NFTapp/edit_profile.html', context)
+    form = UserForm(request.POST, request.FILES, instance=request.user)
+    if form.is_valid():
+        user = form.save(commit=False)
+        formatted_date = datetime.now().strftime("%Y/%m/%d")
+        if 'avatar' in request.FILES:
+            avatar_file = request.FILES['avatar']
+            fs = FileSystemStorage()
+            filename = fs.save(f'avatars/{formatted_date}/{avatar_file}', avatar_file)
+            user.avatar = '/static' + fs.url(filename)
+        
+        if 'cover_photo' in request.FILES:
+            cover_photo_file = request.FILES['cover_photo']
+            fs = FileSystemStorage()
+            filename = fs.save(f'cover_photos/{formatted_date}/{cover_photo_file}', cover_photo_file)
+            user.cover_photo = '/static' + fs.url(filename)
+        user.save()
+        return redirect('profile', pk=request.user.id)
+    
+    return render(request, self.template_name, {'form': form, 'page': page})
 
 @login_required(login_url='login')
 def update_password(request):
@@ -1037,6 +1047,7 @@ def about_us5(request):
     }
     return render(request, 'NFTapp/community/about_us/about_us5.html', context)
 
+@login_required(login_url='/login')
 @add_search_data
 @add_cart_data
 def artists(request):
