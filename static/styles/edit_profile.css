@@ -120,6 +120,7 @@
 .container-edit-profile .box form .inputBox {
   position: relative;
   width: 100%;
+  color: #8f8f8f;
 }
 
 .container-edit-profile .box form .inputBox input {
@@ -144,7 +145,7 @@
   top: -40px;
   padding: 20px 0px 10px;
   pointer-events: none;
-  color: #8f8f8f;
+  color: #fff;
   font-size: 1em;
   letter-spacing: 0.05em;
   transition: 0.5s;
@@ -241,7 +242,7 @@
   width: 100%;
   word-wrap: break-word;
   margin-bottom: 30px;
-  color: #fff;
+  color: #8f8f8f;
 }
 
 .container-edit-profile .inputBox:first-child,

@@ -11,7 +11,7 @@
 
         {% if forloop.counter > 2 %}
         <div class="inputBox">
-            <span>{{field.name}}</span>
+            <span>{{field.label}}</span>
             {{field}}
             {{field.errors}}
             <i></i>
@@ -19,7 +19,7 @@
         {% else %}
             <div class="inputBox" style="color: #fff;">
                 <div class="wrap-avatar">
-                    <span>{{field.name}}</span>
+                    <span>{{field.label}}</span>
                 </div>
                 {{field}}
                 {{field.errors}}
