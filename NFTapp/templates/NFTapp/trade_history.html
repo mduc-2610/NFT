@@ -33,7 +33,7 @@
                 </li>
                 <li class="trade-desc__item">
                     <p class="trade-text trade-desc__key">Time</p>
-                    <p class="trade-text trade-desc__value">{{trade.timestamp}}</p>
+                    <p class="trade-text trade-desc__value">{{trade.timestamp|date:"M, j, Y, g:ia"}}</p>
                 </li>
                 <li class="trade-desc__item">
                     <p class="trade-text trade-desc__key">Buyer</p>
@@ -61,6 +61,16 @@
 {% block scripts %}
 <script>
     (() => {
+        `
+            {{ my_date|date:"M, j, Y, g:ia" }}
+
+            M: Short month name (Dec)
+            j: Day of the month without leading zeros (9)
+            Y: Year with century as a decimal number (2023)
+            g: Hour without leading zeros (12-hour format)
+            i: Minutes with leading zeros
+            a: Lowercase am or pm
+        `
         function showDetailTrade() {
             const tradeRepr = document.querySelectorAll('.trade-repr');
             tradeRepr.forEach((element) => {
@@ -96,7 +106,7 @@
             const day = date.getDate();
             const year = date.getFullYear();
     
-            return `${month}. ${day.toString().padStart(2, '0')}, ${year}, ${date.getHours() % 12}:${date.getMinutes()} ${date.getHours() <= 12 ? 'a.m.' : 'p.m.'} `;
+            return `${month}, ${day}, ${year}, ${date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')}${date.getHours() < 12 ? 'a.m.' : 'p.m.'} `;
         }
     
         const tradeListData = $('.trade-list').html();

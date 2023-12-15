@@ -37,7 +37,10 @@ def facebook_time(value):
     if not value:
         return ""
 
-    time_difference = now.microsecond / 1000 - value.microsecond / 1000
+    total_second_now = now.year * 946080000 + now.month * 2592000 + now.day * 86400 + now.hour * 3600 + now.minute * 60 + now.second
+    total_second_value = value.year * 946080000 + value.month * 2592000 + value.day * 86400 + value.hour * 3600 + value.minute * 60 + value.second
+    time_difference = total_second_now - total_second_value
+    # time_difference = now.microsecond / 1000 - value.microsecond / 1000
 
     if time_difference < 60:
         return 'now'
@@ -50,7 +53,7 @@ def facebook_time(value):
     else:
         days_ago = int(time_difference / 86400)
         return f'{days_ago} day{"s" if days_ago != 1 else ""}'
-    
+
 @register.filter(name='limit_length_id')
 def limit_length_id(value, arg):
     value = str(value)
