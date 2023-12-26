@@ -137,9 +137,13 @@
                                             <td>${artist.total_earned}</td>
                                         </tr>
                                     `);
-                                    index++;
+                                if(index > 15) {
+                                    $('.artist__info').css('display', 'none');
+                                }
+                                index++;
                             }
-    
+                            showArtists();
+                            
                         },
                         error: function(jqXHR, textStatus, errorTh) {
                             console.log(jqXHR, textStatus, errorTh);
@@ -188,6 +192,8 @@
                             let index = 1;
                             $('.artist__rank tbody').html('');
                             for(let artist of artistsFound) {
+                                console.log(artist.total_earned + " " + typeof artist.total_earned);
+                                console.log(artist)
                                 $('.artist__rank tbody').append(`
                                     <tr class="artist__info">
                                         <td>#${index}</td>

@@ -235,9 +235,13 @@ def run():
 
 
     user = User.objects.all()[5]
-    print(user, user.total_earned())
-    for product in user.author.all():
-        print(product.price, len(product.owners.all()))
+    # print(user, user.total_earned())
+    # for product in user.author.all():
+    #     print(product.price, len(product.owners.all()))
 
-    for owner in product.owners.all():
-        print(owner)
+    # for owner in product.owners.all():
+    #     print(owner)
+
+    artists = User.objects.all().annotate(num_created=Count('author')).order_by('-num_created')
+    for x in artists:
+        print(x, len(x.author.all()))

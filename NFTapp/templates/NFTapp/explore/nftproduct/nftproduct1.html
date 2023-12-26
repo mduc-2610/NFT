@@ -34,16 +34,16 @@
                         {% for owner in product.owners.all %}
                             {% if product.owners.all|length > 5 %}
                                 {% if forloop.counter <= 1 %}
-                                    <span style="margin-right: 9px; color:#fff-1">.....</span>
+                                    <span style="margin-right: 9px; color:#fff;">.....</span>
                                     <a href="{% url 'profile' owner.id %}" class="collected__item-1">
-                                        <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                        <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat; background-size: cover;">
                                             <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
                                         </li>
                                     
                                     </a>
                                 {% elif forloop.counter <= 5 %}
                                     <a href="{% url 'profile' owner.id %}" class="collected__item-1">
-                                        <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                        <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat; background-size: cover;">
                                             <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
                                         </li>
                                     
@@ -51,7 +51,7 @@
                                 {% endif %}
                             {% else %}
                                 <a href="{% url 'profile' owner.id %}" class="collected__item-1">
-                                    <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat;">
+                                    <li class="collected__item-1" style="background: url({{owner.avatar}}), lightgray -35.994px 0px / 339.959% 226.667% no-repeat; background-size: cover;">
                                         <!-- <img src="{{ owner.avatar }}" alt="" class="collected__user-avt-1"> -->
                                     </li>
                                 </a>

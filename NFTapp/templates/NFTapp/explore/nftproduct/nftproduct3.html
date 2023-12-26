@@ -10,8 +10,8 @@
                     {% for owner in product.owners.all %}
                         {% if forloop.counter <= 5 %}
                             <li class="nft-product__owner-item-3">
-                                <a href="{% url 'profile' product.author.id %}" class="nft-product__owner-3">
-                                    <img src="{{product.owners.all.0.avatar}}" alt="">
+                                <a href="{% url 'profile' owner.id %}" class="nft-product__owner-3">
+                                    <img src="{{owner.avatar}}" alt="">
                                 </a>
                             </li>
                         {% endif %}

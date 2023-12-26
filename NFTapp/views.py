@@ -1075,11 +1075,11 @@ def artists(request):
                                 'id': str(artist.id),
                                 'name': str(artist.name),
                                 'avatar': str(artist.avatar),
-                                'follower': str(len(artist.follower_set.all())),
-                                'own': str(len(artist.owners.all())),
-                                'author': str(len(artist.author.all())),
-                                'sold': str(artist.sold()),
-                                'property': str(artist.property),
+                                'follower': int(len(artist.follower_set.all())),
+                                'own': int(len(artist.owners.all())),
+                                'author': int(len(artist.author.all())),
+                                'sold': float(artist.sold()),
+                                'total_earned': float(artist.total_earned())
                             }
                         )
                         
@@ -1111,18 +1111,18 @@ def artists(request):
                     artists = artists_query.annotate(num_followers=Count('follower_set')).order_by('-num_followers')
                     type_filter = 'Follower'
                 elif filter_data == 'unique-collectors':
-                    artists = artists_query.annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    # artists = artists_query.annotate(num_owners=Count('owners')).order_by('-num_owners')
+                    artists = sorted(list(artists_query), key=lambda x : -len(x.owners.all()))
                     type_filter = 'Unique Collectors'
                 elif filter_data == 'created':
-                    artists = artists_query.annotate(num_created=Count('author')).order_by('-num_created')
+                    # artists = artists_query.annotate(num_created=Count('author')).order_by('-num_created')
+                    artists = sorted(list(artists_query), key=lambda x : -len(x.author.all()))
                     type_filter = 'Created'
                 elif filter_data == 'nfts-sold':
-                    artists__ = list(artists_query)
-                    artists = sorted(artists__, key=lambda x : -x.sold())
+                    artists = sorted(list(artists_query), key=lambda x : -x.sold())
                     type_filter = 'NFTs sold'
                 else:
-                    artists__ = list(artists_query)
-                    artists = sorted(artists__, key=lambda x : -x.total_earned())
+                    artists = sorted(list(artists_query), key=lambda x : -x.total_earned())
                     type_filter = 'Total Earned'
 
                 context_json = {
@@ -1136,11 +1136,11 @@ def artists(request):
                                 'id': str(artist.id),
                                 'name': str(artist.name),
                                 'avatar': str(artist.avatar),
-                                'follower': str(len(artist.follower_set.all())),
-                                'own': str(len(artist.owners.all())),
-                                'author': str(len(artist.author.all())),
-                                'sold': str(artist.sold()),
-                                'total_earned': str(artist.total_earned()),
+                                'follower': int(len(artist.follower_set.all())),
+                                'own': int(len(artist.owners.all())),
+                                'author': int(len(artist.author.all())),
+                                'sold': float(artist.sold()),
+                                'total_earned': float(artist.total_earned()),
                             }
                         )
                         
@@ -1155,7 +1155,7 @@ def artists(request):
                         'state': 'not_found'
                     })
                 return JsonResponse(context_json, safe=False)
-    
+            
     return render(request, 'NFTapp/community/artists.html', context) 
 
 @add_search_data
