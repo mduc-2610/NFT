@@ -1,9 +1,3 @@
-# Ignore .idea folder and its contents
-.idea/
+/.idea/
 
-# Ignore specific files within .idea folder
-.idea/workspace.xml
-.idea/tasks.xml
-
-# Ignore test_syntax.py in the specified directory
-NFTapp/scripts/test_syntax.py
+/NFTapp/scripts/test_syntax.py
