@@ -16,9 +16,9 @@
                     <div class="comment__from flex_aic_jcsb">
                         <div class="flex_aic comment__info">
                             <a href="{% url 'profile' comment.user.id %}" class="comment__user">
-                                <img src="{{user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
+                                <img src="{{comment.user.avatar}}" alt="" class="comment__user-avt">@{{comment.user.name}}
                             </a>
-                            <p class="comment__time">{{comment.added_at|facebook_time}}</p>
+                            <p class="comment__time">{{comment.added_at}}</p>
                         </div>
                         {% if request.user.name == comment.user.name %}
                         <div class="comment__edit">

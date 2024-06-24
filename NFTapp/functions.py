@@ -18,14 +18,6 @@ from django.db.models.functions import Extract
 from datetime import date, datetime, timedelta
 
 def error_403_csrf_failure(request, reason=""):
-    """
-    To fix this issue:
-        1. User opens tab A and tab B, and both show the login in form.
-        2. User logs in on tab A, this will destroy the Anonymous session, and create a new one (for security)
-        3. Then user logs in on tab B
-            - The CSRF token for the Anonymous session is now invalid
-            - Since the user is already logged, we just redirect them to refresh the page
-    """
     if request.path == '/login/' and request.user.is_authenticated:
         next = request.GET.get('next', '/')
         return HttpResponseRedirect(next)
@@ -111,9 +103,11 @@ def add_cart_data(view_func):
         if request.user.is_authenticated:
             cart_products = []
             user_owned_products = request.user.owners.all()
-            for product in Cart.objects.get(user=request.user).products.all():
-                if product not in user_owned_products:
-                    cart_products.append(product)
+            cart = Cart.objects.filter(user=request.user).first()
+            if cart:
+                for product in cart.products.all():
+                    if product not in user_owned_products:
+                        cart_products.append(product)
 
             cart_products_length = len(cart_products)
             total_price = sum([product.price for product in cart_products])
@@ -149,22 +143,22 @@ def add_cart_data(view_func):
                     context = {}
                     if total_price <= request.user.property:
                         cart_products_buyed = cart_products
-                        # for product in cart_products:
-                        #     request.user.owners.add(product)
-                        #     request.user.user_cart.products.remove(product)
-                        #     product.quantity -= 1
-                        #     product.save()
+                        for product in cart_products:
+                            request.user.owners.add(product)
+                            request.user.user_cart.products.remove(product)
+                            product.quantity -= 1
+                            product.save()
 
-                        #     TradeHistory.objects.create(
-                        #         buyer=request.user,
-                        #         seller=product.author,
-                        #         product=product,
-                        #         price_at_purchase=product.price,
-                        #         quantity_at_purchase=product.quantity
-                        #     )
+                            TradeHistory.objects.create(
+                                buyer=request.user,
+                                seller=product.author,
+                                product=product,
+                                price_at_purchase=product.price,
+                                quantity_at_purchase=product.quantity
+                            )
                             
-                        # request.user.property -= total_price
-                        # request.user.save()
+                        request.user.property -= total_price
+                        request.user.save()
                         state = 'can_buy'
                         context = {
                             'state': 'can_buy',
